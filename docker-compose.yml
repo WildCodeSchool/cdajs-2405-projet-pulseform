@@ -31,15 +31,3 @@ services:
     restart: always
     ports:
       - 8080:8080
-
-  translation:
-    build: ./translation-server
-    restart: unless-stopped
-    ports:
-      - 8051:8051
-    volumes:
-      - ./translation-server:/app
-    environment:
-      WDS_SOCKET: 127.0.0.1
-      CHOKIDAR_USEPOLLING: true
-      WATCHPACK_POLLING: true
