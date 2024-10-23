@@ -31,7 +31,7 @@ All branches must start with either:
 
 The number xxxx refers to the trello card which corresponds to the task.
 For a task on the backend, the number begins with 1xxx
-For a task on the frontend, the number begins with 3xxx
+For a task on the frontend, the number begins with 6xxx
 For the other task, the number begins with 0xxx
 
 After this prefix, your banch name should contain only lower case letters and dashes.
