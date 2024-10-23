@@ -1,7 +1,21 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import path from "node:path";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
-})
+	plugins: [react()],
+	server: {
+		port: 3000,
+		host: "0.0.0.0",
+		proxy: {
+			"/locales": "http://translation:8051",
+		},
+	},
+	resolve: {
+		alias: {
+			"@components": path.resolve(__dirname, "src/components"),
+			"@scss": path.resolve(__dirname, "src/scss"),
+		},
+	},
+});

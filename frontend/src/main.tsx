@@ -1,35 +1,30 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import "./i18n";
 
-import App from './App.tsx';
+import App from "./App.tsx";
 
-import './index.css';
+import "./index.css";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+  },
+]);
 
 const client = new ApolloClient({
-  uri: 'https://flyby-router-demo.herokuapp.com/',
+  uri: "http://localhost:4000",
   cache: new InMemoryCache(),
 });
 
-// const client = ...
-
-client
-  .query({
-    query: gql`
-      query GetLocations {
-        locations {
-          id
-          name
-          description
-          photo
-        }
-      }
-    `,
-  })
-  .then((result) => console.log(result));
-
-createRoot(document.getElementById('root')!).render(
+// biome-ignore lint/style/noNonNullAssertion: <explanation>
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
-  </StrictMode>,
-)
+    <ApolloProvider client={client}>
+      <RouterProvider router={router} />
+    </ApolloProvider>
+  </StrictMode>
+);
