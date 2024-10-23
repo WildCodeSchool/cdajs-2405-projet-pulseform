@@ -32,6 +32,18 @@ services:
     ports:
       - 8080:8080
 
+  client:
+      build: ./frontend
+      ports: 
+          - 3000:3000
+      command: npm run dev
+      volumes: 
+          - ./frontend:/app
+      environment:
+          WDS_SOCKET: 127.0.0.1
+          CHOKIDAR_USEPOLLING: true
+          WATCHPACK_POLLING: true
+
   translation:
     build: ./translation-server
     restart: unless-stopped
