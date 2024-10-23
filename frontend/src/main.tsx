@@ -1,7 +1,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App.tsx';
 import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
+
+import App from './App.tsx';
+
 import './index.css';
 
 const client = new ApolloClient({
