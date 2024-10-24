@@ -6,8 +6,23 @@ import { History } from "../entities/History";
 @InputType()
 export class HistoryInput {
 
-    @Field()
-    title!: string;
+    @Field((type) => ID)
+    id?: number;
+  
+    @Field((type) => Int)
+    user_id: number;
+
+    @Field((type) => Int)
+    program_id: number;
+  
+    @Field((type) => Int, { nullable: true })
+    total_kcal_loss?: number;
+  
+    @Field({ nullable: true })
+    start_date?: Date;
+  
+    @Field({ nullable: true })
+    end_date?: Date;
 
 }
 

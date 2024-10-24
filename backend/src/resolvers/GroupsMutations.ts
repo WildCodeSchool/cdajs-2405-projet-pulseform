@@ -6,8 +6,17 @@ import { Group } from "../entities/Group";
 @InputType()
 export class GroupInput {
 
+    @Field((type) => ID)
+    id?: number;
+  
     @Field()
-    title!: string;
+    name: string;
+  
+    @Field((type) => Int)
+    create_for: number;
+  
+    @Field((type) => Date)
+    createdAt: Date;
 
 }
 

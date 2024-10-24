@@ -6,8 +6,29 @@ import { Program } from "../entities/Program";
 @InputType()
 export class ProgramInput {
 
+    @Field((type) => ID)
+    id?: number;
+  
     @Field()
-    title!: string;
+    name: string;
+  
+    @Field({ nullable: true })
+    description?: string;
+  
+    @Field((type) => Int, { nullable: true })
+    total_duration?: number;
+  
+    @Field((type) => FitnessLevel)
+    level: FitnessLevel;
+  
+    @Field((type) => Date)
+    createdAt: Date;
+  
+    @Field((type) => Int)
+    visibility: number;
+  
+    @Field((type) => Int, { nullable: true })
+    like?: number;
 
 }
 

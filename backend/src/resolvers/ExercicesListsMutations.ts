@@ -6,8 +6,15 @@ import { ExerciceList } from "../entities/ExerciceList";
 @InputType()
 export class ExerciceListInput {
 
-    @Field()
-    title!: string;
+  @Field((type) => ID)
+  id?: number;
+
+  @Field((type) => Int)
+  program_id: number;
+
+  @Field((type) => Int)
+  exercice_id: number;
+
 
 }
 

@@ -6,8 +6,17 @@ import { Tag } from "../entities/Tag";
 @InputType()
 export class TagInput {
 
+    @Field((type) => ID)
+    id?: number;
+  
+    @Field((type) => Tags)
+    name: Tags;
+  
     @Field()
-    title!: string;
+    program_id: number;
+  
+    @Field((type) => [User], { nullable: true })
+    users?: User[];
 
 }
 

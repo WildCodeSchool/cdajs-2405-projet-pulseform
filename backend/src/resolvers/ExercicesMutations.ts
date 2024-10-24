@@ -6,9 +6,29 @@ import { Exercice } from "../entities/Exercice";
 @InputType()
 export class ExerciceInput {
 
+    @Field((type) => ID)
+    id?: number;
+  
     @Field()
-    title!: string;
-
+    name: string;
+  
+    @Field({ nullable: true })
+    description?: string;
+  
+    @Field((type) => Int)
+    duration: number;
+  
+    @Field((type) => Int)
+    kcal_loss: number;
+  
+    @Field((type) => MuscleGroup)
+    muscle: MuscleGroup;
+  
+    @Field((type) => FitnessLevel)
+    level: FitnessLevel;
+  
+    @Field({ nullable: true })
+    img_src: string;
 }
 
 @Resolver(Exercice)

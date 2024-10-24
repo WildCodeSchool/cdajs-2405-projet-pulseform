@@ -1,33 +1,36 @@
 import { Arg, Field, FieldResolver, Float, InputType, Int, Mutation, Query, Resolver, Root } from "type-graphql";
 import { EntityManager, In } from "typeorm";
 import AppDataSource from "../AppDataSource"
-import { FriendList } from "../entities/FriendList";
+import { GroupList } from "../entities/GroupList";
 
 @InputType()
-export class FriendListInput {
+export class GroupListInput {
 
     @Field((type) => ID)
     id?: number;
+
+    @Field({ nullable: true })
+    name?: string;
   
     @Field((type) => Int)
     user_id: number;
   
     @Field((type) => Int)
-    friend_id: number;
+    group_Id: number;
   
     @Field()
     added: boolean;
-
+  
     @Field((type) => Date)
     createdAt: Date;
 
 }
 
-@Resolver(FriendList)
-export class FriendListMutations {
+@Resolver(GroupList)
+export class GroupListMutations {
 
-    @Mutation(_ => FriendList)
-    async publishFriendList(@Arg("friendListData") friendListData: FriendListInput): Promise<FriendList> {
+    @Mutation(_ => GroupList)
+    async publishGroupList(@Arg("groupListData") groupListData: GroupListInput): Promise<GroupList> {
         return AppDataSource.transaction(async (entityManager: EntityManager) => {
 
            

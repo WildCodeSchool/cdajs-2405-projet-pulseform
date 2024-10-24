@@ -6,8 +6,20 @@ import { SharedProgramList } from "../entities/SharedProgramList";
 @InputType()
 export class SharedProgramListInput {
 
-    @Field()
-    title!: string;
+    @Field((type) => ID)
+    id?: number;
+  
+    @Field((type) => Int)
+    user_id: number;
+  
+    @Field((type) => Int)
+    friend_id: number;
+  
+    @Field((type) => Int)
+    program_id: number;
+  
+    @Field((type) => Int)
+    group_list_id: number;
 
 }
 
