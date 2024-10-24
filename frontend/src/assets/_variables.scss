@@ -1,7 +1,7 @@
 //Font
-@mixin big-title-bold{
+@mixin big-title{
     font-size: 40px;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 @mixin title-bold{
@@ -24,13 +24,13 @@
 
 @mixin title-medium{
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 600;
     margin: 0;
 }
 
 @mixin big-content-bold{
     font-size: 18px;
-    font-weight: 300;
+    font-weight: bold;
     margin: 0;
 }
 

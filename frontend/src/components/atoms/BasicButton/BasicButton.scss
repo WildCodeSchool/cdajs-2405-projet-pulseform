@@ -1,0 +1,10 @@
+@import '@assets/variables.scss';
+
+.basic-button{
+    @include big-content-bold;
+    background: $secondary;
+    color: $white;
+    border-radius: 10px;
+    padding: 14px 24px;
+    border: none;
+}
