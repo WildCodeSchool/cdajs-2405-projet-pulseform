@@ -1,0 +1,132 @@
+@import '@assets/variables.scss';
+
+.landing-page {
+    background: linear-gradient(82deg, rgba(255,255,252,1) 0%, rgba(68,119,232,1) 100%);
+
+    &__first-view {
+        height: 100vh;
+
+        &__glob{
+            position: absolute;
+            right: 0;
+            width: 268px;
+            top: 145px;
+            overflow: hidden;
+            z-index: 0;
+
+            &__img{
+                width: 440px;
+                height: 347px;
+            }
+        }
+
+        &__girl{
+            position: absolute;
+            right: 0;
+            top: 300px;
+            width: 268px;
+            z-index: 0;
+            overflow: hidden;
+
+            &__img{
+            width: 400px;
+            height: 500px;
+            }
+        }
+
+        &__header{
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 32px 0 40px;
+
+            &__connect{
+                @include big-content-bold;
+                color: $white;
+            }
+        }
+        
+        &__description{
+            @include big-title;
+            position: relative;
+            z-index: 1;
+            color: $prymary;
+            width: 180px;
+            text-align: center;
+            margin-left: 7%;
+        }
+
+        &__buttom{
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            z-index: 1;
+            bottom: 4%;
+            width: 100%;
+            
+           
+        }
+    }
+
+    &__second-view {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+
+        &__description{
+            @include title-medium-bold;
+            color: $prymary;
+            text-align: center;
+            margin: 94px 16px 43px;
+        }
+
+        &__step{
+            display: flex;
+            flex-direction: column;
+            gap: 34px;
+
+            &__content{    
+                @include title-medium-bold;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;          
+                color: $white;
+                background: $prymary;
+                border-radius: 10px;
+                width: 178px;
+                height: 150px;
+                padding: 0 16px;
+                text-align: center;
+               
+            }
+        }
+
+        &__glob{
+            position: absolute;
+            right: 0;
+            left: 0;
+            bottom: -100vh;
+            height: 124px;
+            z-index: 0;
+            overflow: hidden;
+
+            &__img{
+                width: 440px;
+                height: 360px;
+            }
+        }
+
+         &__buttom{
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            z-index: 1;
+            bottom: -94%;
+            width: 100%;
+            
+           
+        }
+    }
+}
