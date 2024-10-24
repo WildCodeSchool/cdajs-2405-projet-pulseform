@@ -1,0 +1,14 @@
+@import "@assets/variables.scss";
+
+.little-logo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    &__title{
+        @include content-bold;
+        color: $prymary-color;
+        margin: 0;
+    }
+}
