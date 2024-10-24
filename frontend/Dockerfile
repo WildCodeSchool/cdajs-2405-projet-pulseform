@@ -3,7 +3,7 @@ FROM node:lts-alpine
 RUN mkdir /app
 WORKDIR /app
 COPY package*.json ./
-RUN npm i
+RUN  npm install
 COPY src src
 COPY public public
 

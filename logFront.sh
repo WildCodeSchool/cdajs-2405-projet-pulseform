@@ -1,0 +1,1 @@
+docker logs pulseform-client-1 --tail 200 -f
