@@ -1,0 +1,1 @@
+docker logs pulseform-translation-1 --tail 200 -f
