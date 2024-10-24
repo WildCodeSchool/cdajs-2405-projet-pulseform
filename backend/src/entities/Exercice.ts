@@ -1,6 +1,6 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { Field, ID, Int, ObjectType } from "type-graphql";
-import { FitnessLevel, MuscleGroup } from "./Enums"; // Assuming these enums exist
+import { FitnessLevel, MuscleGroup } from "./Enums"; 
 
 @ObjectType()
 @Entity()
