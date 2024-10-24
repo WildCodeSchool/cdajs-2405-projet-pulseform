@@ -1,6 +1,10 @@
+import { useTranslation } from "react-i18next";
+
 import LittleLogo from "@components/atoms/LittleLogo";
 
 function LandingPage() {
+  const { t } = useTranslation();
+
   return (
     <section>
       <div>
@@ -8,21 +12,19 @@ function LandingPage() {
           <div>
             <LittleLogo />
           </div>
-          <p>Me Connecter</p>
+          <p>{t("CONNECT_MY")}</p>
         </div>
-        <p>L’année dernière t’avais dit l’année prochaine</p>
-        <div>{/* <BasicButton>Créer un conte</BasicButton> */}</div>
+        <p>{t("LANDING_DESCRIPTION")}</p>
+        <div>{/* <BasicButton>{t("CREATE_ACCOUNT")}</BasicButton> */}</div>
       </div>
       <div>
-        <p>
-          Que tu sois débutant·e ou expert·e, Pulse Form te guide à chaque étape
-        </p>
+        <p>{t("LANDING_DESCRIPTION_2")}</p>
         <div>
-          <p>De nombreux programmes à découvrir</p>
-          <p>Suis tes progression</p>
-          <p>Un coaching personnalisé</p>
+          <p>{t("PROGRAMS_TO_DICOVER")}</p>
+          <p>{t("FOLLOW_YOUR_PROGRESS")}</p>
+          <p>{t("PERSONALIZED_COACHING")}</p>
         </div>
-        <div>{/* <BasicButton>Tester un programme</BasicButton> */}</div>
+        <div>{/* <BasicButton>{t("TEST_PROGRAM")}</BasicButton> */}</div>
       </div>
     </section>
   );
