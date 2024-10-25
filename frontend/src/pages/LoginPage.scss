@@ -1,0 +1,28 @@
+@import '../assets/variables';
+
+* {
+  background-color: $white;
+}
+
+.login-title {
+  @include title-bold;
+  color: $prymary;
+}
+
+.login-connect {
+  @include title-medium-bold;
+  color: $white;
+  background-color: $secondary;
+}
+
+.loginSection {
+  @include title-medium;
+  display: flex;
+}
+
+.motivationTitle {
+  color: $prymary;
+}
+
+
+
