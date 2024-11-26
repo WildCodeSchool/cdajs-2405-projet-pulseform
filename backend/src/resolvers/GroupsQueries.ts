@@ -1,14 +1,20 @@
-import { FieldResolver, Query, Resolver, Root } from "type-graphql";
+import { Query, Resolver } from "type-graphql";
+import AppDataSource from "../AppDataSource";
 import { Group } from "../entities/Group";
-import AppDataSource from "../AppDataSource"
 
 @Resolver(Group)
-export class GroupsQueries {
-
-    @Query(type => [Group])
+export class GroupQueries {
+    
+    //Récupérer tous les groupes
+    @Query(() => [Group])
     async getAllGroups(): Promise<Group[]> {
-        const groups: Group[] = await AppDataSource.manager.find(Group);
-        return groups;
+        return await AppDataSource.manager.find(Group);
+    }
+
+    // Récupérer un groupe spécifique
+    @Query(() => Group, { nullable: true })
+    async getGroupById(@Arg("id") id: number): Promise<Group | null> {
+        return await AppDataSource.manager.findOne(Group, { where: { id } });
     }
 
 }

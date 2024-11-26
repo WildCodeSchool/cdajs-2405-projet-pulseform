@@ -1,34 +1,49 @@
-import { Arg, Field, FieldResolver, Float, InputType, Int, Mutation, Query, Resolver, Root } from "type-graphql";
-import { EntityManager, In } from "typeorm";
-import AppDataSource from "../AppDataSource"
+import { Arg, Mutation, Resolver } from "type-graphql";
 import { Tag } from "../entities/Tag";
-
-@InputType()
-export class TagInput {
-
-    @Field((type) => ID)
-    id?: number;
-  
-    @Field((type) => Tags)
-    name: Tags;
-  
-    @Field()
-    program_id: number;
-  
-    @Field((type) => [User], { nullable: true })
-    users?: User[];
-
-}
+import AppDataSource from "../AppDataSource";
 
 @Resolver(Tag)
-export class TagMutations {
+export class TagsMutations {
 
-    @Mutation(_ => Tag)
-    async publishTag(@Arg("tagData") tagData: TagInput): Promise<Tag> {
-        return AppDataSource.transaction(async (entityManager: EntityManager) => {
+    // Mutation pour ajouter un tag
+    @Mutation(() => Tag)
+    async addTag(@Arg("name") name: string): Promise<Tag> {
+        const tag = new Tag();
+        tag.name = name;
 
-           
-        })
+        // Sauvegarde le tag dans la base de données
+        return await AppDataSource.manager.save(tag);
     }
 
+    // Mutation pour mettre à jour un tag existant
+    @Mutation(() => Tag)
+    async updateTag(
+        @Arg("id") id: number,
+        @Arg("name") name: string
+    ): Promise<Tag> {
+        const tag = await AppDataSource.manager.findOne(Tag, { where: { id } });
+
+        if (!tag) {
+            throw new Error("Tag not found");
+        }
+
+        tag.name = name;
+
+        // Sauvegarde le tag mis à jour
+        return await AppDataSource.manager.save(tag);
+    }
+
+    // Mutation pour supprimer un tag
+    @Mutation(() => Boolean)
+    async deleteTag(@Arg("id") id: number): Promise<boolean> {
+        const tag = await AppDataSource.manager.findOne(Tag, { where: { id } });
+
+        if (!tag) {
+            throw new Error("Tag not found");
+        }
+
+        // Supprime le tag de la base de données
+        await AppDataSource.manager.remove(Tag, tag);
+        return true;
+    }
 }

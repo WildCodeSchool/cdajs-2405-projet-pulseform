@@ -1,37 +1,29 @@
-import { Arg, Field, FieldResolver, Float, InputType, Int, Mutation, Query, Resolver, Root } from "type-graphql";
-import { EntityManager, In } from "typeorm";
-import AppDataSource from "../AppDataSource"
+import { Arg, Mutation, Resolver } from "type-graphql";
+import AppDataSource from "../AppDataSource";
 import { SharedProgramList } from "../entities/SharedProgramList";
-
-@InputType()
-export class SharedProgramListInput {
-
-    @Field((type) => ID)
-    id?: number;
-  
-    @Field((type) => Int)
-    user_id: number;
-  
-    @Field((type) => Int)
-    friend_id: number;
-  
-    @Field((type) => Int)
-    program_id: number;
-  
-    @Field((type) => Int)
-    group_list_id: number;
-
-}
 
 @Resolver(SharedProgramList)
 export class SharedProgramListMutations {
 
-    @Mutation(_ => SharedProgramList)
-    async publishSharedProgramList(@Arg("sharedProgramListData") sharedProgramListData: SharedProgramListInput): Promise<SharedProgramList> {
-        return AppDataSource.transaction(async (entityManager: EntityManager) => {
+    // Partager un programme avec un ami dans un groupe
+    @Mutation(() => SharedProgramList)
+    async shareProgramWithFriend(
+        @Arg("user_id") user_id: number,
+        @Arg("friend_id") friend_id: number,
+        @Arg("program_id") program_id: number,
+        @Arg("group_list_id") group_list_id: number
+    ): Promise<SharedProgramList> {
+        // Vérification si le partage existe déjà
+        const existingShare = await AppDataSource.manager.findOne(SharedProgramList, {
+            where: { user_id, friend_id, program_id, group_list_id },
+        });
 
-           
-        })
+        if (existingShare) {
+            throw new Error("This program is already shared with this friend in this group");
+        }
+
+        // Créer l'entrée de partage de programme
+        const sharedProgram = new SharedProgramList(user_id, friend_id, program_id, group_list_id);
+        return await sharedProgram.save();
     }
-
 }
