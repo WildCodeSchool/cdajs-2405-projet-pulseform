@@ -6,7 +6,7 @@
     &__first-view {
         height: 100vh;
 
-        &__glob{
+        &__blob{
             position: absolute;
             right: 0;
             width: 268px;
@@ -14,9 +14,22 @@
             overflow: hidden;
             z-index: 0;
 
+            @media screen and (min-width: 500px){
+                width: 42vw;
+                height: 74vh;
+                top: 16vh;
+                right: 14vw;
+                overflow: unset;
+            }
+
             &__img{
                 width: 440px;
                 height: 347px;
+
+                @media screen and (min-width: 500px){
+                    width: 100%;
+                    height: 100%;
+                }
             }
         }
 
@@ -28,11 +41,24 @@
             z-index: 0;
             overflow: hidden;
 
+            @media screen and (min-width: 500px){
+                width: 60vw;
+                height: 80vh;
+                top: 138px;
+                right: 40px;
+                overflow: unset;
+            }
+
             &__img{
             width: 400px;
             height: 500px;
+
+            @media screen and (min-width: 500px){
+                width: 100%;
+                height: 100%;
             }
         }
+    }
 
         &__header{
             display: flex;
@@ -40,9 +66,41 @@
             justify-content: space-around;
             padding: 32px 0 40px;
 
-            &__connect{
-                @include big-content-bold;
-                color: $white;
+            @media screen and (min-width: 500px){
+                justify-content: space-between;
+                margin: 0 96px;
+            }
+
+            &__logo-m{
+                display: block;
+                @media screen and (min-width: 500px){
+                    display: none;
+                }
+            }
+
+            &__logo-d{
+                display: none;
+                @media screen and (min-width: 501px){
+                    display: block;
+                }
+            }
+
+            &__container{
+                display: flex;
+                gap: 16px;
+                align-items: center;
+
+                &__buttom{
+                    display: none;
+                        @media screen and (min-width: 500px){
+                        display: block;
+                    }
+                }
+
+                &__connect{
+                    @include big-content-bold;
+                    color: $white;
+                }
             }
         }
         
@@ -54,6 +112,12 @@
             width: 180px;
             text-align: center;
             margin-left: 7%;
+
+            @media screen and (min-width: 500px){
+               @include hard-big-title;
+               width: 486px;
+               margin-left: 10%;
+            }
         }
 
         &__buttom{
@@ -64,7 +128,24 @@
             bottom: 4%;
             width: 100%;
             
+            @media screen and (min-width: 500px){
+                display: none; 
+            }
            
+        }
+
+        &__buttom-program{
+            display: none;
+
+            @media screen and (min-width: 501px){
+                @include sub-title-bold;
+                display: flex;
+                justify-content: center;
+                z-index: 1;
+                position: absolute;
+                bottom: 10%;
+                width: 70%;
+            }
         }
     }
 
@@ -73,18 +154,44 @@
         flex-direction: column;
         align-items: center;
         height: 100vh;
+        
+        &__img-container{
+            display: none;
+
+            @media screen and (min-width: 500px){
+            display: block;
+            width: 100%;
+            height: 58vh;
+            overflow: hidden;
+            box-shadow: inset 0 0 20px 6px rgba(0, 0, 0, 0.2);
+            
+            &__img{
+                width: 100%;
+            }
+        }
+        }
 
         &__description{
             @include title-medium-bold;
             color: $prymary;
             text-align: center;
             margin: 94px 16px 43px;
+
+            @media screen and (min-width: 500px){
+                margin: 24px 0 30px;
+            }
         }
 
         &__step{
             display: flex;
             flex-direction: column;
             gap: 34px;
+
+            @media screen and (min-width: 500px){
+                flex-direction: row;
+                justify-content: space-around;
+                gap: 37px;
+            }
 
             &__content{    
                 @include title-medium-bold;
@@ -99,11 +206,22 @@
                 height: 150px;
                 padding: 0 16px;
                 text-align: center;
-               
+                z-index: 1;
+
+                @media screen and (min-width: 500px){
+                  
+                    &:first-child{
+                        margin-top: 62px;
+                    }
+
+                    &:last-child{
+                        margin-top: 62px;
+                    }
+                }
             }
         }
 
-        &__glob{
+        &__blob{
             position: absolute;
             right: 0;
             left: 0;
@@ -112,9 +230,19 @@
             z-index: 0;
             overflow: hidden;
 
+            @media screen and (min-width: 500px){
+                height: 200px;
+                 left: 30vw;
+            }
+
             &__img{
                 width: 440px;
                 height: 360px;
+
+                @media screen and (min-width: 500px){
+                     width: 644px;
+                     height: 528px;
+                }
             }
         }
 
@@ -125,7 +253,10 @@
             z-index: 1;
             bottom: -94%;
             width: 100%;
-            
+
+            @media screen and (min-width: 500px){
+                bottom: -97%;
+            }
            
         }
     }
