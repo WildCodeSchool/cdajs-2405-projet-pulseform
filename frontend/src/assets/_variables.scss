@@ -1,7 +1,20 @@
 //Font
+@mixin hard-big-title{
+    font-size: 80px;
+    font-weight: 600;
+    margin: 0;
+}
+
 @mixin big-title{
     font-size: 40px;
     font-weight: 600;
+    margin: 0;
+}
+
+@mixin sub-big-title{
+    font-size: 34px;
+    font-weight: bold;
+    margin: 0;
 }
 
 @mixin title-bold{
