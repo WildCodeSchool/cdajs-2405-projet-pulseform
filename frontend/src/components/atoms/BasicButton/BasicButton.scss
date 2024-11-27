@@ -10,8 +10,4 @@
   border: none;
   width: 300;
   height: 50;
-
-  &--big-label {
-    @include h1-phone;
-  }
 }
