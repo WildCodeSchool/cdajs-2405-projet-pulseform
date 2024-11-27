@@ -1,5 +1,6 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Field, ID, Int, ObjectType } from "type-graphql";
+import { GroupList } from "./GroupList";
 
 @ObjectType()
 @Entity()
@@ -12,18 +13,22 @@ export class Group extends BaseEntity {
   @Field()
   name: string;
 
-  @Column()
+  @Column({ type: "int" })
   @Field((type) => Int)
-  create_for: number;
+  created_by: number; 
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   @Field((type) => Date)
-  createdAt: Date;
+  createdAt: Date; 
 
-  constructor(name: string, create_for: number, createdAt: Date) {
+  @OneToMany(() => GroupList, (groupList) => groupList.group)
+  @Field(() => [GroupList], { nullable: true })
+  groupLists?: GroupList[]; 
+
+  constructor(name: string, created_by: number, createdAt: Date) {
     super();
     this.name = name;
-    this.create_for = create_for;
+    this.created_by = created_by;
     this.createdAt = createdAt;
   }
 }

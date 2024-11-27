@@ -1,6 +1,9 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn, JoinTable } from "typeorm";
 import { Field, ID, Int, ObjectType } from "type-graphql";
 import { FitnessLevel } from "./Enums";
+import { History } from "./History";
+import { Tag } from "./Tag";
+import { Exercice } from "./Exercice";
 
 @ObjectType()
 @Entity()
@@ -36,6 +39,19 @@ export class Program extends BaseEntity {
   @Column({ nullable: true })
   @Field((type) => Int, { nullable: true })
   like?: number;
+
+  @OneToMany(() => History, (history) => history.program_id)
+  @Field(() => [History], { nullable: true })
+  histories?: History[];
+
+  @OneToMany(() => Tag, (tag) => tag.program_id)
+  @Field(() => [Tag], { nullable: true })
+  tags?: Tag[];
+
+  @ManyToMany(() => Exercice, (exercice) => exercice.programs)
+  @JoinTable()
+  @Field(() => [Exercice], { nullable: true })
+  exercices?: Exercice[];
 
   constructor(name: string, description: string, total_duration: number, level: FitnessLevel, createdAt: Date, visibility: number = 0, like?: number) {
     super();

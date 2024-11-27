@@ -1,6 +1,6 @@
-import { BaseEntity, Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Field, ID, ObjectType } from "type-graphql";
-import { User } from "./User";
+import { Program } from "./Program";
 import { Tags } from "./Enums";
 
 @ObjectType()
@@ -17,15 +17,11 @@ export class Tag extends BaseEntity {
   @Field((type) => Tags)
   name: Tags;
 
-  @Column()
-  @Field()
-  program_id: number;
+  @ManyToOne(() => Program, (program) => program.tags, { onDelete: "CASCADE" })
+  @Field(() => Program)
+  program_id: Program;
 
-  @ManyToMany(() => User, (user) => user.tags)
-  @Field((type) => [User], { nullable: true })
-  users?: User[];
-
-  constructor(name: Tags, program_id: number) {
+  constructor(name: Tags, program_id: Program) {
     super();
     this.name = name;
     this.program_id = program_id;

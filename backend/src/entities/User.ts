@@ -1,7 +1,8 @@
-import { BaseEntity, Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Field, ID, Int, ObjectType } from "type-graphql";
 import { MemberRole, FitnessLevel } from "./Enums";
-import { Tag } from "./Tag";
+import { GroupList } from "./GroupList";
+import { History } from "./History";
 
 @ObjectType()
 @Entity()
@@ -66,14 +67,20 @@ export class User extends BaseEntity {
   @Field((type) => FitnessLevel, { nullable: true })
   level: FitnessLevel;
 
-  @ManyToMany(() => Tag, { cascade: true })
-  @JoinTable()
-  @Field((type) => [Tag], { nullable: true })
-  tags?: Tag[];
-
-  @Column({ type: "json", nullable: true })
+  @Column({
+    type: "json",
+    nullable: true,
+  })
   @Field({ nullable: true })
   programm_liked: any;
+
+  @OneToMany(() => History, (history) => history.user_id)
+  @Field(() => [History], { nullable: true })
+  histories?: History[];
+
+  @OneToMany(() => GroupList, (groupList) => groupList.user)
+  @Field(() => [GroupList], { nullable: true })
+  groupLists?: GroupList[];
 
   constructor(
     username: string = "",
