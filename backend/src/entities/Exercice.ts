@@ -1,6 +1,7 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Field, ID, Int, ObjectType } from "type-graphql";
-import { FitnessLevel, MuscleGroup } from "./Enums"; 
+import { FitnessLevel, MuscleGroup } from "./Enums";
+import { Program } from "./Program";
 
 @ObjectType()
 @Entity()
@@ -35,7 +36,11 @@ export class Exercice extends BaseEntity {
 
   @Column({ nullable: true })
   @Field({ nullable: true })
-  img_src: string;
+  img_src?: string;
+
+  @ManyToMany(() => Program, (program) => program.exercices)
+  @Field((type) => [Program], { nullable: true })
+  programs?: Program[];
 
   constructor(name: string, description: string, duration: number, kcal_loss: number, muscle: MuscleGroup, level: FitnessLevel, img_src: string) {
     super();
