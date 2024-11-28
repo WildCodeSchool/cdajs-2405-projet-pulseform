@@ -27,6 +27,7 @@ export class Tag extends BaseEntity {
   users?: User[];
 
   @ManyToMany(() => Program, (program) => program.tags, { cascade: true })
+  @Field((type) => [Program], { nullable: true })
   programs?: Program[];
 
   constructor(name: Tags, program_id: number, programs: Program[]) {
