@@ -1,7 +1,6 @@
 export enum MemberRole {
   USER = "user",
   ADMIN = "admin",
-  TRAINER = "trainer",
 }
 
 export enum FitnessLevel {

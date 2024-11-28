@@ -1,7 +1,10 @@
-import { BaseEntity, Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Field, ID, Int, ObjectType } from "type-graphql";
 import { MemberRole, FitnessLevel } from "./Enums";
 import { Tag } from "./Tag";
+import { Program } from "./Program";
+import { Group } from "./Group";
+import { GroupList } from "./GroupList";
 
 @ObjectType()
 @Entity()
@@ -36,7 +39,7 @@ export class User extends BaseEntity {
 
   @Column({ nullable: true })
   @Field({ nullable: true })
-  gender?: boolean;
+  gender?: string;
 
   @Column({ nullable: true })
   @Field((type) => Int, { nullable: true })
@@ -71,9 +74,12 @@ export class User extends BaseEntity {
   @Field((type) => [Tag], { nullable: true })
   tags?: Tag[];
 
-  @Column({ type: "json", nullable: true })
-  @Field({ nullable: true })
-  programm_liked: any;
+  @OneToMany(() => Group, (group) => group.creator)
+  @Field((type) => [Group], { nullable: true })
+  groups?: Group[];
+
+  @OneToMany(() => GroupList, (groupList) => groupList.user)
+  groupLists: GroupList[] | undefined;
 
   constructor(
     username: string = "",
@@ -82,13 +88,12 @@ export class User extends BaseEntity {
     password: string = "",
     image: string,
     birthday: Date,
-    gender: boolean,
+    gender: string,
     weight: number,
     height: number,
     createdAt: Date,
     role: MemberRole = MemberRole.USER,
-    level: FitnessLevel,
-    programm_liked?: any
+    level: FitnessLevel
   ) {
     super();
     this.username = username;
@@ -103,6 +108,5 @@ export class User extends BaseEntity {
     this.createdAt = createdAt;
     this.role = role;
     this.level = level;
-    this.programm_liked = programm_liked;
   }
 }

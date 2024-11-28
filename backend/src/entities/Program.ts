@@ -2,6 +2,7 @@ import { BaseEntity, Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "
 import { Field, ID, Int, ObjectType } from "type-graphql";
 import { FitnessLevel } from "./Enums";
 import { Exercice } from "./Exercice";
+import { Tag } from "./Tag";
 
 @ObjectType()
 @Entity()
@@ -31,8 +32,8 @@ export class Program extends BaseEntity {
   createdAt: Date;
 
   @Column({ default: 0 })
-  @Field((type) => Int)
-  visibility: number;
+  @Field((type) => Boolean)
+  visibility: boolean;
 
   @Column({ nullable: true })
   @Field((type) => Int, { nullable: true })
@@ -42,7 +43,20 @@ export class Program extends BaseEntity {
   @Field((type) => [Exercice], { nullable: true })
   exercices?: Exercice[];
 
-  constructor(name: string, description: string, total_duration: number, level: FitnessLevel, createdAt: Date, visibility: number = 0, like?: number) {
+  @ManyToMany(() => Tag, (tag) => tag.programs)
+  tags?: Tag[];
+
+  constructor(
+    name: string,
+    description: string,
+    total_duration: number,
+    level: FitnessLevel,
+    createdAt: Date,
+    visibility: boolean,
+    like?: number,
+    exercices?: Exercice[],
+    tags?: Tag[]
+  ) {
     super();
     this.name = name;
     this.description = description;
@@ -51,5 +65,7 @@ export class Program extends BaseEntity {
     this.createdAt = createdAt;
     this.visibility = visibility;
     this.like = like;
+    this.exercices = exercices;
+    this.tags = tags;
   }
 }
