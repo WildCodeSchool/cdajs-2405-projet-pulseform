@@ -1,3 +1,5 @@
+import LittleLogo from "../components/atoms/LittleLogo";
+
 import { useTranslation } from "react-i18next";
 import "./LoginPage.scss";
 
@@ -6,6 +8,9 @@ function LoginPage () {
 
   return (
     <>
+    <div className="landing-page__first-view__header__logo-m">
+            <LittleLogo hasLabel size="mobile" />
+          </div>
       <h1 className="login-title">Prêt·e pour ta séance ?</h1>
       <form>
           <input aria-label="Veuillez entrer votre mail" type="email" id="email" name="email" placeholder={t('adresse mail')} required />
