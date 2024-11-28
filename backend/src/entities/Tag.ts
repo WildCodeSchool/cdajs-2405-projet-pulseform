@@ -2,6 +2,7 @@ import { BaseEntity, Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "
 import { Field, ID, ObjectType } from "type-graphql";
 import { User } from "./User";
 import { Tags } from "./Enums";
+import { Program } from "./Program";
 
 @ObjectType()
 @Entity()
@@ -21,13 +22,17 @@ export class Tag extends BaseEntity {
   @Field()
   program_id: number;
 
-  @ManyToMany(() => User, (user) => user.tags)
+  @ManyToMany(() => User, (user) => user.tags, { cascade: true })
   @Field((type) => [User], { nullable: true })
   users?: User[];
 
-  constructor(name: Tags, program_id: number) {
+  @ManyToMany(() => Program, (program) => program.tags, { cascade: true })
+  programs?: Program[];
+
+  constructor(name: Tags, program_id: number, programs: Program[]) {
     super();
     this.name = name;
     this.program_id = program_id;
+    this.programs = programs;
   }
 }

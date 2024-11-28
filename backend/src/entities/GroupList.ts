@@ -1,5 +1,7 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Field, ID, Int, ObjectType } from "type-graphql";
+import { User } from "./User";
+import { Group } from "./Group";
 
 @ObjectType()
 @Entity()
@@ -7,10 +9,6 @@ export class GroupList extends BaseEntity {
   @PrimaryGeneratedColumn()
   @Field((type) => ID)
   id?: number;
-
-  @Column({ length: 50, nullable: true })
-  @Field({ nullable: true })
-  name?: string;
 
   @Column()
   @Field((type) => Int)
@@ -22,18 +20,25 @@ export class GroupList extends BaseEntity {
 
   @Column({ default: false })
   @Field()
-  added: boolean;
+  user_accept: boolean;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   @Field((type) => Date)
   createdAt: Date;
 
-  constructor(name: string, user_id: number, group_Id: number, added: boolean = false, createdAt: Date) {
+  @ManyToOne(() => User, (user) => user.groupLists)
+  @Field((type) => User)
+  user: User | undefined;
+
+  @ManyToOne(() => Group, (group) => group.groupLists)
+  @Field((type) => Group)
+  group: Group | undefined;
+
+  constructor(user_id: number, group_Id: number, user_accept: boolean = false, createdAt: Date) {
     super();
-    this.name = name;
     this.user_id = user_id;
     this.group_Id = group_Id;
-    this.added = added;
+    this.user_accept = user_accept;
     this.createdAt = createdAt;
   }
 }
