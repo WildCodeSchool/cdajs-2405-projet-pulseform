@@ -1,0 +1,111 @@
+ @import "@assets/variables.scss";
+
+ .second-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+
+    &__img-container {
+      display: none;
+
+      @media screen and (min-width: 500px) {
+        display: block;
+        width: 100%;
+        height: 58vh;
+        overflow: hidden;
+        box-shadow: inset 0 0 20px 6px rgba(0, 0, 0, 0.2);
+
+        &__img {
+          width: 100%;
+        }
+      }
+    }
+
+    &__description {
+      @include h1-phone;
+      color: $primary;
+      text-align: center;
+      margin: 44px 16px 43px;
+
+      @media screen and (min-width: 500px) {
+        margin: 24px 0 30px;
+      }
+    }
+
+    &__step {
+      display: flex;
+      flex-direction: column;
+      gap: 34px;
+
+      @media screen and (min-width: 500px) {
+        flex-direction: row;
+        justify-content: space-around;
+        gap: 37px;
+      }
+
+      &__content {
+        @include h2-phone;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: $white;
+        background: $primary;
+        border-radius: 10px;
+        width: 178px;
+        height: 150px;
+        padding: 0 16px;
+        text-align: center;
+        z-index: 1;
+
+        @media screen and (min-width: 500px) {
+          &:first-child {
+            margin-top: 62px;
+          }
+
+          &:last-child {
+            margin-top: 62px;
+          }
+        }
+      }
+    }
+
+    &__blob {
+      position: absolute;
+      right: 0;
+      left: 0;
+      bottom: -100vh;
+      height: 124px;
+      z-index: 0;
+      overflow: hidden;
+
+      @media screen and (min-width: 500px) {
+        height: 200px;
+        left: 30vw;
+      }
+
+      &__img {
+        width: 440px;
+        height: 360px;
+
+        @media screen and (min-width: 500px) {
+          width: 644px;
+          height: 528px;
+        }
+      }
+    }
+
+    &__buttom {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      z-index: 1;
+      bottom: -94%;
+      width: 100%;
+
+      @media screen and (min-width: 500px) {
+        bottom: -97%;
+      }
+    }
+  }

@@ -1,60 +1,42 @@
 //Font
-@mixin hard-big-title{
+@mixin landing-page-title-desktop{
     font-size: 80px;
     font-weight: 600;
     margin: 0;
 }
 
-@mixin big-title{
+@mixin landing-page-title-phone{
     font-size: 40px;
     font-weight: 600;
     margin: 0;
 }
 
-@mixin sub-big-title{
+@mixin logo-big-label{
     font-size: 34px;
     font-weight: bold;
     margin: 0;
 }
 
-@mixin title-bold{
+@mixin h1-phone{
     font-size: 24px;
     font-weight: bold;
     margin: 0;
 }
 
-@mixin sub-title-bold{
-    font-size: 24px;
-    font-weight: bold;
-    margin: 0;
-}
-
-@mixin title-medium-bold{
-    font-size: 20px;
-    font-weight: bold;
-    margin: 0;
-}
-
-@mixin title-medium{
-    font-size: 20px;
-    font-weight: 600;
-    margin: 0;
-}
-
-@mixin big-content-bold{
+@mixin h2-phone{
     font-size: 18px;
     font-weight: bold;
     margin: 0;
 }
 
-@mixin content-bold{
+@mixin logo-litle-label{
     font-size: 14px;
     font-weight: bold;
     margin: 0;
 }
 
 //Color
-$prymary: #132945;
+$primary: #132945;
 $secondary: #E23823;
 $tertiary: #4477E8;
 $white: #FFFFFC;
