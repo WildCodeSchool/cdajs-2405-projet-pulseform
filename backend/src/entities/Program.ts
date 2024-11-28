@@ -44,6 +44,7 @@ export class Program extends BaseEntity {
   exercices?: Exercice[];
 
   @ManyToMany(() => Tag, (tag) => tag.programs)
+  @Field((type) => [Tag], { nullable: true })
   tags?: Tag[];
 
   constructor(
