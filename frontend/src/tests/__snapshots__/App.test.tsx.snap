@@ -9,31 +9,31 @@ exports[`App > renders the App component 1`] = `
         class="landing-page"
       >
         <div
-          class="landing-page__first-view landing-page__scroll"
+          class="first-view"
         >
           <div
-            class="landing-page__first-view__blob"
+            class="first-view__blob"
           >
             <img
               alt="blob"
-              class="landing-page__first-view__blob__img"
+              class="first-view__blob__img"
               src="/src/assets/blobs/blob.svg"
             />
           </div>
           <div
-            class="landing-page__first-view__girl"
+            class="first-view__girl"
           >
             <img
               alt="girl"
-              class="landing-page__first-view__girl__img"
+              class="first-view__girl__img"
               src="/src/assets/images/girl.svg"
             />
           </div>
           <div
-            class="landing-page__first-view__header"
+            class="first-view__header"
           >
             <div
-              class="landing-page__first-view__header__logo-m"
+              class="first-view__header__logo-m"
             >
               <div
                 class="little-logo little-logo--mobile"
@@ -51,7 +51,7 @@ exports[`App > renders the App component 1`] = `
               </div>
             </div>
             <div
-              class="landing-page__first-view__header__logo-d"
+              class="first-view__header__logo-d"
             >
               <div
                 class="little-logo little-logo--desktop"
@@ -69,48 +69,45 @@ exports[`App > renders the App component 1`] = `
               </div>
             </div>
             <div
-              class="landing-page__first-view__header__container"
+              class="first-view__header__container"
             >
               <div
-                class="landing-page__first-view__header__container__buttom"
+                class="first-view__header__container__buttom"
               >
                 <button
-                  class="basic-button"
-                  style="width: 200px; height: 50px; font-size: 18px;"
+                  class="basic-button first-view__header__container__buttom__width"
                   type="button"
                 >
                   CREATE_ACCOUNT
                 </button>
               </div>
               <p
-                class="landing-page__first-view__header__container__connect"
+                class="first-view__header__container__connect"
               >
                 CONNECT_MY
               </p>
             </div>
           </div>
           <p
-            class="landing-page__first-view__description"
+            class="first-view__description"
           >
             LANDING_DESCRIPTION
           </p>
           <div
-            class="landing-page__first-view__buttom"
+            class="first-view__buttom"
           >
             <button
               class="basic-button"
-              style="width: 300px; height: 50px; font-size: 18px;"
               type="button"
             >
               CREATE_ACCOUNT
             </button>
           </div>
           <div
-            class="landing-page__first-view__buttom-program"
+            class="first-view__buttom-program"
           >
             <button
-              class="basic-button"
-              style="width: 300px; height: 80px; font-size: 24px;"
+              class="basic-button first-view__buttom-program__button"
               type="button"
             >
               TEST_PROGRAM
@@ -118,49 +115,57 @@ exports[`App > renders the App component 1`] = `
           </div>
         </div>
         <div
-          class="landing-page__second-view landing-page__scroll"
+          class="second-view"
         >
+          <div
+            class="second-view__img-container"
+          >
+            <img
+              alt="programs"
+              class="second-view__img-container__img"
+              src="/src/assets/images/programs.svg"
+            />
+          </div>
           <p
-            class="landing-page__second-view__description"
+            class="second-view__description"
           >
             LANDING_DESCRIPTION_2
           </p>
           <div
-            class="landing-page__second-view__step"
+            class="second-view__step"
           >
             <p
-              class="landing-page__second-view__step__content"
+              class="second-view__step__content"
             >
               PROGRAMS_TO_DICOVER
             </p>
             <p
-              class="landing-page__second-view__step__content"
+              class="second-view__step__content"
             >
               FOLLOW_YOUR_PROGRESS
             </p>
             <p
-              class="landing-page__second-view__step__content"
+              class="second-view__step__content"
             >
               PERSONALIZED_COACHING
             </p>
           </div>
           <div
-            class="landing-page__second-view__buttom"
+            class="second-view__buttom"
           >
             <button
               class="basic-button"
-              style="width: 300px; height: 50px; font-size: 18px;"
               type="button"
             >
               TEST_PROGRAM
             </button>
           </div>
           <div
-            class="landing-page__second-view__blob"
+            class="second-view__blob"
           >
             <img
               alt="blob"
-              class="landing-page__second-view__blob__img"
+              class="second-view__blob__img"
               src="/src/assets/blobs/blob2.svg"
             />
           </div>
@@ -173,31 +178,31 @@ exports[`App > renders the App component 1`] = `
       class="landing-page"
     >
       <div
-        class="landing-page__first-view landing-page__scroll"
+        class="first-view"
       >
         <div
-          class="landing-page__first-view__blob"
+          class="first-view__blob"
         >
           <img
             alt="blob"
-            class="landing-page__first-view__blob__img"
+            class="first-view__blob__img"
             src="/src/assets/blobs/blob.svg"
           />
         </div>
         <div
-          class="landing-page__first-view__girl"
+          class="first-view__girl"
         >
           <img
             alt="girl"
-            class="landing-page__first-view__girl__img"
+            class="first-view__girl__img"
             src="/src/assets/images/girl.svg"
           />
         </div>
         <div
-          class="landing-page__first-view__header"
+          class="first-view__header"
         >
           <div
-            class="landing-page__first-view__header__logo-m"
+            class="first-view__header__logo-m"
           >
             <div
               class="little-logo little-logo--mobile"
@@ -215,7 +220,7 @@ exports[`App > renders the App component 1`] = `
             </div>
           </div>
           <div
-            class="landing-page__first-view__header__logo-d"
+            class="first-view__header__logo-d"
           >
             <div
               class="little-logo little-logo--desktop"
@@ -233,48 +238,45 @@ exports[`App > renders the App component 1`] = `
             </div>
           </div>
           <div
-            class="landing-page__first-view__header__container"
+            class="first-view__header__container"
           >
             <div
-              class="landing-page__first-view__header__container__buttom"
+              class="first-view__header__container__buttom"
             >
               <button
-                class="basic-button"
-                style="width: 200px; height: 50px; font-size: 18px;"
+                class="basic-button first-view__header__container__buttom__width"
                 type="button"
               >
                 CREATE_ACCOUNT
               </button>
             </div>
             <p
-              class="landing-page__first-view__header__container__connect"
+              class="first-view__header__container__connect"
             >
               CONNECT_MY
             </p>
           </div>
         </div>
         <p
-          class="landing-page__first-view__description"
+          class="first-view__description"
         >
           LANDING_DESCRIPTION
         </p>
         <div
-          class="landing-page__first-view__buttom"
+          class="first-view__buttom"
         >
           <button
             class="basic-button"
-            style="width: 300px; height: 50px; font-size: 18px;"
             type="button"
           >
             CREATE_ACCOUNT
           </button>
         </div>
         <div
-          class="landing-page__first-view__buttom-program"
+          class="first-view__buttom-program"
         >
           <button
-            class="basic-button"
-            style="width: 300px; height: 80px; font-size: 24px;"
+            class="basic-button first-view__buttom-program__button"
             type="button"
           >
             TEST_PROGRAM
@@ -282,49 +284,57 @@ exports[`App > renders the App component 1`] = `
         </div>
       </div>
       <div
-        class="landing-page__second-view landing-page__scroll"
+        class="second-view"
       >
+        <div
+          class="second-view__img-container"
+        >
+          <img
+            alt="programs"
+            class="second-view__img-container__img"
+            src="/src/assets/images/programs.svg"
+          />
+        </div>
         <p
-          class="landing-page__second-view__description"
+          class="second-view__description"
         >
           LANDING_DESCRIPTION_2
         </p>
         <div
-          class="landing-page__second-view__step"
+          class="second-view__step"
         >
           <p
-            class="landing-page__second-view__step__content"
+            class="second-view__step__content"
           >
             PROGRAMS_TO_DICOVER
           </p>
           <p
-            class="landing-page__second-view__step__content"
+            class="second-view__step__content"
           >
             FOLLOW_YOUR_PROGRESS
           </p>
           <p
-            class="landing-page__second-view__step__content"
+            class="second-view__step__content"
           >
             PERSONALIZED_COACHING
           </p>
         </div>
         <div
-          class="landing-page__second-view__buttom"
+          class="second-view__buttom"
         >
           <button
             class="basic-button"
-            style="width: 300px; height: 50px; font-size: 18px;"
             type="button"
           >
             TEST_PROGRAM
           </button>
         </div>
         <div
-          class="landing-page__second-view__blob"
+          class="second-view__blob"
         >
           <img
             alt="blob"
-            class="landing-page__second-view__blob__img"
+            class="second-view__blob__img"
             src="/src/assets/blobs/blob2.svg"
           />
         </div>
