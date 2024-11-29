@@ -8,7 +8,7 @@ import { In } from "typeorm";
 
 
 @Resolver(Program)
-export class ProgramMutations {
+export class ProgramsMutations {
 
     // Mutation pour publier un programme (ajouter ou mettre à jour)
     @Mutation(() => Program)
