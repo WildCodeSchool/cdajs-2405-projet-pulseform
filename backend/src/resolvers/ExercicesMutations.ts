@@ -1,4 +1,5 @@
-import { Arg, Mutation, Resolver } from "type-graphql";
+import { Arg, Mutation, Resolver, Int } from "type-graphql";
+import { In } from "typeorm";
 import AppDataSource from "../AppDataSource";
 import { Exercice } from "../entities/Exercice";
 import { Tag } from "../entities/Tag";
@@ -13,24 +14,34 @@ export class ExercicesMutations {
         @Arg("name") name: string,
         @Arg("muscle") muscle: MuscleGroup,
         @Arg("level", () => FitnessLevel) level: FitnessLevel,
+        @Arg("duration", () => Int) duration: number,
+        @Arg("kcal_loss", () => Int) kcal_loss: number,
+        @Arg("img_src", { nullable: true }) img_src?: string,
         @Arg("description", { nullable: true }) description?: string,
         @Arg("tags", () => [String], { nullable: true }) tags?: string[]
     ): Promise<Exercice> {
-        const exercice = new Exercice();
-        exercice.name = name;
-        exercice.muscle = muscle;
-        exercice.level = level;
-        exercice.description = description || "";
+
+        const exercice = new Exercice(
+            name,
+            description || "",
+            duration,
+            kcal_loss,
+            muscle,
+            level,
+            img_src || "",
+        );
         
         // Sauvegarder l'exercice dans la base de données
         const savedExercice = await AppDataSource.manager.save(exercice);
 
         // Ajout des tags (si fournis)
-        if (tags && tags.length > 0) {
-            const tagEntities = await AppDataSource.manager.findByIds(Tag, tags);
+        /* if (tags && tags.length > 0) {
+            const tagEntities = await AppDataSource.manager.find(Tag, {
+                where: { name: In(tags) }
+            });
             savedExercice.tags = tagEntities;
             await AppDataSource.manager.save(savedExercice);
-        }
+        } */
 
         return savedExercice;
     }
@@ -58,10 +69,10 @@ export class ExercicesMutations {
         if (description) exercice.description = description;
 
         // Mise à jour des tags (si fournis)
-        if (tags && tags.length > 0) {
+        /* if (tags && tags.length > 0) {
             const tagEntities = await AppDataSource.manager.findByIds(Tag, tags);
             exercice.tags = tagEntities;
-        }
+        } */
 
         return await AppDataSource.manager.save(exercice);
     }

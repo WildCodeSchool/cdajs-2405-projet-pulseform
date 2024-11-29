@@ -3,7 +3,7 @@ import AppDataSource from "../AppDataSource";
 import { Group } from "../entities/Group";
 
 @Resolver(Group)
-export class GroupMutations {
+export class GroupsMutations {
     
     // Créer un groupe
     @Mutation(() => Group)

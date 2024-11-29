@@ -4,7 +4,7 @@ import AppDataSource from "../AppDataSource";
 import * as argon2 from 'argon2';
 
 @Resolver(User)
-export class UserMutations {
+export class UsersMutations {
 
     // Mutation pour créer un nouvel utilisateur
     @Mutation(() => User)

@@ -3,7 +3,7 @@ import { History } from "../entities/History";
 import AppDataSource from "../AppDataSource";
 
 @Resolver(History)
-export class HistoryQueries {
+export class HistoriesQueries {
 
     // Récupérer l'historique complet des programmes suivis par un utilisateur
     @Query(type => [History])

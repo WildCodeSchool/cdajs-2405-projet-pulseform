@@ -3,7 +3,7 @@ import AppDataSource from "../AppDataSource";
 import { SharedProgramList } from "../entities/SharedProgramList";
 
 @Resolver(SharedProgramList)
-export class SharedProgramListQueries {
+export class SharedProgramListsQueries {
 
     // Récupérer les programmes partagés par un utilisateur avec ses amis dans un groupe
     @Query(() => [SharedProgramList])

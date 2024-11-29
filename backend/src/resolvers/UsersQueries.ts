@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 
 
 @Resolver(User)
-export class UserQueries {
+export class UsersQueries {
 
     // Login
     @Query(type => String)

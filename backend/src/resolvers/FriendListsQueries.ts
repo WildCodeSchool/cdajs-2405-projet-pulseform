@@ -3,7 +3,7 @@ import { FriendList } from "../entities/FriendList";
 import AppDataSource from "../AppDataSource";
 
 @Resolver(FriendList)
-export class FriendListQueries {
+export class FriendListsQueries {
 
     // Récupérer la liste des amis d'un utilisateur
     @Query(type => [FriendList])

@@ -3,7 +3,7 @@ import AppDataSource from "../AppDataSource";
 import { SharedProgramList } from "../entities/SharedProgramList";
 
 @Resolver(SharedProgramList)
-export class SharedProgramListMutations {
+export class SharedProgramListsMutations {
 
     // Partager un programme avec un ami dans un groupe
     @Mutation(() => SharedProgramList)

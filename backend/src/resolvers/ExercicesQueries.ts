@@ -43,23 +43,23 @@ export class ExercicesQueries {
     }
  
     // Récupérer les exercices par tag
-    @Query(() => [Exercice])
+    /* @Query(() => [Exercice])
     async getExercicesByTag(@Arg("tag", () => Tags) tag: Tags): Promise<Exercice[]> {
     const tagEntity = await AppDataSource.manager.findOne(Tag, {
         where: { name: tag },
         relations: ["exercices"],
     });
     return tagEntity.exercices || [];
-    }
+    } */
 
     // Récupérer les tags d'un exercice
-    @Query(() => [Tag])
+    /* @Query(() => [Tag])
     async getTagsByExercice(@Arg("exerciceId") exerciceId: number): Promise<Tag[]> {
     const exercice = await AppDataSource.manager.findOne(Exercice, {
         where: { id: exerciceId },
         relations: ["tags"],
     });
     return exercice.tags || [];
-    }
+    } */
 
 }

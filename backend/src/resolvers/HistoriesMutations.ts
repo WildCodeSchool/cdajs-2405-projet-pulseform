@@ -3,22 +3,19 @@ import { History } from "../entities/History";
 import AppDataSource from "../AppDataSource";
 
 @Resolver(History)
-export class HistoryMutations {
+export class HistoriesMutations {
 
     // Mutation pour ajouter un historique (un utilisateur commence un programme)
     @Mutation(() => History)
     async addHistory(
         @Arg("user_id") user_id: number,
         @Arg("program_id") program_id: number,
+        @Arg("total_kcal_loss") total_kcal_loss: number,
         @Arg("start_date") start_date: Date,
         @Arg("end_date") end_date: Date
     ): Promise<History> {
         // Créer une nouvelle entrée d'historique
-        const history = new History();
-        history.user_id = user_id;
-        history.program_id = program_id;
-        history.start_date = start_date;
-        history.end_date = end_date;
+        const history = new History(user_id, program_id, total_kcal_loss, start_date, end_date);
 
         // Sauvegarder l'historique dans la base de données
         return await AppDataSource.manager.save(history);

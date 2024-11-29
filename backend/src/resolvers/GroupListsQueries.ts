@@ -3,7 +3,7 @@ import { GroupList } from "../entities/GroupList";
 import AppDataSource from "../AppDataSource";
 
 @Resolver(GroupList)
-export class GroupListQueries {
+export class GroupListsQueries {
 
     // Récupérer le groupe d'un utilisateur
     @Query(() => [GroupList])

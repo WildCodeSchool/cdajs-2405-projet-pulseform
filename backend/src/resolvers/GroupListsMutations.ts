@@ -1,6 +1,8 @@
-import { Arg, Mutation, Resolver } from "type-graphql";
+import { Arg, Field, ID, InputType, Int, Mutation, Resolver } from "type-graphql";
 import AppDataSource from "../AppDataSource";
 import { GroupList } from "../entities/GroupList";
+import { User } from "src/entities/User";
+import { Group } from "src/entities/Group";
 
 @InputType()
 export class GroupListInput {
@@ -12,40 +14,61 @@ export class GroupListInput {
     name?: string;
   
     @Field((type) => Int)
-    user_id: number;
+    user_id: number | undefined;
   
     @Field((type) => Int)
-    group_Id: number;
+    group_Id: number | undefined;
   
     @Field()
-    added: boolean;
+    user_accept: boolean | undefined;
   
     @Field((type) => Date)
-    createdAt: Date;
+    createdAt: Date | undefined;
 
 }
 
 @Resolver(GroupList)
-export class GroupListMutations {
+export class GroupListsMutations {
 
     // Ajouter un utilisateur à un groupe
     @Mutation(() => GroupList)
     async addUserToGroup(
         @Arg("input") input: GroupListInput
     ): Promise<GroupList> {
-        const { user_id, group_Id } = input;
+        const { user_id, group_Id, name } = input;
 
-        // Vérifier si l'utilisateur appartient déjà à ce groupe
+        // Vérifier si l'utilisateur existe
+        const user = await AppDataSource.manager.findOne(User, { where: { id: user_id } });
+        if (!user) {
+        throw new Error("User not found");
+        }
+
+        // Vérifier si le groupe existe
+        const group = await AppDataSource.manager.findOne(Group, { where: { id: group_Id } });
+        if (!group) {
+        throw new Error("Group not found");
+        }
+
+        // Vérifier si l'utilisateur appartient déjà au groupe
         const existingGroupMembership = await AppDataSource.manager.findOne(GroupList, {
-            where: { user_id, group_Id },
+        where: { user, group }
         });
 
         if (existingGroupMembership) {
-            throw new Error("User is already a member of the group");
+        throw new Error("User is already a member of the group");
         }
 
-        // Ajouter l'utilisateur au groupe (sans l'avoir encore accepté)
-        const newGroupMembership = new GroupList(input.name, user_id, group_Id, false, new Date());
+        // Créer une nouvelle instance de GroupList en utilisant le constructeur personnalisé
+        const newGroupMembership = new GroupList(
+        name,
+        user,
+        group,
+        false,
+        // Probleme avec new Date()
+        //new Date()
+        );
+
+        // Sauvegarder la relation dans la base de données
         return await newGroupMembership.save();
     }
 
@@ -63,11 +86,11 @@ export class GroupListMutations {
             throw new Error("Group membership not found");
         }
 
-        if (groupMembership.added) {
+        if (groupMembership.user_accept) {
             throw new Error("User already added to the group");
         }
 
-        groupMembership.added = true;
+        groupMembership.user_accept = true;
         await groupMembership.save();
         return true;
     }

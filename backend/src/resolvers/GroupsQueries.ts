@@ -1,9 +1,9 @@
-import { Query, Resolver } from "type-graphql";
+import { Arg, Query, Resolver } from "type-graphql";
 import AppDataSource from "../AppDataSource";
 import { Group } from "../entities/Group";
 
 @Resolver(Group)
-export class GroupQueries {
+export class GroupsQueries {
     
     //Récupérer tous les groupes
     @Query(() => [Group])

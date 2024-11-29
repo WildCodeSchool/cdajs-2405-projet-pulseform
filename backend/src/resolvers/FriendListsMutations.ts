@@ -3,7 +3,7 @@ import AppDataSource from "../AppDataSource"
 import { FriendList } from "../entities/FriendList";
 
 @Resolver(FriendList)
-export class FriendListMutations {
+export class FriendListsMutations {
 
     // Ajouter un ami (ajoute une relation mais ne l'approuve pas encore)
     @Mutation(type => FriendList)

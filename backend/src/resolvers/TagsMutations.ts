@@ -1,15 +1,28 @@
-import { Arg, Mutation, Resolver } from "type-graphql";
+import { Arg, Int, Mutation, Resolver } from "type-graphql";
 import { Tag } from "../entities/Tag";
 import AppDataSource from "../AppDataSource";
+import { Program } from "src/entities/Program";
+import { In } from "typeorm";
 
 @Resolver(Tag)
 export class TagsMutations {
 
     // Mutation pour ajouter un tag
     @Mutation(() => Tag)
-    async addTag(@Arg("name") name: string): Promise<Tag> {
-        const tag = new Tag();
-        tag.name = name;
+    async addTag(
+        @Arg("name") name: string,
+        @Arg("program_ids", () => [Int]) program_ids: number[]
+    ): Promise<Tag> {
+        // Récupérer les programmes associés via les ids fournis
+        const programs = await AppDataSource.manager.find(Program, {
+            where: { id: In(program_ids) },
+        });
+
+        if (programs.length === 0) {
+            throw new Error("No programs found with the provided IDs");
+        }
+
+        const tag = new Tag(name, programs);
 
         // Sauvegarde le tag dans la base de données
         return await AppDataSource.manager.save(tag);
