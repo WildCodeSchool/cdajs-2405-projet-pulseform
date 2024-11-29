@@ -1,0 +1,63 @@
+services:
+  back:
+    build: ./backend
+    restart: unless-stopped
+    ports:
+      - 4000:4000
+    volumes:
+      - ./backend:/app
+    environment:
+      # le serveur doit se connecter sur localhost
+      WDS_SOCKET: 127.0.0.1 # active la lib chokidar pour surveiller les changements
+      CHOKIDAR_USEPOLLING: true # active également la surveillance de changements pour watchpack
+      WATCHPACK_POLLING: true # "polling" = pollinisation
+      POSTGRES_PASSWORD: ${PASSWORD}
+      POSTGRES_USERNAME: ${USERNAME}
+      POSTGRES_DB_NAME: ${DB_NAME}
+
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: ${PASSWORD}
+      POSTGRES_USER: ${USERNAME}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - 5432:5432
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  client:
+      build: ./frontend
+      restart: unless-stopped
+      ports: 
+          - 3000:3000
+      command: npm run dev
+      volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+      - ./frontend/package.json:/app/package.json
+      - ./frontend/vite.config.ts:/app/vite.config.ts
+      - ./frontend/index.html:/app/index.html
+      - ./frontend/codegen.ts:/app/codegen.ts
+      environment:
+          WDS_SOCKET: 127.0.0.1
+          CHOKIDAR_USEPOLLING: true
+          WATCHPACK_POLLING: true
+
+  translation:
+    build: ./translation-server
+    restart: unless-stopped
+    ports:
+      - 8051:8051
+    volumes:
+      - ./translation-server:/app
+    environment:
+      WDS_SOCKET: 127.0.0.1
+      CHOKIDAR_USEPOLLING: true
+      WATCHPACK_POLLING: true

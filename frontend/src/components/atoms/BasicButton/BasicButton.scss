@@ -1,0 +1,13 @@
+@import "@assets/variables.scss";
+
+.basic-button {
+  @include h2-phone;
+  cursor: pointer;
+  background: $secondary;
+  color: $white;
+  border-radius: 10px;
+  padding: 14px 24px;
+  border: none;
+  width: 300;
+  height: 50;
+}
