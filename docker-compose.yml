@@ -34,11 +34,17 @@ services:
 
   client:
       build: ./frontend
+      restart: unless-stopped
       ports: 
           - 3000:3000
       command: npm run dev
-      volumes: 
-          - ./frontend:/app
+      volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+      - ./frontend/package.json:/app/package.json
+      - ./frontend/vite.config.ts:/app/vite.config.ts
+      - ./frontend/index.html:/app/index.html
+      - ./frontend/codegen.ts:/app/codegen.ts
       environment:
           WDS_SOCKET: 127.0.0.1
           CHOKIDAR_USEPOLLING: true
