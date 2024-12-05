@@ -2,7 +2,7 @@
 
 ## Dependencies
 
-In order to work on the project, you should pull it and fetch dependencies before developing any change on it.
+In order to work on the project, you should pull it and fetch dependencies (backend, frontend and translation_server) before developing any change on it.
 
 ## Developmennt
 
