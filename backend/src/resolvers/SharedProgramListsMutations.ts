@@ -15,7 +15,7 @@ export class SharedProgramListsMutations {
     ): Promise<SharedProgramList> {
         // Vérification si le partage existe déjà
         const existingShare = await AppDataSource.manager.findOne(SharedProgramList, {
-            where: { user_id, friend_id, program_id, group_list_id },
+            where: { user_id, program_id, group_list_id },
         });
 
         if (existingShare) {
@@ -23,7 +23,7 @@ export class SharedProgramListsMutations {
         }
 
         // Créer l'entrée de partage de programme
-        const sharedProgram = new SharedProgramList(user_id, friend_id, program_id, group_list_id);
+        const sharedProgram = new SharedProgramList(user_id, friend_id, program_id);
         return await sharedProgram.save();
     }
 }

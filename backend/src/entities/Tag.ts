@@ -22,7 +22,7 @@ export class Tag extends BaseEntity {
   @Field()
   program_id: number;
 
-  @ManyToMany(() => User, (user) => user.tags, { cascade: true })
+  @ManyToMany(() => User, (user) => user.tags)
   @Field((type) => [User], { nullable: true })
   users?: User[];
 

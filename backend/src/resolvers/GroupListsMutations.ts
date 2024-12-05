@@ -1,8 +1,8 @@
 import { Arg, Field, ID, InputType, Int, Mutation, Resolver } from "type-graphql";
 import AppDataSource from "../AppDataSource";
 import { GroupList } from "../entities/GroupList";
-import { User } from "src/entities/User";
-import { Group } from "src/entities/Group";
+import { User } from "../entities/User";
+import { Group } from "../entities/Group";
 
 @InputType()
 export class GroupListInput {
@@ -11,19 +11,19 @@ export class GroupListInput {
     id?: number;
 
     @Field({ nullable: true })
-    name?: string;
+    name!: number;
   
     @Field((type) => Int)
-    user_id: number | undefined;
+    user_id!: number;
   
     @Field((type) => Int)
-    group_Id: number | undefined;
+    group_id!: number;
   
     @Field()
-    user_accept: boolean | undefined;
+    user_accept!: boolean;
   
     @Field((type) => Date)
-    createdAt: Date | undefined;
+    createdAt!: number;
 
 }
 
@@ -35,7 +35,7 @@ export class GroupListsMutations {
     async addUserToGroup(
         @Arg("input") input: GroupListInput
     ): Promise<GroupList> {
-        const { user_id, group_Id, name } = input;
+        const { user_id, group_id, name } = input;
 
         // Vérifier si l'utilisateur existe
         const user = await AppDataSource.manager.findOne(User, { where: { id: user_id } });
@@ -44,7 +44,7 @@ export class GroupListsMutations {
         }
 
         // Vérifier si le groupe existe
-        const group = await AppDataSource.manager.findOne(Group, { where: { id: group_Id } });
+        const group = await AppDataSource.manager.findOne(Group, { where: { id: group_id } });
         if (!group) {
         throw new Error("Group not found");
         }
@@ -60,12 +60,11 @@ export class GroupListsMutations {
 
         // Créer une nouvelle instance de GroupList en utilisant le constructeur personnalisé
         const newGroupMembership = new GroupList(
-        name,
-        user,
-        group,
+        //name,
+        user_id,
+        group_id,
         false,
-        // Probleme avec new Date()
-        //new Date()
+        new Date()
         );
 
         // Sauvegarder la relation dans la base de données

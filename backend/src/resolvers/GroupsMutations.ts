@@ -1,6 +1,7 @@
 import { Arg, Mutation, Resolver } from "type-graphql";
 import AppDataSource from "../AppDataSource";
 import { Group } from "../entities/Group";
+import { User } from "../entities/User";
 
 @Resolver(Group)
 export class GroupsMutations {
@@ -9,9 +10,11 @@ export class GroupsMutations {
     @Mutation(() => Group)
     async createGroup(
         @Arg("name") name: string,
-        @Arg("create_for") create_for: number
+        @Arg("create_by") create_by: number,
+        @Arg("createdAt") createdAt: Date,
+        @Arg("creator") creator: User
     ): Promise<Group> {
-        const newGroup = new Group(name, create_for, new Date());
+        const newGroup = new Group(name, create_by, createdAt, creator);
         return await newGroup.save();
     }
 

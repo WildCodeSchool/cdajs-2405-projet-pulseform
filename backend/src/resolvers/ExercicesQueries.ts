@@ -1,7 +1,6 @@
 import { Arg, Query, Resolver } from "type-graphql";
 import { Exercice } from "../entities/Exercice";
-import { Tag } from "../entities/Tag";
-import { Tags, MuscleGroup, FitnessLevel } from "../entities/Enums";
+import { MuscleGroup, FitnessLevel } from "../entities/Enums";
 import AppDataSource from "../AppDataSource";
 
 @Resolver(Exercice)
@@ -41,25 +40,4 @@ export class ExercicesQueries {
             where: { level },
         });
     }
- 
-    // Récupérer les exercices par tag
-    /* @Query(() => [Exercice])
-    async getExercicesByTag(@Arg("tag", () => Tags) tag: Tags): Promise<Exercice[]> {
-    const tagEntity = await AppDataSource.manager.findOne(Tag, {
-        where: { name: tag },
-        relations: ["exercices"],
-    });
-    return tagEntity.exercices || [];
-    } */
-
-    // Récupérer les tags d'un exercice
-    /* @Query(() => [Tag])
-    async getTagsByExercice(@Arg("exerciceId") exerciceId: number): Promise<Tag[]> {
-    const exercice = await AppDataSource.manager.findOne(Exercice, {
-        where: { id: exerciceId },
-        relations: ["tags"],
-    });
-    return exercice.tags || [];
-    } */
-
 }

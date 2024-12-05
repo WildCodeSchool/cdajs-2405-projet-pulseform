@@ -2,6 +2,7 @@ import { Arg, Mutation, Resolver } from "type-graphql";
 import { User } from "../entities/User";
 import AppDataSource from "../AppDataSource";
 import * as argon2 from 'argon2';
+import { FitnessLevel, MemberRole } from "../entities/Enums";
 
 @Resolver(User)
 export class UsersMutations {
@@ -9,9 +10,18 @@ export class UsersMutations {
     // Mutation pour créer un nouvel utilisateur
     @Mutation(() => User)
     async createUser(
+        @Arg("username") username: string,
+        @Arg("description") description: string,
         @Arg("email") email: string,
         @Arg("password") password: string,
-        @Arg("role") role: string // Role par exemple: 'admin', 'user', etc.
+        @Arg("image") image: string,
+        @Arg("birthday") birthday: Date,
+        @Arg("gender") gender: string,
+        @Arg("weight") weight: number,
+        @Arg("height") height: number,
+        @Arg("createdAt") createdAt: Date,
+        @Arg("role") role: MemberRole,
+        @Arg("level") level: FitnessLevel
     ): Promise<User> {
         // Vérifier si un utilisateur avec ce email existe déjà
         const existingUser = await AppDataSource.manager.findOne(User, { where: { email } });
@@ -23,10 +33,20 @@ export class UsersMutations {
         const hashedPassword = await argon2.hash(password);
 
         // Créer un nouvel utilisateur
-        const user = new User();
-        user.email = email;
-        user.passwordHashed = hashedPassword;
-        user.role = role;
+        const user = new User(
+            username,
+            description,
+            email,
+            password,
+            image,
+            birthday,
+            gender,
+            weight,
+            height,
+            createdAt,
+            role,
+            level
+        );
 
         // Sauvegarder dans la base de données
         return await AppDataSource.manager.save(user);
@@ -35,30 +55,41 @@ export class UsersMutations {
     // Mutation pour mettre à jour un utilisateur
     @Mutation(() => User)
     async updateUser(
-        @Arg("id") id: number,
-        @Arg("email", { nullable: true }) email?: string,
-        @Arg("password", { nullable: true }) password?: string,
-        @Arg("role", { nullable: true }) role?: string
+        @Arg("username") username: string,
+        @Arg("description") description: string,
+        @Arg("email") email: string,
+        @Arg("password") password: string,
+        @Arg("image") image: string,
+        @Arg("birthday") birthday: Date,
+        @Arg("gender") gender: string,
+        @Arg("weight") weight: number,
+        @Arg("height") height: number,
+        @Arg("createdAt") createdAt: Date,
+        @Arg("role") role: MemberRole,
+        @Arg("level") level: FitnessLevel
     ): Promise<User> {
-        // Chercher l'utilisateur
-        const user = await AppDataSource.manager.findOne(User, { where: { id } });
-
-        if (!user) {
-            throw new Error("User not found");
+        const existingUser = await AppDataSource.manager.findOne(User, { where: { email } });
+        if (existingUser) {
+            throw new Error("User with this email already exists");
         }
 
-        // Mettre à jour les champs uniquement si les nouvelles valeurs sont fournies
-        if (email) {
-            user.email = email;
-        }
-        if (password) {
-            user.passwordHashed = await argon2.hash(password); // Hacher le nouveau mot de passe
-        }
-        if (role) {
-            user.role = role;
-        }
+        const hashedPassword = await argon2.hash(password);
 
-        // Sauvegarder dans la base de données
+        const user = new User(
+            username,
+            description,
+            email,
+            password,
+            image,
+            birthday,
+            gender,
+            weight,
+            height,
+            createdAt,
+            role,
+            level,
+        );
+
         return await AppDataSource.manager.save(user);
     }
 

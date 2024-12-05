@@ -1,8 +1,6 @@
 import { Arg, Mutation, Resolver, Int } from "type-graphql";
-import { In } from "typeorm";
 import AppDataSource from "../AppDataSource";
 import { Exercice } from "../entities/Exercice";
-import { Tag } from "../entities/Tag";
 import { FitnessLevel, MuscleGroup } from "../entities/Enums";
 
 @Resolver(Exercice)
@@ -34,15 +32,6 @@ export class ExercicesMutations {
         // Sauvegarder l'exercice dans la base de données
         const savedExercice = await AppDataSource.manager.save(exercice);
 
-        // Ajout des tags (si fournis)
-        /* if (tags && tags.length > 0) {
-            const tagEntities = await AppDataSource.manager.find(Tag, {
-                where: { name: In(tags) }
-            });
-            savedExercice.tags = tagEntities;
-            await AppDataSource.manager.save(savedExercice);
-        } */
-
         return savedExercice;
     }
 
@@ -67,12 +56,6 @@ export class ExercicesMutations {
         if (muscle) exercice.muscle = muscle;
         if (level) exercice.level = level;
         if (description) exercice.description = description;
-
-        // Mise à jour des tags (si fournis)
-        /* if (tags && tags.length > 0) {
-            const tagEntities = await AppDataSource.manager.findByIds(Tag, tags);
-            exercice.tags = tagEntities;
-        } */
 
         return await AppDataSource.manager.save(exercice);
     }

@@ -12,12 +12,11 @@ export class UsersQueries {
     @Query(type => String)
     async login(@Arg("email") email: string, @Arg("password") password: string): Promise<string> {
         // hacher le password et on vérifie en DB que l'utilisateur à l'email donné, possède bien le même hash
-        const user: User = await User.findOneOrFail({
-            where: {
-                email, 
-            }
-        });
-        const isValid: boolean = await argon2.verify(user.passwordHashed, password);
+        const user = await AppDataSource.manager
+            .createQueryBuilder(User, "user")
+            .where("user.email = :email", { email })
+            .getOneOrFail();
+        const isValid: boolean = await argon2.verify(user.password, password);
         if (!isValid) {
             throw new Error('password is incorrect');
         }

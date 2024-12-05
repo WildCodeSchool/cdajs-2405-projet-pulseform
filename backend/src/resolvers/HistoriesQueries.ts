@@ -1,6 +1,7 @@
 import { Arg, Query, Resolver } from "type-graphql";
 import { History } from "../entities/History";
 import AppDataSource from "../AppDataSource";
+import { LessThanOrEqual, MoreThanOrEqual } from "typeorm";
 
 @Resolver(History)
 export class HistoriesQueries {
@@ -32,17 +33,17 @@ export class HistoriesQueries {
     }
 
     // Récupérer tous les historiques dans un intervalle de dates
-    @Query(type => [History])
-    async getHistoryByDateRange(
-        @Arg("start_date") start_date: Date,
-        @Arg("end_date") end_date: Date
-    ): Promise<History[]> {
-        const history: History[] = await AppDataSource.manager.find(History, {
-            where: {
-                start_date: { $gte: start_date },
-                end_date: { $lte: end_date }
-            }
-        });
-        return history;
-    }
+  @Query(() => [History])
+  async getHistoryByDateRange(
+      @Arg("start_date") start_date: Date,
+      @Arg("end_date") end_date: Date
+  ): Promise<History[]> {
+      const history = await AppDataSource.manager.find(History, {
+          where: {
+              start_date: MoreThanOrEqual(start_date),
+              end_date: LessThanOrEqual(end_date),
+          },
+      });
+      return history;
+  }
 }

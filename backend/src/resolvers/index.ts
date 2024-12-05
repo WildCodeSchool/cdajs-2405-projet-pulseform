@@ -1,7 +1,5 @@
 import { ExercicesMutations } from './ExercicesMutations';
 import { ExercicesQueries } from './ExercicesQueries';
-import { FriendListsMutations } from './FriendListsMutations';
-import { FriendListsQueries } from './FriendListsQueries';
 import { GroupListsMutations } from './GroupListsMutations';
 import { GroupListsQueries } from './GroupListsQueries';
 import { GroupsMutations } from './GroupsMutations';
@@ -20,8 +18,6 @@ import { UsersQueries } from './UsersQueries';
 export const resolvers = [
     ExercicesMutations,
     ExercicesQueries,
-    FriendListsMutations,
-    FriendListsQueries,
     GroupListsMutations,
     GroupListsQueries,
     GroupsMutations,

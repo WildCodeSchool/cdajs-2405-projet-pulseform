@@ -2,8 +2,8 @@ import { Arg, Mutation, Resolver,Int } from "type-graphql";
 import AppDataSource from "../AppDataSource";
 import { Program } from "../entities/Program";
 import { FitnessLevel } from "../entities/Enums";
-import { Exercice } from "src/entities/Exercice";
-import { Tag } from "src/entities/Tag";
+import { Exercice } from "../entities/Exercice";
+import { Tag } from "../entities/Tag";
 import { In } from "typeorm";
 
 
