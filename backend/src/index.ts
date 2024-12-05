@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import AppDataSource from "./AppDataSource";
 import { buildSchema } from "type-graphql";
 import { startStandaloneServer } from "@apollo/server/standalone";
