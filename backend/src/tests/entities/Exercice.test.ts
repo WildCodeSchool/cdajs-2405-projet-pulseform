@@ -1,6 +1,6 @@
 import { Exercice } from "../../entities/Exercice";
 import { FitnessLevel, MuscleGroup } from "../../entities/Enums";
-import { describe, it, expect } from "vitest";
+import { describe, it, expect } from "@jest/globals";
 import { validate } from "class-validator";
 
 const EXERCICE_NAME = "Superman";
@@ -21,14 +21,21 @@ const validExercice = new Exercice(
   EXERCICE_IMG_SRC
 );
 
+const INVALID_NAME = "";
+const INVALID_DURATION = -5;
+const INVALID_KCAL_LOSS = 0;
+const INVALID_LEVEL = "INVALID_LEVEL" as unknown as FitnessLevel;
+const INVALID_MUSCLE = "INVALID_MUSCLE" as unknown as MuscleGroup;
+const INVALID_URL = "invalid-url";
+
 const invalidExercice = new Exercice(
-  "", // Invalid: name is empty
-  null, // valid: description is null, but optional
-  -5, // Invalid: duration must be positive
-  0, // Invalid: kcal_loss must be greater than 0
-  null as unknown as MuscleGroup, // Force cast to bypass the type error when creating nouvel exo => sinon erreur de TS ("null no asignable to muscleGroup enum")
-  null as any, // Invalid: level is null => same as for muscleGroup => force cast to bypass TS error while creating invalid exercice
-  "invalid-url" // Invalid URL format;
+  INVALID_NAME,
+  EXERCICE_DESCRIPTION,
+  INVALID_DURATION,
+  INVALID_KCAL_LOSS,
+  INVALID_MUSCLE,
+  INVALID_LEVEL,
+  INVALID_URL
 );
 
 describe("Exercice class", () => {

@@ -17,28 +17,28 @@ export class GroupList extends BaseEntity {
   @Field((type) => ID)
   id?: number;
 
-  @Column({ type: "int" })
+  @Column()
   @Field((type) => Int)
   user_id: number;
 
-  @Column({ type: "int" })
+  @Column()
   @Field((type) => Int)
   group_Id: number;
 
-  @Column({ default: false, type: "boolean" })
-  @Field((type) => Boolean)
+  @Column({ default: false })
+  @Field()
   user_accept: boolean;
-
+  
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   @Field((type) => Date)
   createdAt: Date;
 
-  @ManyToOne(() => User, (user) => user.groupLists, { nullable: false })
-  @JoinColumn({ name: "user_id" }) // 'user_id' is the foreign key in 'GroupList' referencing 'Group.id'
+  @ManyToOne(() => User, (user) => user.groupLists)
+  @JoinColumn({ name: "user_id" }) // 'user_id' is the foreign key in 'GroupList' referencing 'User.id'
   @Field((type) => User)
   user!: User;
 
-  @ManyToOne(() => Group, (group) => group.groupLists, { nullable: false })
+  @ManyToOne(() => Group, (group) => group.groupLists)
   @JoinColumn({ name: "group_id" }) // 'group_id' is the foreign key in 'GroupList' referencing 'Group.id'
   @Field((type) => Group)
   group!: Group;

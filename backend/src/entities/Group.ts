@@ -10,11 +10,11 @@ export class Group extends BaseEntity {
   @Field((type) => ID)
   id?: number;
 
-  @Column({ length: 50, type: "string" })
+  @Column({ length: 50 })
   @Field((type) => String)
   name: string;
 
-  @Column({ type : "int"})
+  @Column()
   @Field((type) => Int)
   create_by: number;
 
