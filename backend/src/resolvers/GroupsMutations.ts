@@ -11,9 +11,12 @@ export class GroupsMutations {
     async createGroup(
         @Arg("name") name: string,
         @Arg("create_by") create_by: number,
-        @Arg("createdAt") createdAt: Date,
-        @Arg("creator") creator: User
+        @Arg("createdAt") createdAt: Date
     ): Promise<Group> {
+        const creator = await AppDataSource.manager.findOne(User, { where: { id: create_by } });
+        if (!creator) {
+            throw new Error("Creator not found");
+        }
         const newGroup = new Group(name, create_by, createdAt, creator);
         return await newGroup.save();
     }

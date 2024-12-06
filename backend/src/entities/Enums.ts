@@ -1,3 +1,5 @@
+import { registerEnumType } from "type-graphql";
+
 export enum MemberRole {
   USER = "user",
   ADMIN = "admin",
@@ -40,3 +42,24 @@ export enum Tags {
   ATHLETIC_PERFORMANCE = "Athletic Performance",
   TONING_AND_DEFINITION = "Toning and Definition",
 }
+
+// Enregistrement des énumérations
+registerEnumType(MemberRole, {
+  name: "MemberRole",
+  description: "Roles of a member in the system", // Optionnel
+});
+
+registerEnumType(FitnessLevel, {
+  name: "FitnessLevel",
+  description: "Levels of fitness suitable for exercises",
+});
+
+registerEnumType(MuscleGroup, {
+  name: "MuscleGroup",
+  description: "Muscle groups targeted by exercises",
+});
+
+registerEnumType(Tags, {
+  name: "Tags",
+  description: "Tags describing the purpose or benefits of exercises",
+});

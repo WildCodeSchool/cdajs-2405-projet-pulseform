@@ -7,7 +7,7 @@ import { resolvers } from './resolvers';
 
 const startServer = async () => {
   await AppDataSource.initialize();
-
+  console.log(resolvers);
   const schema = await buildSchema({
     resolvers,
   });
