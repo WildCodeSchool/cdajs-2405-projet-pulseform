@@ -4,25 +4,23 @@ import { buildSchema } from "type-graphql";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { ApolloServer } from "@apollo/server";
 
-import TestResolver from "./resolvers/testResolver";
-
 const startServer = async () => {
   await AppDataSource.initialize();
 
-  const schema = await buildSchema({
-    resolvers: [TestResolver],
-  });
+  // const schema = await buildSchema({
+  //   resolvers: [TestResolver],
+  // });
 
-  const server = new ApolloServer({
-    schema,
-    introspection: true,
-  });
+  // const server = new ApolloServer({
+  //   schema,
+  //   introspection: true,
+  // });
 
-  const { url } = await startStandaloneServer(server, {
-    listen: { port: 4000 },
-  });
+  // const { url } = await startStandaloneServer(server, {
+  //   listen: { port: 4000 },
+  // });
 
-  console.log(`🚀  Server ready at: ${url}`);
+  // console.log(`🚀  Server ready at: ${url}`);
 };
 
 startServer().catch((error) => {
