@@ -1,0 +1,19 @@
+{
+	"name": "cdajs-2405-projet-pulseform",
+	"version": "0.0.0",
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"husky": "^9.1.7",
+		"lint-staged": "^15.3.0"
+	},
+	"scripts": {
+		"prepare": "husky"
+	},
+	"lint-staged": {
+		"*.ts": ["npx biome format --write", "npx biome check"],
+		"*.tsx": ["npx biome format --write", "npx biome check"],
+		"*.js": ["npx biome format --write", "npx biome check"],
+		"*.css": ["npx biome format --write"],
+		"*.json": ["npx biome format --write"]
+	}
+}
