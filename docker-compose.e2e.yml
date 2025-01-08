@@ -1,53 +1,41 @@
+# to test this docker-compose locally and not wait for push on dev branch : docker compose -f docker-compose.e2e.yml up --build --exit-code-from e2e
+# to access Playwright report => go into e2e folder then run : npx playwright show-report
+
 services:
-  back:
-    build: 
-      context: ./backend
-      dockerfile: Dockerfile.deploy
-    healthcheck:
-      test: 'curl --fail --request POST --header ''content-type: application/json'' --url ''http://localhost:4000'' --data ''{"query":"query { __typename }"}'' || exit 1'
-      interval: 5s
-      timeout: 5s
-      retries: 10
-    ports:
-      - 4000:4000
-    environment:
-      CI: true
-      POSTGRES_USERNAME: postgres
-      POSTGRES_PASSWORD: example
-      JWT_SECRET: superSecret_secured____
-    depends_on:
-      db:
-        condition: service_healthy
   front:
-    build: 
-      context: ./frontend
-      dockerfile: Dockerfile.deploy
+    build: ./frontend
+    restart: unless-stopped
     healthcheck:
-      test: "curl --fail --request GET --url 'http://localhost:3000' || exit 1"
-      interval: 5s
-      timeout: 5s
-      retries: 10
-    depends_on:
-      back:
-        condition: service_healthy
-  db:
-    image: postgres
-    environment:
-      POSTGRES_PASSWORD: example
-      POSTGRES_DB: the_good_corner
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d postgres -U postgres"]
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
       interval: 10s
       timeout: 5s
-      retries: 20
-  e2e:
-    build: ./e2e
-    environment:
-      CI: true
+      retries: 3
+    ports:
+      - "3001:3000" # External port 3001 so no conflicts with the port 3000 already running in main docker-compose.yml in client service
+    command: npm run dev
     volumes:
-      - ./e2e/playwright-report:/app/playwright-report
-      - ./e2e/test-results:/app/test-results
-      - ./e2e/screenshots:/app/screenshots
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+      - ./frontend/package.json:/app/package.json
+      - ./frontend/vite.config.ts:/app/vite.config.ts
+      - ./frontend/index.html:/app/index.html
+      - ./frontend/codegen.ts:/app/codegen.ts
+    environment:
+      WDS_SOCKET: 127.0.0.1
+      CHOKIDAR_USEPOLLING: true
+      WATCHPACK_POLLING: true
+
+  e2e:
+    image: mcr.microsoft.com/playwright:v1.49.1-noble
+    working_dir: /tests
+    volumes:
+      - ./e2e:/tests
     depends_on:
-      front:
-        condition: service_healthy
+      - front
+    ports:
+      - "9323:9323" # port localhost:9323 for Playwright report
+    command: >
+      sh -c "
+      echo 'Running Playwright e2e tests...' &&
+      npx playwright test
+      "
