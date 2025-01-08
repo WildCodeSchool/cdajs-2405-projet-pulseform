@@ -1,0 +1,53 @@
+services:
+  back:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile.deploy
+    healthcheck:
+      test: 'curl --fail --request POST --header ''content-type: application/json'' --url ''http://localhost:4000'' --data ''{"query":"query { __typename }"}'' || exit 1'
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    ports:
+      - 4000:4000
+    environment:
+      CI: true
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: example
+      JWT_SECRET: superSecret_secured____
+    depends_on:
+      db:
+        condition: service_healthy
+  front:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile.deploy
+    healthcheck:
+      test: "curl --fail --request GET --url 'http://localhost:3000' || exit 1"
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    depends_on:
+      back:
+        condition: service_healthy
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: the_good_corner
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d postgres -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+  e2e:
+    build: ./e2e
+    environment:
+      CI: true
+    volumes:
+      - ./e2e/playwright-report:/app/playwright-report
+      - ./e2e/test-results:/app/test-results
+      - ./e2e/screenshots:/app/screenshots
+    depends_on:
+      front:
+        condition: service_healthy

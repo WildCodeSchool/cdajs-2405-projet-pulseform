@@ -11,7 +11,7 @@ export class Group extends BaseEntity {
   id?: number;
 
   @Column({ length: 50 })
-  @Field()
+  @Field((type) => String)
   name: string;
 
   @Column()
