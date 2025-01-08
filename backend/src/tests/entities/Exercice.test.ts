@@ -55,8 +55,7 @@ describe("Exercice class", () => {
 
     // Check for specific error messages
     const errorMessages = errors
-      .map((err) => Object.values(err.constraints || {}).flat())
-      .flat();
+      .flatMap((err) => Object.values(err.constraints || {}).flat());
 
     expect(errorMessages).toContain("The 'name' field is required.");
     expect(errorMessages).toContain("'duration' must be greater than 0.");

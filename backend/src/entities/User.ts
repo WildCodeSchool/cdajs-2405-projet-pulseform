@@ -82,10 +82,10 @@ export class User extends BaseEntity {
   groupLists: GroupList[] | undefined;
 
   constructor(
-    username: string = "",
+    username = "",
     description: string,
     email: string,
-    password: string = "",
+    password = "",
     image: string,
     birthday: Date,
     gender: string,

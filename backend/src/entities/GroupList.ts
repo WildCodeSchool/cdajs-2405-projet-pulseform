@@ -46,7 +46,7 @@ export class GroupList extends BaseEntity {
   constructor(
     user_id: number,
     group_Id: number,
-    user_accept: boolean = false,
+    user_accept = false,
     createdAt: Date
   ) {
     super();
