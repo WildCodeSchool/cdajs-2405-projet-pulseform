@@ -1,18 +1,18 @@
 {
-  "name": "cdajs-2405-projet-pulseform",
-  "version": "0.0.0",
-  "devDependencies": {
-    "@biomejs/biome": "1.9.4",
-    "husky": "^9.1.7",
-    "lint-staged": "^15.3.0"
-  },
-  "scripts": {
-    "format": "npx @biomejs/biome lint --write",
-    "prepare": "husky"
-  },
-  "lint-staged": {
-    "src/*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
-      "biome check --write --no-errors-on-unmatched"
-    ]
-  }
+	"name": "cdajs-2405-projet-pulseform",
+	"version": "0.0.0",
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"husky": "^9.1.7",
+		"lint-staged": "^15.3.0"
+	},
+	"scripts": {
+		"format": "npx @biomejs/biome lint --write",
+		"prepare": "husky"
+	},
+	"lint-staged": {
+		"*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
+			"npx biome format --write"
+		]
+	}
 }
