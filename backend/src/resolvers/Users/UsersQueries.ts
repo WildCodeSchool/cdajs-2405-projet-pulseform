@@ -1,6 +1,6 @@
 import { Arg, Query, Resolver } from "type-graphql";
-import { User } from "../entities/User";
-import AppDataSource from "../AppDataSource";
+import { User } from "../../entities/User";
+import AppDataSource from "../../AppDataSource";
 import * as argon2 from 'argon2';
 import jwt from "jsonwebtoken";
 

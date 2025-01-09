@@ -1,7 +1,7 @@
 import { Arg, Query, Resolver } from "type-graphql";
-import { Exercice } from "../entities/Exercice";
-import { MuscleGroup, FitnessLevel } from "../entities/Enums";
-import AppDataSource from "../AppDataSource";
+import { Exercice } from "../../entities/Exercice";
+import AppDataSource from "../../AppDataSource";
+import { GetExercicesByMuscleInput, GetExercicesByLevelInput } from "../../inputs/ExercicesInput";
 
 @Resolver(Exercice)
 export class ExercicesQueries {
@@ -24,8 +24,9 @@ export class ExercicesQueries {
     // Récupérer les exercices par groupe musculaire
     @Query(() => [Exercice])
     async getExercicesByMuscle(
-        @Arg("muscle", () => MuscleGroup) muscle: MuscleGroup
+        @Arg("data") data: GetExercicesByMuscleInput
     ): Promise<Exercice[]> {
+        const { muscle } = data;
         return await AppDataSource.manager.find(Exercice, {
             where: { muscle },
         });
@@ -34,8 +35,9 @@ export class ExercicesQueries {
     // Récupérer les exercices par niveau de fitness
     @Query(() => [Exercice])
     async getExercicesByLevel(
-        @Arg("level", () => FitnessLevel) level: FitnessLevel
+        @Arg("data") data: GetExercicesByLevelInput
     ): Promise<Exercice[]> {
+        const { level } = data;
         return await AppDataSource.manager.find(Exercice, {
             where: { level },
         });

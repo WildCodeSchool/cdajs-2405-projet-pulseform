@@ -1,6 +1,6 @@
 import { Arg, Query, Resolver } from "type-graphql";
-import { History } from "../entities/History";
-import AppDataSource from "../AppDataSource";
+import { History } from "../../entities/History";
+import AppDataSource from "../../AppDataSource";
 import { LessThanOrEqual, MoreThanOrEqual } from "typeorm";
 
 @Resolver(History)
@@ -10,7 +10,8 @@ export class HistoriesQueries {
     @Query(type => [History])
     async getHistoryByUserId(@Arg("user_id") user_id: number): Promise<History[]> {
         const history: History[] = await AppDataSource.manager.find(History, {
-            where: { user_id }
+            where: { user_id },
+            relations: ["user", "program"],
         });
         return history;
     }

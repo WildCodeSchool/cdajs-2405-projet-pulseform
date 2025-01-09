@@ -1,31 +1,10 @@
-import { Arg, Field, ID, InputType, Int, Mutation, Resolver } from "type-graphql";
-import AppDataSource from "../AppDataSource";
-import { GroupList } from "../entities/GroupList";
-import { User } from "../entities/User";
-import { Group } from "../entities/Group";
+import { Arg, Mutation, Resolver } from "type-graphql";
+import AppDataSource from "../../AppDataSource";
+import { GroupList } from "../../entities/GroupList";
+import { User } from "../../entities/User";
+import { Group } from "../../entities/Group";
+import { GroupListsInput } from "../../inputs/GroupListsInput";
 
-@InputType()
-export class GroupListInput {
-
-    @Field((type) => ID)
-    id?: number;
-
-    @Field({ nullable: true })
-    name!: number;
-  
-    @Field((type) => Int)
-    user_id!: number;
-  
-    @Field((type) => Int)
-    group_id!: number;
-  
-    @Field()
-    user_accept!: boolean;
-  
-    @Field((type) => Date)
-    createdAt!: number;
-
-}
 
 @Resolver(GroupList)
 export class GroupListsMutations {
@@ -33,9 +12,9 @@ export class GroupListsMutations {
     // Ajouter un utilisateur à un groupe
     @Mutation(() => GroupList)
     async addUserToGroup(
-        @Arg("input") input: GroupListInput
+        @Arg("input") input: GroupListsInput
     ): Promise<GroupList> {
-        const { user_id, group_id, name } = input;
+        const { user_id, group_id} = input;
 
         // Vérifier si l'utilisateur existe
         const user = await AppDataSource.manager.findOne(User, { where: { id: user_id } });
@@ -58,16 +37,8 @@ export class GroupListsMutations {
         throw new Error("User is already a member of the group");
         }
 
-        // Créer une nouvelle instance de GroupList en utilisant le constructeur personnalisé
-        const newGroupMembership = new GroupList(
-        //name,
-        user_id,
-        group_id,
-        false,
-        new Date()
-        );
-
-        // Sauvegarder la relation dans la base de données
+        // Créer une nouvelle instance de GroupList
+        const newGroupMembership = new GroupList(user_id, group_id, false, new Date());
         return await newGroupMembership.save();
     }
 
@@ -75,7 +46,7 @@ export class GroupListsMutations {
     @Mutation(() => Boolean)
     async acceptGroupInvitation(
         @Arg("user_id") user_id: number,
-        @Arg("group_Id") group_Id: number
+        @Arg("group_id") group_Id: number
     ): Promise<boolean> {
         const groupMembership = await AppDataSource.manager.findOne(GroupList, {
             where: { user_id, group_Id },

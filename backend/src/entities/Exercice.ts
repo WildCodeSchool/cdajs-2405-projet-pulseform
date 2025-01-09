@@ -1,6 +1,6 @@
 import { BaseEntity, Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Field, ID, Int, ObjectType } from "type-graphql";
-import { FitnessLevel, MuscleGroup } from "./Enums";
+import { FitnessLevelEnum, MuscleGroupEnum } from "./Enums";
 import { Program } from "./Program";
 
 @ObjectType()
@@ -26,13 +26,13 @@ export class Exercice extends BaseEntity {
   @Field((type) => Int)
   kcal_loss: number;
 
-  @Column({ type: "enum", enum: MuscleGroup })
-  @Field((type) => MuscleGroup)
-  muscle: MuscleGroup;
+  @Column({ type: "enum", enum: MuscleGroupEnum })
+  @Field((type) => MuscleGroupEnum)
+  muscle: MuscleGroupEnum;
 
-  @Column({ type: "enum", enum: FitnessLevel })
-  @Field((type) => FitnessLevel)
-  level: FitnessLevel;
+  @Column({ type: "enum", enum: FitnessLevelEnum })
+  @Field((type) => FitnessLevelEnum)
+  level: FitnessLevelEnum;
 
   @Column({ nullable: true })
   @Field({ nullable: true })
@@ -42,7 +42,7 @@ export class Exercice extends BaseEntity {
   @Field((type) => [Program], { nullable: true })
   programs?: Program[];
 
-  constructor(name: string, description: string, duration: number, kcal_loss: number, muscle: MuscleGroup, level: FitnessLevel, img_src: string) {
+  constructor(name: string, description: string, duration: number, kcal_loss: number, muscle: MuscleGroupEnum, level: FitnessLevelEnum, img_src: string) {
     super();
     this.name = name;
     this.description = description;

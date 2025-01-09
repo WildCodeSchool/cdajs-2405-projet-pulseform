@@ -1,19 +1,19 @@
-import { ExercicesMutations } from './ExercicesMutations';
-import { ExercicesQueries } from './ExercicesQueries';
-import { GroupListsMutations } from './GroupListsMutations';
-import { GroupListsQueries } from './GroupListsQueries';
-import { GroupsMutations } from './GroupsMutations';
-import { GroupsQueries } from './GroupsQueries';
-import { HistoriesMutations } from './HistoriesMutations';
-import { HistoriesQueries } from './HistoriesQueries';
-import { ProgramsMutations } from './ProgramsMutations';
-import { ProgramsQueries } from './ProgramsQueries';
-import { SharedProgramListsMutations } from './SharedProgramListsMutations';
-import { SharedProgramListsQueries } from './SharedProgramListsQueries';
-import { TagsMutations } from './TagsMutations';
-import { TagsQueries } from './TagsQueries';
-import { UsersMutations } from './UsersMutations';
-import { UsersQueries } from './UsersQueries';
+import { ExercicesMutations } from './Exercices/ExercicesMutations';
+import { ExercicesQueries } from './Exercices/ExercicesQueries';
+import { GroupListsMutations } from './GroupLists/GroupListsMutations';
+import { GroupListsQueries } from './GroupLists/GroupListsQueries';
+import { GroupsMutations } from './Groups/GroupsMutations';
+import { GroupsQueries } from './Groups/GroupsQueries';
+import { HistoriesMutations } from './Histories/HistoriesMutations';
+import { HistoriesQueries } from './Histories/HistoriesQueries';
+import { ProgramsMutations } from './Programs/ProgramsMutations';
+import { ProgramsQueries } from './Programs/ProgramsQueries';
+import { SharedProgramListsMutations } from './SharedProgramLists/SharedProgramListsMutations';
+import { SharedProgramListsQueries } from './SharedProgramLists/SharedProgramListsQueries';
+import { TagsMutations } from './Tags/TagsMutations';
+import { TagsQueries } from './Tags/TagsQueries';
+import { UsersMutations } from './Users/UsersMutations';
+import { UsersQueries } from './Users/UsersQueries';
 
 export const resolvers = [
     ExercicesMutations,
