@@ -1,8 +1,7 @@
 import { BaseEntity, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Field, ID, Int, ObjectType } from "type-graphql";
-import { MemberRole, FitnessLevel } from "./Enums";
+import { MemberRoleEnum, FitnessLevelEnum } from "./Enums";
 import { Tag } from "./Tag";
-import { Program } from "./Program";
 import { Group } from "./Group";
 import { GroupList } from "./GroupList";
 
@@ -55,19 +54,19 @@ export class User extends BaseEntity {
 
   @Column({
     type: "enum",
-    enum: MemberRole,
-    default: MemberRole.USER,
+    enum: MemberRoleEnum,
+    default: MemberRoleEnum.USER,
   })
-  @Field((type) => MemberRole)
-  role: MemberRole;
+  @Field((type) => MemberRoleEnum)
+  role: MemberRoleEnum;
 
   @Column({
     type: "enum",
-    enum: FitnessLevel,
+    enum: FitnessLevelEnum,
     nullable: true,
   })
-  @Field((type) => FitnessLevel, { nullable: true })
-  level: FitnessLevel;
+  @Field((type) => FitnessLevelEnum, { nullable: true })
+  level: FitnessLevelEnum;
 
   @ManyToMany(() => Tag, { cascade: true })
   @JoinTable()
@@ -92,8 +91,8 @@ export class User extends BaseEntity {
     weight: number,
     height: number,
     createdAt: Date,
-    role: MemberRole = MemberRole.USER,
-    level: FitnessLevel
+    role: MemberRoleEnum = MemberRoleEnum.USER,
+    level: FitnessLevelEnum
   ) {
     super();
     this.username = username;

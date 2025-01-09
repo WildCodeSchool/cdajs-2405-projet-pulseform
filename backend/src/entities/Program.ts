@@ -1,6 +1,6 @@
 import { BaseEntity, Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Field, ID, Int, ObjectType } from "type-graphql";
-import { FitnessLevel } from "./Enums";
+import { FitnessLevelEnum } from "./Enums";
 import { Exercice } from "./Exercice";
 import { Tag } from "./Tag";
 
@@ -23,9 +23,9 @@ export class Program extends BaseEntity {
   @Field((type) => Int, { nullable: true })
   total_duration?: number;
 
-  @Column({ type: "enum", enum: FitnessLevel })
-  @Field((type) => FitnessLevel)
-  level: FitnessLevel;
+  @Column({ type: "enum", enum: FitnessLevelEnum })
+  @Field((type) => FitnessLevelEnum)
+  level: FitnessLevelEnum;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   @Field((type) => Date)
@@ -51,7 +51,7 @@ export class Program extends BaseEntity {
     name: string,
     description: string,
     total_duration: number,
-    level: FitnessLevel,
+    level: FitnessLevelEnum,
     createdAt: Date,
     visibility: boolean,
     like?: number,

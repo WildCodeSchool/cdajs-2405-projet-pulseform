@@ -14,7 +14,7 @@ import {
   Min,
 } from "class-validator";
 import { Field, ID, Int, ObjectType } from "type-graphql";
-import { FitnessLevel, MuscleGroup } from "./Enums";
+import { FitnessLevelEnum, MuscleGroupEnum } from "./Enums";
 import { Program } from "./Program";
 
 @ObjectType()
@@ -49,15 +49,16 @@ export class Exercice extends BaseEntity {
   @Min(1, { message: "'kcal_loss' must be greater than 0." })
   kcal_loss: number;
 
-  @Column({ type: "enum", enum: MuscleGroup })
-  @Field((type) => MuscleGroup)
+  @Column({ type: "enum", enum: MuscleGroupEnum })
+  @Field((type) => MuscleGroupEnum)
   @IsNotEmpty({ message: "The 'muscle' field is required." })
-  muscle: MuscleGroup;
+  muscle: MuscleGroupEnum;
 
-  @Column({ type: "enum", enum: FitnessLevel })
-  @Field((type) => FitnessLevel)
+  @Column({ type: "enum", enum: FitnessLevelEnum })
+  @Field((type) => FitnessLevelEnum)
   @IsNotEmpty({ message: "The 'fitness' field is required." })
-  level: FitnessLevel;
+  level: FitnessLevelEnum;
+
 
   @Column({ nullable: true })
   @Field({ nullable: true })
@@ -74,10 +75,11 @@ export class Exercice extends BaseEntity {
     description: string | null,
     duration: number,
     kcal_loss: number,
-    muscle: MuscleGroup,
-    level: FitnessLevel,
+    muscle: MuscleGroupEnum,
+    level: FitnessLevelEnum,
     img_src: string
   ) {
+
     super();
     this.name = name;
     this.description = description || undefined;
