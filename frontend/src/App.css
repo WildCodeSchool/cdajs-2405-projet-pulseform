@@ -1,46 +1,46 @@
 @font-face {
-  font-family: 'Urbanist';
-  src: url('./assets/fonts/Urbanist.ttf');
+	font-family: "Urbanist";
+	src: url("./assets/fonts/Urbanist.ttf");
 }
 
 #root {
-  font-family: 'Urbanist', sans-serif;
-  margin: 0;
-  padding: 0;
+	font-family: "Urbanist", sans-serif;
+	margin: 0;
+	padding: 0;
 }
 
 p {
-  margin: 0;
+	margin: 0;
 }
 
 *::-webkit-scrollbar {
-  height: 8px;
-  width: 8px;
+	height: 8px;
+	width: 8px;
 }
 
 *::-webkit-scrollbar-track {
-  border-radius: 4px;
-  background-color: #132945;
-  border: 1px solid #A9A9A9;
+	border-radius: 4px;
+	background-color: #132945;
+	border: 1px solid #a9a9a9;
 }
 
 *::-webkit-scrollbar-track:hover {
-  background-color: #132945;
+	background-color: #132945;
 }
 
 *::-webkit-scrollbar-track:active {
-  background-color: #132945;
+	background-color: #132945;
 }
 
 *::-webkit-scrollbar-thumb {
-  border-radius: 8px;
-  background-color: #D4D4D4;
+	border-radius: 8px;
+	background-color: #d4d4d4;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background-color: #D4D4D4;
+	background-color: #d4d4d4;
 }
 
 *::-webkit-scrollbar-thumb:active {
-  background-color: #D4D4D4;
+	background-color: #d4d4d4;
 }

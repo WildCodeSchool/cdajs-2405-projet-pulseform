@@ -11,8 +11,6 @@
 		"prepare": "husky"
 	},
 	"lint-staged": {
-		"*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
-			"npx biome format --write"
-		]
+		"*.{js,ts,jsx,tsx,json}": ["npx biome format --write"]
 	}
 }

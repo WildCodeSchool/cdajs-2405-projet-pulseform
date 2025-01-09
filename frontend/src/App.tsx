@@ -2,7 +2,7 @@ import "./App.css";
 import Landing from "./pages/LandingPage";
 
 function App() {
-  return <Landing />;
+	return <Landing />;
 }
 
 export default App;
