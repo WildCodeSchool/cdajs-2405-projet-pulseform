@@ -1,10 +1,13 @@
 import classNames from "classnames";
 
 import "./LittleLogo.scss";
-import logoMobile from "@assets/icons/mobile-logo.svg";
+import logoMobile from "../../../assets/icons/mobile-logo.svg";
 import type { LittleLogoProps } from "./LittleLogo.type";
 
-function LittleLogo({ hasLabel = false, size = "desktop" }: LittleLogoProps) {
+const LittleLogo: React.FC<LittleLogoProps> = ({
+  hasLabel = false,
+  size = "desktop",
+}) => {
   const littleLogoClassName = classNames("little-logo", {
     "little-logo--mobile": size === "mobile",
     "little-logo--giant": size === "giant",
@@ -24,9 +27,9 @@ function LittleLogo({ hasLabel = false, size = "desktop" }: LittleLogoProps) {
         src={logoMobile}
         alt="Logo Pulse Form"
       />
-      {hasLabel && <p className={littleLogoTitleClassName}>{"Pulse Form"}</p>}
+      {hasLabel && <p className={littleLogoTitleClassName}>Pulse Form</p>}
     </div>
   );
-}
+};
 
 export default LittleLogo;

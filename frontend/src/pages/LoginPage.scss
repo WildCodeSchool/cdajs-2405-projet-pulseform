@@ -4,25 +4,211 @@
   background-color: $white;
 }
 
+.blob_login_page {
+  position: absolute;
+  width: 85%;
+  top: 0;
+  right: 0;
+  z-index: 0;
+  overflow: hidden;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
+.form_section {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+    background-color: $white;
+  }
+}
+
 .login-title {
-  @include title-bold;
+  @include h1-phone;
   color: $prymary;
+  position: relative;
+  z-index: 1;
+  margin: 200px 0px 100px;
+
+  @media (min-width: 768px) {
+    color: $white;
+    background-color: $prymary;
+    margin: 100px 0px 100px;
+  }
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px; 
+  z-index: 1;
+  @media (min-width: 768px) {
+    color: $white;
+    background-color: $prymary;
+  }
+}
+
+.input__login-page {
+  background-color: $white;
+  border: 2px solid grey; 
+  border-radius: 5px;
+  padding: 10px 15px;
+  width: 230px; 
+  font-size: 16px;
+  z-index: 1;
+}
+
+.input__login-page::placeholder {
+  color: grey;
 }
 
 .login-connect {
-  @include title-medium-bold;
-  color: $white;
   background-color: $secondary;
+  color: $white;  
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 40px 0px 80px;
+  width: 260px;
 }
 
 .loginSection {
   @include title-medium;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  @media (min-width: 768px) {
+    background-color: $prymary;
+  }
+}
+
+.align__loginPage {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+}
+
+.motivation-block,
+.create-account-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @media (min-width: 768px) {
+    background-color: $prymary;
+  }
+  
+}
+
+.motivationTitle,
+.created__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 75px; 
+  height: 40px; 
+  padding: 0;
+  margin: 0;
 }
 
 .motivationTitle {
+  @include h3-phone;
   color: $prymary;
+  @media (min-width: 768px) {
+    background-color: $prymary;
+    color: $white;
+  }
 }
 
+.created__button {
+  @include h3-phone;
+  background-color: $white;
+  color: $secondary;
+  border: none;
+  width: 140px;
+  @media (min-width: 768px) {
+    background-color: $prymary;
+  }
+}
 
+.primary-trait,
+.secondary-trait {
+  height: 5px;
+}
 
+.primary-trait {
+  width: 70px; 
+  background-color: $prymary;
+  border-radius: 5px 0 0 5px;
+  @media (min-width: 768px) {
+    background-color: $white;
+    width: 68px;
+  }
+}
+
+.secondary-trait {
+  width: 140px; 
+  background-color: $secondary;
+  border-radius: 0 5px 5px 0;
+  @media (min-width: 768px) {
+   width: 150px;
+  }
+}
+
+.image-side {
+  display: none;
+
+  @media (min-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    background-color: $white;
+    flex: 1;
+  }
+}
+
+.bloc__desktop {
+
+  background-color: $white;
+  @media (min-width: 768px) {
+    background-color: $prymary;
+    padding: 60px 250px 100px;
+    margin-right: 20%;
+    border-radius: 10px;
+    box-shadow: 50px 50px 50px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.test-program-container {
+  display: none;
+
+  @media (min-width: 768px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    top: 7%; 
+    background-color: transparent;
+    z-index: 2; 
+  }
+}
+
+.test-program-button {
+  @include h1-phone;
+  padding: 10px 20px; 
+  font-size: 18px; 
+  color: $prymary;
+  background-color: transparent; 
+  border: 2px solid black; 
+  border-radius: 10px; 
+  cursor: pointer; 
+}

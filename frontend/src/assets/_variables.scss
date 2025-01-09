@@ -40,6 +40,48 @@
     margin: 0;
 }
 
+
+@mixin landing-page-title-desktop{
+  font-size: 80px;
+  font-weight: 600;
+  margin: 0;
+}
+
+@mixin landing-page-title-phone{
+  font-size: 40px;
+  font-weight: 600;
+  margin: 0;
+}
+
+@mixin logo-big-label{
+  font-size: 34px;
+  font-weight: bold;
+  margin: 0;
+}
+
+@mixin h1-phone{
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+@mixin h2-phone{
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+}
+
+@mixin h3-phone{
+  font-size: 14px;
+  margin: 0;
+}
+
+@mixin logo-litle-label{
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0;
+}
+
 //Color
 $primary: #132945;
 $secondary: #E23823;
