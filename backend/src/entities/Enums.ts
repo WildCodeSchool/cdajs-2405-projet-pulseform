@@ -1,15 +1,17 @@
-export enum MemberRole {
+import { registerEnumType } from "type-graphql";
+
+export enum MemberRoleEnum {
 	USER = "user",
 	ADMIN = "admin",
 }
 
-export enum FitnessLevel {
+export enum FitnessLevelEnum {
 	BEGINNER = "beginner",
 	INTERMEDIATE = "intermediate",
 	ADVANCED = "advanced",
 }
 
-export enum MuscleGroup {
+export enum MuscleGroupEnum {
 	SHOULDERS = "Shoulders",
 	BACK = "Back",
 	CHEST = "Chest",
@@ -26,7 +28,7 @@ export enum MuscleGroup {
 	CARDIO = "Cardio",
 }
 
-export enum Tags {
+export enum TagsEnum {
 	WEIGHT_LOSS = "Weight Loss",
 	MUSCLE_GAIN = "Muscle Gain",
 	ENDURANCE_IMPROVEMENT = "Endurance Improvement",
@@ -40,3 +42,24 @@ export enum Tags {
 	ATHLETIC_PERFORMANCE = "Athletic Performance",
 	TONING_AND_DEFINITION = "Toning and Definition",
 }
+
+// Enregistrement des énumérations
+registerEnumType(MemberRoleEnum, {
+	name: "MemberRole",
+	description: "Roles of a member in the system", // Optionnel
+});
+
+registerEnumType(FitnessLevelEnum, {
+	name: "FitnessLevel",
+	description: "Levels of fitness suitable for exercises",
+});
+
+registerEnumType(MuscleGroupEnum, {
+	name: "MuscleGroup",
+	description: "Muscle groups targeted by exercises",
+});
+
+registerEnumType(TagsEnum, {
+	name: "Tags",
+	description: "Tags describing the purpose or benefits of exercises",
+});

@@ -1,14 +1,14 @@
-import { Exercice } from "../../entities/Exercice";
-import { FitnessLevel, MuscleGroup } from "../../entities/Enums";
-import { describe, it, expect } from "@jest/globals";
+import { describe, expect, it } from "@jest/globals";
 import { validate } from "class-validator";
+import { FitnessLevelEnum, MuscleGroupEnum } from "../../entities/Enums";
+import { Exercice } from "../../entities/Exercice";
 
 const EXERCICE_NAME = "Superman";
 const EXERCICE_DESCRIPTION = "une description lambda";
 const EXERCICE_DURATION = 30;
 const EXERCICE_KCAL_LOSS = 90;
-const EXERCICE_MUSCLE = MuscleGroup.BACK;
-const EXERCICE_LEVEL = FitnessLevel.BEGINNER;
+const EXERCICE_MUSCLE = MuscleGroupEnum.BACK;
+const EXERCICE_LEVEL = FitnessLevelEnum.BEGINNER;
 const EXERCICE_IMG_SRC = "http://example.com/superman.jpg";
 
 const validExercice = new Exercice(
@@ -24,8 +24,8 @@ const validExercice = new Exercice(
 const INVALID_NAME = "";
 const INVALID_DURATION = -5;
 const INVALID_KCAL_LOSS = 0;
-const INVALID_LEVEL = "INVALID_LEVEL" as unknown as FitnessLevel;
-const INVALID_MUSCLE = "INVALID_MUSCLE" as unknown as MuscleGroup;
+const INVALID_LEVEL = "INVALID_LEVEL" as unknown as FitnessLevelEnum;
+const INVALID_MUSCLE = "INVALID_MUSCLE" as unknown as MuscleGroupEnum;
 const INVALID_URL = "invalid-url";
 
 const invalidExercice = new Exercice(

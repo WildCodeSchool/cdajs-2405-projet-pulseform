@@ -1,3 +1,4 @@
+import { Field, ID, Int, ObjectType } from "type-graphql";
 import {
 	BaseEntity,
 	Column,
@@ -7,12 +8,10 @@ import {
 	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm";
-import { Field, ID, Int, ObjectType } from "type-graphql";
-import { MemberRole, FitnessLevel } from "./Enums";
-import { Tag } from "./Tag";
-import { Program } from "./Program";
+import { FitnessLevelEnum, MemberRoleEnum } from "./Enums";
 import { Group } from "./Group";
 import { GroupList } from "./GroupList";
+import { Tag } from "./Tag";
 
 @ObjectType()
 @Entity()
@@ -63,19 +62,19 @@ export class User extends BaseEntity {
 
 	@Column({
 		type: "enum",
-		enum: MemberRole,
-		default: MemberRole.USER,
+		enum: MemberRoleEnum,
+		default: MemberRoleEnum.USER,
 	})
-	@Field((type) => MemberRole)
-	role: MemberRole;
+	@Field((type) => MemberRoleEnum)
+	role: MemberRoleEnum;
 
 	@Column({
 		type: "enum",
-		enum: FitnessLevel,
+		enum: FitnessLevelEnum,
 		nullable: true,
 	})
-	@Field((type) => FitnessLevel, { nullable: true })
-	level: FitnessLevel;
+	@Field((type) => FitnessLevelEnum, { nullable: true })
+	level: FitnessLevelEnum;
 
 	@ManyToMany(() => Tag, { cascade: true })
 	@JoinTable()
@@ -96,18 +95,18 @@ export class User extends BaseEntity {
 	groupLists: GroupList[] | undefined;
 
 	constructor(
-		username = "",
+		username: string,
 		description: string,
 		email: string,
-		password = "",
+		password: string,
 		image: string,
 		birthday: Date,
 		gender: string,
 		weight: number,
 		height: number,
 		createdAt: Date,
-		role: MemberRole = MemberRole.USER,
-		level: FitnessLevel,
+		level: FitnessLevelEnum,
+		role: MemberRoleEnum = MemberRoleEnum.USER,
 	) {
 		super();
 		this.username = username;

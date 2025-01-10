@@ -21,17 +21,19 @@
 		"rules": {
 			"recommended": true,
 			"correctness": {
-				"noUnusedImports": "error",
-				"noUnusedVariables": "error"
+				"noUnusedImports": "error"
 			},
 			"suspicious": {
-				"noConsole": "error"
+				"noConsoleLog": "error"
 			}
 		}
 	},
 	"javascript": {
 		"formatter": {
 			"quoteStyle": "double"
+		},
+		"parser": {
+			"unsafeParameterDecoratorsEnabled": true
 		}
 	}
 }

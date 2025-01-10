@@ -1,5 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { Field, ID, Int, ObjectType } from "type-graphql";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @ObjectType()
 @Entity()
@@ -40,5 +40,6 @@ export class History extends BaseEntity {
 		this.program_id = program_id;
 		this.total_kcal_loss = total_kcal_loss;
 		this.start_date = start_date;
+		this.end_date = end_date;
 	}
 }

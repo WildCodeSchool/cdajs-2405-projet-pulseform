@@ -1,3 +1,4 @@
+import { Field, ID, ObjectType } from "type-graphql";
 import {
 	BaseEntity,
 	Column,
@@ -5,10 +6,9 @@ import {
 	ManyToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm";
-import { Field, ID, ObjectType } from "type-graphql";
-import { User } from "./User";
-import { Tags } from "./Enums";
+import { TagsEnum } from "./Enums";
 import { Program } from "./Program";
+import { User } from "./User";
 
 @ObjectType()
 @Entity()
@@ -19,10 +19,10 @@ export class Tag extends BaseEntity {
 
 	@Column({
 		type: "enum",
-		enum: Tags,
+		enum: TagsEnum,
 	})
-	@Field((type) => Tags)
-	name: Tags;
+	@Field((type) => TagsEnum)
+	name: TagsEnum;
 
 	@Column()
 	@Field()
@@ -32,6 +32,7 @@ export class Tag extends BaseEntity {
 		() => User,
 		(user) => user.tags,
 	)
+
 	@Field((type) => [User], { nullable: true })
 	users?: User[];
 
@@ -43,7 +44,7 @@ export class Tag extends BaseEntity {
 	@Field((type) => [Program], { nullable: true })
 	programs?: Program[];
 
-	constructor(name: Tags, program_id: number, programs: Program[]) {
+	constructor(name: TagsEnum, program_id: number, programs: Program[]) {
 		super();
 		this.name = name;
 		this.program_id = program_id;

@@ -13,7 +13,7 @@
 	"lint-staged": {
 		"*.{js,ts,jsx,tsx,json}": [
 			"npx biome format --write",
-			"npx @biomejs/biome check"
+			"npx @biomejs/biome check --fix"
 		]
 	}
 }
