@@ -31,7 +31,8 @@
 				"noFallthroughSwitchClause": "error",
 				"noImplicitAnyLet": "error"
 			}
-		}
+		},
+		"ignore": ["backend/coverage/", "frontend/coverage/"]
 	},
 	"javascript": {
 		"formatter": {
