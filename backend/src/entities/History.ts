@@ -5,19 +5,19 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 @Entity()
 export class History extends BaseEntity {
 	@PrimaryGeneratedColumn()
-	@Field((type) => ID)
+	@Field(() => ID)
 	id?: number;
 
 	@Column()
-	@Field((type) => Int)
+	@Field(() => Int)
 	user_id: number;
 
 	@Column()
-	@Field((type) => Int)
+	@Field(() => Int)
 	program_id: number;
 
 	@Column({ nullable: true })
-	@Field((type) => Int, { nullable: true })
+	@Field(() => Int, { nullable: true })
 	total_kcal_loss?: number;
 
 	@Column({ nullable: true })

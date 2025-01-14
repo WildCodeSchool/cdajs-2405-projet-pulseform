@@ -17,7 +17,7 @@ import { Tag } from "./Tag";
 @Entity()
 export class User extends BaseEntity {
 	@PrimaryGeneratedColumn()
-	@Field((type) => ID)
+	@Field(() => ID)
 	id?: number;
 
 	@Column({ length: 20 })
@@ -41,7 +41,7 @@ export class User extends BaseEntity {
 	image: string;
 
 	@Column({ nullable: true })
-	@Field((type) => Date, { nullable: true })
+	@Field(() => Date, { nullable: true })
 	birthday: Date;
 
 	@Column({ nullable: true })
@@ -49,15 +49,15 @@ export class User extends BaseEntity {
 	gender?: string;
 
 	@Column({ nullable: true })
-	@Field((type) => Int, { nullable: true })
+	@Field(() => Int, { nullable: true })
 	weight: number;
 
 	@Column({ nullable: true })
-	@Field((type) => Int, { nullable: true })
+	@Field(() => Int, { nullable: true })
 	height: number;
 
 	@Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
-	@Field((type) => Date)
+	@Field(() => Date)
 	createdAt: Date;
 
 	@Column({
@@ -65,7 +65,7 @@ export class User extends BaseEntity {
 		enum: MemberRoleEnum,
 		default: MemberRoleEnum.USER,
 	})
-	@Field((type) => MemberRoleEnum)
+	@Field(() => MemberRoleEnum)
 	role: MemberRoleEnum;
 
 	@Column({
@@ -73,19 +73,19 @@ export class User extends BaseEntity {
 		enum: FitnessLevelEnum,
 		nullable: true,
 	})
-	@Field((type) => FitnessLevelEnum, { nullable: true })
+	@Field(() => FitnessLevelEnum, { nullable: true })
 	level: FitnessLevelEnum;
 
 	@ManyToMany(() => Tag, { cascade: true })
 	@JoinTable()
-	@Field((type) => [Tag], { nullable: true })
+	@Field(() => [Tag], { nullable: true })
 	tags?: Tag[];
 
 	@OneToMany(
 		() => Group,
 		(group) => group.creator,
 	)
-	@Field((type) => [Group], { nullable: true })
+	@Field(() => [Group], { nullable: true })
 	groups?: Group[];
 
 	@OneToMany(

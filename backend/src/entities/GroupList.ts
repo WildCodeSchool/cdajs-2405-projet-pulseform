@@ -1,3 +1,4 @@
+import { Field, ID, Int, ObjectType } from "type-graphql";
 import {
 	BaseEntity,
 	Column,
@@ -6,23 +7,22 @@ import {
 	ManyToOne,
 	PrimaryGeneratedColumn,
 } from "typeorm";
-import { Field, ID, Int, ObjectType } from "type-graphql";
-import { User } from "./User";
 import { Group } from "./Group";
+import { User } from "./User";
 
 @ObjectType()
 @Entity()
 export class GroupList extends BaseEntity {
 	@PrimaryGeneratedColumn()
-	@Field((type) => ID)
+	@Field(() => ID)
 	id?: number;
 
 	@Column()
-	@Field((type) => Int)
+	@Field(() => Int)
 	user_id: number;
 
 	@Column()
-	@Field((type) => Int)
+	@Field(() => Int)
 	group_Id: number;
 
 	@Column({ default: false })
@@ -30,7 +30,7 @@ export class GroupList extends BaseEntity {
 	user_accept: boolean;
 
 	@Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
-	@Field((type) => Date)
+	@Field(() => Date)
 	createdAt: Date;
 
 	@ManyToOne(
@@ -38,7 +38,7 @@ export class GroupList extends BaseEntity {
 		(user) => user.groupLists,
 	)
 	@JoinColumn({ name: "user_id" }) // 'user_id' is the foreign key in 'GroupList' referencing 'User.id'
-	@Field((type) => User)
+	@Field(() => User)
 	user!: User;
 
 	@ManyToOne(
@@ -46,19 +46,19 @@ export class GroupList extends BaseEntity {
 		(group) => group.groupLists,
 	)
 	@JoinColumn({ name: "group_id" }) // 'group_id' is the foreign key in 'GroupList' referencing 'Group.id'
-	@Field((type) => Group)
+	@Field(() => Group)
 	group!: Group;
 
 	constructor(
 		user_id: number,
 		group_Id: number,
-		user_accept = false,
 		createdAt: Date,
+		user_accept = false,
 	) {
 		super();
 		this.user_id = user_id;
 		this.group_Id = group_Id;
-		this.user_accept = user_accept;
 		this.createdAt = createdAt;
+		this.user_accept = user_accept;
 	}
 }

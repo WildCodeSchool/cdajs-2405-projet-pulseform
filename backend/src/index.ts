@@ -1,4 +1,6 @@
 import "reflect-metadata";
+import { ApolloServer } from "@apollo/server";
+import { startStandaloneServer } from "@apollo/server/standalone";
 import { buildSchema } from "type-graphql";
 import AppDataSource from "./AppDataSource";
 import { resolvers } from "./resolvers";
@@ -10,16 +12,16 @@ const startServer = async () => {
 		resolvers,
 	});
 
-	// const server = new ApolloServer({
-	//   schema,
-	//   introspection: true,
-	// });
+	const server = new ApolloServer({
+		schema,
+		introspection: true,
+	});
 
-	// const { url } = await startStandaloneServer(server, {
-	//   listen: { port: 4000 },
-	// });
+	const { url } = await startStandaloneServer(server, {
+		listen: { port: 4000 },
+	});
 
-	// console.log(`🚀  Server ready at: ${url}`);
+	console.log(`🚀  Server ready at: ${url}`);
 };
 
 startServer().catch((error) => {

@@ -12,19 +12,19 @@ import { User } from "./User";
 @Entity()
 export class SharedProgramList extends BaseEntity {
 	@PrimaryGeneratedColumn()
-	@Field((type) => ID)
+	@Field(() => ID)
 	id?: number;
 
 	@Column()
-	@Field((type) => Int)
+	@Field(() => Int)
 	user_id: number;
 
 	@Column()
-	@Field((type) => Int)
+	@Field(() => Int)
 	program_id: number;
 
 	@Column({ nullable: true })
-	@Field((type) => Int, { nullable: true })
+	@Field(() => Int, { nullable: true })
 	group_list_id?: number;
 
 	@ManyToOne(() => User, { nullable: true })

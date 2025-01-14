@@ -32,8 +32,8 @@ export class UsersMutations {
 			data.weight,
 			data.height,
 			data.createdAt,
-			data.role,
 			data.level,
+			data.role,
 		);
 		return await user.save();
 	}

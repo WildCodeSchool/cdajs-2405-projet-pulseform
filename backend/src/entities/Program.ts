@@ -14,7 +14,7 @@ import { Tag } from "./Tag";
 @Entity()
 export class Program extends BaseEntity {
 	@PrimaryGeneratedColumn()
-	@Field((type) => ID)
+	@Field(() => ID)
 	id?: number;
 
 	@Column({ length: 50 })
@@ -26,38 +26,40 @@ export class Program extends BaseEntity {
 	description?: string;
 
 	@Column({ nullable: true })
-	@Field((type) => Int, { nullable: true })
+	@Field(() => Int, { nullable: true })
 	total_duration?: number;
 
 	@Column({ type: "enum", enum: FitnessLevelEnum })
-	@Field((type) => FitnessLevelEnum)
+	@Field(() => FitnessLevelEnum)
 	level: FitnessLevelEnum;
 
 	@Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
-	@Field((type) => Date)
+	@Field(() => Date)
 	createdAt: Date;
 
-	@Column({ default: 0 })
-	@Field((type) => Boolean)
+	@Column({ default: false })
+	@Field(() => Boolean)
 	visibility: boolean;
 
 	@Column({ nullable: true })
-	@Field((type) => Int, { nullable: true })
+	@Field(() => Int, { nullable: true })
 	like?: number;
 
 	@ManyToMany(
 		() => Exercice,
 		(exercice) => exercice.programs,
-		{ cascade: true },
+		{
+			cascade: true,
+		},
 	)
-	@Field((type) => [Exercice], { nullable: true })
+	@Field(() => [Exercice], { nullable: true })
 	exercices?: Exercice[];
 
 	@ManyToMany(
 		() => Tag,
 		(tag) => tag.programs,
 	)
-	@Field((type) => [Tag], { nullable: true })
+	@Field(() => [Tag], { nullable: true })
 	tags?: Tag[];
 
 	constructor(

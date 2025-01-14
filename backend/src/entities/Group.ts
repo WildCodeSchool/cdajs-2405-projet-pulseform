@@ -1,3 +1,4 @@
+import { Field, ID, Int, ObjectType } from "type-graphql";
 import {
 	BaseEntity,
 	Column,
@@ -6,34 +7,33 @@ import {
 	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm";
-import { Field, ID, Int, ObjectType } from "type-graphql";
-import { User } from "./User";
 import { GroupList } from "./GroupList";
+import { User } from "./User";
 
 @ObjectType()
 @Entity()
 export class Group extends BaseEntity {
 	@PrimaryGeneratedColumn()
-	@Field((type) => ID)
+	@Field(() => ID)
 	id?: number;
 
 	@Column({ length: 50 })
-	@Field((type) => String)
+	@Field(() => String)
 	name: string;
 
 	@Column()
-	@Field((type) => Int)
+	@Field(() => Int)
 	create_by: number;
 
 	@Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
-	@Field((type) => Date)
+	@Field(() => Date)
 	createdAt: Date;
 
 	@ManyToOne(
 		() => User,
 		(user) => user.groups,
 	)
-	@Field((type) => User)
+	@Field(() => User)
 	creator: User;
 
 	@OneToMany(

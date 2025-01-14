@@ -21,7 +21,7 @@ import { Program } from "./Program";
 @Entity()
 export class Exercice extends BaseEntity {
 	@PrimaryGeneratedColumn()
-	@Field((type) => ID)
+	@Field(() => ID)
 	id?: number;
 
 	@Column({ length: 50 })
@@ -36,26 +36,26 @@ export class Exercice extends BaseEntity {
 	description?: string;
 
 	@Column()
-	@Field((type) => Int)
+	@Field(() => Int)
 	@IsNotEmpty({ message: "The 'duration' field is required." })
 	@IsInt({ message: "'duration' must be an integer." })
 	@Min(1, { message: "'duration' must be greater than 0." })
 	duration: number;
 
 	@Column()
-	@Field((type) => Int)
+	@Field(() => Int)
 	@IsNotEmpty({ message: "The 'kcal_loss' field is required." })
 	@IsInt({ message: "'kcal_loss' must be an integer." })
 	@Min(1, { message: "'kcal_loss' must be greater than 0." })
 	kcal_loss: number;
 
 	@Column({ type: "enum", enum: MuscleGroupEnum })
-	@Field((type) => MuscleGroupEnum)
+	@Field(() => MuscleGroupEnum)
 	@IsNotEmpty({ message: "The 'muscle' field is required." })
 	muscle: MuscleGroupEnum;
 
 	@Column({ type: "enum", enum: FitnessLevelEnum })
-	@Field((type) => FitnessLevelEnum)
+	@Field(() => FitnessLevelEnum)
 	@IsNotEmpty({ message: "The 'fitness' field is required." })
 	level: FitnessLevelEnum;
 
@@ -69,7 +69,7 @@ export class Exercice extends BaseEntity {
 		() => Program,
 		(program) => program.exercices,
 	)
-	@Field((type) => [Program], { nullable: true })
+	@Field(() => [Program], { nullable: true })
 	programs?: Program[];
 
 	constructor(

@@ -14,14 +14,14 @@ import { User } from "./User";
 @Entity()
 export class Tag extends BaseEntity {
 	@PrimaryGeneratedColumn()
-	@Field((type) => ID)
+	@Field(() => ID)
 	id?: number;
 
 	@Column({
 		type: "enum",
 		enum: TagsEnum,
 	})
-	@Field((type) => TagsEnum)
+	@Field(() => TagsEnum)
 	name: TagsEnum;
 
 	@Column()
@@ -33,7 +33,7 @@ export class Tag extends BaseEntity {
 		(user) => user.tags,
 	)
 
-	@Field((type) => [User], { nullable: true })
+	@Field(() => [User], { nullable: true })
 	users?: User[];
 
 	@ManyToMany(
@@ -41,7 +41,7 @@ export class Tag extends BaseEntity {
 		(program) => program.tags,
 		{ cascade: true },
 	)
-	@Field((type) => [Program], { nullable: true })
+	@Field(() => [Program], { nullable: true })
 	programs?: Program[];
 
 	constructor(name: TagsEnum, program_id: number, programs: Program[]) {

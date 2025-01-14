@@ -34,11 +34,11 @@ export class CreateUserInput {
 	@Field()
 	createdAt!: Date;
 
-	@Field(() => MemberRoleEnum)
-	role!: MemberRoleEnum;
-
 	@Field(() => FitnessLevelEnum)
 	level!: FitnessLevelEnum;
+
+	@Field(() => MemberRoleEnum)
+	role!: MemberRoleEnum;
 }
 
 // Update a user
@@ -77,9 +77,9 @@ export class UpdateUserInput {
 	@Field()
 	createdAt!: Date;
 
-	@Field(() => MemberRoleEnum)
-	role!: MemberRoleEnum;
-
 	@Field(() => FitnessLevelEnum)
 	level!: FitnessLevelEnum;
+
+	@Field(() => MemberRoleEnum)
+	role!: MemberRoleEnum;
 }
