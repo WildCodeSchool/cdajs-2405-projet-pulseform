@@ -1,24 +1,24 @@
-import { InputType, Field } from "type-graphql";
+import { Field, InputType } from "type-graphql";
 
 // Create group
 @InputType()
 export class CreateGroupInput {
-    @Field()
-    name!: string;
+	@Field()
+	name!: string;
 
-    @Field()
-    create_by!: number;
+	@Field()
+	create_by!: number;
 
-    @Field()
-    createdAt!: Date;
+	@Field()
+	createdAt!: Date;
 }
 
 // update group
 @InputType()
 export class UpdateGroupInput {
-    @Field()
-    id!: number;
+	@Field()
+	id!: number;
 
-    @Field()
-    name!: string;
+	@Field()
+	name!: string;
 }

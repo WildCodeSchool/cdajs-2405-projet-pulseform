@@ -7,11 +7,11 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": ["node_modules", "data-pulseform"]
+		"ignore": []
 	},
 	"formatter": {
 		"enabled": true,
-		"indentStyle": "space"
+		"indentStyle": "tab"
 	},
 	"organizeImports": {
 		"enabled": true
@@ -19,8 +19,20 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
-		}
+			"recommended": true,
+			"correctness": {
+				"noUnusedImports": "error",
+				"noUnusedVariables": "error",
+				"noUnreachable": "error",
+				"noUnsafeOptionalChaining": "error"
+			},
+			"suspicious": {
+				"noDuplicateCase": "error",
+				"noFallthroughSwitchClause": "error",
+				"noImplicitAnyLet": "error"
+			}
+		},
+		"ignore": ["backend/coverage/", "frontend/coverage/"]
 	},
 	"javascript": {
 		"formatter": {
