@@ -26,7 +26,7 @@ services:
       WATCHPACK_POLLING: true
 
   e2e:
-    image: mcr.microsoft.com/playwright:v1.49.1-noble
+    image: mcr.microsoft.com/playwright:v1.50.1-noble
     working_dir: /tests
     volumes:
       - ./e2e:/tests
