@@ -1,11 +1,12 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import "./ImputField.scss";
 
 interface InputFieldProps {
   name: string;
   type: string;
-  placeholderKey: string; 
-  register: any; 
+  placeholderKey: string;
+  register: any;
   required?: boolean;
   ariaLabel: string;
 }
@@ -24,7 +25,8 @@ const InputField: React.FC<InputFieldProps> = ({
     <input
       className="input__login-page"
       {...register(name, { required })}
-      aria-label={ariaLabel}
+      aria-label={t(ariaLabel)}
+      aria-required={required}
       type={type}
       placeholder={t(placeholderKey)}
     />

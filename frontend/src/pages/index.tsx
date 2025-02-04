@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
-import InputField from "../components/ImputField/ImputField";
-import LittleLogo from "../components/atoms/LittleLogo";
+import InputField from "../components/atoms/ImputField/ImputField";
+import LittleLogo from "../components/atoms/LittleLogo/index";
 import LoginImage from "../components/atoms/LoginImage";
 
 import "./LoginPage.scss";
@@ -13,6 +14,7 @@ interface LoginFormValues {
 }
 
 function LoginPage() {
+  const { t } = useTranslation();
   const { register, handleSubmit } = useForm<LoginFormValues>();
 
   const onSubmit = (data: LoginFormValues) => {
@@ -23,13 +25,16 @@ function LoginPage() {
     <>
       <LittleLogo size="desktop" hasLabel={true} />
 
-      <img className="blob_login_page" src={blopLoginPage} alt="blob" />
+      <img
+        className="blob_login_page"
+        src={blopLoginPage}
+        alt={t("BLOB_ALT_TEXT")}
+      />
 
       <section className="form_section">
-        {/* Nouveau conteneur englobant */}
         <div className="test-program-container">
           <button type="button" className="test-program-button">
-            Tester un programme
+            {t("TEST_PROGRAM")}
           </button>
         </div>
 
@@ -38,40 +43,40 @@ function LoginPage() {
         </div>
 
         <div className="bloc__desktop">
-          <h1 className="login-title">Prêt·e pour ta séance ?</h1>
+          <h1 className="login-title">{t("READY")}</h1>
           <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
             <InputField
               name="email"
               type="email"
-              placeholderKey="adresse mail"
+              placeholderKey="EMAIL_PLACEHOLDER"
               register={register}
               required
-              ariaLabel="Veuillez entrer votre mail"
+              ariaLabel="EMAIL_ARIA_LABEL"
             />
             <InputField
               name="password"
               type="password"
-              placeholderKey="mot de passe"
+              placeholderKey="PASSWORD_PLACEHOLDER"
               register={register}
               required
-              ariaLabel="Veuillez entrer votre mot de passe"
+              ariaLabel="PASSWORD_ARIA_LABEL"
             />
             <button className="login-connect" type="submit">
-              Me connecter
+              {t("CONNECT")}
             </button>
           </form>
 
           <section className="loginSection">
             <div className="align__loginPage">
               <div className="motivation-block">
-                <p className="motivationTitle">Motivé·e ?</p>
-                <div className="primary-trait"></div>
+                <p className="motivationTitle">{t("MOTIVATED")}</p>
+                <div className="primary-trait" />
               </div>
               <div className="create-account-block">
                 <button className="created__button" type="button">
-                  Créer un compte
+                  {t("CREATE_ACCOUNT")}
                 </button>
-                <div className="secondary-trait"></div>
+                <div className="secondary-trait" />
               </div>
             </div>
           </section>
