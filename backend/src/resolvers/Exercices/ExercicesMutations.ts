@@ -1,7 +1,7 @@
 import { Arg, Mutation, Resolver } from "type-graphql";
 import AppDataSource from "../../AppDataSource";
 import { Exercice } from "../../entities/Exercice";
-import type {
+import {
 	CreateExerciceInput,
 	UpdateExerciceInput,
 } from "../../inputs/ExercicesInput";
@@ -11,7 +11,7 @@ export class ExercicesMutations {
 	// Mutation pour créer un nouvel exercice
 	@Mutation(() => Exercice)
 	async createExercice(
-		@Arg("data") data: CreateExerciceInput,
+		@Arg("data", () => CreateExerciceInput) data: CreateExerciceInput,
 	): Promise<Exercice> {
 		const { name, muscle, level, duration, kcal_loss, img_src, description } =
 			data;
@@ -32,7 +32,7 @@ export class ExercicesMutations {
 	// Mutation pour mettre à jour un exercice existant
 	@Mutation(() => Exercice)
 	async updateExercice(
-		@Arg("data") data: UpdateExerciceInput,
+		@Arg("data", () => UpdateExerciceInput) data: UpdateExerciceInput,
 	): Promise<Exercice | null> {
 		const { id, name, muscle, level, description } = data;
 		const exercice = await AppDataSource.manager.findOne(Exercice, {

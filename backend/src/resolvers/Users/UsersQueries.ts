@@ -7,7 +7,7 @@ import { User } from "../../entities/User";
 @Resolver(User)
 export class UsersQueries {
 	// Login
-	@Query((type) => String)
+	@Query(() => String)
 	async login(
 		@Arg("email") email: string,
 		@Arg("password") password: string,
@@ -36,14 +36,14 @@ export class UsersQueries {
 	}
 
 	// Récupérer tous les utilisateurs
-	@Query((type) => [User])
+	@Query(() => [User])
 	async getAllUsers(): Promise<User[]> {
 		const users: User[] = await AppDataSource.manager.find(User);
 		return users;
 	}
 
 	// Récupérer les informations d'un utilisateur
-	@Query((type) => User, { nullable: true })
+	@Query(() => User, { nullable: true })
 	async getUserById(@Arg("id") id: number): Promise<User | null> {
 		return await AppDataSource.manager.findOne(User, {
 			where: { id },

@@ -7,7 +7,7 @@ import { ProgramFilterInput } from "../../inputs/ProgramsInput";
 @Resolver(Program)
 export class ProgramsQueries {
 	// Récupérer l'ensemble des programmes
-	@Query((type) => [Program])
+	@Query(() => [Program])
 	async getAllPrograms(
 		@Arg("filters", () => ProgramFilterInput, { nullable: true })
 		filters?: ProgramFilterInput,
@@ -39,7 +39,7 @@ export class ProgramsQueries {
 	}
 
 	// Récupérer un programme par id, avec ses exercices
-	@Query((type) => Program, { nullable: true })
+	@Query(() => Program, { nullable: true })
 	async getProgramById(@Arg("id") id: number): Promise<Program | null> {
 		return await AppDataSource.manager.findOne(Program, {
 			where: { id },

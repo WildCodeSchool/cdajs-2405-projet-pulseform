@@ -3,16 +3,16 @@ import AppDataSource from "../../AppDataSource";
 import { Group } from "../../entities/Group";
 import { GroupList } from "../../entities/GroupList";
 import { User } from "../../entities/User";
-import type { GroupListsInput } from "../../inputs/GroupListsInput";
+import { GroupListsInput } from "../../inputs/GroupListsInput";
 
 @Resolver(GroupList)
 export class GroupListsMutations {
 	// Ajouter un utilisateur à un groupe
 	@Mutation(() => GroupList)
 	async addUserToGroup(
-		@Arg("input") input: GroupListsInput,
+		@Arg("data", () => GroupListsInput) data: GroupListsInput,
 	): Promise<GroupList> {
-		const { user_id, group_id } = input;
+		const { user_id, group_id } = data;
 
 		// Vérifier si l'utilisateur existe
 		const user = await AppDataSource.manager.findOne(User, {
@@ -46,8 +46,8 @@ export class GroupListsMutations {
 		const newGroupMembership = new GroupList(
 			user_id,
 			group_id,
-			false,
 			new Date(),
+			false,
 		);
 		return await newGroupMembership.save();
 	}

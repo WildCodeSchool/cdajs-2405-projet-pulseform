@@ -2,13 +2,15 @@ import * as argon2 from "argon2";
 import { Arg, Mutation, Resolver } from "type-graphql";
 import AppDataSource from "../../AppDataSource";
 import { User } from "../../entities/User";
-import type { CreateUserInput, UpdateUserInput } from "../../inputs/UsersInput";
+import { CreateUserInput, UpdateUserInput } from "../../inputs/UsersInput";
 
 @Resolver(User)
 export class UsersMutations {
 	// Mutation pour créer un nouvel utilisateur
 	@Mutation(() => User)
-	async createUser(@Arg("data") data: CreateUserInput): Promise<User> {
+	async createUser(
+		@Arg("data", () => CreateUserInput) data: CreateUserInput,
+	): Promise<User> {
 		// Vérifier si un utilisateur avec cet email existe déjà
 		const existingUser = await AppDataSource.manager.findOne(User, {
 			where: { email: data.email },
@@ -40,7 +42,9 @@ export class UsersMutations {
 
 	// Mutation pour mettre à jour un utilisateur
 	@Mutation(() => User)
-	async updateUser(@Arg("data") data: UpdateUserInput): Promise<User> {
+	async updateUser(
+		@Arg("data", () => UpdateUserInput) data: UpdateUserInput,
+	): Promise<User> {
 		const existingUser = await AppDataSource.manager.findOne(User, {
 			where: { id: data.id },
 		});

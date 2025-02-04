@@ -2,7 +2,7 @@ import { Arg, Query, Resolver } from "type-graphql";
 import AppDataSource from "../../AppDataSource";
 import { Group } from "../../entities/Group";
 import { GroupList } from "../../entities/GroupList";
-import type {
+import {
 	GetGroupMembersInput,
 	GetUserGroupsInput,
 } from "../../inputs/GroupListsInput";
@@ -11,7 +11,9 @@ import type {
 export class GroupListsQueries {
 	// Récupérer tous les groupes d'un utilisateur
 	@Query(() => [Group])
-	async getUserGroups(@Arg("data") data: GetUserGroupsInput): Promise<Group[]> {
+	async getUserGroups(
+		@Arg("data", () => GetUserGroupsInput) data: GetUserGroupsInput,
+	): Promise<Group[]> {
 		const { user_id } = data;
 		const groupLists = await AppDataSource.manager.find(GroupList, {
 			where: { user_id },
@@ -28,7 +30,7 @@ export class GroupListsQueries {
 	// Récupérer les membres d'un groupe
 	@Query(() => [GroupList])
 	async getGroupMembers(
-		@Arg("data") data: GetGroupMembersInput,
+		@Arg("data", () => GetGroupMembersInput) data: GetGroupMembersInput,
 	): Promise<GroupList[]> {
 		const { group_id } = data;
 

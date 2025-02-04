@@ -2,16 +2,15 @@ import { Arg, Mutation, Resolver } from "type-graphql";
 import AppDataSource from "../../AppDataSource";
 import { Group } from "../../entities/Group";
 import { User } from "../../entities/User";
-import type {
-	CreateGroupInput,
-	UpdateGroupInput,
-} from "../../inputs/GroupsInput";
+import { CreateGroupInput, UpdateGroupInput } from "../../inputs/GroupsInput";
 
 @Resolver(Group)
 export class GroupsMutations {
 	// Créer un groupe
 	@Mutation(() => Group)
-	async createGroup(@Arg("data") data: CreateGroupInput): Promise<Group> {
+	async createGroup(
+		@Arg("data", () => CreateGroupInput) data: CreateGroupInput,
+	): Promise<Group> {
 		const { name, create_by, createdAt } = data;
 
 		const creator = await AppDataSource.manager.findOne(User, {
@@ -28,7 +27,9 @@ export class GroupsMutations {
 
 	// Mettre à jour un groupe
 	@Mutation(() => Group)
-	async updateGroup(@Arg("data") data: UpdateGroupInput): Promise<Group> {
+	async updateGroup(
+		@Arg("data", () => UpdateGroupInput) data: UpdateGroupInput,
+	): Promise<Group> {
 		const { id, name } = data;
 		const group = await AppDataSource.manager.findOne(Group, { where: { id } });
 

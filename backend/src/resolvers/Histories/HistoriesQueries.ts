@@ -6,7 +6,7 @@ import { History } from "../../entities/History";
 @Resolver(History)
 export class HistoriesQueries {
 	// Récupérer l'historique complet des programmes suivis par un utilisateur
-	@Query((type) => [History])
+	@Query(() => [History])
 	async getHistoryByUserId(
 		@Arg("user_id") user_id: number,
 	): Promise<History[]> {
@@ -18,7 +18,7 @@ export class HistoriesQueries {
 	}
 
 	// Récupérer un historique spécifique basé sur un identifiant
-	@Query((type) => History, { nullable: true })
+	@Query(() => History, { nullable: true })
 	async getHistoryById(@Arg("id") id: number): Promise<History | null> {
 		return await AppDataSource.manager.findOne(History, {
 			where: { id },
@@ -26,7 +26,7 @@ export class HistoriesQueries {
 	}
 
 	// Récupérer l'historique des programmes d'un utilisateur pour un programme donné
-	@Query((type) => [History])
+	@Query(() => [History])
 	async getHistoryByUserAndProgram(
 		@Arg("user_id") user_id: number,
 		@Arg("program_id") program_id: number,

@@ -3,13 +3,15 @@ import { In } from "typeorm";
 import AppDataSource from "../../AppDataSource";
 import { Program } from "../../entities/Program";
 import { Tag } from "../../entities/Tag";
-import type { AddTagInput, UpdateTagInput } from "../../inputs/TagsInput";
+import { AddTagInput, UpdateTagInput } from "../../inputs/TagsInput";
 
 @Resolver(Tag)
 export class TagsMutations {
 	// Mutation pour ajouter un tag
 	@Mutation(() => Tag)
-	async addTag(@Arg("data") data: AddTagInput): Promise<Tag> {
+	async addTag(
+		@Arg("data", () => AddTagInput) data: AddTagInput,
+	): Promise<Tag> {
 		const { name, program_id } = data;
 
 		// Récupérer les programmes associés via les ids fournis
@@ -28,7 +30,9 @@ export class TagsMutations {
 
 	// Mutation pour mettre à jour un tag existant
 	@Mutation(() => Tag)
-	async updateTag(@Arg("data") data: UpdateTagInput): Promise<Tag> {
+	async updateTag(
+		@Arg("data", () => UpdateTagInput) data: UpdateTagInput,
+	): Promise<Tag> {
 		const { id, name } = data;
 
 		// Sauvegarde le tag mis à jour

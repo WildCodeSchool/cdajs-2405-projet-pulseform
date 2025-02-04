@@ -1,7 +1,7 @@
 import { Arg, Mutation, Resolver } from "type-graphql";
 import AppDataSource from "../../AppDataSource";
 import { History } from "../../entities/History";
-import type {
+import {
 	CreateHistoryInput,
 	UpdateHistoryInput,
 } from "../../inputs/HistoriesInput";
@@ -10,7 +10,9 @@ import type {
 export class HistoriesMutations {
 	// Mutation pour ajouter un historique (un utilisateur commence un programme)
 	@Mutation(() => History)
-	async addHistory(@Arg("data") data: CreateHistoryInput): Promise<History> {
+	async addHistory(
+		@Arg("data", () => CreateHistoryInput) data: CreateHistoryInput,
+	): Promise<History> {
 		const { user_id, program_id, total_kcal_loss, start_date, end_date } = data;
 
 		// Créer une nouvelle entrée d'historique
@@ -26,7 +28,9 @@ export class HistoriesMutations {
 
 	// Mutation pour mettre à jour un historique existant
 	@Mutation(() => History)
-	async updateHistory(@Arg("data") data: UpdateHistoryInput): Promise<History> {
+	async updateHistory(
+		@Arg("data", () => UpdateHistoryInput) data: UpdateHistoryInput,
+	): Promise<History> {
 		const { id, start_date, end_date } = data;
 
 		// Trouver l'historique existant

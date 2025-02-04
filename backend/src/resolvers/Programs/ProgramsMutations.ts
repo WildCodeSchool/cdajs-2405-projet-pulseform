@@ -4,7 +4,7 @@ import AppDataSource from "../../AppDataSource";
 import { Exercice } from "../../entities/Exercice";
 import { Program } from "../../entities/Program";
 import { Tag } from "../../entities/Tag";
-import type {
+import {
 	CreateProgramInput,
 	UpdateProgramInput,
 } from "../../inputs/ProgramsInput";
@@ -13,7 +13,9 @@ import type {
 export class ProgramsMutations {
 	// Mutation pour ajouter un programme
 	@Mutation(() => Program)
-	async addProgram(@Arg("data") data: CreateProgramInput): Promise<Program> {
+	async addProgram(
+		@Arg("data", () => CreateProgramInput) data: CreateProgramInput,
+	): Promise<Program> {
 		const {
 			name,
 			level,
@@ -54,7 +56,7 @@ export class ProgramsMutations {
 	@Mutation(() => Program)
 	async updateProgram(
 		@Arg("id") id: number,
-		@Arg("data") data: UpdateProgramInput,
+		@Arg("data", () => UpdateProgramInput) data: UpdateProgramInput,
 	): Promise<Program | null> {
 		// Trouver le programme existant
 		const program = await AppDataSource.manager.findOne(Program, {

@@ -1,7 +1,7 @@
 import { Arg, Query, Resolver } from "type-graphql";
 import AppDataSource from "../../AppDataSource";
 import { SharedProgramList } from "../../entities/SharedProgramList";
-import type {
+import {
 	GetProgramsSharedWithUserInput,
 	GetSharedProgramsByUserAndGroupInput,
 } from "../../inputs/SharedProgramListsInput";
@@ -11,7 +11,8 @@ export class SharedProgramListsQueries {
 	// Récupérer les programmes partagés par un utilisateur avec ses amis dans un groupe
 	@Query(() => [SharedProgramList])
 	async getSharedProgramsByUserAndGroup(
-		@Arg("data") data: GetSharedProgramsByUserAndGroupInput,
+		@Arg("data", () => GetSharedProgramsByUserAndGroupInput)
+		data: GetSharedProgramsByUserAndGroupInput,
 	): Promise<SharedProgramList[]> {
 		const { user_id, group_list_id } = data;
 		return await AppDataSource.manager.find(SharedProgramList, {
@@ -22,7 +23,8 @@ export class SharedProgramListsQueries {
 	// Récupérer tous les programmes partagés avec un utilisateur spécifique
 	@Query(() => [SharedProgramList])
 	async getProgramsSharedWithUser(
-		@Arg("data") data: GetProgramsSharedWithUserInput,
+		@Arg("data", () => GetProgramsSharedWithUserInput)
+		data: GetProgramsSharedWithUserInput,
 	): Promise<SharedProgramList[]> {
 		const { friend_id } = data;
 		return await AppDataSource.manager.find(SharedProgramList, {

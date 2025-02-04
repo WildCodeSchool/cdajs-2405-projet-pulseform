@@ -1,14 +1,14 @@
 import { Arg, Mutation, Resolver } from "type-graphql";
 import AppDataSource from "../../AppDataSource";
 import { SharedProgramList } from "../../entities/SharedProgramList";
-import type { ShareProgramInput } from "../../inputs/SharedProgramListsInput";
+import { ShareProgramInput } from "../../inputs/SharedProgramListsInput";
 
 @Resolver(SharedProgramList)
 export class SharedProgramListsMutations {
 	// Partager un programme avec un ami dans un groupe
 	@Mutation(() => SharedProgramList)
 	async shareProgramWithFriend(
-		@Arg("data") data: ShareProgramInput,
+		@Arg("data", () => ShareProgramInput) data: ShareProgramInput,
 	): Promise<SharedProgramList> {
 		const { user_id, friend_id, program_id, group_list_id } = data;
 
