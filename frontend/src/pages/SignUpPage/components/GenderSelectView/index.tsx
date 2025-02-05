@@ -128,13 +128,9 @@ function GenderSelectView() {
               questionLabel={t("YOUR_ARE")}
               ctaExit={handleExit}
             >
-              <form
-                className="fitness-level-select-view__container__form"
-                action=""
-              >
+              <form className="gender-select-view-d__form" action="">
                 <BasicButton
                   typeButton="white"
-                  className="fitness-level-select-view__container__form__btn"
                   type="button"
                   onClick={() => setCurrentSlideId(1)}
                   hasFocus
@@ -143,7 +139,6 @@ function GenderSelectView() {
                 </BasicButton>
                 <BasicButton
                   typeButton="white"
-                  className="fitness-level-select-view__container__form__btn"
                   type="button"
                   onClick={() => setCurrentSlideId(2)}
                   hasFocus
@@ -152,8 +147,6 @@ function GenderSelectView() {
                 </BasicButton>
                 <BasicButton
                   typeButton="white"
-                  className="fitness-level-select-view__container__form__btn"
-                  type="button"
                   onClick={() => setCurrentSlideId(3)}
                   hasFocus
                 >
@@ -161,7 +154,6 @@ function GenderSelectView() {
                 </BasicButton>
                 <BasicButton
                   typeButton="white"
-                  className="fitness-level-select-view__container__form__btn"
                   type="button"
                   onClick={() => setCurrentSlideId(4)}
                   hasFocus
@@ -169,7 +161,6 @@ function GenderSelectView() {
                   {t("NOT_WISH_TO_ANSWER")}
                 </BasicButton>
                 <BasicButton
-                  className="fitness-level-select-view__container__form__btn"
                   type="submit"
                   onClick={handleNextStep}
                   disabled={currentSlideId === null}
