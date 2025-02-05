@@ -1,10 +1,26 @@
 {
+	"ADVANCED": "Avancé·e",
+	"ANY_PARTICULAR_GOAL": "Un objectif en particulier ?",
+	"BEGINNER": "Débutant·e",
+	"COMPLITED_NEXT_TIME_PROFILE": "Tu pourras toujours compléter ton profil dans ton espace utilisateur :)",
 	"CONNECT_MY": "Me Connecter",
 	"CREATE_ACCOUNT": "Créer un compte",
+	"DESCRIBE_YOUR_LEVEL": "Comment qualifierais-tu ton niveau en sport ?",
+	"DISCOVERY_PROGRAMS": "Découvrir les programmes",
+	"FLEXIBILITY": "Souplesse",
 	"FOLLOW_YOUR_PROGRESS": "Suis tes progression",
+	"INTERMEDIATE": "Intermédiaire",
 	"LANDING_DESCRIPTION_2": "Que tu sois débutant ou expert, PulseForm te guide à chaque étape",
 	"LANDING_DESCRIPTION": "L'année dernière t'avais dit l'année prochaine",
+	"MORE_ABOUT_YOU": "Dis-moi en plus sur toi...",
+	"MOTIVATIONAL_LABEL": "La seule limite qui existe est celle que tu t'imposes, dépasse-la et va plus loin aujourd'hui !",
+	"NEXT": "Suivant",
 	"PERSONALIZED_COACHING": "Un coaching personnalisé",
 	"PROGRAMS_TO_DICOVER": "De nombreux programmes à découvrir",
-	"TEST_PROGRAM": "Tester un programme"
+	"RELAXATION": "Relaxation",
+	"START_YOUR_FIRST_PROGRAM": "Commencer ta première séance!",
+	"STRENGTHENING_MUSCLES": "Renforcement musculaire",
+	"TEST_PROGRAM": "Tester un programme",
+	"WEIGHT_LOSS": "Perte de poids",
+	"WELCOME": "Bienvenue sur PulseForm!"
 }

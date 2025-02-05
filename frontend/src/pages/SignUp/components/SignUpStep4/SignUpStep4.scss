@@ -1,0 +1,39 @@
+@import "@assets/variables.scss";
+
+.sign-up-step-4 {
+  height: 100vh;
+
+  &__container {
+    &__form {
+      display: flex;
+      flex-direction: column;
+      width: 16rem;
+      height: 100%;
+      gap: 1rem;
+      margin: 1.5rem 0 1rem;
+
+      @media screen and (min-width: 500px) {
+        height: auto;
+      }
+
+      &__container {
+        display: flex;
+        align-items: stretch;
+        justify-content: space-between;
+      }
+
+      &__btn {
+        width: 100%;
+
+        &--active {
+          background-color: $tertiary;
+          color: $white;
+        }
+      }
+      &__select {
+        background: $white;
+        color: $primary;
+      }
+    }
+  }
+}

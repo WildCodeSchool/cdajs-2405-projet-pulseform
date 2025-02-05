@@ -1,5 +1,6 @@
 # must match package json version
-FROM mcr.microsoft.com/playwright:v1.49.0-noble
+FROM mcr.microsoft.com/playwright:v1.50.1-noble
+
 
 WORKDIR /app
 

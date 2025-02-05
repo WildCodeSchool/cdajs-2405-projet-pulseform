@@ -1,0 +1,30 @@
+@import "@assets/variables.scss";
+
+.white-button {
+  @include h2-phone;
+  cursor: pointer;
+  background: $white;
+  color: $primary;
+  border-radius: 10px;
+  padding: 14px 24px;
+  border: none;
+  width: 300;
+  height: 50;
+
+  &--focus {
+    &:focus {
+      background-color: $tertiary;
+      color: $white;
+    }
+  }
+
+  &:hover {
+    background-color: $tertiary;
+    color: $white;
+  }
+
+  &[aria-pressed="true"] {
+    background-color: $tertiary;
+    color: $white;
+  }
+}

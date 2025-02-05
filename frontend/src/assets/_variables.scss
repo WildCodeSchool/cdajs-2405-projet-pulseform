@@ -35,6 +35,11 @@
     margin: 0;
 }
 
+@mixin small-phone{
+    font-size: 12px;
+    margin: 0;
+}
+
 //Color
 $primary: #132945;
 $secondary: #E23823;
@@ -43,3 +48,19 @@ $white: #FFFFFC;
 $grey: #A9A9A9;
 $dark-grey: #4B5563;
 
+//generic text
+@mixin question-phone{
+    @include h1-phone;
+    color: $primary;
+    text-align: center;
+    margin-top: 3.5rem;
+}
+
+//generic button
+@mixin exit-cross-phone{
+    border: none;
+    background: none;
+    position: absolute;
+    top: 10px;
+    right: 5px;
+}
