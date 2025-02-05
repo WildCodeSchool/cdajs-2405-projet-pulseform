@@ -5,8 +5,8 @@ import {
 	FinishedProgramView,
 	RestView,
 } from "./Views";
-import "./ExercicePage.scss";
-const ExercicePage = () => {
+import "./ProgramPage.scss";
+const ProgramPage = () => {
 	return (
 		<>
 			{/*if screen size = phone */}
@@ -35,4 +35,4 @@ const ExercicePage = () => {
 	);
 };
 
-export default ExercicePage;
+export default ProgramPage;

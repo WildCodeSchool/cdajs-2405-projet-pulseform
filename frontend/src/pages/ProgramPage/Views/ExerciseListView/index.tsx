@@ -1,8 +1,8 @@
 import ExerciseListDesktopView from "./ExerciseListDesktopView/ExerciseListDesktopView";
 import ExerciseListMobileView from "./ExerciseListMobileView/ExerciseListMobileView";
-import "./ExerciceListView.scss";
+import "./ExerciseListView.scss";
 
-const ExerciceListView = () => {
+const ExerciseListView = () => {
 	return (
 		<>
 			{/* if phone size  */}
@@ -17,4 +17,4 @@ const ExerciceListView = () => {
 	);
 };
 
-export default ExerciceListView;
+export default ExerciseListView;
