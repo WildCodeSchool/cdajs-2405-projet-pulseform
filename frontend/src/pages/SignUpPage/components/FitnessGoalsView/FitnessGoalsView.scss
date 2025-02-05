@@ -1,36 +1,38 @@
 @import "@assets/variables.scss";
 
-.sign-up-step-1 {
+.fitness-goals-view {
   height: 100vh;
 
   &__container {
     &__form {
       display: flex;
       flex-direction: column;
-      align-items: stretch;
       width: 16rem;
+      height: 100%;
       gap: 1rem;
+      margin: 1.5rem 0 1rem;
+
+      @media screen and (min-width: 500px) {
+        height: auto;
+      }
 
       &__container {
         display: flex;
         align-items: stretch;
         justify-content: space-between;
-
-        &__value-name {
-          @include small-phone;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background-color: $tertiary;
-          color: $white;
-          width: 2.5rem;
-          height: 2.5rem;
-          border-radius: 10px;
-        }
       }
 
       &__btn {
         width: 100%;
+
+        &--active {
+          background-color: $tertiary;
+          color: $white;
+        }
+      }
+      &__select {
+        background: $white;
+        color: $primary;
       }
     }
   }
