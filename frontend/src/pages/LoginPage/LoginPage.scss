@@ -1,8 +1,4 @@
-@import '../assets/variables';
-
-* {
-  background-color: $white;
-}
+@import '../../assets/variables';
 
 .blob_login_page {
   position: absolute;
@@ -32,14 +28,14 @@
 
 .login-title {
   @include h1-phone;
-  color: $prymary;
+  color: $primary;
   position: relative;
   z-index: 1;
   margin: 200px 0px 100px;
 
   @media (min-width: 768px) {
     color: $white;
-    background-color: $prymary;
+    background-color: $primary;
     margin: 100px 0px 100px;
   }
 }
@@ -52,7 +48,7 @@
   z-index: 1;
   @media (min-width: 768px) {
     color: $white;
-    background-color: $prymary;
+    background-color: $primary;
   }
 }
 
@@ -68,12 +64,12 @@
 }
 
 .loginSection {
-  @include title-medium;
+  @include landing-page-title-desktop;
   display: flex;
   flex-direction: column;
   align-items: center;
   @media (min-width: 768px) {
-    background-color: $prymary;
+    background-color: $primary;
   }
 }
 
@@ -89,7 +85,7 @@
   flex-direction: column;
   align-items: center;
   @media (min-width: 768px) {
-    background-color: $prymary;
+    background-color: $primary;
   }
   
 }
@@ -107,9 +103,9 @@
 
 .motivationTitle {
   @include h3-phone;
-  color: $prymary;
+  color: $primary;
   @media (min-width: 768px) {
-    background-color: $prymary;
+    background-color: $primary;
     color: $white;
   }
 }
@@ -121,7 +117,7 @@
   border: none;
   width: 140px;
   @media (min-width: 768px) {
-    background-color: $prymary;
+    background-color: $primary;
   }
 }
 
@@ -132,7 +128,7 @@
 
 .primary-trait {
   width: 70px; 
-  background-color: $prymary;
+  background-color: $primary;
   border-radius: 5px 0 0 5px;
   @media (min-width: 768px) {
     background-color: $white;
@@ -165,7 +161,7 @@
 
   background-color: $white;
   @media (min-width: 768px) {
-    background-color: $prymary;
+    background-color: $primary;
     padding: 60px 250px 100px;
     margin-right: 20%;
     border-radius: 10px;
@@ -192,7 +188,7 @@
   @include h1-phone;
   padding: 10px 20px; 
   font-size: 18px; 
-  color: $prymary;
+  color: $primary;
   background-color: transparent; 
   border: 2px solid black; 
   border-radius: 10px; 
