@@ -3,23 +3,23 @@ import "./BasicButton.scss";
 import classNames from "classnames";
 
 function BasicButton({
-	children,
-	className,
-	typeButton = "basic",
-	hasFocus,
-	...props
+  children,
+  className,
+  typeButton = "basic",
+  hasFocus,
+  ...props
 }: BasicButtonProps) {
-	const buttonClass = classNames("basic-button", className, {
-		"basic-button--basic": typeButton === "basic",
-		"basic-button--white": typeButton === "white",
-		"basic-button--white--focus": hasFocus,
-	});
+  const buttonClass = classNames("basic-button", className, {
+    "basic-button--basic": typeButton === "basic",
+    "basic-button--white": typeButton === "white",
+    "basic-button--white--focus": hasFocus,
+  });
 
-	return (
-		<button className={buttonClass} type="button" {...props}>
-			{children}
-		</button>
-	);
+  return (
+    <button className={buttonClass} type="button" {...props}>
+      {children}
+    </button>
+  );
 }
 
 export default BasicButton;

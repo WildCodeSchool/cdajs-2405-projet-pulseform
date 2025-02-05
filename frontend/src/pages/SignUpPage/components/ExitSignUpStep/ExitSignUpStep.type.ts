@@ -1,3 +1,3 @@
 export interface ExitSignUpStepProps {
-	isCompleted?: boolean;
+  isCompleted?: boolean;
 }

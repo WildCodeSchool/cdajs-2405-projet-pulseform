@@ -3,9 +3,6 @@ FROM node:18
 WORKDIR /app
 
 COPY package*.json ./
+COPY . ./
 
-RUN npm install
-
-COPY . .
-
-CMD run start
+CMD npm i && npm run start

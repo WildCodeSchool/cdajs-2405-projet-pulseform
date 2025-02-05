@@ -6,6 +6,11 @@
   align-items: center;
   height: 100vh;
 
+  @media screen and (min-width: 500px) {
+    display: none;
+    
+  }
+
   &__exit {
     @include exit-cross-phone;
   }
@@ -49,5 +54,16 @@
   @media screen and (min-width: 500px) {
     width: 50vw;
     max-width: fit-content;
+  }
+}
+
+.gender-select-view-d{
+  display: none;
+
+  @media screen and (min-width: 500px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
   }
 }
