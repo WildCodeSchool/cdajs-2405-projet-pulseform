@@ -2,7 +2,7 @@ name: deploy
 
 on: 
   pull_request:
-    branches: [main ]
+    branches: [ main ]
   push:
     branches: [ main ]
 
@@ -19,7 +19,10 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts  
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_rsa
+      
+      
 
       - name: Get current date and set app name
         run: |
@@ -39,25 +42,54 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker image
+      - name: Build and push Backend Docker image
         uses: docker/build-push-action@v4
         with:
           push: true
-          context: ./
-          file: ./Dockerfile
+          context: ./backend
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}:${{ env.environnement }}
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-backend:${{ env.environnement }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-backend:${{ github.sha }}
           labels: |
             maintainer=${{ secrets.DOCKERHUB_USERNAME }}
             version=${{ github.sha }}
             build-date=${{ env.date }}
-          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}:cache
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-backend:cache
+          cache-to: type=inline
+
+      - name: Build and push Frontend Docker image
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          context: ./frontend
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-frontend:${{ env.environnement }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-frontend:${{ github.sha }}
+          labels: |
+            maintainer=${{ secrets.DOCKERHUB_USERNAME }}
+            version=${{ github.sha }}
+            build-date=${{ env.date }}
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-frontend:cache
+          cache-to: type=inline
+      
+      - name: Build and push Translation Docker image
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          context: ./translation-server
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-translation:${{ env.environnement }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-translation:${{ github.sha }}
+          labels: |
+            maintainer=${{ secrets.DOCKERHUB_USERNAME }}
+            version=${{ github.sha }}
+            build-date=${{ env.date }}
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-translation:cache
           cache-to: type=inline
 
       - name: Login to Docker Hub on main Server
         run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.SERVER_IP }} "
+          ssh -v -o StrictHostKeyChecking=no -T -p 2269 wns_student@${{ secrets.SERVER_IP }} "
             echo $DOCKERHUB_TOKEN | docker login -u $DOCKERHUB_USERNAME --password-stdin
           "
         env:
@@ -66,7 +98,7 @@ jobs:
           
       - name: Deploy to main
         run: |
-          ssh  -o StrictHostKeyChecking=no -T ubuntu@${{ secrets.SERVER_IP }} "
+          ssh -o StrictHostKeyChecking=no -T -p 2269 wns_student@${{ secrets.SERVER_IP }} "
             cd pulseform &&
             docker compose -f docker-compose.yml pull &&
             docker compose -f docker-compose.yml up -d
