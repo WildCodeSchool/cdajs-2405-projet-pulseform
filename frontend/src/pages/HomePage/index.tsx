@@ -1,11 +1,13 @@
 import { HomePageView, UserProfileView } from "./Views";
 import "./HomePage.scss";
+import NavBar from "@components/molecules/NavBar";
+
 const HomePage = () => {
 	return (
 		<>
 			{/*if screen size = phone */}
 			<section>
-				<HomePageView />{" "}
+				<HomePageView />
 				{/* même URL mais on fait toggle entre les 2 vues HomePageView et UserProfilView */}
 				<UserProfileView />
 			</section>
@@ -18,6 +20,9 @@ const HomePage = () => {
 			<section>
 				<HomePageView /> {/* colonne de droite avec la liste des programmes*/}
 			</section>
+
+			{/* Test des composants : à virer*/}
+			<NavBar></NavBar>
 		</>
 	);
 };
