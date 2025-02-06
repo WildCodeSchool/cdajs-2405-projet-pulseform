@@ -1,29 +1,29 @@
-import AppDataSource from "./AppDataSource";
-import { buildSchema } from "type-graphql";
-import { startStandaloneServer } from "@apollo/server/standalone";
+import "reflect-metadata";
 import { ApolloServer } from "@apollo/server";
-
-import TestResolver from "./resolvers/testResolver";
+import { startStandaloneServer } from "@apollo/server/standalone";
+import { buildSchema } from "type-graphql";
+import AppDataSource from "./AppDataSource";
+import { resolvers } from "./resolvers";
 
 const startServer = async () => {
-  await AppDataSource.initialize();
+	await AppDataSource.initialize();
 
-  const schema = await buildSchema({
-    resolvers: [TestResolver],
-  });
+	const schema = await buildSchema({
+		resolvers,
+	});
 
-  const server = new ApolloServer({
-    schema,
-    introspection: true,
-  });
+	const server = new ApolloServer({
+		schema,
+		introspection: true,
+	});
 
-  const { url } = await startStandaloneServer(server, {
-    listen: { port: 4000 },
-  });
+	const { url } = await startStandaloneServer(server, {
+		listen: { port: 4000 },
+	});
 
-  console.log(`🚀  Server ready at: ${url}`);
+	console.log(`🚀  Server ready at: ${url}`);
 };
 
 startServer().catch((error) => {
-  console.error("Error starting server:", error);
+	console.error("Error starting server:", error);
 });

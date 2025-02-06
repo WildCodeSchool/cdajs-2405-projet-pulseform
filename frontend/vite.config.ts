@@ -8,9 +8,12 @@ export default defineConfig({
 	test: {
 		globals: true,
 		// add jsdom to vite
-		environment: 'jsdom',
-		setupFiles: "./src/tests/setup.ts"
-	  },
+		environment: "jsdom",
+		setupFiles: "./src/tests/setup.ts",
+		coverage: {
+			reporter: ["text", "html"],
+		},
+	},
 	server: {
 		port: 3000,
 		host: "0.0.0.0",

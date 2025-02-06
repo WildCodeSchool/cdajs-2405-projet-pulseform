@@ -1,12 +1,25 @@
+import { HomePageView, UserProfileView } from "./Views";
 import "./HomePage.scss";
+const HomePage = () => {
+	return (
+		<>
+			{/*if screen size = phone */}
+			<section>
+				<HomePageView />{" "}
+				{/* même URL mais on fait toggle entre les 2 vues HomePageView et UserProfilView */}
+				<UserProfileView />
+			</section>
 
-function HomePage(){
-    return(
-        <>
-            <h1>Homepage</h1>
-            <p>This page is in developpement. Thanks for your understanding</p>
-        </>
-    )
-}
+			{/*if screen size = desktop */}
+			<section>
+				<UserProfileView />{" "}
+				{/* colonne de gauche avec le dashboard de l'utilisateur toujours visible */}
+			</section>
+			<section>
+				<HomePageView /> {/* colonne de droite avec la liste des programmes*/}
+			</section>
+		</>
+	);
+};
 
-export default HomePage
+export default HomePage;

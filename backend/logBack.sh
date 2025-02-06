@@ -1,1 +1,1 @@
-docker logs pulseform-back-1 --tail 200 -f
+docker logs cdajs-2405-projet-pulseform-back-1 --tail 200 -f
