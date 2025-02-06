@@ -1,4 +1,4 @@
-@import "@assets/variables.scss";
+@import "../../../assets/variables";
 
 .basic-button {
   &--basic {
@@ -9,12 +9,17 @@
     border-radius: 10px;
     padding: 14px 24px;
     border: none;
-    width: 300;
-    height: 50;
+    width: 300px;
+    height: 50px;
+    transition: background-color 0.3s ease;
 
     &:disabled {
       opacity: 0.5;
       border: 1px solid $white;
+    }
+
+    &:hover {
+      background-color: darken($secondary, 10%);
     }
   }
 
@@ -26,8 +31,9 @@
     border-radius: 10px;
     padding: 14px 24px;
     border: none;
-    width: 300;
-    height: 50;
+    width: 300px;
+    height: 50px;
+    transition: background-color 0.3s ease;
 
     &--focus {
       &:focus {
@@ -44,6 +50,31 @@
     &[aria-pressed="true"] {
       background-color: $tertiary;
       color: $white;
+    }
+  }
+
+  &--orange {
+    background-color: $secondary;
+    color: $white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 14px 24px;
+    width: 260px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: darken($secondary, 10%);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &--focus {
+      outline: 2px solid $primary;
     }
   }
 }

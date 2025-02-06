@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-import OrangeButton from "@components/atoms/OrangeButton";
+import BasicButton from "@components/atoms/BasicButton";
 import InputField from "../../components/atoms/ImputField/ImputField";
 import LittleLogo from "../../components/atoms/LittleLogo/index";
 import LoginImage from "../../components/atoms/LoginImage";
 
 import "./LoginPage.scss";
-import blopLoginPage from "../../../assets/icons/blob/blob3.svg";
+import blopLoginPage from "../../assets/icons/blob/blob3.svg";
 
 interface LoginFormValues {
 	email: string;
@@ -24,28 +24,28 @@ function LoginPage() {
 
 	return (
 		<>
-			<LittleLogo size="desktop" hasLabel={true} />
+			<LittleLogo className="login-page__logo" size="desktop" hasLabel={true} />
 
 			<img
-				className="blob_login_page"
+				className="login-page__blob"
 				src={blopLoginPage}
 				alt={t("BLOB_ALT_TEXT")}
 			/>
 
-			<section className="form_section">
-				<div className="test-program-container">
-					<button type="button" className="test-program-button">
+			<section className="login-page__form-section">
+				<div className="login-page__test-program-container">
+					<button type="button" className="login-page__test-program-button">
 						{t("TEST_PROGRAM")}
 					</button>
 				</div>
 
-				<div className="image-side">
+				<div className="login-page__image-side">
 					<LoginImage size="desktop" />
 				</div>
 
-				<div className="bloc__desktop">
-					<h1 className="login-title">{t("READY")}</h1>
-					<form className="login-form" onSubmit={handleSubmit(onSubmit)}>
+				<div className="login-page__form-container">
+					<h1 className="login-page__title">{t("READY")}</h1>
+					<form className="login-page__form" onSubmit={handleSubmit(onSubmit)}>
 						<InputField
 							name="email"
 							type="email"
@@ -62,22 +62,29 @@ function LoginPage() {
 							required
 							ariaLabel="PASSWORD_ARIA_LABEL"
 						/>
-						<OrangeButton type="submit" className="login-connect">
+						<BasicButton
+							typeButton="orange"
+							type="submit"
+							className="login-page__connect-button"
+						>
 							{t("CONNECT")}
-						</OrangeButton>
+						</BasicButton>
 					</form>
 
-					<section className="loginSection">
-						<div className="align__loginPage">
-							<div className="motivation-block">
-								<p className="motivationTitle">{t("MOTIVATED")}</p>
-								<div className="primary-trait" />
+					<section className="login-page__section">
+						<div className="login-page__align">
+							<div className="login-page__motivation-block">
+								<p className="login-page__motivation-title">{t("MOTIVATED")}</p>
+								<div className="login-page__primary-trait" />
 							</div>
-							<div className="create-account-block">
-								<button className="created__button" type="button">
+							<div className="login-page__create-account-block">
+								<button
+									className="login-page__create-account-button"
+									type="button"
+								>
 									{t("CREATE_ACCOUNT")}
 								</button>
-								<div className="secondary-trait" />
+								<div className="login-page__secondary-trait" />
 							</div>
 						</div>
 					</section>

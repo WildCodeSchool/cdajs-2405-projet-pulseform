@@ -12,7 +12,9 @@ function BasicButton({
   const buttonClass = classNames("basic-button", className, {
     "basic-button--basic": typeButton === "basic",
     "basic-button--white": typeButton === "white",
-    "basic-button--white--focus": hasFocus,
+    "basic-button--orange": typeButton === "orange",
+    "basic-button--white--focus": typeButton === "white" && hasFocus,
+    "basic-button--orange--focus": typeButton === "orange" && hasFocus,
   });
 
   return (
