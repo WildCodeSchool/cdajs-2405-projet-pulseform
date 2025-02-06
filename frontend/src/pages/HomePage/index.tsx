@@ -1,5 +1,6 @@
 import { HomePageView, UserProfileView } from "./Views";
 import "./HomePage.scss";
+import FitnessLevelMenu from "@components/molecules/FitnessLevelMenu";
 const HomePage = () => {
 	return (
 		<>
@@ -18,6 +19,8 @@ const HomePage = () => {
 			<section>
 				<HomePageView /> {/* colonne de droite avec la liste des programmes*/}
 			</section>
+
+			<FitnessLevelMenu></FitnessLevelMenu>
 		</>
 	);
 };

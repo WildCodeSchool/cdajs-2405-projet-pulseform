@@ -1,0 +1,19 @@
+@import "@assets/variables.scss";
+
+.fitness-level-menu{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: $white;
+    width:1010;
+    height:50;
+    padding: 10 300;
+
+    &__button {
+        @include h2-phone;
+        color:$primary;
+        border: none;
+        background: transparent
+    }
+}
