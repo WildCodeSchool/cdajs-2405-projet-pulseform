@@ -14,7 +14,7 @@ import { GroupList } from "./GroupList";
 import { Tag } from "./Tag";
 
 @ObjectType()
-@Entity()
+@Entity("user")
 export class User extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	@Field(() => ID)
@@ -32,7 +32,7 @@ export class User extends BaseEntity {
 	@Field()
 	email: string;
 
-	@Column({ length: 50 })
+	@Column({ length: 250 })
 	@Field()
 	password: string;
 
