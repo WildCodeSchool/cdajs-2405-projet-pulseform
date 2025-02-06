@@ -1,0 +1,396 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`LandingPage > renders the Landing Page 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <section
+        class="landing-page"
+      >
+        <div
+          class="first-view"
+        >
+          <div
+            class="first-view__blob"
+          >
+            <img
+              alt="blob"
+              class="first-view__blob__img"
+              src="/src/assets/blobs/blob.svg"
+            />
+          </div>
+          <div
+            class="first-view__girl"
+          >
+            <img
+              alt="girl"
+              class="first-view__girl__img"
+              src="/src/assets/images/girl.svg"
+            />
+          </div>
+          <div
+            class="first-view__header"
+          >
+            <div
+              class="first-view__header__logo-m"
+            >
+              <div
+                class="little-logo little-logo--mobile"
+              >
+                <img
+                  alt="Logo Pulse Form"
+                  class="little-logo__img"
+                  src="/src/assets/icons/mobile-logo.svg"
+                />
+                <p
+                  class="little-logo__title little-logo__title--mobile"
+                >
+                  Pulse Form
+                </p>
+              </div>
+            </div>
+            <div
+              class="first-view__header__logo-d"
+            >
+              <div
+                class="little-logo little-logo--desktop"
+              >
+                <img
+                  alt="Logo Pulse Form"
+                  class="little-logo__img"
+                  src="/src/assets/icons/mobile-logo.svg"
+                />
+                <p
+                  class="little-logo__title little-logo__title--desktop"
+                >
+                  Pulse Form
+                </p>
+              </div>
+            </div>
+            <div
+              class="first-view__header__container"
+            >
+              <div
+                class="first-view__header__container__buttom"
+              >
+                <button
+                  class="basic-button first-view__header__container__buttom__width basic-button--basic"
+                  type="button"
+                >
+                  CREATE_ACCOUNT
+                </button>
+              </div>
+              <p
+                class="first-view__header__container__connect"
+              >
+                CONNECT_MY
+              </p>
+            </div>
+          </div>
+          <p
+            class="first-view__description"
+          >
+            LANDING_DESCRIPTION
+          </p>
+          <div
+            class="first-view__buttom"
+          >
+            <button
+              class="basic-button basic-button--basic"
+              type="button"
+            >
+              CREATE_ACCOUNT
+            </button>
+          </div>
+          <div
+            class="first-view__buttom-program"
+          >
+            <button
+              class="basic-button first-view__buttom-program__button basic-button--basic"
+              type="button"
+            >
+              TEST_PROGRAM
+            </button>
+          </div>
+        </div>
+        <div
+          class="second-view"
+        >
+          <div
+            class="second-view__img-container"
+          >
+            <img
+              alt="programs"
+              class="second-view__img-container__img"
+              src="/src/assets/images/programs.svg"
+            />
+          </div>
+          <p
+            class="second-view__description"
+          >
+            LANDING_DESCRIPTION_2
+          </p>
+          <div
+            class="second-view__step"
+          >
+            <p
+              class="second-view__step__content"
+            >
+              PROGRAMS_TO_DICOVER
+            </p>
+            <p
+              class="second-view__step__content"
+            >
+              FOLLOW_YOUR_PROGRESS
+            </p>
+            <p
+              class="second-view__step__content"
+            >
+              PERSONALIZED_COACHING
+            </p>
+          </div>
+          <div
+            class="second-view__buttom"
+          >
+            <button
+              class="basic-button basic-button--basic"
+              type="button"
+            >
+              TEST_PROGRAM
+            </button>
+          </div>
+          <div
+            class="second-view__blob"
+          >
+            <img
+              alt="blob"
+              class="second-view__blob__img"
+              src="/src/assets/blobs/blob2.svg"
+            />
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>,
+  "container": <div>
+    <section
+      class="landing-page"
+    >
+      <div
+        class="first-view"
+      >
+        <div
+          class="first-view__blob"
+        >
+          <img
+            alt="blob"
+            class="first-view__blob__img"
+            src="/src/assets/blobs/blob.svg"
+          />
+        </div>
+        <div
+          class="first-view__girl"
+        >
+          <img
+            alt="girl"
+            class="first-view__girl__img"
+            src="/src/assets/images/girl.svg"
+          />
+        </div>
+        <div
+          class="first-view__header"
+        >
+          <div
+            class="first-view__header__logo-m"
+          >
+            <div
+              class="little-logo little-logo--mobile"
+            >
+              <img
+                alt="Logo Pulse Form"
+                class="little-logo__img"
+                src="/src/assets/icons/mobile-logo.svg"
+              />
+              <p
+                class="little-logo__title little-logo__title--mobile"
+              >
+                Pulse Form
+              </p>
+            </div>
+          </div>
+          <div
+            class="first-view__header__logo-d"
+          >
+            <div
+              class="little-logo little-logo--desktop"
+            >
+              <img
+                alt="Logo Pulse Form"
+                class="little-logo__img"
+                src="/src/assets/icons/mobile-logo.svg"
+              />
+              <p
+                class="little-logo__title little-logo__title--desktop"
+              >
+                Pulse Form
+              </p>
+            </div>
+          </div>
+          <div
+            class="first-view__header__container"
+          >
+            <div
+              class="first-view__header__container__buttom"
+            >
+              <button
+                class="basic-button first-view__header__container__buttom__width basic-button--basic"
+                type="button"
+              >
+                CREATE_ACCOUNT
+              </button>
+            </div>
+            <p
+              class="first-view__header__container__connect"
+            >
+              CONNECT_MY
+            </p>
+          </div>
+        </div>
+        <p
+          class="first-view__description"
+        >
+          LANDING_DESCRIPTION
+        </p>
+        <div
+          class="first-view__buttom"
+        >
+          <button
+            class="basic-button basic-button--basic"
+            type="button"
+          >
+            CREATE_ACCOUNT
+          </button>
+        </div>
+        <div
+          class="first-view__buttom-program"
+        >
+          <button
+            class="basic-button first-view__buttom-program__button basic-button--basic"
+            type="button"
+          >
+            TEST_PROGRAM
+          </button>
+        </div>
+      </div>
+      <div
+        class="second-view"
+      >
+        <div
+          class="second-view__img-container"
+        >
+          <img
+            alt="programs"
+            class="second-view__img-container__img"
+            src="/src/assets/images/programs.svg"
+          />
+        </div>
+        <p
+          class="second-view__description"
+        >
+          LANDING_DESCRIPTION_2
+        </p>
+        <div
+          class="second-view__step"
+        >
+          <p
+            class="second-view__step__content"
+          >
+            PROGRAMS_TO_DICOVER
+          </p>
+          <p
+            class="second-view__step__content"
+          >
+            FOLLOW_YOUR_PROGRESS
+          </p>
+          <p
+            class="second-view__step__content"
+          >
+            PERSONALIZED_COACHING
+          </p>
+        </div>
+        <div
+          class="second-view__buttom"
+        >
+          <button
+            class="basic-button basic-button--basic"
+            type="button"
+          >
+            TEST_PROGRAM
+          </button>
+        </div>
+        <div
+          class="second-view__blob"
+        >
+          <img
+            alt="blob"
+            class="second-view__blob__img"
+            src="/src/assets/blobs/blob2.svg"
+          />
+        </div>
+      </div>
+    </section>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

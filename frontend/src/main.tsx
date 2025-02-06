@@ -8,15 +8,15 @@ import router from "./routes";
 import "./index.css";
 
 const client = new ApolloClient({
-	uri: "http://localhost:4000",
-	cache: new InMemoryCache(),
+  uri: "http://localhost:4000",
+  cache: new InMemoryCache(),
 });
 
 // biome-ignore lint/style/noNonNullAssertion: <explanation>
 createRoot(document.getElementById("root")!).render(
-	<StrictMode>
-		<ApolloProvider client={client}>
-			<RouterProvider router={router} />
-		</ApolloProvider>
-	</StrictMode>,
+  <StrictMode>
+    <ApolloProvider client={client}>
+      <RouterProvider router={router} />
+    </ApolloProvider>
+  </StrictMode>
 );
