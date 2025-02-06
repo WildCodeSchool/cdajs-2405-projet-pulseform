@@ -1,10 +1,11 @@
 import BasicButton from "@components/atoms/BasicButton";
 import LittleLogo from "@components/atoms/LittleLogo";
 
-import blobFirstView from "@assets/blobs/blob.svg";
-import girldImage from "@assets/images/girl.svg";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+
+import blobFirstView from "@assets/blobs/blob.svg";
+import girldImage from "@assets/images/girl.svg";
 import "./FirstView.scss";
 
 function FirstView() {

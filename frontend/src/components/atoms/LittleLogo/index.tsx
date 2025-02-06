@@ -1,7 +1,7 @@
 import classNames from "classnames";
 
 import "./LittleLogo.scss";
-import logoMobile from "../../../assets/icons/mobile-logo.svg";
+import logoMobile from "@assets/icons/mobile-logo.svg";
 import type { LittleLogoProps } from "./LittleLogo.type";
 
 const LittleLogo: React.FC<LittleLogoProps> = ({
