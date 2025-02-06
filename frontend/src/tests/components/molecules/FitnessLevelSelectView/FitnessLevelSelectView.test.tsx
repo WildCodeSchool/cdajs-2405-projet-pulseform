@@ -1,4 +1,4 @@
-import FitnessLevelSelectView from "@pages/SignUpPage/components/FitnessLevelSelectView";
+import FitnessLevelSelectView from "@components/molecules/FitnessLevelSelectView";
 import { render } from "@testing-library/react";
 
 describe("FitnessLevelSelectView", () => {

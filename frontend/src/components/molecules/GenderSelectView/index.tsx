@@ -5,8 +5,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import BasicButton from "@components/atoms/BasicButton";
 import BodyStepQuestions from "@components/molecules/BodyStepQuestions";
-import ExitSignUpStep from "../ExitSignUpStep";
-import FitnessLevelSelectView from "../FitnessLevelSelectView";
+import ExitSignUpStep from "@components/molecules/ExitSignUpStep";
+import FitnessLevelSelectView from "@components/molecules/FitnessLevelSelectView";
 
 import "./GenderSelectView.scss";
 import "swiper/css";

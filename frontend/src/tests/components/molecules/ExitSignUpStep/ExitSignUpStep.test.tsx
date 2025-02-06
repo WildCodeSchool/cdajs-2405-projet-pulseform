@@ -1,4 +1,4 @@
-import ExitSignUpStep from "@pages/SignUpPage/components/ExitSignUpStep";
+import ExitSignUpStep from "@components/molecules/ExitSignUpStep";
 import { render } from "@testing-library/react";
 
 describe("ExitSignUpStep", () => {

@@ -1,4 +1,4 @@
-import FitnessGoalsView from "@pages/SignUpPage/components/FitnessGoalsView";
+import FitnessGoalsView from "@components/molecules/FitnessGoalsView";
 import { render } from "@testing-library/react";
 
 describe("FitnessGoalsView", () => {

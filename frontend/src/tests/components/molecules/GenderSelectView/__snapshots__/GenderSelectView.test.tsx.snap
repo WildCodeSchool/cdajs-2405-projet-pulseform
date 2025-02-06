@@ -169,34 +169,34 @@ exports[`GenderSelectView > renders the GenderSelectView component 1`] = `
           >
             <form
               action=""
-              class="fitness-level-select-view__container__form"
+              class="gender-select-view-d__form"
             >
               <button
-                class="basic-button fitness-level-select-view__container__form__btn basic-button--white basic-button--white--focus"
+                class="basic-button basic-button--white basic-button--white--focus"
                 type="button"
               >
                 GIRL
               </button>
               <button
-                class="basic-button fitness-level-select-view__container__form__btn basic-button--white basic-button--white--focus"
+                class="basic-button basic-button--white basic-button--white--focus"
                 type="button"
               >
                 MEN
               </button>
               <button
-                class="basic-button fitness-level-select-view__container__form__btn basic-button--white basic-button--white--focus"
+                class="basic-button basic-button--white basic-button--white--focus"
                 type="button"
               >
                 OTHER
               </button>
               <button
-                class="basic-button fitness-level-select-view__container__form__btn basic-button--white basic-button--white--focus"
+                class="basic-button basic-button--white basic-button--white--focus"
                 type="button"
               >
                 NOT_WISH_TO_ANSWER
               </button>
               <button
-                class="basic-button fitness-level-select-view__container__form__btn basic-button--basic"
+                class="basic-button basic-button--basic"
                 disabled=""
                 type="submit"
               >
@@ -241,34 +241,34 @@ exports[`GenderSelectView > renders the GenderSelectView component 1`] = `
               </p>
               <form
                 action=""
-                class="fitness-level-select-view__container__form"
+                class="gender-select-view-d__form"
               >
                 <button
-                  class="basic-button fitness-level-select-view__container__form__btn basic-button--white basic-button--white--focus"
+                  class="basic-button basic-button--white basic-button--white--focus"
                   type="button"
                 >
                   GIRL
                 </button>
                 <button
-                  class="basic-button fitness-level-select-view__container__form__btn basic-button--white basic-button--white--focus"
+                  class="basic-button basic-button--white basic-button--white--focus"
                   type="button"
                 >
                   MEN
                 </button>
                 <button
-                  class="basic-button fitness-level-select-view__container__form__btn basic-button--white basic-button--white--focus"
+                  class="basic-button basic-button--white basic-button--white--focus"
                   type="button"
                 >
                   OTHER
                 </button>
                 <button
-                  class="basic-button fitness-level-select-view__container__form__btn basic-button--white basic-button--white--focus"
+                  class="basic-button basic-button--white basic-button--white--focus"
                   type="button"
                 >
                   NOT_WISH_TO_ANSWER
                 </button>
                 <button
-                  class="basic-button fitness-level-select-view__container__form__btn basic-button--basic"
+                  class="basic-button basic-button--basic"
                   disabled=""
                   type="submit"
                 >
@@ -452,34 +452,34 @@ exports[`GenderSelectView > renders the GenderSelectView component 1`] = `
         >
           <form
             action=""
-            class="fitness-level-select-view__container__form"
+            class="gender-select-view-d__form"
           >
             <button
-              class="basic-button fitness-level-select-view__container__form__btn basic-button--white basic-button--white--focus"
+              class="basic-button basic-button--white basic-button--white--focus"
               type="button"
             >
               GIRL
             </button>
             <button
-              class="basic-button fitness-level-select-view__container__form__btn basic-button--white basic-button--white--focus"
+              class="basic-button basic-button--white basic-button--white--focus"
               type="button"
             >
               MEN
             </button>
             <button
-              class="basic-button fitness-level-select-view__container__form__btn basic-button--white basic-button--white--focus"
+              class="basic-button basic-button--white basic-button--white--focus"
               type="button"
             >
               OTHER
             </button>
             <button
-              class="basic-button fitness-level-select-view__container__form__btn basic-button--white basic-button--white--focus"
+              class="basic-button basic-button--white basic-button--white--focus"
               type="button"
             >
               NOT_WISH_TO_ANSWER
             </button>
             <button
-              class="basic-button fitness-level-select-view__container__form__btn basic-button--basic"
+              class="basic-button basic-button--basic"
               disabled=""
               type="submit"
             >
@@ -524,34 +524,34 @@ exports[`GenderSelectView > renders the GenderSelectView component 1`] = `
             </p>
             <form
               action=""
-              class="fitness-level-select-view__container__form"
+              class="gender-select-view-d__form"
             >
               <button
-                class="basic-button fitness-level-select-view__container__form__btn basic-button--white basic-button--white--focus"
+                class="basic-button basic-button--white basic-button--white--focus"
                 type="button"
               >
                 GIRL
               </button>
               <button
-                class="basic-button fitness-level-select-view__container__form__btn basic-button--white basic-button--white--focus"
+                class="basic-button basic-button--white basic-button--white--focus"
                 type="button"
               >
                 MEN
               </button>
               <button
-                class="basic-button fitness-level-select-view__container__form__btn basic-button--white basic-button--white--focus"
+                class="basic-button basic-button--white basic-button--white--focus"
                 type="button"
               >
                 OTHER
               </button>
               <button
-                class="basic-button fitness-level-select-view__container__form__btn basic-button--white basic-button--white--focus"
+                class="basic-button basic-button--white basic-button--white--focus"
                 type="button"
               >
                 NOT_WISH_TO_ANSWER
               </button>
               <button
-                class="basic-button fitness-level-select-view__container__form__btn basic-button--basic"
+                class="basic-button basic-button--basic"
                 disabled=""
                 type="submit"
               >

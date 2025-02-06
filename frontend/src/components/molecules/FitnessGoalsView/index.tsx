@@ -2,9 +2,9 @@ import { useState } from "react";
 
 import BasicButton from "@components/atoms/BasicButton";
 import BodyStepQuestions from "@components/molecules/BodyStepQuestions";
+import ExitSignUpStep from "@components/molecules/ExitSignUpStep";
 
 import { useTranslation } from "react-i18next";
-import ExitSignUpStep from "../ExitSignUpStep";
 import "./FitnessGoalsView.scss";
 
 function FitnessGoalsView() {

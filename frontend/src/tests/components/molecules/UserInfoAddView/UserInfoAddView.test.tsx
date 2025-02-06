@@ -1,4 +1,4 @@
-import UserInfoAddView from "@pages/SignUpPage/components/UserInfoAddView";
+import UserInfoAddView from "@components/molecules/UserInfoAddView";
 import { render } from "@testing-library/react";
 
 describe("UserInfoAddView", () => {

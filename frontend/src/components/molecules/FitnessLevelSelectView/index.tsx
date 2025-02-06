@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 
 import BasicButton from "@components/atoms/BasicButton";
 import BodyStepQuestions from "@components/molecules/BodyStepQuestions";
-import ExitSignUpStep from "../ExitSignUpStep";
-import FitnessGoalsView from "../FitnessGoalsView";
+import ExitSignUpStep from "@components/molecules/ExitSignUpStep";
+import FitnessGoalsView from "@components/molecules/FitnessGoalsView";
 
 import "./FitnessLevelSelectView.scss";
 

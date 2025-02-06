@@ -1,5 +1,6 @@
 import { useState } from "react";
-import UserInfoAddView from "./components/UserInfoAddView";
+
+import UserInfoAddView from "@components/molecules/UserInfoAddView";
 
 function SignUpPage() {
   const [isStepSignUp, setIsStepSignUp] = useState(false);

@@ -1,4 +1,4 @@
-import GenderSelectView from "@pages/SignUpPage/components/GenderSelectView";
+import GenderSelectView from "@components/molecules/GenderSelectView";
 import { render } from "@testing-library/react";
 
 describe("GenderSelectView", () => {
