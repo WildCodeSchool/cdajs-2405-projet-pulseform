@@ -75,17 +75,18 @@ exports[`App > renders the App component 1`] = `
                 class="first-view__header__container__buttom"
               >
                 <button
-                  class="basic-button first-view__header__container__buttom__width"
+                  class="basic-button first-view__header__container__buttom__width basic-button--basic"
                   type="button"
                 >
                   CREATE_ACCOUNT
                 </button>
               </div>
-              <p
+              <a
                 class="first-view__header__container__connect"
+                href="/login"
               >
                 CONNECT_MY
-              </p>
+              </a>
             </div>
           </div>
           <p
@@ -97,7 +98,7 @@ exports[`App > renders the App component 1`] = `
             class="first-view__buttom"
           >
             <button
-              class="basic-button"
+              class="basic-button basic-button--basic"
               type="button"
             >
               CREATE_ACCOUNT
@@ -107,7 +108,7 @@ exports[`App > renders the App component 1`] = `
             class="first-view__buttom-program"
           >
             <button
-              class="basic-button first-view__buttom-program__button"
+              class="basic-button first-view__buttom-program__button basic-button--basic"
               type="button"
             >
               TEST_PROGRAM
@@ -154,7 +155,7 @@ exports[`App > renders the App component 1`] = `
             class="second-view__buttom"
           >
             <button
-              class="basic-button"
+              class="basic-button basic-button--basic"
               type="button"
             >
               TEST_PROGRAM
@@ -244,17 +245,18 @@ exports[`App > renders the App component 1`] = `
               class="first-view__header__container__buttom"
             >
               <button
-                class="basic-button first-view__header__container__buttom__width"
+                class="basic-button first-view__header__container__buttom__width basic-button--basic"
                 type="button"
               >
                 CREATE_ACCOUNT
               </button>
             </div>
-            <p
+            <a
               class="first-view__header__container__connect"
+              href="/login"
             >
               CONNECT_MY
-            </p>
+            </a>
           </div>
         </div>
         <p
@@ -266,7 +268,7 @@ exports[`App > renders the App component 1`] = `
           class="first-view__buttom"
         >
           <button
-            class="basic-button"
+            class="basic-button basic-button--basic"
             type="button"
           >
             CREATE_ACCOUNT
@@ -276,7 +278,7 @@ exports[`App > renders the App component 1`] = `
           class="first-view__buttom-program"
         >
           <button
-            class="basic-button first-view__buttom-program__button"
+            class="basic-button first-view__buttom-program__button basic-button--basic"
             type="button"
           >
             TEST_PROGRAM
@@ -323,7 +325,7 @@ exports[`App > renders the App component 1`] = `
           class="second-view__buttom"
         >
           <button
-            class="basic-button"
+            class="basic-button basic-button--basic"
             type="button"
           >
             TEST_PROGRAM
