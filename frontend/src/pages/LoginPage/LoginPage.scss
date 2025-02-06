@@ -1,0 +1,210 @@
+@import '@assets/variables';
+
+.login-page {
+  &__logo {
+    display: none;
+
+    @media screen and (min-width: 768px) {
+      display: flex;
+    }
+  }
+
+  &__blob {
+    position: absolute;
+    width: 85%;
+    top: 0;
+    right: 0;
+    z-index: 0;
+    overflow: hidden;
+
+    @media screen and (min-width: 768px) {
+      display: none;
+    }
+  }
+
+  &__form-section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+
+    @media screen and (min-width: 768px) {
+      flex-direction: row;
+      align-items: center;
+      background-color: $white;
+    }
+  }
+
+  &__title {
+    @include h1-phone;
+    color: $primary;
+    position: relative;
+    z-index: 1;
+    margin: 200px 0px 100px;
+
+    @media screen and (min-width: 768px) {
+      color: $white;
+      background-color: $primary;
+      margin: 100px 0px 100px;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    z-index: 1;
+
+    @media screen and (min-width: 768px) {
+      color: $white;
+      background-color: $primary;
+    }
+  }
+
+  &__connect-button {
+    background-color: $secondary;
+    color: $white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 40px 0px 80px;
+    width: 260px;
+  }
+
+  &__section {
+    @include landing-page-title-desktop;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media screen and (min-width: 768px) {
+      background-color: $primary;
+    }
+  }
+
+  &__align {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+  }
+
+  &__motivation-block,
+  &__create-account-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media screen and (min-width: 768px) {
+      background-color: $primary;
+    }
+  }
+
+  &__motivation-title,
+  &__create-account-button {
+    display: flex;
+    align-items: center;
+    width: 75px;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__motivation-title {
+    @include h3-phone;
+    color: $primary;
+    justify-content: end;
+    margin-right: 2px;
+
+    @media screen and (min-width: 768px) {
+      background-color: $primary;
+      color: $white;
+    }
+  }
+
+  &__create-account-button {
+    @include h3-phone;
+    background-color: $white;
+    color: $secondary;
+    border: none;
+    width: 140px;
+
+    @media screen and (min-width: 768px) {
+      background-color: $primary;
+    }
+  }
+
+  &__primary-trait {
+    width: 70px;
+    background-color: $primary;
+    border-radius: 5px 0 0 5px;
+    height: 5px;
+
+    @media screen and (min-width: 768px) {
+      background-color: $white;
+      width: 68px;
+    }
+  }
+
+  &__secondary-trait {
+    width: 140px;
+    height: 6px;
+    background-color: $secondary;
+    border-radius: 0 5px 5px 0;
+
+    @media screen and (min-width: 768px) {
+      width: 150px;
+    }
+  }
+
+  &__image-side {
+    display: none;
+
+    @media screen and (min-width: 768px) {
+      display: flex;
+      align-items: center;
+      justify-content: end;
+      background-color: $white;
+      flex: 1;
+    }
+  }
+
+  &__form-container {
+    background-color: $white;
+
+    @media screen and (min-width: 768px) {
+      background-color: $primary;
+      padding: 60px 250px 100px;
+      margin-right: 20%;
+      border-radius: 10px;
+      box-shadow: 50px 50px 50px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  &__test-program-container {
+    display: none;
+
+    @media screen and (min-width: 768px) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      width: 100%;
+      top: 7%;
+      background-color: transparent;
+      z-index: 2;
+    }
+  }
+
+  &__test-program-button {
+    @include h1-phone;
+    padding: 10px 20px;
+    font-size: 18px;
+    color: $primary;
+    background-color: transparent;
+    border: 2px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+}

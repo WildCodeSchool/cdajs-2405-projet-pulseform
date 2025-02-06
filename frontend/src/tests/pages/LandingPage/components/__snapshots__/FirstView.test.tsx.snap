@@ -78,11 +78,12 @@ exports[`FirstView > renders the FirstView component 1`] = `
                 CREATE_ACCOUNT
               </button>
             </div>
-            <p
+            <a
               class="first-view__header__container__connect"
+              href="/login"
             >
               CONNECT_MY
-            </p>
+            </a>
           </div>
         </div>
         <p
@@ -187,11 +188,12 @@ exports[`FirstView > renders the FirstView component 1`] = `
               CREATE_ACCOUNT
             </button>
           </div>
-          <p
+          <a
             class="first-view__header__container__connect"
+            href="/login"
           >
             CONNECT_MY
-          </p>
+          </a>
         </div>
       </div>
       <p
