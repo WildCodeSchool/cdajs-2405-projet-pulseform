@@ -1,0 +1,412 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`FitnessGoalsView > renders the FitnessGoalsView component 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <section
+        class="fitness-goals-view"
+      >
+        <div
+          class="body-step-questions"
+        >
+          <div
+            class="body-step-questions__header-d"
+          >
+            <div
+              class="body-step-questions__header-d__logo"
+            >
+              <div
+                class="little-logo little-logo--desktop"
+              >
+                <img
+                  alt="Logo Pulse Form"
+                  class="little-logo__img"
+                  src="/src/assets/icons/mobile-logo.svg"
+                />
+                <p
+                  class="little-logo__title little-logo__title--desktop"
+                >
+                  Pulse Form
+                </p>
+              </div>
+            </div>
+            <div
+              class="body-step-questions__header-d__container"
+            >
+              <button
+                class="body-step-questions__header-d__container__btn"
+                type="button"
+              >
+                TEST_PROGRAM
+              </button>
+            </div>
+          </div>
+          <button
+            class="body-step-questions__exit"
+            type="button"
+          >
+            <img
+              alt="Close"
+              src="/src/assets/icons/blue-cross.svg"
+            />
+          </button>
+          <h2
+            class="body-step-questions__question"
+          >
+            ANY_PARTICULAR_GOAL
+          </h2>
+          <img
+            alt="blob-girl"
+            class="body-step-questions__blob-girl"
+            src="/src/assets/images/blob-girl.svg"
+          />
+          <div
+            class="body-step-questions__container"
+          >
+            <form
+              action=""
+              class="fitness-goals-view__container__form"
+            >
+              <button
+                aria-pressed="false"
+                class="basic-button basic-button--white"
+                type="button"
+              >
+                WEIGHT_LOSS
+              </button>
+              <button
+                aria-pressed="false"
+                class="basic-button basic-button--white"
+                type="button"
+              >
+                FLEXIBILITY
+              </button>
+              <button
+                aria-pressed="false"
+                class="basic-button basic-button--white"
+                type="button"
+              >
+                STRENGTHENING_MUSCLES
+              </button>
+              <button
+                aria-pressed="false"
+                class="basic-button basic-button--white"
+                type="button"
+              >
+                RELAXATION
+              </button>
+              <button
+                class="basic-button fitness-goals-view__container__form__btn basic-button--basic"
+                disabled=""
+                type="submit"
+              >
+                NEXT
+              </button>
+            </form>
+          </div>
+          <div
+            class="body-step-questions__container-d"
+          >
+            <div
+              class="body-step-questions__container-d__question"
+            >
+              <img
+                alt="sport"
+                class="body-step-questions__container-d__question__img"
+                src="/src/assets/images/step-img.svg"
+              />
+              <div
+                class="body-step-questions__container-d__question__container"
+              >
+                <p
+                  class="body-step-questions__container-d__question__container__label"
+                >
+                  MOTIVATIONAL_LABEL
+                </p>
+              </div>
+            </div>
+            <div
+              class="body-step-questions__container-d__children"
+            >
+              <p
+                class="body-step-questions__container-d__children__label"
+              >
+                ANY_PARTICULAR_GOAL
+              </p>
+              <form
+                action=""
+                class="fitness-goals-view__container__form"
+              >
+                <button
+                  aria-pressed="false"
+                  class="basic-button basic-button--white"
+                  type="button"
+                >
+                  WEIGHT_LOSS
+                </button>
+                <button
+                  aria-pressed="false"
+                  class="basic-button basic-button--white"
+                  type="button"
+                >
+                  FLEXIBILITY
+                </button>
+                <button
+                  aria-pressed="false"
+                  class="basic-button basic-button--white"
+                  type="button"
+                >
+                  STRENGTHENING_MUSCLES
+                </button>
+                <button
+                  aria-pressed="false"
+                  class="basic-button basic-button--white"
+                  type="button"
+                >
+                  RELAXATION
+                </button>
+                <button
+                  class="basic-button fitness-goals-view__container__form__btn basic-button--basic"
+                  disabled=""
+                  type="submit"
+                >
+                  NEXT
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>,
+  "container": <div>
+    <section
+      class="fitness-goals-view"
+    >
+      <div
+        class="body-step-questions"
+      >
+        <div
+          class="body-step-questions__header-d"
+        >
+          <div
+            class="body-step-questions__header-d__logo"
+          >
+            <div
+              class="little-logo little-logo--desktop"
+            >
+              <img
+                alt="Logo Pulse Form"
+                class="little-logo__img"
+                src="/src/assets/icons/mobile-logo.svg"
+              />
+              <p
+                class="little-logo__title little-logo__title--desktop"
+              >
+                Pulse Form
+              </p>
+            </div>
+          </div>
+          <div
+            class="body-step-questions__header-d__container"
+          >
+            <button
+              class="body-step-questions__header-d__container__btn"
+              type="button"
+            >
+              TEST_PROGRAM
+            </button>
+          </div>
+        </div>
+        <button
+          class="body-step-questions__exit"
+          type="button"
+        >
+          <img
+            alt="Close"
+            src="/src/assets/icons/blue-cross.svg"
+          />
+        </button>
+        <h2
+          class="body-step-questions__question"
+        >
+          ANY_PARTICULAR_GOAL
+        </h2>
+        <img
+          alt="blob-girl"
+          class="body-step-questions__blob-girl"
+          src="/src/assets/images/blob-girl.svg"
+        />
+        <div
+          class="body-step-questions__container"
+        >
+          <form
+            action=""
+            class="fitness-goals-view__container__form"
+          >
+            <button
+              aria-pressed="false"
+              class="basic-button basic-button--white"
+              type="button"
+            >
+              WEIGHT_LOSS
+            </button>
+            <button
+              aria-pressed="false"
+              class="basic-button basic-button--white"
+              type="button"
+            >
+              FLEXIBILITY
+            </button>
+            <button
+              aria-pressed="false"
+              class="basic-button basic-button--white"
+              type="button"
+            >
+              STRENGTHENING_MUSCLES
+            </button>
+            <button
+              aria-pressed="false"
+              class="basic-button basic-button--white"
+              type="button"
+            >
+              RELAXATION
+            </button>
+            <button
+              class="basic-button fitness-goals-view__container__form__btn basic-button--basic"
+              disabled=""
+              type="submit"
+            >
+              NEXT
+            </button>
+          </form>
+        </div>
+        <div
+          class="body-step-questions__container-d"
+        >
+          <div
+            class="body-step-questions__container-d__question"
+          >
+            <img
+              alt="sport"
+              class="body-step-questions__container-d__question__img"
+              src="/src/assets/images/step-img.svg"
+            />
+            <div
+              class="body-step-questions__container-d__question__container"
+            >
+              <p
+                class="body-step-questions__container-d__question__container__label"
+              >
+                MOTIVATIONAL_LABEL
+              </p>
+            </div>
+          </div>
+          <div
+            class="body-step-questions__container-d__children"
+          >
+            <p
+              class="body-step-questions__container-d__children__label"
+            >
+              ANY_PARTICULAR_GOAL
+            </p>
+            <form
+              action=""
+              class="fitness-goals-view__container__form"
+            >
+              <button
+                aria-pressed="false"
+                class="basic-button basic-button--white"
+                type="button"
+              >
+                WEIGHT_LOSS
+              </button>
+              <button
+                aria-pressed="false"
+                class="basic-button basic-button--white"
+                type="button"
+              >
+                FLEXIBILITY
+              </button>
+              <button
+                aria-pressed="false"
+                class="basic-button basic-button--white"
+                type="button"
+              >
+                STRENGTHENING_MUSCLES
+              </button>
+              <button
+                aria-pressed="false"
+                class="basic-button basic-button--white"
+                type="button"
+              >
+                RELAXATION
+              </button>
+              <button
+                class="basic-button fitness-goals-view__container__form__btn basic-button--basic"
+                disabled=""
+                type="submit"
+              >
+                NEXT
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

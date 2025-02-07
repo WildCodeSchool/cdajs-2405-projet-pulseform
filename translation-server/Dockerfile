@@ -1,7 +1,10 @@
-# Utilisez une image de base pour Node.js
 FROM node:18
 
-# Définir le répertoire de travail dans le conteneur
 WORKDIR /app
+
+COPY package*.json ./
+COPY . ./
+
+RUN rm -rf node_modules package-lock.json
 
 CMD npm i && npm run start

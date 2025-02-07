@@ -1,39 +1,46 @@
-import { BaseEntity, Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Field, ID, ObjectType } from "type-graphql";
-import { User } from "./User";
-import { Tags } from "./Enums";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { TagsEnum } from "./Enums";
 import { Program } from "./Program";
+import { User } from "./User";
 
 @ObjectType()
 @Entity()
 export class Tag extends BaseEntity {
   @PrimaryGeneratedColumn()
-  @Field((type) => ID)
+  @Field(() => ID)
   id?: number;
 
   @Column({
     type: "enum",
-    enum: Tags,
+    enum: TagsEnum,
   })
-  @Field((type) => Tags)
-  name: Tags;
+  @Field(() => TagsEnum)
+  name: TagsEnum;
 
-  @Column()
-  @Field()
-  program_id: number;
+  @ManyToMany(
+    () => User,
+    (user) => user.tags,
+  )
+  @Field(() => [User], { nullable: true })
+  users!: User[];
 
-  @ManyToMany(() => User, (user) => user.tags, { cascade: true })
-  @Field((type) => [User], { nullable: true })
-  users?: User[];
+  @ManyToMany(
+    () => Program,
+    (program) => program.tags,
+    { cascade: true },
+  )
+  @Field(() => [Program], { nullable: true })
+  programs!: Program[];
 
-  @ManyToMany(() => Program, (program) => program.tags, { cascade: true })
-  @Field((type) => [Program], { nullable: true })
-  programs?: Program[];
-
-  constructor(name: Tags, program_id: number, programs: Program[]) {
+  constructor(name: TagsEnum) {
     super();
     this.name = name;
-    this.program_id = program_id;
-    this.programs = programs;
   }
 }

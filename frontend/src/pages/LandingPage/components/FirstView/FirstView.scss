@@ -101,9 +101,13 @@
       &__connect {
         @include h2-phone;
         color: $white;
+        text-decoration: none; 
+        &:hover { 
+          cursor: pointer;
+        }
       }
     }
-  }
+  }      
 
   &__description {
     @include landing-page-title-phone;
