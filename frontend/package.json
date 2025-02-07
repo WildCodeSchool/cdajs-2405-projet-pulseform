@@ -28,7 +28,6 @@
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.54.2",
     "react-i18next": "^15.1.0",
-		"react-icons": "^5.4.0",
     "react-router-dom": "^6.27.0",
     "rollup": "^3.0.0",
     "swiper": "^11.1.15"
@@ -37,6 +36,7 @@
     "@biomejs/biome": "1.9.4",
     "@graphql-codegen/cli": "^5.0.2",
     "@graphql-codegen/client-preset": "^4.3.3",
+    "@iconify/react": "^5.2.0",
     "@playwright/test": "^1.49.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.2",

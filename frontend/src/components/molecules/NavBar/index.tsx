@@ -1,14 +1,26 @@
-import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import "./NavBar.scss"
-import {FiUser, FiZap } from "react-icons/fi";
+import {Icon} from "@iconify/react";
 
 function NavBar(){
-     const { t } = useTranslation();
+    const navigate = useNavigate()
 
      return (
         <div className="nav-bar">
-            <button className="nav-bar__button">{<FiZap/>}</button>
-            <button className="nav-bar__button">{<FiUser/>}</button>
+            <Icon
+                icon="ph:lightning"
+                className="nav-bar__button"
+                width="40"
+                height="40"
+                onClick={()=>{navigate("/sign-up")}}
+            />
+            <Icon
+                icon="ph:user"
+                className="nav-bar__button"
+                width="40"
+                height="40"
+                onClick={()=>{navigate("/sign-up")}}
+            />
         </div>
      )
 }
