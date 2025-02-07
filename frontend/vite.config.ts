@@ -20,6 +20,7 @@ export default defineConfig({
     proxy: {
       "/locales": "http://translation:8051",
     },
+    allowedHosts: ["052024-jaune-4.wns.wilders.dev"],
   },
   resolve: {
     alias: {
