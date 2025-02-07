@@ -1,3 +1,4 @@
+import { useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
@@ -7,6 +8,7 @@ import InputField from "@components/atoms/ImputField/ImputField";
 import LittleLogo from "@components/atoms/LittleLogo/index";
 import LoginImage from "@components/atoms/LoginImage";
 
+import { LOGIN_MUTATION } from "../../graphql/mutations";
 import "./LoginPage.scss";
 
 interface LoginFormValues {
@@ -18,8 +20,19 @@ function LoginPage() {
   const { t } = useTranslation();
   const { register, handleSubmit } = useForm<LoginFormValues>();
 
-  const onSubmit = (data: LoginFormValues) => {
-    console.log("Form Data: ", data);
+  const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION);
+
+  const onSubmit = async (formData: LoginFormValues) => {
+    try {
+      const response = await login({ variables: formData });
+
+      if (response.data?.login.token) {
+        localStorage.setItem("token", response.data.login.token);
+        console.log("Login successful!", response.data);
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+    }
   };
 
   return (
@@ -62,10 +75,17 @@ function LoginPage() {
               typeButton="orange"
               type="submit"
               className="login-page__connect-button"
+              disabled={loading}
             >
-              {t("CONNECT")}
+              {loading ? t("LOADING") : t("CONNECT")}
             </BasicButton>
+            {loading && <p>Logging in...</p>}
+            {error && <p>Error: {error.message}</p>}
+            {data && <p>Welcome {data.login.user.username}!</p>}
           </form>
+
+          {error && <p className="login-error">{t("LOGIN_ERROR")}</p>}
+
           <section className="login-page__section">
             <div className="login-page__align">
               <div className="login-page__motivation-block">

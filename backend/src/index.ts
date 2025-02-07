@@ -49,6 +49,7 @@ const startServer = async () => {
     listen: { port: 4000 },
     context: async ({ req }): Promise<MyContext> => {
       const request = req as Request;
+      console.log("📡 Requête reçue :", request.body);
 
       try {
         if (request.body?.query) {
@@ -65,8 +66,9 @@ const startServer = async () => {
               (def.selectionSet.selections[0].name.value === "login" ||
                 def.selectionSet.selections[0].name.value === "createUser"),
           );
-
+          console.log("Login mutation :", isLoginMutation);
           if (isLoginMutation) {
+            console.log("mon user", { models: { User: UserModel } });
             return { models: { User: UserModel } };
           }
         }
