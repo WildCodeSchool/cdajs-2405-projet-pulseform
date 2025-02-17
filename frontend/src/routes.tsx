@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 
 import HomePage from "@pages/HomePage";
 import LoginPage from "@pages/LoginPage";
+import NotFoundPage from "@pages/NotFoundPage";
 import ProgramPage from "@pages/ProgramPage";
 import SignUpPage from "@pages/SignUpPage";
 import App from "./App";
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
   // Page 404 à faire
   {
     path: "*",
-    element: <div>404 - Page Not Found</div>,
+    element: <NotFoundPage />,
   },
 ]);
 
