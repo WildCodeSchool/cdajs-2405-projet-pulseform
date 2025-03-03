@@ -28,7 +28,6 @@ const router = createBrowserRouter([
     path: "/home",
     element: <HomePage />,
   },
-  // Page 404 à faire
   {
     path: "*",
     element: <NotFoundPage />,

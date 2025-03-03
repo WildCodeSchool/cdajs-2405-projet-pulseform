@@ -41,5 +41,6 @@
   "TRY_TO_GO_BACK": "Reste zen et retourne à l'accueil.",
   "WEIGHT_LOSS": "Perte de poids",
   "WELCOME": "Bienvenue sur PulseForm!",
-  "YOUR_ARE": "Tu es ..."
+  "YOUR_ARE": "Tu es ...",
+  "YOUR_DID_NOT_HAVE_ACCESS": "On dirait que tu n'as pas les accès pour visualiser cette page !"
 }

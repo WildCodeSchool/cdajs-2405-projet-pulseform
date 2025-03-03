@@ -1,12 +1,12 @@
-import NotFoundPage from "@pages/NotFoundPage";
+import AccessDeniedPage from "@pages/AccessDeniedPage";
 import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
-describe("NotFoundPage", () => {
-  it("renders the NotFoundPage", () => {
+describe("AccessDeniedPage", () => {
+  it("renders the AccessDeniedPage", () => {
     const tree = render(
       <MemoryRouter>
-        <NotFoundPage />
+        <AccessDeniedPage />
       </MemoryRouter>,
     );
     expect(tree).toMatchSnapshot();
