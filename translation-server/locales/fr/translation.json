@@ -1,6 +1,7 @@
 {
   "ADVANCED": "Avancé·e",
   "ANY_PARTICULAR_GOAL": "Un objectif en particulier ?",
+  "BACK_TO_HOME": "Retour à l'accueil",
   "BEGINNER": "Débutant·e",
   "BLOB_ALT_TEXT": "Illustration décorative représentant un fond organique",
   "COMPLITED_NEXT_TIME_PROFILE": "Tu pourras toujours compléter ton profil dans ton espace utilisateur :)",
@@ -24,7 +25,9 @@
   "MOTIVATIONAL_LABEL": "La seule limite qui existe est celle que tu t'imposes, dépasse-la et va plus loin aujourd'hui !",
   "NEXT": "Suivant",
   "NOT_WISH_TO_ANSWER": "Je ne souhaite pas répondre",
+  "OOPS": "Oops !",
   "OTHER": "Autre",
+  "PAGE_NOT_FOUND": "On dirait que cette page n'existe pas !",
   "PASSWORD_ARIA_LABEL": "Veuillez entrer votre mot de passe",
   "PASSWORD_PLACEHOLDER": "Mot de passe",
   "PERSONALIZED_COACHING": "Un coaching personnalisé",
@@ -35,7 +38,9 @@
   "START_YOUR_FIRST_PROGRAM": "Commencer ta première séance!",
   "STRENGTHENING_MUSCLES": "Renforcement musculaire",
   "TEST_PROGRAM": "Tester un programme",
+  "TRY_TO_GO_BACK": "Reste zen et retourne à l'accueil.",
   "WEIGHT_LOSS": "Perte de poids",
   "WELCOME": "Bienvenue sur PulseForm!",
-  "YOUR_ARE": "Tu es ..."
+  "YOUR_ARE": "Tu es ...",
+  "YOUR_DID_NOT_HAVE_ACCESS": "On dirait que tu n'as pas les accès pour visualiser cette page !"
 }
