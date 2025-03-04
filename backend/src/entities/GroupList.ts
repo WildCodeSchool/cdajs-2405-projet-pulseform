@@ -1,11 +1,11 @@
-import { Field, ID, Int, ObjectType } from "type-graphql";
+import { Field, ID, ObjectType } from "type-graphql";
 import {
-	BaseEntity,
-	Column,
-	Entity,
-	JoinColumn,
-	ManyToOne,
-	PrimaryGeneratedColumn,
+  BaseEntity,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
 } from "typeorm";
 import { Group } from "./Group";
 import { User } from "./User";
@@ -13,52 +13,56 @@ import { User } from "./User";
 @ObjectType()
 @Entity()
 export class GroupList extends BaseEntity {
-	@PrimaryGeneratedColumn()
-	@Field(() => ID)
-	id?: number;
+  @PrimaryGeneratedColumn()
+  @Field(() => ID)
+  id?: number;
 
-	@Column()
-	@Field(() => Int)
-	user_id: number;
+  @Column({ default: false })
+  @Field()
+  user_accept: boolean;
 
-	@Column()
-	@Field(() => Int)
-	group_Id: number;
+  @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+  @Field(() => Date)
+  created_at: Date;
 
-	@Column({ default: false })
-	@Field()
-	user_accept: boolean;
+  @ManyToOne(
+    () => User,
+    (user) => user.groupLists,
+    { eager: true },
+  )
+  @JoinColumn({ name: "user_id" })
+  @Field(() => User, { nullable: true })
+  user!: User;
 
-	@Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
-	@Field(() => Date)
-	createdAt: Date;
+  @ManyToOne(
+    () => Group,
+    (group) => group.groupLists,
+    { eager: true },
+  )
+  @JoinColumn({ name: "group_id" })
+  @Field(() => Group, { nullable: true })
+  group!: Group;
 
-	@ManyToOne(
-		() => User,
-		(user) => user.groupLists,
-	)
-	@JoinColumn({ name: "user_id" }) // 'user_id' is the foreign key in 'GroupList' referencing 'User.id'
-	@Field(() => User)
-	user!: User;
+  constructor(
+    user: User,
+    group: Group,
+    user_accept = false,
+    created_at?: Date,
+  ) {
+    super();
+    this.user = user;
+    this.group = group;
+    this.user_accept = user_accept;
+    this.created_at = created_at ?? new Date();
+  }
 
-	@ManyToOne(
-		() => Group,
-		(group) => group.groupLists,
-	)
-	@JoinColumn({ name: "group_id" }) // 'group_id' is the foreign key in 'GroupList' referencing 'Group.id'
-	@Field(() => Group)
-	group!: Group;
+  @Field(() => ID, { nullable: true })
+  get userId(): number | null {
+    return this.user?.id ?? null;
+  }
 
-	constructor(
-		user_id: number,
-		group_Id: number,
-		createdAt: Date,
-		user_accept = false,
-	) {
-		super();
-		this.user_id = user_id;
-		this.group_Id = group_Id;
-		this.createdAt = createdAt;
-		this.user_accept = user_accept;
-	}
+  @Field(() => ID, { nullable: true })
+  get groupId(): number | null {
+    return this.group?.id ?? null;
+  }
 }

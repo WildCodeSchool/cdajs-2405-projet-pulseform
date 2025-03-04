@@ -3,12 +3,12 @@ import SecondView from "./components/SecondView";
 import "./LandingPage.scss";
 
 function LandingPage() {
-	return (
-		<section className="landing-page">
-			<FirstView />
-			<SecondView />
-		</section>
-	);
+  return (
+    <section className="landing-page">
+      <FirstView />
+      <SecondView />
+    </section>
+  );
 }
 
 export default LandingPage;

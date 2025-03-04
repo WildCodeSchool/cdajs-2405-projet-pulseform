@@ -1,9 +1,11 @@
 import BasicButton from "@components/atoms/BasicButton";
 import LittleLogo from "@components/atoms/LittleLogo";
 
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+
 import blobFirstView from "@assets/blobs/blob.svg";
 import girldImage from "@assets/images/girl.svg";
-import { useTranslation } from "react-i18next";
 import "./FirstView.scss";
 
 function FirstView() {
@@ -30,9 +32,9 @@ function FirstView() {
 							{t("CREATE_ACCOUNT")}
 						</BasicButton>
 					</div>
-					<p className="first-view__header__container__connect">
+					<Link to="/login" className="first-view__header__container__connect">
 						{t("CONNECT_MY")}
-					</p>
+					</Link>
 				</div>
 			</div>
 			<p className="first-view__description">{t("LANDING_DESCRIPTION")}</p>
