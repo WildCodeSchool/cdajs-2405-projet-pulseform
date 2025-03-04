@@ -1,6 +1,10 @@
 import ProgramCard from "@components/atoms/ProgramCard";
 import { useGetAllProgramsQuery } from "@graphql/__generated__/schema";
 import "./ProgramListView.scss";
+import {
+  type GetAllUsersQuery,
+  useGetAllUsersQuery,
+} from "../../../../../../graphql/__generated__/schema";
 
 const ProgramListView = () => {
   const { loading, error, data } = useGetAllProgramsQuery({
