@@ -49,7 +49,7 @@ export type CreateExerciceInput = {
 
 export type CreateGroupInput = {
   create_by: Scalars["Float"]["input"];
-  createdAt: Scalars["DateTimeISO"]["input"];
+  created_at: Scalars["DateTimeISO"]["input"];
   name: Scalars["String"]["input"];
 };
 
@@ -74,7 +74,7 @@ export type CreateProgramInput = {
 
 export type CreateUserInput = {
   birthday: Scalars["DateTimeISO"]["input"];
-  createdAt: Scalars["DateTimeISO"]["input"];
+  created_at: Scalars["DateTimeISO"]["input"];
   description: Scalars["String"]["input"];
   email: Scalars["String"]["input"];
   gender: Scalars["String"]["input"];
@@ -139,7 +139,7 @@ export type GetUserGroupsInput = {
 export type Group = {
   __typename?: "Group";
   create_by: Scalars["Int"]["output"];
-  createdAt: Scalars["DateTimeISO"]["output"];
+  created_at: Scalars["DateTimeISO"]["output"];
   creator: User;
   id: Scalars["ID"]["output"];
   name: Scalars["String"]["output"];
@@ -147,7 +147,7 @@ export type Group = {
 
 export type GroupList = {
   __typename?: "GroupList";
-  createdAt: Scalars["DateTimeISO"]["output"];
+  created_at: Scalars["DateTimeISO"]["output"];
   group: Group;
   group_Id: Scalars["Int"]["output"];
   id: Scalars["ID"]["output"];
@@ -328,7 +328,7 @@ export type MutationUpdateUserArgs = {
 
 export type Program = {
   __typename?: "Program";
-  createdAt: Scalars["DateTimeISO"]["output"];
+  created_at: Scalars["DateTimeISO"]["output"];
   description?: Maybe<Scalars["String"]["output"]>;
   exercices?: Maybe<Array<Exercice>>;
   id: Scalars["ID"]["output"];
@@ -530,7 +530,7 @@ export type UpdateTagInput = {
 
 export type UpdateUserInput = {
   birthday: Scalars["DateTimeISO"]["input"];
-  createdAt: Scalars["DateTimeISO"]["input"];
+  created_at: Scalars["DateTimeISO"]["input"];
   description: Scalars["String"]["input"];
   email: Scalars["String"]["input"];
   gender: Scalars["String"]["input"];
@@ -547,7 +547,7 @@ export type UpdateUserInput = {
 export type User = {
   __typename?: "User";
   birthday?: Maybe<Scalars["DateTimeISO"]["output"]>;
-  createdAt: Scalars["DateTimeISO"]["output"];
+  created_at: Scalars["DateTimeISO"]["output"];
   description: Scalars["String"]["output"];
   email: Scalars["String"]["output"];
   gender?: Maybe<Scalars["String"]["output"]>;
@@ -574,7 +574,7 @@ export type GetAllProgramsQuery = {
     description?: string | null;
     total_duration?: number | null;
     level: FitnessLevel;
-    createdAt: Date;
+    created_at: Date;
     visibility: boolean;
     like?: number | null;
     exercices?: Array<{
@@ -603,7 +603,7 @@ export type GetProgramByIdQuery = {
     id: string;
     name: string;
     description?: string | null;
-    createdAt: Date;
+    created_at: Date;
     tags?: Array<{ __typename?: "Tag"; id: string; name: Tags }> | null;
   } | null;
 };
@@ -625,33 +625,33 @@ export type GetAllUsersQuery = {
 };
 
 export const GetAllProgramsDocument = gql`
-    query getAllPrograms {
-  getAllPrograms {
-    id
-    name
-    description
-    total_duration
-    level
-    createdAt
-    visibility
-    like
-    exercices {
+  query getAllPrograms {
+    getAllPrograms {
       id
       name
       description
-      duration
-      kcal_loss
-      muscle
+      total_duration
       level
-      img_src
-    }
-    tags {
-      id
-      name
+      created_at
+      visibility
+      like
+      exercices {
+        id
+        name
+        description
+        duration
+        kcal_loss
+        muscle
+        level
+        img_src
+      }
+      tags {
+        id
+        name
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useGetAllProgramsQuery__
@@ -723,19 +723,19 @@ export type GetAllProgramsQueryResult = Apollo.QueryResult<
   GetAllProgramsQueryVariables
 >;
 export const GetProgramByIdDocument = gql`
-    query getProgramById($id: Float!) {
-  getProgramById(id: $id) {
-    id
-    name
-    description
-    createdAt
-    tags {
+  query getProgramById($id: Float!) {
+    getProgramById(id: $id) {
       id
       name
+      description
+      created_at
+      tags {
+        id
+        name
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useGetProgramByIdQuery__
@@ -812,13 +812,13 @@ export type GetProgramByIdQueryResult = Apollo.QueryResult<
   GetProgramByIdQueryVariables
 >;
 export const GetUserByIdDocument = gql`
-    query getUserById($id: Float!) {
-  getUserById(id: $id) {
-    id
-    email
+  query getUserById($id: Float!) {
+    getUserById(id: $id) {
+      id
+      email
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useGetUserByIdQuery__
@@ -893,13 +893,13 @@ export type GetUserByIdQueryResult = Apollo.QueryResult<
   GetUserByIdQueryVariables
 >;
 export const GetAllUsersDocument = gql`
-    query getAllUsers {
-  getAllUsers {
-    id
-    email
+  query getAllUsers {
+    getAllUsers {
+      id
+      email
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useGetAllUsersQuery__
