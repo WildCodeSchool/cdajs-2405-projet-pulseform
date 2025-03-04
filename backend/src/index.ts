@@ -35,6 +35,8 @@ const getUser = async (token: string): Promise<User | null> => {
 
 const startServer = async () => {
   await AppDataSource.initialize();
+  await AppDataSource.dropDatabase();
+  await AppDataSource.synchronize();
 
   const schema = await buildSchema({
     resolvers,
