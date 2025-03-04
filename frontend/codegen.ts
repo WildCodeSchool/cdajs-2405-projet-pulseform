@@ -1,16 +1,19 @@
 import type { CodegenConfig } from "@graphql-codegen/cli";
+import dotenv from "dotenv";
+
+// Load environment variables from .env file
+dotenv.config();
 
 const config: CodegenConfig = {
   overwrite: true,
   schema: {
     "http://localhost:4000": {
       headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb2huMkBleGFtcGxlLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzM4ODU5MjU5LCJleHAiOjE3Mzg5NDU2NTl9.hRue_3ti3vy0_VtLP1108lcH-U2Bl0_y_SYUJqsGsuI",
+        Authorization: `Bearer ${process.env.GRAPHQL_AUTH_TOKEN}`,
       },
     },
   },
-  documents: ["src/**/*.tsx"],
+  documents: ["src/graphql/queries/*.ts"],
   generates: {
     "./src/graphql/__generated__/schema.ts": {
       plugins: [
