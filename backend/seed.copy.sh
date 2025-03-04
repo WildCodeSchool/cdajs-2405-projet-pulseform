@@ -3,15 +3,15 @@
 echo "🚀 Insertion de données factices dans la base app..."
 
 # Vérifier si le conteneur est en cours d'exécution
-if ! docker ps | grep -q "DB_CONTAINER"; then
+if ! docker ps | grep -q "cdajs-2405-projet-pulseform-db-1"; then
   echo "❌ Le conteneur docker-db n'est pas en cours d'exécution. Démarre-le d'abord !"
   exit 1
 fi
 
 # Connexion à PostgreSQL via Docker
-DB_CONTAINER="DB_CONTAINER"
-DB_USER="DB_USER"
-DB_NAME="DB_NAME"
+DB_CONTAINER="cdajs-2405-projet-pulseform-db-1"
+DB_USER="team4"
+DB_NAME="app"
 
 docker exec -i $DB_CONTAINER psql -U $DB_USER -d $DB_NAME <<EOSQL
 BEGIN;
