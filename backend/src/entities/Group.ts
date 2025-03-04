@@ -1,39 +1,42 @@
-import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Field, ID, Int, ObjectType } from "type-graphql";
-import { User } from "./User";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { GroupList } from "./GroupList";
 
 @ObjectType()
 @Entity()
 export class Group extends BaseEntity {
   @PrimaryGeneratedColumn()
-  @Field((type) => ID)
+  @Field(() => ID)
   id?: number;
 
   @Column({ length: 50 })
-  @Field()
+  @Field(() => String)
   name: string;
 
   @Column()
-  @Field((type) => Int)
+  @Field(() => Int)
   create_by: number;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
-  @Field((type) => Date)
-  createdAt: Date;
+  @Field(() => Date)
+  created_at: Date;
 
-  @ManyToOne(() => User, (user) => user.groups)
-  @Field((type) => User)
-  creator: User;
+  @OneToMany(
+    () => GroupList,
+    (groupList) => groupList.group,
+  )
+  groupLists!: GroupList[];
 
-  @OneToMany(() => GroupList, (groupList) => groupList.group)
-  groupLists: GroupList[] | undefined;
-
-  constructor(name: string, create_by: number, createdAt: Date, creator: User) {
+  constructor(name: string, create_by: number, created_at: Date) {
     super();
     this.name = name;
     this.create_by = create_by;
-    this.createdAt = createdAt;
-    this.creator = creator;
+    this.created_at = created_at;
   }
 }

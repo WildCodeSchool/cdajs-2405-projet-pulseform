@@ -6,6 +6,16 @@
   align-items: center;
   justify-content: center;
 
+  @media (min-width: 768px) {
+    display: flex;
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
   &--giant {
     width: 408px;
     height: 284px;

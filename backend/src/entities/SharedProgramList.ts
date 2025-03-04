@@ -1,29 +1,60 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { Field, ID, Int, ObjectType } from "type-graphql";
+import { Field, ID, ObjectType } from "type-graphql";
+import {
+  BaseEntity,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { Group } from "./Group";
+import { Program } from "./Program";
+import { User } from "./User";
 
 @ObjectType()
 @Entity()
 export class SharedProgramList extends BaseEntity {
   @PrimaryGeneratedColumn()
-  @Field((type) => ID)
+  @Field(() => ID)
   id?: number;
 
-  @Column()
-  @Field((type) => Int)
-  user_id: number;
+  // Relation avec l'utilisateur qui partage
+  @ManyToOne(
+    () => User,
+    (user) => user.sharedPrograms,
+    { eager: true },
+  )
+  @JoinColumn({ name: "user_id" })
+  @Field(() => User)
+  user: User;
 
-  @Column()
-  @Field((type) => Int)
-  program_id: number;
+  @ManyToOne(
+    () => Program,
+    (program) => program.sharedPrograms,
+    { eager: true },
+  )
+  @JoinColumn({ name: "program_id" })
+  @Field(() => Program)
+  program: Program;
 
-  @Column({ nullable: true })
-  @Field((type) => Int, { nullable: true })
-  group_list_id?: number;
+  @ManyToOne(() => Group, { nullable: true, eager: true })
+  @JoinColumn({ name: "group_list_id" })
+  @Field(() => Group, { nullable: true })
+  group?: Group;
 
-  constructor(user_id: number, program_id: number, group_list_id?: number) {
+  @ManyToOne(
+    () => User,
+    (user) => user.sharedProgramsAsFriend,
+    { nullable: true },
+  )
+  @JoinColumn({ name: "friend_id" })
+  @Field(() => User, { nullable: true })
+  friend?: User;
+
+  constructor(user: User, program: Program, group: Group, friend?: User) {
     super();
-    this.user_id = user_id;
-    this.program_id = program_id;
-    this.group_list_id = group_list_id;
+    this.user = user || null;
+    this.program = program || null;
+    this.group = group || null;
+    this.friend = friend;
   }
 }

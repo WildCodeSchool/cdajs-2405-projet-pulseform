@@ -1,6 +1,5 @@
 import FirstView from "./components/FirstView";
 import SecondView from "./components/SecondView";
-
 import "./LandingPage.scss";
 
 function LandingPage() {

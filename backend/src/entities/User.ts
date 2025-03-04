@@ -1,16 +1,24 @@
-import { BaseEntity, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Field, ID, Int, ObjectType } from "type-graphql";
-import { MemberRole, FitnessLevel } from "./Enums";
-import { Tag } from "./Tag";
-import { Program } from "./Program";
-import { Group } from "./Group";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { FitnessLevelEnum, MemberRoleEnum } from "./Enums";
 import { GroupList } from "./GroupList";
+import { History } from "./History";
+import { SharedProgramList } from "./SharedProgramList";
+import { Tag } from "./Tag";
 
 @ObjectType()
-@Entity()
+@Entity("user")
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
-  @Field((type) => ID)
+  @Field(() => ID)
   id?: number;
 
   @Column({ length: 20 })
@@ -25,7 +33,7 @@ export class User extends BaseEntity {
   @Field()
   email: string;
 
-  @Column({ length: 50 })
+  @Column({ length: 250 })
   @Field()
   password: string;
 
@@ -34,7 +42,7 @@ export class User extends BaseEntity {
   image: string;
 
   @Column({ nullable: true })
-  @Field((type) => Date, { nullable: true })
+  @Field(() => Date, { nullable: true })
   birthday: Date;
 
   @Column({ nullable: true })
@@ -42,58 +50,82 @@ export class User extends BaseEntity {
   gender?: string;
 
   @Column({ nullable: true })
-  @Field((type) => Int, { nullable: true })
+  @Field(() => Int, { nullable: true })
   weight: number;
 
   @Column({ nullable: true })
-  @Field((type) => Int, { nullable: true })
+  @Field(() => Int, { nullable: true })
   height: number;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
-  @Field((type) => Date)
-  createdAt: Date;
+  @Field(() => Date)
+  created_at: Date;
 
   @Column({
     type: "enum",
-    enum: MemberRole,
-    default: MemberRole.USER,
+    enum: MemberRoleEnum,
+    default: MemberRoleEnum.USER,
   })
-  @Field((type) => MemberRole)
-  role: MemberRole;
+  @Field(() => MemberRoleEnum)
+  role: MemberRoleEnum;
 
   @Column({
     type: "enum",
-    enum: FitnessLevel,
+    enum: FitnessLevelEnum,
     nullable: true,
   })
-  @Field((type) => FitnessLevel, { nullable: true })
-  level: FitnessLevel;
+  @Field(() => FitnessLevelEnum, { nullable: true })
+  level: FitnessLevelEnum;
 
-  @ManyToMany(() => Tag, { cascade: true })
-  @JoinTable()
-  @Field((type) => [Tag], { nullable: true })
+  @ManyToMany(
+    () => Tag,
+    (tag) => tag.users,
+  )
+  @JoinTable({
+    name: "user_tag_list",
+    joinColumn: { name: "user_id", referencedColumnName: "id" },
+    inverseJoinColumn: { name: "tag_id", referencedColumnName: "id" },
+  })
+  @Field(() => [Tag], { nullable: true })
   tags?: Tag[];
 
-  @OneToMany(() => Group, (group) => group.creator)
-  @Field((type) => [Group], { nullable: true })
-  groups?: Group[];
-
-  @OneToMany(() => GroupList, (groupList) => groupList.user)
+  @OneToMany(
+    () => GroupList,
+    (groupList) => groupList.user,
+  )
   groupLists: GroupList[] | undefined;
 
+  @OneToMany(
+    () => History,
+    (histories) => histories.user,
+  )
+  histories: History[] | undefined;
+
+  @OneToMany(
+    () => SharedProgramList,
+    (sharedPrograms) => sharedPrograms.user,
+  )
+  sharedPrograms: SharedProgramList[] | undefined;
+
+  @OneToMany(
+    () => SharedProgramList,
+    (sharedProgramsAsFriend) => sharedProgramsAsFriend.friend,
+  )
+  sharedProgramsAsFriend!: SharedProgramList[];
+
   constructor(
-    username: string = "",
+    username: string,
     description: string,
     email: string,
-    password: string = "",
+    password: string,
     image: string,
     birthday: Date,
     gender: string,
     weight: number,
     height: number,
-    createdAt: Date,
-    role: MemberRole = MemberRole.USER,
-    level: FitnessLevel
+    created_at: Date,
+    level: FitnessLevelEnum,
+    role: MemberRoleEnum = MemberRoleEnum.USER,
   ) {
     super();
     this.username = username;
@@ -105,7 +137,7 @@ export class User extends BaseEntity {
     this.gender = gender;
     this.weight = weight;
     this.height = height;
-    this.createdAt = createdAt;
+    this.created_at = created_at;
     this.role = role;
     this.level = level;
   }

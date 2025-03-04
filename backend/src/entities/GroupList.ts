@@ -1,44 +1,68 @@
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Field, ID, Int, ObjectType } from "type-graphql";
-import { User } from "./User";
+import { Field, ID, ObjectType } from "type-graphql";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { Group } from "./Group";
+import { User } from "./User";
 
 @ObjectType()
 @Entity()
 export class GroupList extends BaseEntity {
   @PrimaryGeneratedColumn()
-  @Field((type) => ID)
+  @Field(() => ID)
   id?: number;
-
-  @Column()
-  @Field((type) => Int)
-  user_id: number;
-
-  @Column()
-  @Field((type) => Int)
-  group_Id: number;
 
   @Column({ default: false })
   @Field()
   user_accept: boolean;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
-  @Field((type) => Date)
-  createdAt: Date;
+  @Field(() => Date)
+  created_at: Date;
 
-  @ManyToOne(() => User, (user) => user.groupLists)
-  @Field((type) => User)
-  user: User | undefined;
+  @ManyToOne(
+    () => User,
+    (user) => user.groupLists,
+    { eager: true },
+  )
+  @JoinColumn({ name: "user_id" })
+  @Field(() => User, { nullable: true })
+  user!: User;
 
-  @ManyToOne(() => Group, (group) => group.groupLists)
-  @Field((type) => Group)
-  group: Group | undefined;
+  @ManyToOne(
+    () => Group,
+    (group) => group.groupLists,
+    { eager: true },
+  )
+  @JoinColumn({ name: "group_id" })
+  @Field(() => Group, { nullable: true })
+  group!: Group;
 
-  constructor(user_id: number, group_Id: number, user_accept: boolean = false, createdAt: Date) {
+  constructor(
+    user: User,
+    group: Group,
+    user_accept = false,
+    created_at?: Date,
+  ) {
     super();
-    this.user_id = user_id;
-    this.group_Id = group_Id;
+    this.user = user;
+    this.group = group;
     this.user_accept = user_accept;
-    this.createdAt = createdAt;
+    this.created_at = created_at ?? new Date();
+  }
+
+  @Field(() => ID, { nullable: true })
+  get userId(): number | null {
+    return this.user?.id ?? null;
+  }
+
+  @Field(() => ID, { nullable: true })
+  get groupId(): number | null {
+    return this.group?.id ?? null;
   }
 }
