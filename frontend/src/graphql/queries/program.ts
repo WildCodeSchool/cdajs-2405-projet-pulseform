@@ -11,7 +11,7 @@ export const GET_ALL_PROGRAMS = gql`
       created_at
       visibility
       like
-      exercices {
+      exercises {
         id
         name
         description
