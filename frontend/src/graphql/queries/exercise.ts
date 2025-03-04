@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_ALL_EXERCISES = gql`
-  query GetAllExercises {
-    GetAllExercices {
+  query getAllExercises {
+    getAllExercices {
       #remettre ici nom de la méthode dans ExercicesQueries
       id
       name
@@ -17,8 +17,8 @@ export const GET_ALL_EXERCISES = gql`
 `;
 
 export const GET_EXERCICE_BY_ID = gql`
-  query GetExerciceById($id: ID!) {
-    GetExerciceById(id: $id) {
+  query getExerciceById($id: : Float!) {
+    getExerciceById(id: $id) {
       id
       name
       description

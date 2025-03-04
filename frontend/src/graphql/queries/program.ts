@@ -30,7 +30,7 @@ export const GET_ALL_PROGRAMS = gql`
 `;
 
 export const GET_PROGRAM_BY_ID = gql`
-  query getProgramById($id: ID!) {
+  query getProgramById($id: Float!) {
     getProgramById(id: $id) {
       id
       name
