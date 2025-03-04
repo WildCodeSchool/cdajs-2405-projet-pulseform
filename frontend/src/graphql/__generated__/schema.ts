@@ -36,7 +36,7 @@ export type AddTagInput = {
   program_id: Scalars["Int"]["input"];
 };
 
-export type CreateExerciceInput = {
+export type CreateExerciseInput = {
   description?: InputMaybe<Scalars["String"]["input"]>;
   duration: Scalars["Int"]["input"];
   img_src?: InputMaybe<Scalars["String"]["input"]>;
@@ -63,7 +63,7 @@ export type CreateHistoryInput = {
 
 export type CreateProgramInput = {
   description?: InputMaybe<Scalars["String"]["input"]>;
-  exercices?: InputMaybe<Array<Scalars["Int"]["input"]>>;
+  exercises?: InputMaybe<Array<Scalars["Int"]["input"]>>;
   level: FitnessLevel;
   like?: InputMaybe<Scalars["Int"]["input"]>;
   name: Scalars["String"]["input"];
@@ -87,8 +87,8 @@ export type CreateUserInput = {
   weight: Scalars["Int"]["input"];
 };
 
-export type Exercice = {
-  __typename?: "Exercice";
+export type Exercise = {
+  __typename?: "Exercise";
   description?: Maybe<Scalars["String"]["output"]>;
   duration: Scalars["Int"]["output"];
   id: Scalars["ID"]["output"];
@@ -107,11 +107,11 @@ export enum FitnessLevel {
   Intermediate = "INTERMEDIATE",
 }
 
-export type GetExercicesByLevelInput = {
+export type GetExercisesByLevelInput = {
   level: FitnessLevel;
 };
 
-export type GetExercicesByMuscleInput = {
+export type GetExercisesByMuscleInput = {
   muscle: MuscleGroup;
 };
 
@@ -205,10 +205,10 @@ export type Mutation = {
   addProgram: Program;
   addTag: Tag;
   addUserToGroup: GroupList;
-  createExercice: Exercice;
+  createExercise: Exercise;
   createGroup: Group;
   createUser: User;
-  deleteExercice: Scalars["Boolean"]["output"];
+  deleteExercise: Scalars["Boolean"]["output"];
   deleteGroup: Scalars["Boolean"]["output"];
   deleteHistory: Scalars["Boolean"]["output"];
   deleteProgram: Scalars["Boolean"]["output"];
@@ -218,7 +218,7 @@ export type Mutation = {
   removeUserFromGroup: Scalars["Boolean"]["output"];
   shareProgramWithFriend: SharedProgramList;
   unshareProgram: Scalars["Boolean"]["output"];
-  updateExercice: Exercice;
+  updateExercise: Exercise;
   updateGroup: Group;
   updateHistory: History;
   updateProgram: Program;
@@ -247,8 +247,8 @@ export type MutationAddUserToGroupArgs = {
   data: GroupListsInput;
 };
 
-export type MutationCreateExerciceArgs = {
-  data: CreateExerciceInput;
+export type MutationCreateExerciseArgs = {
+  data: CreateExerciseInput;
 };
 
 export type MutationCreateGroupArgs = {
@@ -259,7 +259,7 @@ export type MutationCreateUserArgs = {
   data: CreateUserInput;
 };
 
-export type MutationDeleteExerciceArgs = {
+export type MutationDeleteExerciseArgs = {
   id: Scalars["Float"]["input"];
 };
 
@@ -301,8 +301,8 @@ export type MutationUnshareProgramArgs = {
   id: Scalars["Float"]["input"];
 };
 
-export type MutationUpdateExerciceArgs = {
-  data: UpdateExerciceInput;
+export type MutationUpdateExerciseArgs = {
+  data: UpdateExerciseInput;
 };
 
 export type MutationUpdateGroupArgs = {
@@ -330,7 +330,7 @@ export type Program = {
   __typename?: "Program";
   created_at: Scalars["DateTimeISO"]["output"];
   description?: Maybe<Scalars["String"]["output"]>;
-  exercices?: Maybe<Array<Exercice>>;
+  exercises?: Maybe<Array<Exercise>>;
   id: Scalars["ID"]["output"];
   level: FitnessLevel;
   like?: Maybe<Scalars["Int"]["output"]>;
@@ -348,14 +348,14 @@ export type ProgramFilterInput = {
 
 export type Query = {
   __typename?: "Query";
-  getAllExercices: Array<Exercice>;
+  getAllExercises: Array<Exercise>;
   getAllGroups: Array<Group>;
   getAllPrograms: Array<Program>;
   getAllTags: Array<Tag>;
   getAllUsers: Array<User>;
-  getExerciceById?: Maybe<Exercice>;
-  getExercicesByLevel: Array<Exercice>;
-  getExercicesByMuscle: Array<Exercice>;
+  getExerciseById?: Maybe<Exercise>;
+  getExercisesByLevel: Array<Exercise>;
+  getExercisesByMuscle: Array<Exercise>;
   getGroupById?: Maybe<Group>;
   getGroupMembers: Array<GroupList>;
   getHistoryByDateRange: Array<History>;
@@ -381,16 +381,16 @@ export type QueryGetAllProgramsArgs = {
   filters?: InputMaybe<ProgramFilterInput>;
 };
 
-export type QueryGetExerciceByIdArgs = {
+export type QueryGetExerciseByIdArgs = {
   id: Scalars["Float"]["input"];
 };
 
-export type QueryGetExercicesByLevelArgs = {
-  data: GetExercicesByLevelInput;
+export type QueryGetExercisesByLevelArgs = {
+  data: GetExercisesByLevelInput;
 };
 
-export type QueryGetExercicesByMuscleArgs = {
-  data: GetExercicesByMuscleInput;
+export type QueryGetExercisesByMuscleArgs = {
+  data: GetExercisesByMuscleInput;
 };
 
 export type QueryGetGroupByIdArgs = {
@@ -492,7 +492,7 @@ export enum Tags {
   WeightLoss = "WEIGHT_LOSS",
 }
 
-export type UpdateExerciceInput = {
+export type UpdateExerciseInput = {
   description?: InputMaybe<Scalars["String"]["input"]>;
   id: Scalars["Int"]["input"];
   level?: InputMaybe<FitnessLevel>;
@@ -514,7 +514,7 @@ export type UpdateHistoryInput = {
 
 export type UpdateProgramInput = {
   description?: InputMaybe<Scalars["String"]["input"]>;
-  exercices?: InputMaybe<Array<Scalars["Int"]["input"]>>;
+  exercises?: InputMaybe<Array<Scalars["Int"]["input"]>>;
   level?: InputMaybe<FitnessLevel>;
   like?: InputMaybe<Scalars["Int"]["input"]>;
   name?: InputMaybe<Scalars["String"]["input"]>;
@@ -577,8 +577,8 @@ export type GetAllProgramsQuery = {
     created_at: Date;
     visibility: boolean;
     like?: number | null;
-    exercices?: Array<{
-      __typename?: "Exercice";
+    exercises?: Array<{
+      __typename?: "Exercise";
       id: string;
       name: string;
       description?: string | null;
@@ -635,7 +635,7 @@ export const GetAllProgramsDocument = gql`
       created_at
       visibility
       like
-      exercices {
+      exercises {
         id
         name
         description

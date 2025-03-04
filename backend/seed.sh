@@ -23,9 +23,9 @@ SET CONSTRAINTS ALL DEFERRED;
 TRUNCATE TABLE "user" RESTART IDENTITY CASCADE;
 TRUNCATE TABLE "program" RESTART IDENTITY CASCADE;
 TRUNCATE TABLE "tag" RESTART IDENTITY CASCADE;
-TRUNCATE TABLE "exercice" RESTART IDENTITY CASCADE;
+TRUNCATE TABLE "exercise" RESTART IDENTITY CASCADE;
 TRUNCATE TABLE "tag_list" RESTART IDENTITY CASCADE;
-TRUNCATE TABLE "exercice_list" RESTART IDENTITY CASCADE;
+TRUNCATE TABLE "exercise_list" RESTART IDENTITY CASCADE;
 TRUNCATE TABLE "user_tag_list" RESTART IDENTITY CASCADE;
 TRUNCATE TABLE "group" RESTART IDENTITY CASCADE;
 TRUNCATE TABLE "group_list" RESTART IDENTITY CASCADE;
@@ -63,15 +63,15 @@ INSERT INTO "tag_list" (program_id, tag_id) VALUES
 ON CONFLICT DO NOTHING;
 
 -- ✅ Insérer les exercices
-INSERT INTO "exercice" (id, name, description, duration, kcal_loss, muscle, level, img_src) VALUES
-(1, 'Push-ups', 'Exercice de musculation classique', 30, 100, 'Chest', 'beginner', 'pushups.jpg'),
+INSERT INTO "exercise" (id, name, description, duration, kcal_loss, muscle, level, img_src) VALUES
+(1, 'Push-ups', 'Exercise de musculation classique', 30, 100, 'Chest', 'beginner', 'pushups.jpg'),
 (2, 'Squats', 'Excellent pour les jambes', 40, 120, 'Legs', 'intermediate', 'squats.jpg'),
 (3, 'Lunges', 'Exercice pour renforcer les jambes et les fessiers', 35, 110, 'Legs', 'intermediate', 'lunges.jpg'),
 (4, 'Planks', 'Exercice pour renforcer la sangle abdominale', 40, 90, 'Abdominals', 'beginner', 'planks.jpg')
 ON CONFLICT DO NOTHING;
 
 -- ✅ Associer exercices et programmes
-INSERT INTO "exercice_list" (program_id, exercice_id) VALUES
+INSERT INTO "exercise_list" (program_id, exercise_id) VALUES
 (1, 1),
 (1, 2),
 (1, 3),
