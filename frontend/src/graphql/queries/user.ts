@@ -31,7 +31,7 @@ export const GET_USER_BY_ID = gql`
 `;
 
 export const GET_ALL_USERS = gql`
-  query getAllUsers {
+  query GetAllUsers {
     getAllUsers {
       id
       email

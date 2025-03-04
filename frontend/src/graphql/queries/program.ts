@@ -8,7 +8,7 @@ export const GET_ALL_PROGRAMS = gql`
       description
       total_duration
       level
-      createdAt
+      created_at
       visibility
       like
       exercices {
@@ -35,7 +35,7 @@ export const GET_PROGRAM_BY_ID = gql`
       id
       name
       description
-      createdAt
+      created_at
       tags {
         id
         name
