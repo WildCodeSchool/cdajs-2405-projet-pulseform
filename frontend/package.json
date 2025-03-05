@@ -22,14 +22,7 @@
     "@fullcalendar/react": "^6.1.15",
     "@parcel/watcher": "^2.4.1",
     "classnames": "^2.5.1",
-<<<<<<< HEAD
-<<<<<<< HEAD
     "graphql": "^16.10.0",
-=======
->>>>>>> c1798d9 (initialising codegen)
-=======
-    "graphql": "^16.10.0",
->>>>>>> 53dacc2 (temporary fetch Bearer token via env file)
     "i18next": "^23.16.2",
     "i18next-browser-languagedetector": "^8.0.0",
     "i18next-xhr-backend": "^3.2.2",

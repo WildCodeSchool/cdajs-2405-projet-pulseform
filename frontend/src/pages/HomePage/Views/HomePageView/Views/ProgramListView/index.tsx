@@ -5,7 +5,7 @@ import {
   useGetAllProgramsQuery,
 } from "@graphql/__generated__/schema";
 import dotenv from "dotenv";
-
+// LIGNE 7 ET 9 A METTRE EN COMMENTAIRE SINON FRONT PLANTE!!!
 dotenv.config();
 const ProgramListView = () => {
   const { loading, error, data } = useGetAllProgramsQuery({
