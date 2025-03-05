@@ -3,40 +3,42 @@ import AppDataSource from "../../AppDataSource";
 import { Group } from "../../entities/Group";
 import { GroupList } from "../../entities/GroupList";
 import {
-	GetGroupMembersInput,
-	GetUserGroupsInput,
+  GetGroupMembersInput,
+  GetUserGroupsInput,
 } from "../../inputs/GroupListsInput";
 
 @Resolver(GroupList)
 export class GroupListsQueries {
-	// Récupérer tous les groupes d'un utilisateur
-	@Query(() => [Group])
-	async getUserGroups(
-		@Arg("data", () => GetUserGroupsInput) data: GetUserGroupsInput,
-	): Promise<Group[]> {
-		const { user_id } = data;
-		const groupLists = await AppDataSource.manager.find(GroupList, {
-			where: { user_id },
-			relations: ["group"],
-		});
+  // Récupérer tous les groupes d'un utilisateur
+  @Query(() => [Group])
+  async getUserGroups(
+    @Arg("data", () => GetUserGroupsInput) data: GetUserGroupsInput,
+  ): Promise<Group[]> {
+    const { user_id } = data;
 
-		// Extraire les groupes associés à l'utilisateur
-		const groups = groupLists
-			.map((groupList) => groupList.group)
-			.filter((group): group is Group => group !== undefined);
-		return groups;
-	}
+    // Récupérer les groupes de l'utilisateur
+    const groupLists = await AppDataSource.manager.find(GroupList, {
+      where: { user: { id: user_id } },
+      relations: ["group"],
+    });
 
-	// Récupérer les membres d'un groupe
-	@Query(() => [GroupList])
-	async getGroupMembers(
-		@Arg("data", () => GetGroupMembersInput) data: GetGroupMembersInput,
-	): Promise<GroupList[]> {
-		const { group_id } = data;
+    // Extraire les groupes associés à l'utilisateur
+    const groups = groupLists
+      .map((groupList) => groupList.group)
+      .filter((group): group is Group => group !== undefined);
+    return groups;
+  }
 
-		return await AppDataSource.manager.find(GroupList, {
-			where: { group: { id: group_id } },
-			relations: ["user"],
-		});
-	}
+  // Récupérer les membres d'un groupe
+  @Query(() => [GroupList])
+  async getGroupMembers(
+    @Arg("data", () => GetGroupMembersInput) data: GetGroupMembersInput,
+  ): Promise<GroupList[]> {
+    const { group_id } = data;
+
+    return await AppDataSource.manager.find(GroupList, {
+      where: { group: { id: group_id } },
+      relations: ["user"],
+    });
+  }
 }

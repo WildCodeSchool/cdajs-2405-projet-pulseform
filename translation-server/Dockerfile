@@ -8,4 +8,6 @@ RUN npm i
 
 COPY . ./
 
-CMD npm run start
+RUN rm -rf node_modules package-lock.json
+
+CMD npm i && npm run start
