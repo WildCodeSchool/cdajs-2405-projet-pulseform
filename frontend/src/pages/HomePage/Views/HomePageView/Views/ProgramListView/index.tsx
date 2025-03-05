@@ -1,9 +1,12 @@
 import ProgramCard from "@components/atoms/ProgramCard";
 import "./ProgramListView.scss";
+import { ClockIcon } from "@assets/icons/icons/icons";
 import {
   useGetAllProgramsQuery,
-} from "../../../../../../graphql/__generated__/schema";
+} from "@graphql/__generated__/schema";
+import dotenv from "dotenv";
 
+dotenv.config();
 const ProgramListView = () => {
   const { loading, error, data } = useGetAllProgramsQuery({
     context: {
@@ -33,6 +36,7 @@ const ProgramListView = () => {
       {data.getAllPrograms.map((program) => (
         <ProgramCard key={program.id} program={program} />
       ))}
+      ;
     </div>
   );
 };
