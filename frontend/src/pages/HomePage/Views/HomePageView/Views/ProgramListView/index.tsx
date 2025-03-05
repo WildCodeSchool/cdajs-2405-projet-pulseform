@@ -5,7 +5,7 @@ import {
   useGetAllProgramsQuery,
 } from "@graphql/__generated__/schema";
 import dotenv from "dotenv";
-
+// LIGNE 7 ET 9 A METTRE EN COMMENTAIRE SINON FRONT PLANTE!!!
 dotenv.config();
 const ProgramListView = () => {
   const { loading, error, data } = useGetAllProgramsQuery({
@@ -30,16 +30,11 @@ const ProgramListView = () => {
 
   const programs: GetAllProgramsQuery = data;
 
-  console.log(
-    "démonstration du retour de apollo client suite à la requête GraphQL ",
-    programs,
-  );
-
   return (
     <div>
       <ClockIcon />
       <p>ProgramListView</p>
-      <p>We have {data.getAllPrograms.length} programs</p>
+      <p>We have {programs.getAllPrograms.length} programs</p>
       {data.getAllPrograms.map((program) => (
         <div key={program.id}>{program.level}</div>
       ))}
