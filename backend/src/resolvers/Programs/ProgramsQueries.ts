@@ -22,7 +22,7 @@ export class ProgramsQueries {
 
     return await AppDataSource.manager.find(Program, {
       where,
-      relations: ["exercices", "tags"],
+      relations: ["exercises", "tags"],
     });
   }
 
@@ -33,16 +33,16 @@ export class ProgramsQueries {
   ): Promise<Program[]> {
     return await AppDataSource.manager.find(Program, {
       where: { level },
-      relations: ["exercices", "tags"],
+      relations: ["exercises", "tags"],
     });
   }
 
-  // Récupérer un programme par id, avec ses exercices
+  // Récupérer un programme par id, avec ses exercises
   @Query(() => Program, { nullable: true })
   async getProgramById(@Arg("id") id: number): Promise<Program | null> {
     return await AppDataSource.manager.findOne(Program, {
       where: { id },
-      relations: ["tags", "exercices"],
+      relations: ["tags", "exercises"],
     });
   }
 
@@ -52,7 +52,7 @@ export class ProgramsQueries {
     const programs = await AppDataSource.getRepository(Program)
       .createQueryBuilder("program")
       .leftJoinAndSelect("program.tags", "tags")
-      .leftJoinAndSelect("program.exercices", "exercices")
+      .leftJoinAndSelect("program.exercises", "exercises")
       .where("program.name LIKE :keyword", { keyword: `%${keyword}%` })
       .orWhere("program.description LIKE :keyword", { keyword: `%${keyword}%` })
       .getMany();

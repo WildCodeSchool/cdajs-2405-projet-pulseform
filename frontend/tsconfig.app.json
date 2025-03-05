@@ -20,7 +20,8 @@
     "paths": {
       "@components/*": ["src/components/*"],
       "@assets/*": ["src/assets/*"],
-      "@pages/*": ["src/pages/*"]
+      "@pages/*": ["src/pages/*"],
+      "@graphql/*": ["src/graphql/*"]
     }
   },
   "include": ["src"]

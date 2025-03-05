@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
+import dotenv from "dotenv";
 import type { Request } from "express";
 import { GraphQLError } from "graphql";
 import { parse } from "graphql";
@@ -12,7 +13,6 @@ import { UserModel } from "./models/UserModel";
 import { resolvers } from "./resolvers";
 import type { MyContext } from "./types/context";
 
-import dotenv from "dotenv";
 dotenv.config();
 
 // Fonction pour décoder et vérifier le JWT

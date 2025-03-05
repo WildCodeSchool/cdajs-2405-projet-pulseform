@@ -1,5 +1,5 @@
 import {
-  CurrentExerciceView,
+  CurrentExerciseView,
   ExerciseListView,
   ExitProgramView,
   FinishedProgramView,
@@ -14,7 +14,7 @@ const ProgramPage = () => {
       <section>
         <ExerciseListView />{" "}
         {/* on fait défiler une à une les vues avec un state*/}
-        <CurrentExerciceView />
+        <CurrentExerciseView />
         <RestView />
         <ExitProgramView />
         <FinishedProgramView />
@@ -27,7 +27,7 @@ const ProgramPage = () => {
       </section>
       <section>
         <StartProgramView />
-        <CurrentExerciceView />{" "}
+        <CurrentExerciseView />{" "}
         {/* colonne de droite de l'écran qui fait défiler les vues avec un state*/}
         <RestView />
         <ExitProgramView />

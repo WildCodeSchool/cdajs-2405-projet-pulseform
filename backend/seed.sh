@@ -3,15 +3,15 @@
 echo "🚀 Insertion de données factices dans la base app..."
 
 # Vérifier si le conteneur est en cours d'exécution
-if ! docker ps | grep -q "DB_CONTAINER"; then
+if ! docker ps | grep -q "cdajs-2405-projet-pulseform-db-1"; then
   echo "❌ Le conteneur docker-db n'est pas en cours d'exécution. Démarre-le d'abord !"
   exit 1
 fi
 
 # Connexion à PostgreSQL via Docker
-DB_CONTAINER="DB_CONTAINER"
-DB_USER="DB_USER"
-DB_NAME="DB_NAME"
+DB_CONTAINER="cdajs-2405-projet-pulseform-db-1"
+DB_USER="team4"
+DB_NAME="app"
 
 docker exec -i $DB_CONTAINER psql -U $DB_USER -d $DB_NAME <<EOSQL
 BEGIN;
@@ -23,9 +23,9 @@ SET CONSTRAINTS ALL DEFERRED;
 TRUNCATE TABLE "user" RESTART IDENTITY CASCADE;
 TRUNCATE TABLE "program" RESTART IDENTITY CASCADE;
 TRUNCATE TABLE "tag" RESTART IDENTITY CASCADE;
-TRUNCATE TABLE "exercice" RESTART IDENTITY CASCADE;
+TRUNCATE TABLE "exercise" RESTART IDENTITY CASCADE;
 TRUNCATE TABLE "tag_list" RESTART IDENTITY CASCADE;
-TRUNCATE TABLE "exercice_list" RESTART IDENTITY CASCADE;
+TRUNCATE TABLE "exercise_list" RESTART IDENTITY CASCADE;
 TRUNCATE TABLE "user_tag_list" RESTART IDENTITY CASCADE;
 TRUNCATE TABLE "group" RESTART IDENTITY CASCADE;
 TRUNCATE TABLE "group_list" RESTART IDENTITY CASCADE;
@@ -63,15 +63,15 @@ INSERT INTO "tag_list" (program_id, tag_id) VALUES
 ON CONFLICT DO NOTHING;
 
 -- ✅ Insérer les exercices
-INSERT INTO "exercice" (id, name, description, duration, kcal_loss, muscle, level, img_src) VALUES
-(1, 'Push-ups', 'Exercice de musculation classique', 30, 100, 'Chest', 'beginner', 'pushups.jpg'),
+INSERT INTO "exercise" (id, name, description, duration, kcal_loss, muscle, level, img_src) VALUES
+(1, 'Push-ups', 'Exercise de musculation classique', 30, 100, 'Chest', 'beginner', 'pushups.jpg'),
 (2, 'Squats', 'Excellent pour les jambes', 40, 120, 'Legs', 'intermediate', 'squats.jpg'),
 (3, 'Lunges', 'Exercice pour renforcer les jambes et les fessiers', 35, 110, 'Legs', 'intermediate', 'lunges.jpg'),
 (4, 'Planks', 'Exercice pour renforcer la sangle abdominale', 40, 90, 'Abdominals', 'beginner', 'planks.jpg')
 ON CONFLICT DO NOTHING;
 
 -- ✅ Associer exercices et programmes
-INSERT INTO "exercice_list" (program_id, exercice_id) VALUES
+INSERT INTO "exercise_list" (program_id, exercise_id) VALUES
 (1, 1),
 (1, 2),
 (1, 3),
