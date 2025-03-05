@@ -1,6 +1,6 @@
 import "./ProgramdoneCard.scss";
 
-type ProgramDoneCardType = {
+export type ProgramDoneCardType = {
   name: string;
   date: string;
   total_duration: number;

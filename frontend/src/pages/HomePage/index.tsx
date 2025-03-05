@@ -1,5 +1,8 @@
 import NavBar from "@components/molecules/NavBar";
-import { ProgramDoneCard } from "@components/molecules/ProgramDoneCard";
+import {
+  ProgramDoneCard,
+  ProgramDoneCardType,
+} from "@components/molecules/ProgramDoneCard";
 import { useEffect, useState } from "react";
 import { HomePageView, UserProfileView } from "./Views";
 
@@ -21,10 +24,10 @@ const HomePage = () => {
     };
   }, []);
 
-  const program = {
-    title: "Body Sculpt",
+  const program: ProgramDoneCardType = {
+    name: "Body Sculpt",
     date: "13/09/2024",
-    time: "60min",
+    total_duration: 60,
   };
 
   return (
