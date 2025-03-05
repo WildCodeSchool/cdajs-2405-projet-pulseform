@@ -20,14 +20,17 @@
     "classname": "^0.0.0",
     "classnames": "^2.5.1",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "graphql": "^16.10.0",
 =======
 >>>>>>> c1798d9 (initialising codegen)
+=======
+    "graphql": "^16.10.0",
+>>>>>>> 53dacc2 (temporary fetch Bearer token via env file)
     "i18next": "^23.16.2",
     "i18next-browser-languagedetector": "^8.0.0",
     "i18next-xhr-backend": "^3.2.2",
     "jwt-decode": "^4.0.0",
-    "graphql": "^16.10.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.54.2",

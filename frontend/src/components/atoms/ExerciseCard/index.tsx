@@ -1,13 +1,27 @@
+import { ClockIcon, FlameIcon } from "@assets/icons/icons/icons";
+
 import type { Exercise } from "@graphql/__generated__/schema";
 
 type ExerciseCardProps = {
-  exercise: Exercise; // Correctly use the Exercise type here
+  exercise: Exercise;
 };
+
 const ExerciseCard = ({ exercise }: ExerciseCardProps) => {
   return (
     <div className="exercise-card">
-      <h3>{exercise.name}</h3>
-      <p>{exercise.description}</p>
+      <img
+        src={exercise.img_src || ""}
+        alt={exercise.name}
+        className="exercise-card__image"
+      />
+      <div className="exercise-card__overlay">
+        <div className="exercise-card__info">
+          <ClockIcon />
+          <span>{exercise.duration}</span>
+          <FlameIcon />
+        </div>
+        <h3 className="exercise-card__title">{exercise.name}</h3>
+      </div>
     </div>
   );
 };

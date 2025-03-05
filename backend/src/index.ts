@@ -34,9 +34,8 @@ const getUser = async (token: string): Promise<User | null> => {
 };
 
 const startServer = async () => {
+  // await AppDataSource.dropDatabase(); que si on veut reset la base de données
   await AppDataSource.initialize();
-  await AppDataSource.dropDatabase();
-  await AppDataSource.synchronize();
 
   const schema = await buildSchema({
     resolvers,
