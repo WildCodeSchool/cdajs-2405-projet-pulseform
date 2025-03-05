@@ -28,7 +28,6 @@ function LoginPage() {
 
       if (response.data?.login.token) {
         localStorage.setItem("token", response.data.login.token);
-        console.log("Login successful!", response.data);
       }
     } catch (err) {
       console.error("Login error:", err);

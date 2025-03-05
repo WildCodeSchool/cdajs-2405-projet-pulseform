@@ -15,7 +15,6 @@ export const UserModel = {
 
   // Récupérer un utilisateur par email
   async getByEmail(email: string): Promise<User | null> {
-    console.log("Recherche d'utilisateur avec l'email:", email);
     return await AppDataSource.manager.findOne(User, { where: { email } });
   },
 
