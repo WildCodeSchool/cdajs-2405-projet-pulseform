@@ -1,5 +1,5 @@
 import "./ProgramListView.scss";
-import { ClockIcon } from "@assets/icons/icons/icons";
+import { ClockIcon } from "@assets/icons/icon-list/iconList";
 import {
   type GetAllProgramsQuery,
   useGetAllProgramsQuery,
