@@ -1,4 +1,4 @@
-import { ClockIcon, FlameIcon } from "@assets/icons/icons/icons";
+import { ClockIcon, FlameIcon } from "@assets/icons/icon-list/iconList";
 
 import type { Exercise } from "@graphql/__generated__/schema";
 
