@@ -1,13 +1,17 @@
-import "./FitnessLevelMenu.scss"
+import "./FitnessLevelMenu.scss";
+import { SelectionButton } from "../../atoms/SelectionButton/index.";
+import { useTranslation } from "react-i18next";
 
-function FitnessLevelMenu(){
-    return (
-        <div className="fitness-level-menu">
-            <button className="fitness-level-menu__button">Débutante</button>
-            <button className="fitness-level-menu__button">Intermédiaire</button>
-            <button className="fitness-level-menu__button">Avancé</button>
-        </div>
-    )
+function FitnessLevelMenu() {
+  const { t } = useTranslation();
+
+  return (
+    <div className="fitness-level-menu">
+      <SelectionButton selected={false}>{t("BEGINNER")}</SelectionButton>
+      <SelectionButton selected={true}>{t("INTERMEDIATE")}</SelectionButton>
+      <SelectionButton selected={false}>{t("ADVANCED")}</SelectionButton>
+    </div>
+  );
 }
 
 export default FitnessLevelMenu;

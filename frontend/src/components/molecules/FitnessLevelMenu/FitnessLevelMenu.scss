@@ -1,19 +1,27 @@
 @import "@assets/variables.scss";
 
-.fitness-level-menu{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    background-color: $white;
-    width:1010;
-    height:50;
-    padding: 10 300;
+.fitness-level-menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: $white;
 
-    &__button {
-        @include h2-phone;
-        color:$primary;
-        border: none;
-        background: transparent
-    }
+  //   &__button {
+  //     @include h2-phone;
+  //     position: relative;
+  //     color: $primary;
+  //     border: none;
+  //     background: transparent;
+  //     z-index: 2;
+  //   }
+  //   &__selected {
+  //     background: $secondary;
+  //     position: relative;
+  //     height: 20;
+  //     width: 78;
+  //     z-index: 1;
+  //     top: -12px;
+  //     left: 20px;
+  //   }
 }
