@@ -1,15 +1,17 @@
 import "./ProgramListView.scss";
+import { ClockIcon } from "@assets/icons/icons/icons";
 import {
   type GetAllProgramsQuery,
   useGetAllProgramsQuery,
-} from "../../../../../../graphql/__generated__/schema";
+} from "@graphql/__generated__/schema";
+import dotenv from "dotenv";
 
+dotenv.config();
 const ProgramListView = () => {
   const { loading, error, data } = useGetAllProgramsQuery({
     context: {
       headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJsdWNpZUBwdWxzZWZvcm0uY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NDEwOTc3OTMsImV4cCI6MTc0MTE4NDE5M30.UKnYz0Bd1UhRDxJry5_77satouaLfvzVdtMglmYLY_E",
+        Authorization: `Bearer ${process.env.GRAPHQL_AUTH_TOKEN}`,
       },
     },
   });
@@ -35,14 +37,13 @@ const ProgramListView = () => {
 
   return (
     <div>
+      <ClockIcon />
       <p>ProgramListView</p>
       <p>We have {data.getAllPrograms.length} programs</p>
       {data.getAllPrograms.map((program) => (
-        <div key={program.id}>
-          <h3>{program.name}</h3>
-          <p>{program.description}</p>
-        </div>
+        <div key={program.id}>{program.level}</div>
       ))}
+      ;
     </div>
   );
 };
