@@ -4,10 +4,10 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm i
+# ✅ Installe nodemon en global et les dépendances
+RUN npm install -g nodemon && npm install
 
 COPY . ./
 
-RUN rm -rf node_modules package-lock.json
-
-CMD npm i && npm run start
+# ✅ Ne supprime pas les node_modules après installation !
+CMD ["npm", "run", "start"]
