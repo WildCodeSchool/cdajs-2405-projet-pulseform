@@ -1,6 +1,6 @@
 import { GraphQLError } from "graphql";
 import { Arg, Ctx, Query, Resolver } from "type-graphql";
-import AppDataSource from "../../AppDataSource"; // Importe ton AppDataSource pour accéder à la gestion des entités
+import AppDataSource from "../../AppDataSource";
 import { User } from "../../entities/User";
 import type { MyContext } from "../../types/context";
 
