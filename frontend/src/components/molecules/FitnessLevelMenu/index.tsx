@@ -8,11 +8,11 @@ function FitnessLevelMenu() {
 
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const buttons = [t("BEGINNER"), t("INTERMEDIATE"), t("ADVANCED")];
+  const fitnessLevels = [t("BEGINNER"), t("INTERMEDIATE"), t("ADVANCED")];
 
   return (
     <div className="fitness-level-menu">
-      {buttons.map((label, index) => (
+      {fitnessLevels.map((label, index) => (
         <SelectionButton
           key={index}
           children={label}
