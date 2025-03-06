@@ -23,7 +23,10 @@ export default defineConfig({
       "/locales": `${process.env.VITE_URL_TRAD}`,
       "/graphql": `${process.env.VITE_URL_BACK}`,
     },
-    allowedHosts: ["052024-jaune-4.wns.wilders.dev"],
+    allowedHosts: [
+      "052024-jaune-4.wns.wilders.dev",
+      "staging.052024-jaune-4.wns.wilders.dev",
+    ],
   },
   resolve: {
     alias: {
