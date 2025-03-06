@@ -9,15 +9,13 @@ export function SelectionButton({
   ...props
 }: SelectionButtonProps) {
   return (
-    <div className={`selection-button`}>
-      <button
-        className={`selection-button ${
-          isActive ? "selection-button-active" : ""
-        }`}
-        onClick={onClick}
-      >
-        {children}
-      </button>
-    </div>
+    <button
+      className={`selection-button ${
+        isActive ? "selection-button-active" : ""
+      }`}
+      onClick={onClick}
+    >
+      {children}
+    </button>
   );
 }
