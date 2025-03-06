@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import "./FitnessGoalsView.scss";
 
 function FitnessGoalsView() {
-  type ExerciceType =
+  type ExerciseType =
     | "weight_Loss"
     | "flexibility"
     | "strengthening_Muscles"
@@ -17,8 +17,8 @@ function FitnessGoalsView() {
   const [isExit, setIsExit] = useState(false);
   const [isNextStep, setIsNextStep] = useState(false);
 
-  const [typeExercice, setTypeExercice] = useState<
-    Record<ExerciceType, boolean>
+  const [typeExercise, setTypeExercise] = useState<
+    Record<ExerciseType, boolean>
   >({
     weight_Loss: false,
     flexibility: false,
@@ -36,8 +36,8 @@ function FitnessGoalsView() {
     setIsNextStep(true);
   };
 
-  const handleSelectExercice = (type: ExerciceType) => {
-    setTypeExercice((prevState) => ({
+  const handleSelectExercise = (type: ExerciseType) => {
+    setTypeExercise((prevState) => ({
       ...prevState,
       [type]: !prevState[type],
     }));
@@ -52,13 +52,13 @@ function FitnessGoalsView() {
             ctaExit={handleExit}
           >
             <form className="fitness-goals-view__container__form" action="">
-              {Object.keys(typeExercice).map((type) => (
+              {Object.keys(typeExercise).map((type) => (
                 <BasicButton
                   typeButton="white"
                   key={type}
                   type="button"
-                  onClick={() => handleSelectExercice(type as ExerciceType)}
-                  aria-pressed={typeExercice[type as ExerciceType]}
+                  onClick={() => handleSelectExercise(type as ExerciseType)}
+                  aria-pressed={typeExercise[type as ExerciseType]}
                 >
                   {t(type.toUpperCase())}
                 </BasicButton>
@@ -67,7 +67,7 @@ function FitnessGoalsView() {
                 className="fitness-goals-view__container__form__btn"
                 type="submit"
                 onClick={handleNextStep}
-                disabled={Object.values(typeExercice).every((value) => !value)}
+                disabled={Object.values(typeExercise).every((value) => !value)}
               >
                 {t("NEXT")}
               </BasicButton>

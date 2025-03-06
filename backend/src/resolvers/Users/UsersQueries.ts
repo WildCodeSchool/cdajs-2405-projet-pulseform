@@ -5,26 +5,26 @@ import type { MyContext } from "../../types/context";
 
 @Resolver(User)
 export class UsersQueries {
-	// Récupérer tous les utilisateurs
-	@Query(() => [User])
-	async getAllUsers(@Ctx() context: MyContext): Promise<User[]> {
-		if (!context.user) {
-			throw new Error("Unauthorized");
-		}
-		return context.models.User.getAll();
-	}
+  // Récupérer tous les utilisateurs
+  @Query(() => [User])
+  async getAllUsers(@Ctx() context: MyContext): Promise<User[]> {
+    if (!context.user) {
+      throw new Error("Unauthorized");
+    }
+    return context.models.User.getAll();
+  }
 
-	// Récupérer les informations d'un utilisateur
-	@Query(() => User, { nullable: true })
-	async getUserById(
-		@Arg("id") id: number,
-		@Ctx() context: MyContext,
-	): Promise<User | null> {
-		if (!context.user) {
-			throw new GraphQLError("Unauthorized", {
-				extensions: { code: "UNAUTHORIZED" },
-			});
-		}
-		return context.models.User.getById(id);
-	}
+  // Récupérer les informations d'un utilisateur
+  @Query(() => User, { nullable: true })
+  async getUserById(
+    @Arg("id") id: number,
+    @Ctx() context: MyContext,
+  ): Promise<User | null> {
+    if (!context.user) {
+      throw new GraphQLError("Unauthorized", {
+        extensions: { code: "UNAUTHORIZED" },
+      });
+    }
+    return context.models.User.getById(id);
+  }
 }
