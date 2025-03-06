@@ -1,18 +1,23 @@
 import { SelectionButtonProps } from "../SelectionButton/SelectionButton.type";
 import "./SelectionButton.scss";
-import classNames from "classnames";
 
 export function SelectionButton({
-  selected,
+  //selected,
   children,
+  isActive,
+  onClick,
   ...props
 }: SelectionButtonProps) {
   return (
-    <div>
-      <button className="selection-button__button" {...props}>
+    <div className={`selection-button`}>
+      <button
+        className={`selection-button ${
+          isActive ? "selection-button-active" : ""
+        }`}
+        onClick={onClick}
+      >
         {children}
       </button>
-      {selected && <div className="selection-button__selected">p</div>}
     </div>
   );
 }
