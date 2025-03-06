@@ -1,0 +1,152 @@
+@import "@assets/variables.scss";
+
+/* Conteneur principal du calendrier */
+.fc {
+  font-family: "Arial", sans-serif;
+  max-width: 400px;
+  margin: auto;
+  height: 450px;
+}
+
+/* Barre d'en-tête (titre + flèches de navigation) */
+.fc-toolbar {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+/* Titre du mois */
+.fc-toolbar-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Flèches de navigation (précédent/suivant) */
+.fc-prev-button,
+.fc-next-button {
+  background: none !important;
+  border: none !important;
+  color: black !important;
+  font-size: 28px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Jours de la semaine */
+.fc-col-header-cell {
+  border: none !important;
+  @include h2-phone;
+  color: $primary;
+  text-align: center !important;
+  font-weight: normal;
+  vertical-align: middle !important;
+  padding-bottom: 5px !important;
+}
+
+/* Numéros des jours */
+.fc-daygrid-day-number {
+  @include h2-phone;
+  font-size: 20px;
+  color: $primary;
+  text-align: center;
+  cursor: pointer !important;
+}
+
+/* Jours hors du mois */
+.fc-day-other .fc-daygrid-day-number {
+  @include h2-phone;
+  color: $grey !important;
+}
+
+/* Suppression des bordures inutiles */
+.fc-scrollgrid,
+.fc-daygrid-day,
+.fc-daygrid-day-frame {
+  border: none !important;
+}
+
+.fc-daygrid-day-frame {
+  background: transparent !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 60px;
+}
+
+/* Style des événements */
+.fc-daygrid-event {
+  background-color: #1c2534 !important;
+  color: white !important;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Style du jour actuel */
+.fc-day-today {
+  background: $primary !important;
+  border-radius: 50%;
+}
+
+/* Texte du jour actuel */
+.fc-day-today .fc-daygrid-day-number {
+  color: $white !important;
+}
+
+/* Suppression du scroll vertical */
+.fc-daygrid-body {
+  overflow: hidden !important;
+  max-height: 100% !important;
+}
+
+/* Ajout d'un curseur pointeur sur chaque date */
+.fc-daygrid-day {
+  cursor: pointer !important;
+}
+
+/* Mettre en surbrillance les jours sélectionnés */
+.fc-daygrid-day[data-date="2025-03-14"],
+.fc-daygrid-day[data-date="2025-03-15"] {
+  position: relative;
+}
+
+/* Ajouter un rond autour des dates sélectionnées */
+.fc-daygrid-day[data-date="2025-03-14"] .fc-daygrid-day-number,
+.fc-daygrid-day[data-date="2025-03-15"] .fc-daygrid-day-number {
+  background: $primary;
+  color: $white;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Relier les jours sélectionnés même s'ils sont hors du mois */
+.fc-daygrid-day[data-date="2025-03-14"]::after,
+.fc-day-other[data-date="2025-03-14"]::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  width: 70px;
+  height: 50px;
+  background-color: $primary !important;
+  transform: translateY(-50%);
+  border-radius: 10px;
+  z-index: -1;
+}
