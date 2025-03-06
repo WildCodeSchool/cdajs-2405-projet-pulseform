@@ -23,6 +23,9 @@ export class CreateProgramInput {
   @Field(() => FitnessLevelEnum)
   level!: FitnessLevelEnum;
 
+  @Field({ nullable: true })
+  image?: string;
+
   @Field(() => Int)
   visibility!: number;
 
@@ -50,6 +53,9 @@ export class UpdateProgramInput {
 
   @Field(() => FitnessLevelEnum, { nullable: true })
   level?: FitnessLevelEnum;
+
+  @Field({ nullable: true })
+  image?: string;
 
   @Field(() => Int, { nullable: true })
   visibility?: number;

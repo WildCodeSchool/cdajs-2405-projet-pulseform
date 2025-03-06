@@ -20,6 +20,7 @@ export class ProgramsMutations {
     const {
       name,
       level,
+      image,
       visibility,
       description,
       total_duration,
@@ -44,6 +45,7 @@ export class ProgramsMutations {
       description || "",
       total_duration || 0,
       level,
+      image || "",
       new Date(),
       visibility,
       like ?? 0,
@@ -70,6 +72,7 @@ export class ProgramsMutations {
     // ✅ Mettre à jour uniquement les champs fournis
     if (data.name !== undefined) program.name = data.name;
     if (data.level !== undefined) program.level = data.level;
+    if (data.image !== undefined) program.image = data.image;
     if (data.visibility !== undefined) program.visibility = data.visibility; // ⬅️ `visibility` reste un `Int`
     if (data.description !== undefined) program.description = data.description;
     if (data.total_duration !== undefined)
