@@ -26,14 +26,17 @@ function LoginPage() {
     try {
       const response = await login({ variables: formData });
 
-      if (response.data?.login.token) {
-        localStorage.setItem("token", response.data.login.token);
+      if (response.data?.login.user) {
+        console.log(
+          "Utilisateur connecté :",
+          response.data.login.user.username,
+        );
+        // Plus besoin de stocker le token, il est dans le cookie
       }
     } catch (err) {
       console.error("Login error:", err);
     }
   };
-
   return (
     <>
       <LittleLogo className="login-page__logo" size="desktop" hasLabel={true} />

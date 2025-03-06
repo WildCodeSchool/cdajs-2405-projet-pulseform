@@ -1,13 +1,15 @@
 import path from "node:path";
 import react from "@vitejs/plugin-react";
+import dotenv from "dotenv";
 import { defineConfig } from "vite";
 
-// https://vitejs.dev/config/
+// Charger les variables d'environnement
+dotenv.config();
+
 export default defineConfig({
   plugins: [react()],
   test: {
     globals: true,
-    // add jsdom to vite
     environment: "jsdom",
     setupFiles: "./src/tests/setup.ts",
     coverage: {
@@ -15,10 +17,11 @@ export default defineConfig({
     },
   },
   server: {
-    port: 3000,
+    port: Number(process.env.VITE_PORT_FRONT),
     host: "0.0.0.0",
     proxy: {
-      "/locales": "http://translation:8051",
+      "/locales": `${process.env.VITE_URL_TRAD}`,
+      "/graphql": `${process.env.VITE_URL_BACK}`,
     },
     allowedHosts: ["052024-jaune-4.wns.wilders.dev"],
   },
@@ -30,3 +33,4 @@ export default defineConfig({
     },
   },
 });
+console.log("New env :", process.env.VITE_PORT_FRONT);
