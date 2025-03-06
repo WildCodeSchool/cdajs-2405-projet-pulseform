@@ -107,7 +107,7 @@ export const SettingsIcon = ({
 );
 
 export const UserIcon = ({
-  color = "var(--white)",
+  color = "var(--primary)",
   fontSize = "1.5em",
   ...props
 }: Omit<IconProps, "icon">) => (
