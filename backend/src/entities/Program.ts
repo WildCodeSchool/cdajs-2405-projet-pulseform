@@ -37,6 +37,10 @@ export class Program extends BaseEntity {
   @Field(() => FitnessLevelEnum)
   level: FitnessLevelEnum;
 
+  @Column({ length: 250, nullable: true })
+  @Field({ nullable: true })
+  image: string;
+
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   @Field(() => Date)
   created_at: Date;
@@ -105,6 +109,7 @@ export class Program extends BaseEntity {
     description: string,
     total_duration: number,
     level: FitnessLevelEnum,
+    image: string,
     created_at: Date,
     visibility: number,
     like?: number,
@@ -116,6 +121,7 @@ export class Program extends BaseEntity {
     this.description = description;
     this.total_duration = total_duration;
     this.level = level;
+    this.image = image;
     this.created_at = created_at;
     this.visibility = visibility;
     this.like = like;
