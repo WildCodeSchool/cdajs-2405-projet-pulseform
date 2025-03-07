@@ -36,7 +36,6 @@ const ProgramListView = () => {
       {data.getAllPrograms.map((program) => (
         <ProgramCard key={program.id} program={program} />
       ))}
-      ;
     </div>
   );
 };
