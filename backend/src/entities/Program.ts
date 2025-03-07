@@ -9,7 +9,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { FitnessLevelEnum } from "./Enums";
-import { Exercice } from "./Exercice";
+import { Exercise } from "./Exercise";
 import { History } from "./History";
 import { SharedProgramList } from "./SharedProgramList";
 import { Tag } from "./Tag";
@@ -37,6 +37,10 @@ export class Program extends BaseEntity {
   @Field(() => FitnessLevelEnum)
   level: FitnessLevelEnum;
 
+  @Column({ length: 250, nullable: true })
+  @Field({ nullable: true })
+  image: string;
+
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   @Field(() => Date)
   created_at: Date;
@@ -50,25 +54,25 @@ export class Program extends BaseEntity {
   like?: number;
 
   @ManyToMany(
-    () => Exercice,
-    (exercice) => exercice.programs,
+    () => Exercise,
+    (exercise) => exercise.programs,
     {
       cascade: true,
     },
   )
-  @Field(() => [Exercice], { nullable: true })
+  @Field(() => [Exercise], { nullable: true })
   @JoinTable({
-    name: "exercice_list",
+    name: "exercise_list",
     joinColumn: {
       name: "program_id",
       referencedColumnName: "id",
     },
     inverseJoinColumn: {
-      name: "exercice_id",
+      name: "exercise_id",
       referencedColumnName: "id",
     },
   })
-  exercices?: Exercice[];
+  exercises?: Exercise[];
 
   @ManyToMany(
     () => Tag,
@@ -105,10 +109,11 @@ export class Program extends BaseEntity {
     description: string,
     total_duration: number,
     level: FitnessLevelEnum,
+    image: string,
     created_at: Date,
     visibility: number,
     like?: number,
-    exercices?: Exercice[],
+    exercises?: Exercise[],
     tags?: Tag[],
   ) {
     super();
@@ -116,10 +121,11 @@ export class Program extends BaseEntity {
     this.description = description;
     this.total_duration = total_duration;
     this.level = level;
+    this.image = image;
     this.created_at = created_at;
     this.visibility = visibility;
     this.like = like;
-    this.exercices = exercices;
+    this.exercises = exercises;
     this.tags = tags;
   }
 }

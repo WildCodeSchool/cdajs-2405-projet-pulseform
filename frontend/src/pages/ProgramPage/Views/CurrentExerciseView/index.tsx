@@ -1,11 +1,11 @@
-import "./CurrentExerciceView.scss";
+import "./CurrentExerciseView.scss";
 
-const CurrentExerciceView = () => {
-	return (
-		<div>
-			<p>CurrentExerciceView</p>
-		</div>
-	);
+const CurrentExerciseView = () => {
+  return (
+    <div>
+      <p>CurrentExerciseView</p>
+    </div>
+  );
 };
 
-export default CurrentExerciceView;
+export default CurrentExerciseView;
