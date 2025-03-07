@@ -1,5 +1,5 @@
-import { ExercicesMutations } from "./Exercices/ExercicesMutations";
-import { ExercicesQueries } from "./Exercices/ExercicesQueries";
+import { ExercisesMutations } from "./Exercises/ExercisesMutations";
+import { ExercisesQueries } from "./Exercises/ExercisesQueries";
 import { GroupListsMutations } from "./GroupLists/GroupListsMutations";
 import { GroupListsQueries } from "./GroupLists/GroupListsQueries";
 import { GroupsMutations } from "./Groups/GroupsMutations";
@@ -16,20 +16,20 @@ import { UsersMutations } from "./Users/UsersMutations";
 import { UsersQueries } from "./Users/UsersQueries";
 
 export const resolvers = [
-	ExercicesMutations,
-	ExercicesQueries,
-	GroupListsMutations,
-	GroupListsQueries,
-	GroupsMutations,
-	GroupsQueries,
-	HistoriesMutations,
-	HistoriesQueries,
-	ProgramsMutations,
-	ProgramsQueries,
-	SharedProgramListsMutations,
-	SharedProgramListsQueries,
-	TagsMutations,
-	TagsQueries,
-	UsersMutations,
-	UsersQueries,
+  ExercisesMutations,
+  ExercisesQueries,
+  GroupListsMutations,
+  GroupListsQueries,
+  GroupsMutations,
+  GroupsQueries,
+  HistoriesMutations,
+  HistoriesQueries,
+  ProgramsMutations,
+  ProgramsQueries,
+  SharedProgramListsMutations,
+  SharedProgramListsQueries,
+  TagsMutations,
+  TagsQueries,
+  UsersMutations,
+  UsersQueries,
 ] as const;

@@ -1,7 +1,7 @@
 import { Arg, Mutation, Resolver } from "type-graphql";
 import { In } from "typeorm";
 import AppDataSource from "../../AppDataSource";
-import { Exercice } from "../../entities/Exercice";
+import { Exercise } from "../../entities/Exercise";
 import { Program } from "../../entities/Program";
 import { Tag } from "../../entities/Tag";
 import {
@@ -20,18 +20,19 @@ export class ProgramsMutations {
     const {
       name,
       level,
+      image,
       visibility,
       description,
       total_duration,
       like,
-      exercices,
+      exercises,
       tags,
     } = data;
 
-    // 🔍 Récupérer les exercices et les tags associés
-    const exercicesEntities = exercices
-      ? await AppDataSource.manager.find(Exercice, {
-          where: { id: In(exercices) },
+    // 🔍 Récupérer les exercises et les tags associés
+    const exercisesEntities = exercises
+      ? await AppDataSource.manager.find(Exercise, {
+          where: { id: In(exercises) },
         })
       : [];
     const tagsEntities = tags
@@ -44,10 +45,11 @@ export class ProgramsMutations {
       description || "",
       total_duration || 0,
       level,
+      image || "",
       new Date(),
       visibility,
       like ?? 0,
-      exercicesEntities,
+      exercisesEntities,
       tagsEntities,
     );
     return await program.save();
@@ -70,18 +72,19 @@ export class ProgramsMutations {
     // ✅ Mettre à jour uniquement les champs fournis
     if (data.name !== undefined) program.name = data.name;
     if (data.level !== undefined) program.level = data.level;
+    if (data.image !== undefined) program.image = data.image;
     if (data.visibility !== undefined) program.visibility = data.visibility; // ⬅️ `visibility` reste un `Int`
     if (data.description !== undefined) program.description = data.description;
     if (data.total_duration !== undefined)
       program.total_duration = data.total_duration;
     if (data.like !== undefined) program.like = data.like;
 
-    // 🔍 Récupérer et associer les nouvelles entités Exercice et Tag
-    if (data.exercices) {
-      const exercicesEntities = await AppDataSource.manager.find(Exercice, {
-        where: { id: In(data.exercices) },
+    // 🔍 Récupérer et associer les nouvelles entités Exercise et Tag
+    if (data.exercises) {
+      const exercisesEntities = await AppDataSource.manager.find(Exercise, {
+        where: { id: In(data.exercises) },
       });
-      program.exercices = exercicesEntities;
+      program.exercises = exercisesEntities;
     }
     if (data.tags) {
       const tagsEntities = await AppDataSource.manager.find(Tag, {
