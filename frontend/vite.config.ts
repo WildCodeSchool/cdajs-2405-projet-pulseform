@@ -38,4 +38,3 @@ export default defineConfig({
     },
   },
 });
-console.log("New env :", process.env.VITE_PORT_FRONT);
