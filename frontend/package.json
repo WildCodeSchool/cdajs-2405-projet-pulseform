@@ -36,6 +36,7 @@
     "react-hook-form": "^7.54.2",
     "react-i18next": "^15.1.0",
     "react-router-dom": "^6.27.0",
+    "recharts": "^2.15.1",
     "rollup": "^3.0.0",
     "styled-components": "^6.1.16",
     "swiper": "^11.1.15"
@@ -68,7 +69,6 @@
     "autoprefixer": "^10.4.20",
     "globals": "^15.9.0",
     "jsdom": "^25.0.1",
-    "postcss": "^8.5.3",
     "sass": "^1.78.0",
     "typescript": "^5.5.3",
     "vite": "^5.4.1",
