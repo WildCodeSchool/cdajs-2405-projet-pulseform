@@ -3,7 +3,7 @@ services:
     build: ./backend
     restart: unless-stopped
     ports:
-      - 4000:4000
+      - "${VITE_PORT_BACK}:4000"
     volumes:
       - ./backend:/app
     environment:
@@ -14,6 +14,9 @@ services:
       POSTGRES_PASSWORD: ${PASSWORD}
       POSTGRES_USERNAME: ${USERNAME}
       POSTGRES_DB_NAME: ${DB_NAME}
+      VITE_PORT_BACK: ${VITE_PORT_BACK}
+      VITE_URL_BACK: ${VITE_URL_BACK}
+      VITE_URL_FRONT: ${VITE_URL_FRONT}
 
   db:
     image: postgres:16
@@ -38,7 +41,7 @@ services:
       build: ./frontend
       restart: unless-stopped
       ports: 
-          - 3000:3000
+          - "${PORT_FRONT}:3000"
       command: npm run dev
       volumes:
       - ./frontend/src:/app/src
@@ -51,18 +54,28 @@ services:
           WDS_SOCKET: 127.0.0.1
           CHOKIDAR_USEPOLLING: true
           WATCHPACK_POLLING: true
+          PORT_FRONT: ${PORT_FRONT}
+          VITE_PORT_FRONT: ${VITE_PORT_FRONT}
+          VITE_PORT_BACK: ${VITE_PORT_BACK}
+          VITE_PORT_TRAD: ${VITE_PORT_TRAD} 
+          VITE_URL_BACK: ${VITE_URL_BACK}
+          VITE_URL_TRAD: ${VITE_URL_TRAD}
+          VITE_URL_FRONT: ${VITE_URL_FRONT} 
 
   translation:
     build: ./translation-server
     restart: unless-stopped
     ports:
-      - 8051:8051
+      - "${PORT_TRAD}:8051"
     volumes:
       - ./translation-server:/app
     environment:
       WDS_SOCKET: 127.0.0.1
       CHOKIDAR_USEPOLLING: true
       WATCHPACK_POLLING: true
+      PORT_TRAD: ${PORT_TRAD}
+      VITE_URL_FRONT: ${VITE_URL_FRONT}
+      VITE_URL_TRAD: ${VITE_URL_TRAD} 
 
 volumes:
   pgdata:

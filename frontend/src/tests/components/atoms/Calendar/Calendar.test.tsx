@@ -1,8 +1,17 @@
 import Calendar from "@components/atoms/Calendar/Calendar";
 import type { CalendarEvent } from "@components/atoms/Calendar/Calendar.types";
 import { render } from "@testing-library/react";
+import { vi } from "vitest";
 
 describe("Calendar", () => {
+  beforeAll(() => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2025-03-06T12:00:00Z"));
+  });
+
+  afterAll(() => {
+    vi.useRealTimers();
+  });
   it("renders the Calendar component with no events", () => {
     const tree = render(<Calendar />);
     expect(tree).toMatchSnapshot();

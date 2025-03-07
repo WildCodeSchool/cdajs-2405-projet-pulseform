@@ -1,10 +1,9 @@
-import "reflect-metadata";
 import { ApolloServer } from "@apollo/server";
-import { startStandaloneServer } from "@apollo/server/standalone";
+import { expressMiddleware } from "@apollo/server/express4";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 import dotenv from "dotenv";
-import type { Request } from "express";
-import { GraphQLError } from "graphql";
-import { parse } from "graphql";
+import express, { type Request } from "express";
 import jwt from "jsonwebtoken";
 import { buildSchema } from "type-graphql";
 import AppDataSource from "./AppDataSource";
@@ -12,11 +11,22 @@ import { User } from "./entities/User";
 import { UserModel } from "./models/UserModel";
 import { resolvers } from "./resolvers";
 import type { MyContext } from "./types/context";
-
 dotenv.config();
 
-// Fonction pour décoder et vérifier le JWT
-const getUser = async (token: string): Promise<User | null> => {
+// Initialise Express
+const app = express();
+app.use(cookieParser());
+
+app.use(
+  cors({
+    origin: `${process.env.VITE_URL_FRONT}`,
+    credentials: true,
+  }),
+);
+
+// Fonction pour récupérer l'utilisateur depuis le JWT
+const getUser = async (req: Request): Promise<User | null> => {
+  const token = req.cookies.token;
   if (!token) return null;
 
   try {
@@ -24,6 +34,7 @@ const getUser = async (token: string): Promise<User | null> => {
       token,
       process.env.JWT_SECRET || "defaultSecret",
     ) as jwt.JwtPayload;
+
     return await AppDataSource.manager.findOne(User, {
       where: { email: decoded.email },
     });
@@ -43,58 +54,37 @@ const startServer = async () => {
   const server = new ApolloServer<MyContext>({
     schema,
     introspection: true,
-  });
-
-  const { url } = await startStandaloneServer(server, {
-    listen: { port: 4000 },
-    context: async ({ req }): Promise<MyContext> => {
-      const request = req as Request;
-
-      try {
-        if (request.body?.query) {
-          const parsedQuery = parse(request.body.query);
-          const operationDefinitions = parsedQuery.definitions.filter(
-            (def) => def.kind === "OperationDefinition",
-          );
-
-          const isLoginMutation = operationDefinitions.some(
-            (def) =>
-              def.kind === "OperationDefinition" &&
-              def.operation === "mutation" &&
-              "name" in def.selectionSet.selections[0] &&
-              (def.selectionSet.selections[0].name.value === "login" ||
-                def.selectionSet.selections[0].name.value === "createUser"),
-          );
-
-          if (isLoginMutation) {
-            return { models: { User: UserModel } };
-          }
-        }
-      } catch (error) {
-        console.error("Erreur lors du parsing de la requête GraphQL :", error);
-      }
-
-      const token = req.headers.authorization?.split(" ")[1] || "";
-      const user = await getUser(token);
-
-      if (!user) {
-        throw new GraphQLError("You must be logged in to query this schema", {
-          extensions: {
-            code: "UNAUTHENTICATED",
-          },
-        });
-      }
-
+    csrfPrevention: true,
+    formatError: (error) => {
+      console.error(error);
       return {
-        user,
-        models: { User: UserModel },
+        message: error.message,
+        code: error.extensions?.code || "INTERNAL_SERVER_ERROR",
       };
     },
   });
 
-  console.log(`🚀 Server ready at: ${url}`);
+  await server.start();
+
+  // Middleware GraphQL avec CORS activé
+  app.use(
+    "/graphql",
+    express.json(),
+    expressMiddleware(server, {
+      context: async ({ req, res }): Promise<MyContext> => {
+        const user = await getUser(req);
+        return { req, res, user, models: { User: UserModel } };
+      },
+    }),
+  );
+
+  // Démarre le serveur Express
+  app.listen(process.env.VITE_PORT_BACK, () => {
+    console.log(`🚀 Server is running on ${process.env.VITE_URL_BACK}/graphql`);
+  });
 };
 
+// Démarrage du serveur
 startServer().catch((error) => {
   console.error("❌ Error starting server:", error);
 });
