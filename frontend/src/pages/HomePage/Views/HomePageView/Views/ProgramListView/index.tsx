@@ -1,17 +1,12 @@
+import ProgramCard from "@components/atoms/ProgramCard";
+import { useGetAllProgramsQuery } from "@graphql/__generated__/schema";
 import "./ProgramListView.scss";
-import { ClockIcon } from "@assets/icons/icon-list/iconList";
-import {
-  type GetAllProgramsQuery,
-  useGetAllProgramsQuery,
-} from "@graphql/__generated__/schema";
-import dotenv from "dotenv";
-// LIGNE 7 ET 9 A METTRE EN COMMENTAIRE SINON FRONT PLANTE!!
-dotenv.config();
+
 const ProgramListView = () => {
   const { loading, error, data } = useGetAllProgramsQuery({
     context: {
       headers: {
-        Authorization: `Bearer ${process.env.GRAPHQL_AUTH_TOKEN}`,
+        Authorization: `Bearer ${import.meta.env.VITE_GRAPHQL_AUTH_TOKEN}`,
       },
     },
   });
@@ -28,17 +23,14 @@ const ProgramListView = () => {
     return <p>No data available</p>;
   }
 
-  const programs: GetAllProgramsQuery = data;
+  // const programs: GetAllProgramsQuery = data;
 
   return (
-    <div>
-      <ClockIcon />
-      <p>ProgramListView</p>
-      <p>We have {programs.getAllPrograms.length} programs</p>
+    <div className="program-list-container">
+      {/* <p>We have {programs.getAllPrograms.length} programs</p> */}
       {data.getAllPrograms.map((program) => (
-        <div key={program.id}>{program.level}</div>
+        <ProgramCard key={program.id} program={program} />
       ))}
-      ;
     </div>
   );
 };
