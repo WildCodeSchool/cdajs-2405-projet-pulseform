@@ -51,5 +51,18 @@
   "WEIGHT_LOSS": "Perte de poids",
   "WELCOME": "Bienvenu·e sur PulseForm !",
   "YOUR_ARE": "Tu es ...",
-  "YOUR_DID_NOT_HAVE_ACCESS": "On dirait que tu n'as pas les accès pour visualiser cette page !"
+  "YOUR_DID_NOT_HAVE_ACCESS": "On dirait que tu n'as pas les accès pour visualiser cette page !",
+  "JAN": "Jan.",
+  "FEB": "Févr.",
+  "MAR": "Mars",
+  "APR": "Avr.",
+  "MAY": "Mai",
+  "JUN": "Juin",
+  "JUL": "Juil.",
+  "AUG": "Août",
+  "SEP": "Sep.",
+  "OCT": "Oct.",
+  "NOV": "Nov.",
+  "DEC": "Déc.",
+  "WEIGHT": "Poids"
 }
