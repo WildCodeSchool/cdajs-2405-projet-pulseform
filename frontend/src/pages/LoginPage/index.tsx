@@ -31,7 +31,6 @@ function LoginPage() {
           "Utilisateur connecté :",
           response.data.login.user.username,
         );
-        // Plus besoin de stocker le token, il est dans le cookie
       }
     } catch (err) {
       console.error("Login error:", err);
