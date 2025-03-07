@@ -1,81 +1,101 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`NotFoundPage > renders the NotFoundPage 1`] = `
+exports[`ProgramCard Component > matches the snapshot 1`] = `
 {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <section
-        class="error-body-page"
+      <div
+        class="program-card"
       >
+        <img
+          alt="Test Program"
+          class="program-card__image"
+          src=""
+        />
         <div
-          class="error-body-page__main"
+          class="program-card__overlay"
         >
-          <img
-            alt="blob404"
-            class="error-body-page__main__img"
-            src="/src/assets/images/blob-girl-404.svg"
-          />
           <div
-            class="error-body-page__main__content"
+            class="program-card__header"
           >
-            <div>
-              <p>
-                OOPS
-              </p>
-              <p>
-                PAGE_NOT_FOUND
-              </p>
-              <p>
-                TRY_TO_GO_BACK
-              </p>
-            </div>
-            <button
-              class="basic-button error-body-page__main__content__button basic-button--orange"
-              type="button"
+            <div
+              class="duration-label"
             >
-              BACK_TO_HOME
-            </button>
+              <span />
+              <span>
+                60
+                 min
+              </span>
+            </div>
+            <div
+              class="flames-fitness-level-container"
+            >
+              <div
+                class="flames-list"
+              >
+                <span />
+              </div>
+            </div>
+          </div>
+          <div
+            class="program-card__title_container"
+          >
+            <h3
+              class="program-card__title"
+            >
+              Test Program
+            </h3>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   </body>,
   "container": <div>
-    <section
-      class="error-body-page"
+    <div
+      class="program-card"
     >
+      <img
+        alt="Test Program"
+        class="program-card__image"
+        src=""
+      />
       <div
-        class="error-body-page__main"
+        class="program-card__overlay"
       >
-        <img
-          alt="blob404"
-          class="error-body-page__main__img"
-          src="/src/assets/images/blob-girl-404.svg"
-        />
         <div
-          class="error-body-page__main__content"
+          class="program-card__header"
         >
-          <div>
-            <p>
-              OOPS
-            </p>
-            <p>
-              PAGE_NOT_FOUND
-            </p>
-            <p>
-              TRY_TO_GO_BACK
-            </p>
-          </div>
-          <button
-            class="basic-button error-body-page__main__content__button basic-button--orange"
-            type="button"
+          <div
+            class="duration-label"
           >
-            BACK_TO_HOME
-          </button>
+            <span />
+            <span>
+              60
+               min
+            </span>
+          </div>
+          <div
+            class="flames-fitness-level-container"
+          >
+            <div
+              class="flames-list"
+            >
+              <span />
+            </div>
+          </div>
+        </div>
+        <div
+          class="program-card__title_container"
+        >
+          <h3
+            class="program-card__title"
+          >
+            Test Program
+          </h3>
         </div>
       </div>
-    </section>
+    </div>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],

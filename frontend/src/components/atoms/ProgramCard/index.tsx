@@ -8,13 +8,11 @@ type ProgramCardProps = {
   program: Program;
 };
 
-const imgSrc =
-  "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3Dt";
 const ProgramCard = ({ program }: ProgramCardProps) => {
   return (
     <div className="program-card">
       <img
-        src={imgSrc || ""}
+        src={program.image || ""}
         alt={program.name}
         className="program-card__image"
       />

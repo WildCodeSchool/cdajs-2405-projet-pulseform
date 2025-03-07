@@ -568,7 +568,7 @@ exports[`Calendar > renders the Calendar component with events 1`] = `
                                   </td>
                                   <td
                                     aria-labelledby="fc-dom-107"
-                                    class="fc-day fc-day-thu fc-day-today fc-daygrid-day"
+                                    class="fc-day fc-day-thu fc-day-past fc-daygrid-day"
                                     data-date="2025-03-06"
                                     role="gridcell"
                                   >
@@ -601,7 +601,7 @@ exports[`Calendar > renders the Calendar component with events 1`] = `
                                   </td>
                                   <td
                                     aria-labelledby="fc-dom-109"
-                                    class="fc-day fc-day-fri fc-day-future fc-daygrid-day"
+                                    class="fc-day fc-day-fri fc-day-today fc-daygrid-day"
                                     data-date="2025-03-07"
                                     role="gridcell"
                                   >
@@ -2236,7 +2236,7 @@ exports[`Calendar > renders the Calendar component with events 1`] = `
                                 </td>
                                 <td
                                   aria-labelledby="fc-dom-107"
-                                  class="fc-day fc-day-thu fc-day-today fc-daygrid-day"
+                                  class="fc-day fc-day-thu fc-day-past fc-daygrid-day"
                                   data-date="2025-03-06"
                                   role="gridcell"
                                 >
@@ -2269,7 +2269,7 @@ exports[`Calendar > renders the Calendar component with events 1`] = `
                                 </td>
                                 <td
                                   aria-labelledby="fc-dom-109"
-                                  class="fc-day fc-day-fri fc-day-future fc-daygrid-day"
+                                  class="fc-day fc-day-fri fc-day-today fc-daygrid-day"
                                   data-date="2025-03-07"
                                   role="gridcell"
                                 >
@@ -3961,7 +3961,7 @@ exports[`Calendar > renders the Calendar component with no events 1`] = `
                                   </td>
                                   <td
                                     aria-labelledby="fc-dom-22"
-                                    class="fc-day fc-day-thu fc-day-today fc-daygrid-day"
+                                    class="fc-day fc-day-thu fc-day-past fc-daygrid-day"
                                     data-date="2025-03-06"
                                     role="gridcell"
                                   >
@@ -3994,7 +3994,7 @@ exports[`Calendar > renders the Calendar component with no events 1`] = `
                                   </td>
                                   <td
                                     aria-labelledby="fc-dom-24"
-                                    class="fc-day fc-day-fri fc-day-future fc-daygrid-day"
+                                    class="fc-day fc-day-fri fc-day-today fc-daygrid-day"
                                     data-date="2025-03-07"
                                     role="gridcell"
                                   >
@@ -5611,7 +5611,7 @@ exports[`Calendar > renders the Calendar component with no events 1`] = `
                                 </td>
                                 <td
                                   aria-labelledby="fc-dom-22"
-                                  class="fc-day fc-day-thu fc-day-today fc-daygrid-day"
+                                  class="fc-day fc-day-thu fc-day-past fc-daygrid-day"
                                   data-date="2025-03-06"
                                   role="gridcell"
                                 >
@@ -5644,7 +5644,7 @@ exports[`Calendar > renders the Calendar component with no events 1`] = `
                                 </td>
                                 <td
                                   aria-labelledby="fc-dom-24"
-                                  class="fc-day fc-day-fri fc-day-future fc-daygrid-day"
+                                  class="fc-day fc-day-fri fc-day-today fc-daygrid-day"
                                   data-date="2025-03-07"
                                   role="gridcell"
                                 >

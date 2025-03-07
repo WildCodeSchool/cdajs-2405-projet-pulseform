@@ -1,6 +1,11 @@
 import FlamesFitnessLevelLabel from "@components/atoms/FlamesFitnessLevelLabel";
 import { FitnessLevel } from "@graphql/__generated__/schema";
 import { render, screen } from "@testing-library/react";
+import { vi } from "vitest";
+
+vi.mock("@assets/icons/icon-list/iconList", () => ({
+  FlameIcon: () => <svg data-testid="flame-icon" />, // Mock as a simple SVG
+}));
 
 describe("FlamesFitnessLevelLabel Component", () => {
   it("renders the correct number of flames for Beginner level", () => {
