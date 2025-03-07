@@ -25,8 +25,8 @@ export default defineConfig({
     port: Number(process.env.VITE_PORT_FRONT),
     host: "0.0.0.0",
     proxy: {
-      "/locales": `${process.env.VITE_TRANSLATION_SERVEUR_URL}:${process.env.VITE_PORT_TRAD}`,
-      "/graphql": `${process.env.VITE_SERVEUR_URL}:${process.env.VITE_PORT_BACK}/graphql`,
+      "/locales": `${process.env.VITE_TRANSLATION_SERVER_URL}:${process.env.VITE_PORT_TRAD}`,
+      "/graphql": `${process.env.VITE_SERVER_URL}:${process.env.VITE_PORT_BACK}/graphql`,
     },
     allowedHosts: [
       "052024-jaune-4.wns.wilders.dev",
