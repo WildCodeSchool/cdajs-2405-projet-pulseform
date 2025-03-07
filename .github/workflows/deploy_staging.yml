@@ -2,9 +2,9 @@ name: deploy to staging
 
 on: 
   pull_request:
-    branches: [ feat-3339_frontend_cookies ]
+    branches: [ dev ]
   push:
-    branches: [ feat-3339_frontend_cookies ]
+    branches: [ dev ]
 
 jobs:
   deploy:
