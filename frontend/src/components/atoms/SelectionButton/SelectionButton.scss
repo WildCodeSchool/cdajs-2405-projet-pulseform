@@ -11,7 +11,6 @@
   cursor: pointer;
 
   &-active {
-    transition: background-color 5s;
     &::after {
       content: "";
       position: absolute;
