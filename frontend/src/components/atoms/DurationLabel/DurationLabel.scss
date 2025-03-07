@@ -1,0 +1,10 @@
+.duration-label {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 0.25rem;
+
+  span {
+    color: inherit;
+  }
+}

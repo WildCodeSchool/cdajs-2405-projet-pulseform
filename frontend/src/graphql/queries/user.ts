@@ -25,7 +25,17 @@ export const GET_USER_BY_ID = gql`
   query getUserById($id: Float!) {
     getUserById(id: $id) {
       id
+      username
+      description
       email
+      image
+      birthday
+      gender
+      weight
+      height
+      created_at
+      role
+      level
     }
   }
 `;
@@ -34,7 +44,17 @@ export const GET_ALL_USERS = gql`
   query GetAllUsers {
     getAllUsers {
       id
+      username
+      description
       email
+      image
+      birthday
+      gender
+      weight
+      height
+      created_at
+      role
+      level
     }
   }
 `;

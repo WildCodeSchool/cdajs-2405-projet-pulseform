@@ -36,6 +36,12 @@ export type AddTagInput = {
   program_id: Scalars["Int"]["input"];
 };
 
+export type AuthPayload = {
+  __typename?: "AuthPayload";
+  token: Scalars["String"]["output"];
+  user: User;
+};
+
 export type CreateExerciseInput = {
   description?: InputMaybe<Scalars["String"]["input"]>;
   duration: Scalars["Int"]["input"];
@@ -64,6 +70,7 @@ export type CreateHistoryInput = {
 export type CreateProgramInput = {
   description?: InputMaybe<Scalars["String"]["input"]>;
   exercises?: InputMaybe<Array<Scalars["Int"]["input"]>>;
+  image?: InputMaybe<Scalars["String"]["input"]>;
   level: FitnessLevel;
   like?: InputMaybe<Scalars["Int"]["input"]>;
   name: Scalars["String"]["input"];
@@ -140,7 +147,6 @@ export type Group = {
   __typename?: "Group";
   create_by: Scalars["Int"]["output"];
   created_at: Scalars["DateTimeISO"]["output"];
-  creator: User;
   id: Scalars["ID"]["output"];
   name: Scalars["String"]["output"];
 };
@@ -148,18 +154,18 @@ export type Group = {
 export type GroupList = {
   __typename?: "GroupList";
   created_at: Scalars["DateTimeISO"]["output"];
-  group: Group;
-  group_Id: Scalars["Int"]["output"];
+  group?: Maybe<Group>;
+  groupId?: Maybe<Scalars["ID"]["output"]>;
   id: Scalars["ID"]["output"];
-  user: User;
+  user?: Maybe<User>;
+  userId?: Maybe<Scalars["ID"]["output"]>;
   user_accept: Scalars["Boolean"]["output"];
-  user_id: Scalars["Int"]["output"];
 };
 
 export type GroupListsInput = {
+  created_at?: InputMaybe<Scalars["DateTimeISO"]["input"]>;
   group_id: Scalars["Int"]["input"];
-  id: Scalars["ID"]["input"];
-  name?: InputMaybe<Scalars["String"]["input"]>;
+  id?: InputMaybe<Scalars["ID"]["input"]>;
   user_accept: Scalars["Boolean"]["input"];
   user_id: Scalars["Int"]["input"];
 };
@@ -168,10 +174,9 @@ export type History = {
   __typename?: "History";
   end_date?: Maybe<Scalars["DateTimeISO"]["output"]>;
   id: Scalars["ID"]["output"];
-  program_id: Scalars["Int"]["output"];
   start_date?: Maybe<Scalars["DateTimeISO"]["output"]>;
   total_kcal_loss?: Maybe<Scalars["Int"]["output"]>;
-  user_id: Scalars["Int"]["output"];
+  user: User;
 };
 
 /** Roles of a member in the system */
@@ -214,7 +219,8 @@ export type Mutation = {
   deleteProgram: Scalars["Boolean"]["output"];
   deleteTag: Scalars["Boolean"]["output"];
   deleteUser: Scalars["Boolean"]["output"];
-  login: Scalars["String"]["output"];
+  filterPrograms: Array<Program>;
+  login: AuthPayload;
   removeUserFromGroup: Scalars["Boolean"]["output"];
   shareProgramWithFriend: SharedProgramList;
   unshareProgram: Scalars["Boolean"]["output"];
@@ -283,13 +289,17 @@ export type MutationDeleteUserArgs = {
   id: Scalars["Float"]["input"];
 };
 
+export type MutationFilterProgramsArgs = {
+  filters?: InputMaybe<ProgramFilterInput>;
+};
+
 export type MutationLoginArgs = {
   email: Scalars["String"]["input"];
   password: Scalars["String"]["input"];
 };
 
 export type MutationRemoveUserFromGroupArgs = {
-  group_Id: Scalars["Float"]["input"];
+  group_id: Scalars["Float"]["input"];
   user_id: Scalars["Float"]["input"];
 };
 
@@ -332,12 +342,13 @@ export type Program = {
   description?: Maybe<Scalars["String"]["output"]>;
   exercises?: Maybe<Array<Exercise>>;
   id: Scalars["ID"]["output"];
+  image?: Maybe<Scalars["String"]["output"]>;
   level: FitnessLevel;
   like?: Maybe<Scalars["Int"]["output"]>;
   name: Scalars["String"]["output"];
   tags?: Maybe<Array<Tag>>;
   total_duration?: Maybe<Scalars["Int"]["output"]>;
-  visibility: Scalars["Boolean"]["output"];
+  visibility: Scalars["Int"]["output"];
 };
 
 export type ProgramFilterInput = {
@@ -461,17 +472,16 @@ export type ShareProgramInput = {
 export type SharedProgramList = {
   __typename?: "SharedProgramList";
   friend?: Maybe<User>;
-  group_list_id?: Maybe<Scalars["Int"]["output"]>;
+  group?: Maybe<Group>;
   id: Scalars["ID"]["output"];
-  program_id: Scalars["Int"]["output"];
-  user_id: Scalars["Int"]["output"];
+  program: Program;
+  user: User;
 };
 
 export type Tag = {
   __typename?: "Tag";
   id: Scalars["ID"]["output"];
   name: Tags;
-  program_id: Scalars["Float"]["output"];
   programs?: Maybe<Array<Program>>;
   users?: Maybe<Array<User>>;
 };
@@ -515,6 +525,7 @@ export type UpdateHistoryInput = {
 export type UpdateProgramInput = {
   description?: InputMaybe<Scalars["String"]["input"]>;
   exercises?: InputMaybe<Array<Scalars["Int"]["input"]>>;
+  image?: InputMaybe<Scalars["String"]["input"]>;
   level?: InputMaybe<FitnessLevel>;
   like?: InputMaybe<Scalars["Int"]["input"]>;
   name?: InputMaybe<Scalars["String"]["input"]>;
@@ -551,7 +562,6 @@ export type User = {
   description: Scalars["String"]["output"];
   email: Scalars["String"]["output"];
   gender?: Maybe<Scalars["String"]["output"]>;
-  groups?: Maybe<Array<Group>>;
   height?: Maybe<Scalars["Int"]["output"]>;
   id: Scalars["ID"]["output"];
   image?: Maybe<Scalars["String"]["output"]>;
@@ -572,10 +582,11 @@ export type GetAllProgramsQuery = {
     id: string;
     name: string;
     description?: string | null;
+    image?: string | null;
     total_duration?: number | null;
     level: FitnessLevel;
     created_at: Date;
-    visibility: boolean;
+    visibility: number;
     like?: number | null;
     exercises?: Array<{
       __typename?: "Exercise";
@@ -603,6 +614,7 @@ export type GetProgramByIdQuery = {
     id: string;
     name: string;
     description?: string | null;
+    image?: string | null;
     created_at: Date;
     tags?: Array<{ __typename?: "Tag"; id: string; name: Tags }> | null;
   } | null;
@@ -614,44 +626,73 @@ export type GetUserByIdQueryVariables = Exact<{
 
 export type GetUserByIdQuery = {
   __typename?: "Query";
-  getUserById?: { __typename?: "User"; id: string; email: string } | null;
+  getUserById?: {
+    __typename?: "User";
+    id: string;
+    username: string;
+    description: string;
+    email: string;
+    image?: string | null;
+    birthday?: Date | null;
+    gender?: string | null;
+    weight?: number | null;
+    height?: number | null;
+    created_at: Date;
+    role: MemberRole;
+    level?: FitnessLevel | null;
+  } | null;
 };
 
 export type GetAllUsersQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetAllUsersQuery = {
   __typename?: "Query";
-  getAllUsers: Array<{ __typename?: "User"; id: string; email: string }>;
+  getAllUsers: Array<{
+    __typename?: "User";
+    id: string;
+    username: string;
+    description: string;
+    email: string;
+    image?: string | null;
+    birthday?: Date | null;
+    gender?: string | null;
+    weight?: number | null;
+    height?: number | null;
+    created_at: Date;
+    role: MemberRole;
+    level?: FitnessLevel | null;
+  }>;
 };
 
 export const GetAllProgramsDocument = gql`
-  query getAllPrograms {
-    getAllPrograms {
+    query getAllPrograms {
+  getAllPrograms {
+    id
+    name
+    description
+    image
+    total_duration
+    level
+    created_at
+    visibility
+    like
+    exercises {
       id
       name
       description
-      total_duration
+      duration
+      kcal_loss
+      muscle
       level
-      created_at
-      visibility
-      like
-      exercises {
-        id
-        name
-        description
-        duration
-        kcal_loss
-        muscle
-        level
-        img_src
-      }
-      tags {
-        id
-        name
-      }
+      img_src
+    }
+    tags {
+      id
+      name
     }
   }
-`;
+}
+    `;
 
 /**
  * __useGetAllProgramsQuery__
@@ -723,19 +764,20 @@ export type GetAllProgramsQueryResult = Apollo.QueryResult<
   GetAllProgramsQueryVariables
 >;
 export const GetProgramByIdDocument = gql`
-  query getProgramById($id: Float!) {
-    getProgramById(id: $id) {
+    query getProgramById($id: Float!) {
+  getProgramById(id: $id) {
+    id
+    name
+    description
+    image
+    created_at
+    tags {
       id
       name
-      description
-      created_at
-      tags {
-        id
-        name
-      }
     }
   }
-`;
+}
+    `;
 
 /**
  * __useGetProgramByIdQuery__
@@ -812,13 +854,23 @@ export type GetProgramByIdQueryResult = Apollo.QueryResult<
   GetProgramByIdQueryVariables
 >;
 export const GetUserByIdDocument = gql`
-  query getUserById($id: Float!) {
-    getUserById(id: $id) {
-      id
-      email
-    }
+    query getUserById($id: Float!) {
+  getUserById(id: $id) {
+    id
+    username
+    description
+    email
+    image
+    birthday
+    gender
+    weight
+    height
+    created_at
+    role
+    level
   }
-`;
+}
+    `;
 
 /**
  * __useGetUserByIdQuery__
@@ -893,13 +945,23 @@ export type GetUserByIdQueryResult = Apollo.QueryResult<
   GetUserByIdQueryVariables
 >;
 export const GetAllUsersDocument = gql`
-  query getAllUsers {
-    getAllUsers {
-      id
-      email
-    }
+    query GetAllUsers {
+  getAllUsers {
+    id
+    username
+    description
+    email
+    image
+    birthday
+    gender
+    weight
+    height
+    created_at
+    role
+    level
   }
-`;
+}
+    `;
 
 /**
  * __useGetAllUsersQuery__
