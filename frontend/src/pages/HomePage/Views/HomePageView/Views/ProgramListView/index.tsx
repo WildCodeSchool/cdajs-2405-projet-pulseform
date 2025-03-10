@@ -4,14 +4,14 @@ import {
   type GetAllProgramsQuery,
   useGetAllProgramsQuery,
 } from "@graphql/__generated__/schema";
-import dotenv from "dotenv";
+//import dotenv from "dotenv";
 // LIGNE 7 ET 9 A METTRE EN COMMENTAIRE SINON FRONT PLANTE!!
-dotenv.config();
+//dotenv.config();
 const ProgramListView = () => {
   const { loading, error, data } = useGetAllProgramsQuery({
     context: {
       headers: {
-        Authorization: `Bearer ${process.env.GRAPHQL_AUTH_TOKEN}`,
+        Authorization: `Bearer ${import.meta.env.VITE_GRAPHQL_AUTH_TOKEN}`,
       },
     },
   });
