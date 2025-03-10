@@ -13,4 +13,15 @@
   padding: 21px 15px;
   border-radius: 10px;
   border: none;
+  margin-bottom: 17px;
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    &__date {
+      @include extra-small-phone;
+    }
+  }
 }

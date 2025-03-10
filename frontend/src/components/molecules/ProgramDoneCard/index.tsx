@@ -1,17 +1,19 @@
 import "./ProgramdoneCard.scss";
 
-export function ProgramDoneCard({
-  program,
-}: {
-  program: { title: string; date: string; time: string };
-}) {
+type ProgramDoneCardType = {
+  name: string;
+  date: string;
+  total_duration: number;
+};
+
+export function ProgramDoneCard({ program }: { program: ProgramDoneCardType }) {
   return (
     <button className="program-done-card">
-      <div>
-        <p>{program.title}</p>
-        <p>{program.date}</p>
+      <div className="program-done-card__details">
+        <p className="program-done-card__details__name">{program.name}</p>
+        <p className="program-done-card__details__date">{program.date}</p>
       </div>
-      <div>{program.time}</div>
+      <div>{program.total_duration}</div>
     </button>
   );
 }
