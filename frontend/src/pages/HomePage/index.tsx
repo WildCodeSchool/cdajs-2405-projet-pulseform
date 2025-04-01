@@ -3,6 +3,7 @@ import { HomePageView, UserProfileView } from "./Views";
 import NavBar from "@components/molecules/NavBar";
 
 import "./HomePage.scss";
+import DoubleScreenLayout from "@components/atoms/DoubleScreenLayout";
 
 const HomePage = () => {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
@@ -21,18 +22,21 @@ const HomePage = () => {
 
   return (
     <>
-      {/* If screen size is phone */}
       <section className={isDesktop ? "desktop" : "mobile"}>
         {isDesktop ? (
           <>
-            <UserProfileView /> {/* Left column with user profile */}
-            <HomePageView /> {/* Right column with the list of programs */}
+            <DoubleScreenLayout>
+              <UserProfileView isDesktop={isDesktop} />{" "}
+              {/* Left column with user profile */}
+              <HomePageView /> {/* Right column with the list of programs */}
+            </DoubleScreenLayout>
           </>
         ) : (
           <>
             <HomePageView />
             {/* First view for mobile : we toggle between HomePageView and UserProfileView */}
-            <UserProfileView /> {/* Second view for mobile */}
+            <UserProfileView isDesktop={isDesktop} />{" "}
+            {/* Second view for mobile */}
             <NavBar />
           </>
         )}

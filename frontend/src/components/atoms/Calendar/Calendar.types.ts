@@ -6,4 +6,5 @@ export interface CalendarEvent {
 
 export interface CalendarProps {
   events?: CalendarEvent[];
+  initialDate?: string;
 }
