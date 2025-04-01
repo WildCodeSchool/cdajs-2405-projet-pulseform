@@ -1,17 +1,9 @@
 import ProgramCard from "@components/atoms/ProgramCard";
 import "./ProgramListView.scss";
 import { useGetAllProgramsQuery } from "@graphql/__generated__/schema";
-import dotenv from "dotenv";
-// LIGNE 7 ET 9 A METTRE EN COMMENTAIRE SINON FRONT PLANTE!!
-//dotenv.config();
+
 const ProgramListView = () => {
-  const { loading, error, data } = useGetAllProgramsQuery({
-    context: {
-      headers: {
-        Authorization: `Bearer ${import.meta.env.VITE_GRAPHQL_AUTH_TOKEN}`,
-      },
-    },
-  });
+  const { loading, error, data } = useGetAllProgramsQuery();
 
   if (loading) {
     return <p>Loading...</p>;
