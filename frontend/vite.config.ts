@@ -4,7 +4,12 @@ import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    // babel({
+    //   babelConfig: { plugin: ["@babel/plugin-proposal-decorators"] },
+    // }),
+  ],
   test: {
     globals: true,
     // add jsdom to vite

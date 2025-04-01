@@ -1,8 +1,13 @@
 import { useGetUserByIdQuery } from "@graphql/__generated__/schema";
 import "./DashBoardView.scss";
 import UserAvatarAndUsername from "@components/atoms/UserAvatarAndUsername";
+import TotalExercicesAndTimeRecap from "@components/molecules/TotalExercicesAndTimeRecap";
 
-const DashBoardView = () => {
+type DashBoardViewType = {
+  isDesktop: boolean;
+};
+// biome-ignore lint/correctness/noUnusedVariables: en cours de dev
+const DashBoardView = ({ isDesktop }: DashBoardViewType) => {
   const { loading, error, data } = useGetUserByIdQuery({
     variables: { id: 2 },
   });
@@ -16,9 +21,9 @@ const DashBoardView = () => {
   console.log(user);
 
   return (
-    <div>
-      <p>DashBoardView</p>
+    <div className="dashboard-view-container">
       <UserAvatarAndUsername user={user} />
+      <TotalExercicesAndTimeRecap user={user} />
     </div>
   );
 };
