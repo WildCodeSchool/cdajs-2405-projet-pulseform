@@ -3,8 +3,10 @@ import type { CalendarEvent } from "@components/atoms/Calendar/Calendar.types";
 import { render } from "@testing-library/react";
 
 describe("Calendar", () => {
+  const fixedDate = "2025-03-01"; // Date de référence stable pour les tests
+
   it("renders the Calendar component with no events", () => {
-    const tree = render(<Calendar />);
+    const tree = render(<Calendar initialDate={fixedDate} />);
     expect(tree).toMatchSnapshot();
   });
 
@@ -24,7 +26,9 @@ describe("Calendar", () => {
       { title: "Event on Christmas", start: "2024-12-25" },
     ];
 
-    const tree = render(<Calendar events={testEvents} />);
+    const tree = render(
+      <Calendar events={testEvents} initialDate={fixedDate} />,
+    );
     expect(tree).toMatchSnapshot();
   });
 });
