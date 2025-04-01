@@ -4,7 +4,7 @@
 
 In order to work on the project, you should pull it and fetch dependencies before developing any change on it.
 
-## Developmennt
+## Development
 
 ### Running the backend app
 
@@ -15,7 +15,7 @@ In order to work on the project, you should pull it and fetch dependencies befor
 ### Git flow
 
 For each task, a new branch should be opened.
-When the work is ready to be pulled, make sure to have the last version with a rebase from dev and then pull. After it, a pull request (PR) should be openeded between this new branch and the `dev` one.
+When the work is ready to be pulled, make sure to have the last version with a rebase from dev and then pull. After it, a pull request (PR) should be opened between this new branch and the `dev` one.
 Each pull request needs to be reviewed before being approved by someone else and merged on the `dev` branch.
 
 Later, when the `dev` branch is ready to go in production, a pull request between `dev` and `master` is created and pulled.
