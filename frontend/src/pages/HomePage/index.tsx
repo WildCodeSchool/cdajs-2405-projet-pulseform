@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { HomePageView, UserProfileView } from "./Views";
-import NavBar from "@components/molecules/NavBar";
 
 import "./HomePage.scss";
+import NavBar from "@components/molecules/NavBar";
 
 const HomePage = () => {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
@@ -30,9 +30,10 @@ const HomePage = () => {
           </>
         ) : (
           <>
-            <HomePageView />{" "}
+            <HomePageView />
             {/* First view for mobile : we toggle between HomePageView and UserProfileView */}
             <UserProfileView /> {/* Second view for mobile */}
+            <NavBar />
           </>
         )}
       </section>
