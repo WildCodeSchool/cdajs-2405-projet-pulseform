@@ -2,7 +2,7 @@ import type { CodegenConfig } from "@graphql-codegen/cli";
 import dotenv from "dotenv";
 
 // Load environment variables from .env file
-//dotenv.config();
+dotenv.config();
 
 const config: CodegenConfig = {
   overwrite: true,
