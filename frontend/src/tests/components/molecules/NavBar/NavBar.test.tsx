@@ -7,7 +7,7 @@ describe("NavBar Component", () => {
     const tree = render(
       <MemoryRouter>
         <NavBar />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
     expect(tree).toMatchSnapshot();
   });
