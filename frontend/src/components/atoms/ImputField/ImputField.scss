@@ -1,11 +1,11 @@
-@import "@assets/variables.scss";
+@use "@assets/variables" as *;
 
 .input__login-page {
   background-color: $white;
-  border: 2px solid grey; 
+  border: 2px solid grey;
   border-radius: 5px;
   padding: 10px 15px;
-  width: 230px; 
+  width: 230px;
   font-size: 16px;
   z-index: 1;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;

@@ -1,31 +1,54 @@
+import { useEffect, useState } from "react";
 import { HomePageView, UserProfileView } from "./Views";
-import "./HomePage.scss";
+import NavBar from "@components/molecules/NavBar";
 import { ProgramDoneCard } from "@components/molecules/ProgramDoneCard";
+import DoubleScreenLayout from "@components/atoms/DoubleScreenLayout";
+
+import "./HomePage.scss";
+
 const HomePage = () => {
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const program = {
     title: "Body Sculpt",
     date: "13/09/2024",
     time: "60min",
   };
+
   return (
     <>
-      {/*if screen size = phone */}
-      <section>
-        <HomePageView />{" "}
-        {/* même URL mais on fait toggle entre les 2 vues HomePageView et UserProfilView */}
-        <UserProfileView />
+      <section className={isDesktop ? "desktop" : "mobile"}>
+        {isDesktop ? (
+          <>
+            <DoubleScreenLayout>
+              <UserProfileView isDesktop={isDesktop} />{" "}
+              {/* Left column with user profile */}
+              <HomePageView /> {/* Right column with the list of programs */}
+            </DoubleScreenLayout>
+          </>
+        ) : (
+          <>
+            <HomePageView />
+            {/* First view for mobile : we toggle between HomePageView and UserProfileView */}
+            <UserProfileView isDesktop={isDesktop} />{" "}
+            {/* Second view for mobile */}
+            <NavBar />
+            <ProgramDoneCard program={program}></ProgramDoneCard>
+          </>
+        )}
       </section>
-
-      {/*if screen size = desktop */}
-      <section>
-        <UserProfileView />{" "}
-        {/* colonne de gauche avec le dashboard de l'utilisateur toujours visible */}
-      </section>
-      <section>
-        <HomePageView /> {/* colonne de droite avec la liste des programmes*/}
-      </section>
-
-      <ProgramDoneCard program={program}></ProgramDoneCard>
     </>
   );
 };

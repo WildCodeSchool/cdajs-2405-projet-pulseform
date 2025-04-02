@@ -34,22 +34,17 @@ TRUNCATE TABLE "history" RESTART IDENTITY CASCADE;
 
 -- ✅ Insérer les utilisateurs
 INSERT INTO "user" (id, username, description, email, password, image, birthday, gender, weight, height, created_at, role, level) VALUES
-(1, 'JohnDoe', 'Un utilisateur actif', 'john@example.com', '\$argon2id\$v=19\$m=65536,t=3,p=4\$OHtdXCMWGkZy9+AbeqFZKg\$kBxbFprdFOMAr5NG8+tM4sQIgYUXEMykASFqX9JjK5s', 'https://picsum.photos/200/200', '1990-01-15', 'M', 75, 180, NOW(), 'admin', 'advanced'),
-(2, 'JaneSmith', 'Sportive passionnée', 'jane@example.com', '\$argon2id\$v=19\$m=65536,t=3,p=4\$OHtdXCMWGkZy9+AbeqFZKg\$kBxbFprdFOMAr5NG8+tM4sQIgYUXEMykASFqX9JjK5s', 'https://picsum.photos/200/200', '1985-08-22', 'F', 62, 170, NOW(), 'user', 'beginner'),
-(3, 'AliceWonder', 'Nouvelle venue dans le fitness', 'alice@example.com', '\$argon2id\$v=19\$m=65536,t=3,p=4\$OHtdXCMWGkZy9+AbeqFZKg\$kBxbFprdFOMAr5NG8+tM4sQIgYUXEMykASFqX9JjK5s', 'https://picsum.photos/200/200', '1995-04-10', 'F', 68, 165, NOW(), 'user', 'beginner'),
-(4, 'gael', 'Nouvelle venue dans le fitness', 'gael@pulseform.fr', '\$argon2id\$v=19\$m=65536,t=3,p=4\$OHtdXCMWGkZy9+AbeqFZKg\$kBxbFprdFOMAr5NG8+tM4sQIgYUXEMykASFqX9JjK5s', 'https://picsum.photos/200/200', '1995-04-10', 'F', 68, 165, NOW(), 'user', 'beginner'),
-(5, 'Cyril', 'Nouvelle venue dans le fitness', 'cyril@pulseform.fr', '\$argon2id\$v=19\$m=65536,t=3,p=4\$OHtdXCMWGkZy9+AbeqFZKg\$kBxbFprdFOMAr5NG8+tM4sQIgYUXEMykASFqX9JjK5s', 'https://picsum.photos/200/200', '1995-04-10', 'F', 68, 165, NOW(), 'user', 'beginner'),
-(6, 'Lucie', 'Nouvelle venue dans le fitness', 'lucie@pulseform.fr', '\$argon2id\$v=19\$m=65536,t=3,p=4\$OHtdXCMWGkZy9+AbeqFZKg\$kBxbFprdFOMAr5NG8+tM4sQIgYUXEMykASFqX9JjK5s', 'https://picsum.photos/200/200', '1995-04-10', 'F', 68, 165, NOW(), 'user', 'beginner'),
-(7, 'Anne-Gaëlle', 'Nouvelle venue dans le fitness', 'annegaelle@pulseform.fr', '\$argon2id\$v=19\$m=65536,t=3,p=4\$OHtdXCMWGkZy9+AbeqFZKg\$kBxbFprdFOMAr5NG8+tM4sQIgYUXEMykASFqX9JjK5s', 'https://picsum.photos/200/200', '1995-04-10', 'F', 68, 165, NOW(), 'user', 'beginner'),
-(8, 'Anne-Nelson', 'Nouvelle venue dans le fitness', 'nelson@pulseform.fr', '\$argon2id\$v=19\$m=65536,t=3,p=4\$OHtdXCMWGkZy9+AbeqFZKg\$kBxbFprdFOMAr5NG8+tM4sQIgYUXEMykASFqX9JjK5s', 'https://picsum.photos/200/200', '1995-04-10', 'F', 68, 165, NOW(), 'user', 'beginner')
+(1, 'JohnDoe', 'Un utilisateur actif', 'john@example.com', 'hashedpassword', 'profile1.jpg', '1990-01-15', 'M', 75, 180, NOW(), 'admin', 'advanced'),
+(2, 'JaneSmith', 'Sportive passionnée', 'jane@example.com', 'hashedpassword', 'profile2.jpg', '1985-08-22', 'F', 62, 170, NOW(), 'user', 'beginner'),
+(3, 'AliceWonder', 'Nouvelle venue dans le fitness', 'alice@example.com', 'hashedpassword', 'profile3.jpg', '1995-04-10', 'F', 68, 165, NOW(), 'user', 'beginner')
 ON CONFLICT DO NOTHING;
 
 -- ✅ Insérer les programmes
-INSERT INTO "program" (id, name, description, total_duration, level, image, created_at, visibility, "like") VALUES
-(1, 'Full Body Workout', 'Un programme complet pour tout le corps', 60, 'intermediate', 'https://picsum.photos/400/300', NOW(), 0, 10),
-(2, 'Cardio Blast', 'Idéal pour brûler des calories', 45, 'beginner', 'https://picsum.photos/400/300', NOW(), 1, 5),
-(3, 'Legs Day', 'Ciblez vos jambes avec ces exercices', 45, 'intermediate', 'https://picsum.photos/400/300', NOW(), 1, 8),
-(4, 'Core Strength', 'Renforcez votre ceinture abdominale', 30, 'beginner', 'https://picsum.photos/400/300', NOW(), 2, 6)
+INSERT INTO "program" (id, name, description, total_duration, level, created_at, visibility, "like") VALUES
+(1, 'Full Body Workout', 'Un programme complet pour tout le corps', 60, 'intermediate', NOW(), 0, 10),
+(2, 'Cardio Blast', 'Idéal pour brûler des calories', 45, 'beginner', NOW(), 1, 5),
+(3, 'Legs Day', 'Ciblez vos jambes avec ces exercices', 45, 'intermediate', NOW(), 1, 8),
+(4, 'Core Strength', 'Renforcez votre ceinture abdominale', 30, 'beginner', NOW(), 2, 6)
 ON CONFLICT DO NOTHING;
 
 -- ✅ Insérer les tags
@@ -69,10 +64,10 @@ ON CONFLICT DO NOTHING;
 
 -- ✅ Insérer les exercices
 INSERT INTO "exercise" (id, name, description, duration, kcal_loss, muscle, level, img_src) VALUES
-(1, 'Push-ups', 'Exercise de musculation classique', 30, 100, 'Chest', 'beginner', 'https://picsum.photos/400/300'),
-(2, 'Squats', 'Excellent pour les jambes', 40, 120, 'Legs', 'intermediate', 'https://picsum.photos/400/300'),
-(3, 'Lunges', 'Exercice pour renforcer les jambes et les fessiers', 35, 110, 'Legs', 'intermediate', 'https://picsum.photos/400/300'),
-(4, 'Planks', 'Exercice pour renforcer la sangle abdominale', 40, 90, 'Abdominals', 'beginner', 'https://picsum.photos/400/300')
+(1, 'Push-ups', 'Exercise de musculation classique', 30, 100, 'Chest', 'beginner', 'pushups.jpg'),
+(2, 'Squats', 'Excellent pour les jambes', 40, 120, 'Legs', 'intermediate', 'squats.jpg'),
+(3, 'Lunges', 'Exercice pour renforcer les jambes et les fessiers', 35, 110, 'Legs', 'intermediate', 'lunges.jpg'),
+(4, 'Planks', 'Exercice pour renforcer la sangle abdominale', 40, 90, 'Abdominals', 'beginner', 'planks.jpg')
 ON CONFLICT DO NOTHING;
 
 -- ✅ Associer exercices et programmes

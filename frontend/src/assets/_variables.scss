@@ -29,6 +29,11 @@
   margin: 0;
 }
 
+@mixin body {
+  font-size: 16px;
+  margin: 0;
+}
+
 @mixin h3-phone {
   font-size: 14px;
   margin: 0;

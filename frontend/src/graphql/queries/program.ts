@@ -6,6 +6,7 @@ export const GET_ALL_PROGRAMS = gql`
       id
       name
       description
+      image
       total_duration
       level
       created_at
@@ -35,6 +36,7 @@ export const GET_PROGRAM_BY_ID = gql`
       id
       name
       description
+      image
       created_at
       tags {
         id
