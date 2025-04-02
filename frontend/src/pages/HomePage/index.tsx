@@ -1,10 +1,10 @@
 import DoubleScreenLayout from "@components/atoms/DoubleScreenLayout";
 import NavBar from "@components/molecules/NavBar";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { HomePageView, UserProfileView } from "./Views";
 
 import "./HomePage.scss";
-import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
