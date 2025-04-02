@@ -1,14 +1,15 @@
 import Calendar from "@components/atoms/Calendar/Calendar";
 import type { CalendarEvent } from "@components/atoms/Calendar/Calendar.types";
 import { render } from "@testing-library/react";
+import { afterAll, beforeAll, vi } from "vitest";
 describe("Calendar", () => {
   const fixedDate = new Date("2025-03-01T12:00:00Z");
   beforeAll(() => {
-    jest.useFakeTimers();
-    jest.setSystemTime(fixedDate);
+    vi.useFakeTimers();
+    vi.setSystemTime(fixedDate);
   });
   afterAll(() => {
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
   it("renders the Calendar component with no events", () => {
     const tree = render(<Calendar initialDate="2025-03-01" />);
