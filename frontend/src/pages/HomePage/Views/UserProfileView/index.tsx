@@ -7,10 +7,10 @@ type UserProfileViewType = {
 
 const UserProfileView = ({ isDesktop }: UserProfileViewType) => {
   return (
-    <>
+    <div className="user-profile-view-container">
       <DashBoardView isDesktop={isDesktop} />
       <HistoryView /> {/* apparait onClick et remplace DashBoardView */}
-    </>
+    </div>
   );
 };
 

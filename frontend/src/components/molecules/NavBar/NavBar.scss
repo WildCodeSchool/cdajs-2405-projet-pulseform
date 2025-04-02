@@ -8,4 +8,11 @@
   background-color: $primary;
   padding: 11px;
   border: 1px solid $grey;
+
+  @media screen and (max-width: 768px) {
+    z-index: 10000;
+    position: fixed;
+    bottom: 0px;
+    width:100%;
+  }
 }

@@ -1,25 +1,29 @@
 import { LightingIcon, UserIcon } from "@assets/icons/icon-list/iconList";
-import { useNavigate } from "react-router-dom";
 
 import "./NavBar.scss";
 
-function NavBar() {
-  const navigate = useNavigate();
+type NavBarType = {
+  onProfileClick: () => void;
+  onActivityClick: () => void;
+};
 
+function NavBar({ onProfileClick, onActivityClick }: NavBarType) {
   return (
     <div className="nav-bar">
       <LightingIcon
         color="#fffffc"
         fontSize={40}
         onClick={() => {
-          navigate("/sign-up");
+          onActivityClick();
+          // navigate("/sign-up");
         }}
       />
       <UserIcon
         color="#fffffc"
         fontSize={40}
         onClick={() => {
-          navigate("/sign-up");
+          onProfileClick();
+          // navigate("/sign-up");
         }}
       />
     </div>

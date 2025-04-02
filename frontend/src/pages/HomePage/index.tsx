@@ -4,9 +4,12 @@ import { useEffect, useState } from "react";
 import { HomePageView, UserProfileView } from "./Views";
 
 import "./HomePage.scss";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
+  const [currenMobiletView, setCurrentMobileView] = useState("home");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -19,6 +22,22 @@ const HomePage = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const handleProfileClick = () => {
+    if (location.pathname === "/home") {
+      setCurrentMobileView("profile");
+    } else {
+      navigate("/sign-up");
+    }
+  };
+
+  const handleActivityClick = () => {
+    if (location.pathname === "/home") {
+      setCurrentMobileView("home");
+    } else {
+      navigate("/sign-up");
+    }
+  };
 
   return (
     <>
@@ -34,11 +53,16 @@ const HomePage = () => {
           </>
         ) : (
           <>
-            <HomePageView isDesktop={isDesktop} />
-            {/* First view for mobile : we toggle between HomePageView and UserProfileView */}
-            <UserProfileView isDesktop={isDesktop} />{" "}
-            {/* Second view for mobile */}
-            <NavBar />
+            {currenMobiletView === "home" ? (
+              <HomePageView isDesktop={isDesktop} />
+            ) : (
+              <UserProfileView isDesktop={isDesktop} />
+            )}
+
+            <NavBar
+              onProfileClick={handleProfileClick}
+              onActivityClick={handleActivityClick}
+            />
           </>
         )}
       </section>
