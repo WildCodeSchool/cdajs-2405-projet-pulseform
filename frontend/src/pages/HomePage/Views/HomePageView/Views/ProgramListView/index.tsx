@@ -1,28 +1,18 @@
 import ProgramCard from "@components/atoms/ProgramCard";
 import "./ProgramListView.scss";
-import { useGetAllProgramsQuery } from "@graphql/__generated__/schema";
-
+import { useGetAllPrograms } from "@hooks/usePrograms";
+// import { useGetAllProgramsQuery } from "@graphql/__generated__/schema";
 const ProgramListView = () => {
-  const { loading, error, data } = useGetAllProgramsQuery();
+  // const { loading, error, data } = useGetAllProgramsQuery();
+  const { loading, error, programs } = useGetAllPrograms();
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>Error : {error.message}</p>;
-  }
-
-  if (!data) {
-    return <p>No data available</p>;
-  }
-
-  // const programs: GetAllProgramsQuery = data;
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+  if (!programs) return <p>No programs available</p>;
 
   return (
     <div className="program-list-container">
-      {/* <p>We have {programs.getAllPrograms.length} programs</p> */}
-      {data.getAllPrograms.map((program) => (
+      {programs.map((program) => (
         <ProgramCard key={program.id} program={program} />
       ))}
     </div>

@@ -1,9 +1,9 @@
+import DoubleScreenLayout from "@components/atoms/DoubleScreenLayout";
 import NavBar from "@components/molecules/NavBar";
 import { useEffect, useState } from "react";
 import { HomePageView, UserProfileView } from "./Views";
 
 import "./HomePage.scss";
-import DoubleScreenLayout from "@components/atoms/DoubleScreenLayout";
 
 const HomePage = () => {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
@@ -26,19 +26,15 @@ const HomePage = () => {
         {isDesktop ? (
           <>
             <DoubleScreenLayout>
-              <UserProfileView isDesktop={isDesktop} />{" "}
+              <UserProfileView isDesktop={isDesktop} />
               {/* Left column with user profile */}
-              <HomePageView /> {/* Right column with the list of programs */}
-            </DoubleScreenLayout>
-            <DoubleScreenLayout>
-              <UserProfileView isDesktop={isDesktop} />{" "}
-              {/* Left column with user profile */}
-              <HomePageView /> {/* Right column with the list of programs */}
+              <HomePageView isDesktop={isDesktop} />
+              {/* Right column with the list of programs */}
             </DoubleScreenLayout>
           </>
         ) : (
           <>
-            <HomePageView />
+            <HomePageView isDesktop={isDesktop} />
             {/* First view for mobile : we toggle between HomePageView and UserProfileView */}
             <UserProfileView isDesktop={isDesktop} />{" "}
             {/* Second view for mobile */}
