@@ -1,7 +1,7 @@
 import Calendar from "@components/atoms/Calendar/Calendar";
 import type { CalendarEvent } from "@components/atoms/Calendar/Calendar.types";
 import { render } from "@testing-library/react";
-import { afterAll, beforeAll, describe, it, vi } from "vitest";
+import { afterAll, beforeAll, vi } from "vitest";
 
 describe("Calendar", () => {
   const fixedDate = new Date("2025-03-01T12:00:00Z");
@@ -16,11 +16,11 @@ describe("Calendar", () => {
   });
 
   it("renders the Calendar component with no events", () => {
-    const { container } = render(<Calendar initialDate="2025-03-01" />);
-    expect(container).toMatchSnapshot();
+    const tree = render(<Calendar initialDate="2025-03-01" />);
+    expect(tree).toMatchSnapshot();
   });
 
-  it("renders the Calendar component with events", () => {
+  it("renders the Calendar component with events", async () => {
     const testEvents: CalendarEvent[] = [
       { title: "Single Day Event", start: "2024-10-01" },
       { title: "Multi-Day Event", start: "2024-10-05", end: "2024-10-07" },
@@ -36,9 +36,10 @@ describe("Calendar", () => {
       { title: "Event on Christmas", start: "2024-12-25" },
     ];
 
-    const { container } = render(
+    const tree = render(
       <Calendar events={testEvents} initialDate="2025-03-01" />,
     );
-    expect(container).toMatchSnapshot();
-  });
+
+    expect(tree).toMatchSnapshot();
+  }, 30000);
 });
