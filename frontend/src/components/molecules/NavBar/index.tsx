@@ -15,7 +15,6 @@ function NavBar({ onProfileClick, onActivityClick }: NavBarType) {
         fontSize={40}
         onClick={() => {
           onActivityClick();
-          // navigate("/sign-up");
         }}
       />
       <UserIcon
@@ -23,7 +22,6 @@ function NavBar({ onProfileClick, onActivityClick }: NavBarType) {
         fontSize={40}
         onClick={() => {
           onProfileClick();
-          // navigate("/sign-up");
         }}
       />
     </div>

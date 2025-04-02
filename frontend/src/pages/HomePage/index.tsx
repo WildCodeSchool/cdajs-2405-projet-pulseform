@@ -27,7 +27,7 @@ const HomePage = () => {
     if (location.pathname === "/home") {
       setCurrentMobileView("profile");
     } else {
-      navigate("/sign-up");
+      navigate("/home");
     }
   };
 
@@ -35,7 +35,7 @@ const HomePage = () => {
     if (location.pathname === "/home") {
       setCurrentMobileView("home");
     } else {
-      navigate("/sign-up");
+      navigate("/home");
     }
   };
 
