@@ -1,20 +1,25 @@
 import Calendar from "@components/atoms/Calendar/Calendar";
 import type { CalendarEvent } from "@components/atoms/Calendar/Calendar.types";
 import { render } from "@testing-library/react";
-import { afterAll, beforeAll, vi } from "vitest";
+import { afterAll, beforeAll, describe, it, vi } from "vitest";
+
 describe("Calendar", () => {
   const fixedDate = new Date("2025-03-01T12:00:00Z");
+
   beforeAll(() => {
     vi.useFakeTimers();
     vi.setSystemTime(fixedDate);
   });
+
   afterAll(() => {
     vi.useRealTimers();
   });
+
   it("renders the Calendar component with no events", () => {
-    const tree = render(<Calendar initialDate="2025-03-01" />);
-    expect(tree).toMatchSnapshot();
+    const { container } = render(<Calendar initialDate="2025-03-01" />);
+    expect(container).toMatchSnapshot();
   });
+
   it("renders the Calendar component with events", () => {
     const testEvents: CalendarEvent[] = [
       { title: "Single Day Event", start: "2024-10-01" },
@@ -30,9 +35,10 @@ describe("Calendar", () => {
       { title: "Event on Leap Year", start: "2024-02-29" },
       { title: "Event on Christmas", start: "2024-12-25" },
     ];
-    const tree = render(
+
+    const { container } = render(
       <Calendar events={testEvents} initialDate="2025-03-01" />,
     );
-    expect(tree).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 });
