@@ -1,4 +1,5 @@
 import NavBar from "@components/molecules/NavBar";
+import { ProgramDoneCard } from "@components/molecules/ProgramDoneCard";
 import { useEffect, useState } from "react";
 import { HomePageView, UserProfileView } from "./Views";
 
@@ -20,6 +21,12 @@ const HomePage = () => {
     };
   }, []);
 
+  const program = {
+    title: "Body Sculpt",
+    date: "13/09/2024",
+    time: "60min",
+  };
+
   return (
     <>
       <section className={isDesktop ? "desktop" : "mobile"}>
@@ -34,6 +41,7 @@ const HomePage = () => {
               <UserProfileView isDesktop={isDesktop} />{" "}
               {/* Left column with user profile */}
               <HomePageView /> {/* Right column with the list of programs */}
+              <ProgramDoneCard program={program}></ProgramDoneCard>
             </DoubleScreenLayout>
           </>
         ) : (
