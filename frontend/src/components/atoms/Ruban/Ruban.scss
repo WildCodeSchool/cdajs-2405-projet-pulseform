@@ -1,4 +1,4 @@
-@import "@assets/variables.scss";
+@use "@assets/variables" as *;
 
 .ruban {
   display: flex;
