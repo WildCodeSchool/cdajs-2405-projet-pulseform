@@ -10,16 +10,19 @@ exports[`FitnessLevelMenu > renders the FitnessLevelMenu component 1`] = `
       >
         <button
           class="selection-button selection-button-active"
+          type="button"
         >
           BEGINNER
         </button>
         <button
           class="selection-button "
+          type="button"
         >
           INTERMEDIATE
         </button>
         <button
           class="selection-button "
+          type="button"
         >
           ADVANCED
         </button>
@@ -32,16 +35,19 @@ exports[`FitnessLevelMenu > renders the FitnessLevelMenu component 1`] = `
     >
       <button
         class="selection-button selection-button-active"
+        type="button"
       >
         BEGINNER
       </button>
       <button
         class="selection-button "
+        type="button"
       >
         INTERMEDIATE
       </button>
       <button
         class="selection-button "
+        type="button"
       >
         ADVANCED
       </button>
