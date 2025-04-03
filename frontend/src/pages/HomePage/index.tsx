@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { HomePageView, UserProfileView } from "./Views";
 
 import "./HomePage.scss";
+import MobileBodyLayout from "@components/atoms/MobileBodyLayout";
 
 const HomePage = () => {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
@@ -52,18 +53,17 @@ const HomePage = () => {
             </DoubleScreenLayout>
           </>
         ) : (
-          <>
+          <MobileBodyLayout>
             {currenMobiletView === "home" ? (
               <HomePageView isDesktop={isDesktop} />
             ) : (
               <UserProfileView isDesktop={isDesktop} />
             )}
-
             <NavBar
               onProfileClick={handleProfileClick}
               onActivityClick={handleActivityClick}
             />
-          </>
+          </MobileBodyLayout>
         )}
       </section>
     </>

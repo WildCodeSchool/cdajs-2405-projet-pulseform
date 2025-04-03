@@ -2,6 +2,7 @@ import ProgramCard from "@components/atoms/ProgramCard";
 import "./ProgramListView.scss";
 import { useGetAllPrograms } from "@hooks/usePrograms";
 // import { useGetAllProgramsQuery } from "@graphql/__generated__/schema";
+
 const ProgramListView = () => {
   // const { loading, error, data } = useGetAllProgramsQuery();
   const { loading, error, programs } = useGetAllPrograms();

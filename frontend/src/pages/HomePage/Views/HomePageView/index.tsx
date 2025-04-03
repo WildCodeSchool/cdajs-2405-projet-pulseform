@@ -5,11 +5,10 @@ type HomePageViewType = {
   isDesktop: boolean;
 };
 
-// biome-ignore lint/correctness/noUnusedVariables: en cours de dev
 const HomePageView = ({ isDesktop }: HomePageViewType) => {
   return (
     <div className="home-page-view">
-      <DashBoardHeaderView />
+      <DashBoardHeaderView isDesktop={isDesktop} />
       <ProgramListView />
     </div>
   );
