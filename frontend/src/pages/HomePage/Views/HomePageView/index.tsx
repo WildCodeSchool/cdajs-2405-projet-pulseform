@@ -1,5 +1,5 @@
-import FitnessLevelMenu from "@components/molecules/FitnessLevelMenu";
-import { DashBoardHeaderView, ProgramListView } from "./Views";
+import ProgramListWithToggle from "@components/molecules/ProgramListWithToggle";
+import { DashBoardHeaderView } from "./Views";
 
 import "./HomePageView.scss";
 
@@ -10,9 +10,8 @@ type HomePageViewType = {
 const HomePageView = ({ isDesktop }: HomePageViewType) => {
   return (
     <div className="home-page-view">
-      <FitnessLevelMenu />
       <DashBoardHeaderView isDesktop={isDesktop} />
-      <ProgramListView />
+      <ProgramListWithToggle />
     </div>
   );
 };

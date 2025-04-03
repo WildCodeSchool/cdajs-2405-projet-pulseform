@@ -2,6 +2,7 @@ import LittleLogo from "@components/atoms/LittleLogo";
 import "./DashBoardHeaderView.scss";
 import MobileHeaderLayout from "@components/atoms/MobileHeaderLayout";
 import Ruban from "@components/atoms/Ruban/Ruban";
+import { useTranslation } from "react-i18next";
 
 type DashBoardHeaderViewType = {
   isDesktop: boolean;
@@ -9,20 +10,22 @@ type DashBoardHeaderViewType = {
 
 // Existe seulement en phone
 const DashBoardHeaderView = ({ isDesktop }: DashBoardHeaderViewType) => {
+  const { t } = useTranslation();
+
   return (
     <div className="dash-board-header-view-container">
       {isDesktop ? (
         <>
           <LittleLogo hasLabel className="little-logo--static" />
-          <h1>Programmes</h1>
+          <h1>{t("PROGRAMS")}</h1>
         </>
       ) : (
         <div className="dash-board-upper-header-weekly-container">
-          <MobileHeaderLayout hasLogo headerLabel="Programmes" />
+          <MobileHeaderLayout hasLogo headerLabel={t("PROGRAMS")} />
           <div className="dash-board-weekly-achievement-container">
             <div className="dash-board-weekly-achievement-title-container">
               <h2 className="dash-board-weekly-achievement-title">
-                Récapitulatif hebdomadaire
+                {t("WEEKLY_RECAP")}
               </h2>
             </div>
             <Ruban days={3} />

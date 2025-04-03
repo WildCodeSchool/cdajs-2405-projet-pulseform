@@ -47,7 +47,6 @@ const HomePage = () => {
           <>
             <DoubleScreenLayout>
               <UserProfileView isDesktop={isDesktop} />
-              <UserProfileView isDesktop={isDesktop} />
               {/* Left column with user profile */}
               <HomePageView isDesktop={isDesktop} />
               {/* Right column with the list of programs */}
