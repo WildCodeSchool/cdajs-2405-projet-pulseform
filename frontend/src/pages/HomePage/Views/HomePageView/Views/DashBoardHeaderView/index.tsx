@@ -1,8 +1,10 @@
+import { useTranslation } from "react-i18next";
+
 import LittleLogo from "@components/atoms/LittleLogo";
-import "./DashBoardHeaderView.scss";
 import MobileHeaderLayout from "@components/atoms/MobileHeaderLayout";
 import Ruban from "@components/atoms/Ruban/Ruban";
-import { useTranslation } from "react-i18next";
+
+import "./DashBoardHeaderView.scss";
 
 type DashBoardHeaderViewType = {
   isDesktop: boolean;

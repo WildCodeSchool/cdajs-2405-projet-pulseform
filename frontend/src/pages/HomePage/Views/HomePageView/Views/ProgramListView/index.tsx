@@ -1,10 +1,10 @@
-import ProgramCard from "@components/atoms/ProgramCard";
-import "./ProgramListView.scss";
 import { useGetAllPrograms } from "@hooks/usePrograms";
-// import { useGetAllProgramsQuery } from "@graphql/__generated__/schema";
+
+import ProgramCard from "@components/atoms/ProgramCard";
+
+import "./ProgramListView.scss";
 
 const ProgramListView = () => {
-  // const { loading, error, data } = useGetAllProgramsQuery();
   const { loading, error, programs } = useGetAllPrograms();
 
   if (loading) return <p>Loading...</p>;
