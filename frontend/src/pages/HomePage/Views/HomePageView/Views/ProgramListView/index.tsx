@@ -19,8 +19,6 @@ const ProgramListView = () => {
     return <p>No data available</p>;
   }
 
-  // const programs: GetAllProgramsQuery = data;
-
   return (
     <div className="program-list-container">
       {/* <p>We have {programs.getAllPrograms.length} programs</p> */}

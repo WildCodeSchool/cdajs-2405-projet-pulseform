@@ -78,6 +78,7 @@ const HomePage = () => {
               <ProgramDoneCard program={program} />
             ))}
             <NavBar />
+            <ProgramDoneCard program={program}></ProgramDoneCard>
           </>
         )}
       </section>
