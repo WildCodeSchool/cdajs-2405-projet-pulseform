@@ -4,8 +4,13 @@ export const GET_HISTORY_BY_USER_ID = gql`
     query getHistoryByUserId ($id: Float!) {
         getHistoryByUserId(id:$id){
             id
-            program_id
+            program {
+                id
+                name
+                total_duration
+            }
             start_date
+            end_date
         }
     }
 `;
