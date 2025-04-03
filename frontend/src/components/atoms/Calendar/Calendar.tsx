@@ -2,16 +2,28 @@ import frLocale from "@fullcalendar/core/locales/fr";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
+import { useMemo } from "react";
 
 import type { CalendarProps } from "./Calendar.types";
 import "./Calendar.scss";
 
-const Calendar = ({ events = [] }: CalendarProps) => {
+const Calendar = ({ events = [], initialDate }: CalendarProps) => {
+  const datesToHighlight = useMemo(
+    () => events.map((e) => new Date(e.start).toISOString().slice(0, 10)),
+    [events],
+  );
+
+  const dayCellClassNames = (arg: { date: Date }) => {
+    const isoDate = arg.date.toISOString().slice(0, 10);
+    return datesToHighlight.includes(isoDate) ? ["highlighted-date-cell"] : [];
+  };
+
   return (
     <div className="calendar-container">
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
+        initialDate={initialDate}
         locale={frLocale}
         headerToolbar={{
           left: "prev",
@@ -26,9 +38,8 @@ const Calendar = ({ events = [] }: CalendarProps) => {
         events={events}
         editable={false}
         droppable={false}
-        eventContent={(eventInfo) => (
-          <div className="fc-event-main">{eventInfo.event.title}</div>
-        )}
+        dayCellClassNames={dayCellClassNames}
+        eventContent={() => null}
       />
     </div>
   );

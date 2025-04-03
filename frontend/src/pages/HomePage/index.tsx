@@ -1,11 +1,11 @@
 import DoubleScreenLayout from "@components/atoms/DoubleScreenLayout";
+import MobileBodyLayout from "@components/atoms/MobileBodyLayout";
 import NavBar from "@components/molecules/NavBar";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { HomePageView, UserProfileView } from "./Views";
 
 import "./HomePage.scss";
-import MobileBodyLayout from "@components/atoms/MobileBodyLayout";
 
 const HomePage = () => {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
@@ -46,6 +46,7 @@ const HomePage = () => {
         {isDesktop ? (
           <>
             <DoubleScreenLayout>
+              <UserProfileView isDesktop={isDesktop} />
               <UserProfileView isDesktop={isDesktop} />
               {/* Left column with user profile */}
               <HomePageView isDesktop={isDesktop} />

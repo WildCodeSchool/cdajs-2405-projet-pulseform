@@ -1,0 +1,9 @@
+@use "@assets/variables" as *;
+
+.fitness-level-menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: $white;
+}

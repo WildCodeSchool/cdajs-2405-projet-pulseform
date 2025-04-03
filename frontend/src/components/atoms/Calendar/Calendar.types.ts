@@ -1,5 +1,5 @@
 export interface CalendarEvent {
-  title: string;
+  title?: string;
   start: string;
   end?: string;
 }
