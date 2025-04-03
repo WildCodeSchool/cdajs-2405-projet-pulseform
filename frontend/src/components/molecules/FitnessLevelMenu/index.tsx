@@ -1,16 +1,15 @@
-import "./FitnessLevelMenu.scss";
-import { FitnessLevel } from "@graphql/__generated__/schema";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { SelectionButton } from "../../atoms/SelectionButton/index.";
 
+import { FitnessLevel } from "@graphql/__generated__/schema";
+
+import "./FitnessLevelMenu.scss";
 function FitnessLevelMenu() {
   const { t } = useTranslation();
-  // usenavigate pour gérer les affichages
 
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // we should use enum instead
   const fitnessLevels = [
     { label: t(FitnessLevel.Beginner), id: 0 },
     { label: t(FitnessLevel.Intermediate), id: 1 },
