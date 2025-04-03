@@ -20,8 +20,10 @@ const DashBoardHeaderView = ({ isDesktop }: DashBoardHeaderViewType) => {
         <div className="dash-board-upper-header-weekly-container">
           <MobileHeaderLayout hasLogo headerLabel="Programmes" />
           <div className="dash-board-weekly-achievement-container">
-            <div className="dash-board-weekly-achievement-title">
-              <h2>Récapitulatif hebdomadaire</h2>
+            <div className="dash-board-weekly-achievement-title-container">
+              <h2 className="dash-board-weekly-achievement-title">
+                Récapitulatif hebdomadaire
+              </h2>
             </div>
             <Ruban days={3} />
           </div>
