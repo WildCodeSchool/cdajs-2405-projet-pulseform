@@ -1,21 +1,20 @@
-import { SelectionButtonProps } from "../SelectionButton/SelectionButton.type";
+import type { SelectionButtonProps } from "../SelectionButton/SelectionButton.type";
 import "./SelectionButton.scss";
 
 export function SelectionButton({
-  //selected,
-  children,
+  label,
   isActive,
   onClick,
-  ...props
 }: SelectionButtonProps) {
   return (
     <button
+      type="button"
       className={`selection-button ${
         isActive ? "selection-button-active" : ""
       }`}
       onClick={onClick}
     >
-      {children}
+      {label}
     </button>
   );
 }
