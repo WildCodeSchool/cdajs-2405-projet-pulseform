@@ -10,7 +10,6 @@ import "./ProgramPage.scss";
 import { useEffect, useState } from "react";
 const ProgramPage = () => {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
-  // const [currenMobiletView, setCurrentMobileView] = useState("home");
 
   useEffect(() => {
     const handleResize = () => {

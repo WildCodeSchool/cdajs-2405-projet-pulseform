@@ -1,5 +1,7 @@
 import { ProgramListView } from "@pages/HomePage/Views/HomePageView/Views";
+
 import FitnessLevelMenu from "../FitnessLevelMenu";
+
 import "./ProgramListWithToggle.scss";
 
 const ProgramListWithToggle = () => {

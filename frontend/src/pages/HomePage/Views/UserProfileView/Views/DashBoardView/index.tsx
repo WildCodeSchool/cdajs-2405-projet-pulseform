@@ -1,8 +1,8 @@
-// import { useGetUserByIdQuery } from "@graphql/__generated__/schema";
-import "./DashBoardView.scss";
 import UserAvatarAndUsername from "@components/atoms/UserAvatarAndUsername";
 import TotalExercicesAndTimeRecap from "@components/molecules/TotalExercicesAndTimeRecap";
 import { useGetUserById } from "@hooks/useUsers";
+
+import "./DashBoardView.scss";
 
 type DashBoardViewType = {
   isDesktop: boolean;

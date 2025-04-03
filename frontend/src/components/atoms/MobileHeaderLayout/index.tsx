@@ -1,10 +1,7 @@
-import LittleLogo from "../LittleLogo";
-import "./MobileHeaderLayout.scss";
+import LittleLogo from "@components/atoms/LittleLogo";
+import type { MobileHeaderLayoutType } from "./MobileHeaderLayout.type";
 
-type MobileHeaderLayoutType = {
-  hasLogo: boolean;
-  headerLabel: string;
-};
+import "./MobileHeaderLayout.scss";
 
 const MobileHeaderLayout = ({
   hasLogo,
