@@ -8,7 +8,7 @@ import InputField from "@components/atoms/ImputField/ImputField";
 import LittleLogo from "@components/atoms/LittleLogo/index";
 import LoginImage from "@components/atoms/LoginImage";
 
-import { LOGIN_MUTATION } from "../../graphql/mutations";
+import { LOGIN_MUTATION } from "../../graphql/mutations/user";
 import "./LoginPage.scss";
 
 interface LoginFormValues {

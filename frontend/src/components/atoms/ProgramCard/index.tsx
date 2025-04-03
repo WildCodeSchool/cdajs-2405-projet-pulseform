@@ -1,7 +1,7 @@
 import type { Program } from "@graphql/__generated__/schema";
 import DurationLabel from "../DurationLabel";
 import FlamesFitnessLevel from "../FlamesFitnessLevelLabel";
-import "@assets/_variables.scss";
+
 import "./ProgramCard.scss";
 
 type ProgramCardProps = {

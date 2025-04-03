@@ -16,6 +16,10 @@
     justify-content: center;
   }
 
+  &--static {
+    position: static !important;
+  }
+
   &--giant {
     width: 408px;
     height: 284px;

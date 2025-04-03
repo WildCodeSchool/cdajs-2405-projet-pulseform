@@ -1,4 +1,4 @@
-import { RibbonIcon } from "../../../assets/icons/icon-list/iconList"; 
+import { RibbonIcon } from "../../../assets/icons/icon-list/iconList";
 import type { RubanProps } from "./Ruban.type";
 import "./Ruban.scss";
 
