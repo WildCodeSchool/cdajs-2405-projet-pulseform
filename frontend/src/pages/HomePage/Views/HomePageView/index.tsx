@@ -1,13 +1,16 @@
 import { DashBoardHeaderView, ProgramListView } from "./Views";
+import FitnessLevelMenu from "@components/molecules/FitnessLevelMenu";
+
 import "./HomePageView.scss";
 
 const HomePageView = () => {
-	return (
-		<div>
-			<DashBoardHeaderView />
-			<ProgramListView />
-		</div>
-	);
+  return (
+    <div>
+      <FitnessLevelMenu />
+      <DashBoardHeaderView />
+      <ProgramListView />
+    </div>
+  );
 };
 
 export default HomePageView;

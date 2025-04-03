@@ -7,7 +7,12 @@ import { defineConfig } from "vite";
 dotenv.config();
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    // babel({
+    //   babelConfig: { plugin: ["@babel/plugin-proposal-decorators"] },
+    // }),
+  ],
   test: {
     globals: true,
     environment: "jsdom",

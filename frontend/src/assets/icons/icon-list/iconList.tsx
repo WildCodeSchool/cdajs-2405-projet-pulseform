@@ -1,8 +1,17 @@
+import "@assets/_variables.scss";
 import { Icon, type IconProps } from "@iconify/react";
 // 1.5 em = 24px
 
+export const BackIcon = ({
+  color = "$primary",
+  fontSize = "1.5em",
+  ...props
+}: Omit<IconProps, "icon">) => (
+  <Icon icon="ooui:next-rtl" color={color} fontSize={fontSize} {...props} />
+);
+
 export const ClockIcon = ({
-  color = "var(--primary)",
+  color = "$secondary",
   fontSize = "1.5em",
   ...props
 }: Omit<IconProps, "icon">) => (
@@ -10,7 +19,7 @@ export const ClockIcon = ({
 );
 
 export const CrossIcon = ({
-  color = "var(--primary)",
+  color = "$primary",
   fontSize = "1.5em",
   ...props
 }: Omit<IconProps, "icon">) => (
@@ -23,15 +32,15 @@ export const CrossIcon = ({
 );
 
 export const FlameIcon = ({
-  color = "var(--primary)",
+  color = "$primary",
   fontSize = "1.5em",
   ...props
 }: Omit<IconProps, "icon">) => (
-  <Icon icon="midi:fire" color={color} fontSize={fontSize} {...props} />
+  <Icon icon="mdi:fire" color={color} fontSize={fontSize} {...props} />
 );
 
 export const LeftSkipIcon = ({
-  color = "var(--primary)",
+  color = "$primary",
   fontSize = "1.5em",
   ...props
 }: Omit<IconProps, "icon">) => (
@@ -39,15 +48,15 @@ export const LeftSkipIcon = ({
 );
 
 export const LightingIcon = ({
-  color = "var(--primary)",
+  color = "$primary",
   fontSize = "1.5em",
   ...props
 }: Omit<IconProps, "icon">) => (
   <Icon icon="ph:lightning" color={color} fontSize={fontSize} {...props} />
 );
 
-export const MenuIcon = ({
-  color = "var(--primary)",
+export const MenuBurgerIcon = ({
+  color = "$primary",
   fontSize = "1.5em",
   ...props
 }: Omit<IconProps, "icon">) => (
@@ -59,8 +68,16 @@ export const MenuIcon = ({
   />
 );
 
+export const NextIcon = ({
+  color = "$primary",
+  fontSize = "1.5em",
+  ...props
+}: Omit<IconProps, "icon">) => (
+  <Icon icon="ooui:next-ltr" color={color} fontSize={fontSize} {...props} />
+);
+
 export const PauseIcon = ({
-  color = "var(--primary)",
+  color = "$primary",
   fontSize = "1.5em",
   ...props
 }: Omit<IconProps, "icon">) => (
@@ -73,7 +90,7 @@ export const PauseIcon = ({
 );
 
 export const RibbonIcon = ({
-  color = "var(--primary)",
+  color = "$primary",
   fontSize = "1.5em",
   ...props
 }: Omit<IconProps, "icon">) => (
@@ -86,7 +103,7 @@ export const RibbonIcon = ({
 );
 
 export const RightSkipIcon = ({
-  color = "var(--primary)",
+  color = "$primary",
   fontSize = "1.5em",
   ...props
 }: Omit<IconProps, "icon">) => (
@@ -99,7 +116,7 @@ export const RightSkipIcon = ({
 );
 
 export const SettingsIcon = ({
-  color = "var(--primary)",
+  color = "$primary",
   fontSize = "1.5em",
   ...props
 }: Omit<IconProps, "icon">) => (
@@ -107,7 +124,7 @@ export const SettingsIcon = ({
 );
 
 export const UserIcon = ({
-  color = "var(--primary)",
+  color = "$primary",
   fontSize = "1.5em",
   ...props
 }: Omit<IconProps, "icon">) => (

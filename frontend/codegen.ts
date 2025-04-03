@@ -9,7 +9,7 @@ const config: CodegenConfig = {
   schema: {
     "http://localhost:4000": {
       headers: {
-        Authorization: `Bearer ${process.env.GRAPHQL_AUTH_TOKEN}`,
+        Authorization: `Bearer ${process.env.VITE_GRAPHQL_AUTH_TOKEN}`,
       },
     },
   },
@@ -23,6 +23,9 @@ const config: CodegenConfig = {
       ],
       config: {
         withHooks: true,
+        scalars: {
+          DateTimeISO: "Date",
+        },
       },
     },
   },

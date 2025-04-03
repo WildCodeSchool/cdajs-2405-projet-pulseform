@@ -1,0 +1,10 @@
+@use "@assets/variables" as *;
+
+.user-avatar-and-username {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: $primary;
+  color: $white;
+  width: 100%;
+}

@@ -22,7 +22,9 @@
       "@assets/*": ["src/assets/*"],
       "@pages/*": ["src/pages/*"],
       "@graphql/*": ["src/graphql/*"]
-    }
+    },
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["src", "vite-env.d.ts", "vite.config.ts"],
   "files": ["vite-env.d.ts", "vite.config.ts"]

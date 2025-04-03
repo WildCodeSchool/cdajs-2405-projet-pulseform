@@ -1,9 +1,10 @@
 export interface CalendarEvent {
-  title: string;
+  title?: string;
   start: string;
   end?: string;
 }
 
 export interface CalendarProps {
   events?: CalendarEvent[];
+  initialDate?: string;
 }

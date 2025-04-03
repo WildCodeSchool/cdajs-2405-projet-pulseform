@@ -1,0 +1,76 @@
+@use "@assets/variables" as *;
+
+.recap-container {
+  background-color: $white;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  .block-container {
+    display: flex;
+    align-items: flex-start;
+    height: 100%;
+    flex-grow: 1;
+
+    .block {
+      &__left,
+      &__right {
+        background-color: $primary;
+        flex-grow: 1;
+        height: 3.125rem;
+      }
+      &__left {
+        border-radius: 0 0 10px 0;
+      }
+      &__right {
+        border-radius: 0 0 0 10px;
+      }
+    }
+  }
+
+  .recap-content-container-first-background {
+    background-color: $primary;
+    display: flex;
+    border-radius: 0 0 10px 10px;
+    width: 70%;
+  }
+
+  .recap-content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $white;
+    border-radius: 10px;
+    width: 100%;
+    padding: 10px;
+
+    .recap-content {
+      background-color: $primary;
+      border-radius: 5px;
+      padding: 1rem 2.5rem;
+      color: $white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .recap-item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+
+      .recap-value {
+        font-size: 20px;
+        font-weight: bold;
+        color: $white;
+      }
+
+      .recap-label {
+        font-size: 14px;
+      }
+    }
+  }
+}
