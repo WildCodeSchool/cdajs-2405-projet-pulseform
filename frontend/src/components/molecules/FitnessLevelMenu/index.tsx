@@ -6,9 +6,11 @@ import { FitnessLevel } from "@graphql/__generated__/schema";
 
 function FitnessLevelMenu() {
   const { t } = useTranslation();
+  // usenavigate pour gérer les affichages
 
   const [activeIndex, setActiveIndex] = useState(0);
 
+  // we should use enum instead
   const fitnessLevels = [
     t(FitnessLevel.Beginner),
     t(FitnessLevel.Intermediate),
