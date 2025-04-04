@@ -6,7 +6,7 @@ export class WeightInput {
   weight!: number;
 
   @Field(() => String)
-  date!: string;
+  month!: string;
 }
 
 @ObjectType()
@@ -15,7 +15,7 @@ export class Weight {
   weight!: number;
 
   @Field(() => String)
-  date!: string;
+  month!: string;
 
   @Field(() => Date)
   update_at!: Date;

@@ -50,7 +50,7 @@ export class User extends BaseEntity {
   gender?: string;
 
   @Column("jsonb", { nullable: true })
-  weights!: { weight: number; date: string; update_at: Date }[];
+  weights?: { weight: number; month: string; update_at: Date }[];
 
   @Column({ nullable: true })
   @Field(() => Int, { nullable: true })
@@ -120,7 +120,7 @@ export class User extends BaseEntity {
     image: string,
     birthday: Date,
     gender: string,
-    weights: { weight: number; date: string; update_at: Date }[],
+    weights: { weight: number; month: string; update_at: Date }[],
     height: number,
     created_at: Date,
     level: FitnessLevelEnum,

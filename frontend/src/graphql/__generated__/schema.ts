@@ -209,6 +209,7 @@ export type Mutation = {
   addProgram: Program;
   addTag: Tag;
   addUserToGroup: GroupList;
+  addWeight: Array<Weight>;
   createExercise: Exercise;
   createGroup: Group;
   createUser: User;
@@ -676,6 +677,20 @@ export type GetAllUsersQuery = {
   }>;
 };
 
+export type GetWeightByUserIdQueryVariables = Exact<{
+  id: Scalars["Float"]["input"];
+}>;
+
+export type GetWeightByUserIdQuery = {
+  __typename?: "Query";
+  getWeightByUserId: Array<{
+    __typename?: "Weight";
+    month: string;
+    update_at: Date;
+    weight: number;
+  }>;
+};
+
 export const GetAllProgramsDocument = gql`
     query getAllPrograms {
   getAllPrograms {
@@ -930,7 +945,6 @@ export const GetUserByIdDocument = gql`
     image
     birthday
     gender
-    weight
     height
     created_at
     role
@@ -1021,7 +1035,6 @@ export const GetAllUsersDocument = gql`
     image
     birthday
     gender
-    weight
     height
     created_at
     role

@@ -222,7 +222,7 @@ export class UsersMutations {
     } else {
       updatedWeights.push({
         weight,
-        date: formattedDate,
+        month: formattedDate,
         update_at: new Date(),
       });
     }

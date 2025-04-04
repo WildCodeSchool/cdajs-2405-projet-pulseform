@@ -9,25 +9,21 @@ import {
   XAxis,
 } from "recharts";
 
+import { useGetUserByIdWithWeights } from "@hooks/useUsers";
 import type { DataPoint } from "./WeightChart.type";
+import "./WeightChart.scss";
 
-// Définir le type pour les données
-
-function WeightChart({ weightChartData }: { weightChartData: DataPoint[] }) {
+function WeightChart({ userId }: { userId: number }) {
   const { t } = useTranslation();
 
-  // mok data a recevoir en props
-  // const data: DataPoint[] = [
-  //   { month: "May", poids: 65 },
-  //   { month: "Jun", poids: 68 },
-  //   { month: "Jul", poids: 64 },
-  //   { month: "Aug", poids: 66 },
-  //   { month: "Sep", poids: 69 },
-  //   { month: "Oct", poids: 71 },
-  //   { month: "Nov", poids: 70 },
-  //   { month: "Dec", poids: null },
-  //   { month: "Mar", poids: 115 },
-  // ];
+  const { loading, error, userWeight } = useGetUserByIdWithWeights(userId);
+
+  // todo nelson a finir
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+  if (!userWeight) return <p>No data available</p>;
+
+  console.log("userWeight", userWeight);
 
   const monthsOrder = [
     "Jan",
@@ -61,8 +57,8 @@ function WeightChart({ weightChartData }: { weightChartData: DataPoint[] }) {
 
   // Construire les données complètes avec des valeurs manquantes si besoin
   const completeData: DataPoint[] = last6Months.map((month) => {
-    const entry = weightChartData.find((d) => d.month === month);
-    return entry || { month, poids: null }; // Ajoute le mois s'il manque
+    const entry = userWeight.find((d) => d.month === month);
+    return entry || { month, weight: null }; // Ajoute le mois s'il manque
   });
 
   // Fonction pour traduire les mois
@@ -90,64 +86,68 @@ function WeightChart({ weightChartData }: { weightChartData: DataPoint[] }) {
   };
 
   return (
-    <div style={{ width: 320, height: 220, position: "relative" }}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          fontSize: "18px",
-          fontWeight: "bold",
-          padding: "5px 10px",
-        }}
-      >
-        <span>{t("WEIGHT")}</span>
-      </div>
+    <>
+      {!loading && !error && userWeight.length > 0 && (
+        <div style={{ width: 320, height: 220, position: "relative" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "18px",
+              fontWeight: "bold",
+              padding: "5px 10px",
+            }}
+          >
+            <span className="weight-chart__title">{t("WEIGHT_KG")}</span>
+          </div>
 
-      <ResponsiveContainer width="100%" height={180}>
-        <LineChart data={completeData}>
-          {completeData.map((entry) => (
-            <ReferenceLine
-              key={entry.month}
-              x={entry.month}
-              stroke="#D1D5DB"
-              strokeDasharray="3 3"
-            />
-          ))}
+          <ResponsiveContainer width="100%" height={180}>
+            <LineChart data={completeData}>
+              {completeData.map((entry) => (
+                <ReferenceLine
+                  key={entry.month}
+                  x={entry.month}
+                  stroke="#D1D5DB"
+                  strokeDasharray="3 3"
+                />
+              ))}
 
-          <XAxis
-            dataKey="month"
-            tick={({ x, y, payload }) => (
-              <text
-                x={x}
-                y={y + 10}
-                fill="#4B5563"
-                fontSize={12}
-                fontWeight={"bold"}
-                textAnchor="middle"
-                style={{
-                  whiteSpace: "nowrap",
-                  transform: "translateY(4px)",
-                }}
-              >
-                {getMonthLabel(payload.value)}
-              </text>
-            )}
-            tickLine={false}
-            axisLine={false}
-            interval={0}
-            padding={{ left: 20, right: 20 }}
-          />
-          <Tooltip content={<CustomTooltip />} cursor={false} />
-          <Line
-            type="monotone"
-            dataKey="poids"
-            stroke="#0F172A"
-            strokeWidth={2}
-            connectNulls={true}
-          />
-        </LineChart>
-      </ResponsiveContainer>
-    </div>
+              <XAxis
+                dataKey="month"
+                tick={({ x, y, payload }) => (
+                  <text
+                    x={x}
+                    y={y + 10}
+                    fill="#4B5563"
+                    fontSize={12}
+                    fontWeight={"bold"}
+                    textAnchor="middle"
+                    style={{
+                      whiteSpace: "nowrap",
+                      transform: "translateY(4px)",
+                    }}
+                  >
+                    {getMonthLabel(payload.value)}
+                  </text>
+                )}
+                tickLine={false}
+                axisLine={false}
+                interval={0}
+                padding={{ left: 20, right: 20 }}
+              />
+              <Tooltip content={<CustomTooltip />} cursor={false} />
+              <Line
+                type="monotone"
+                dataKey="weight"
+                stroke="#0F172A"
+                strokeWidth={2}
+                connectNulls={true}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      )}
+    </>
   );
 }
 

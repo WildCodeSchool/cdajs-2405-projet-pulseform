@@ -1,4 +1,4 @@
 export interface DataPoint {
   month: string;
-  poids: number | null;
+  weight: number | null;
 }

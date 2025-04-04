@@ -69,8 +69,8 @@ export class UpdateUserInput {
   @Field()
   gender!: string;
 
-  @Field()
-  weight!: number;
+  @Field(() => [WeightInput])
+  weights!: WeightInput[];
 
   @Field()
   height!: number;

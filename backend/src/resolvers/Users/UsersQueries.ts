@@ -53,9 +53,9 @@ export class UsersQueries {
 
     // Assurez-vous de mapper les données dans le bon format
     return userWeights.map(
-      (weightData: { weight: number; date: string; update_at: Date }) => ({
+      (weightData: { weight: number; month: string; update_at: Date }) => ({
         weight: weightData.weight,
-        date: weightData.date,
+        month: weightData.month,
         update_at: weightData.update_at,
       }),
     );

@@ -64,5 +64,6 @@
   "OCT": "Oct.",
   "NOV": "Nov.",
   "DEC": "Déc.",
-  "WEIGHT": "Poids"
+  "WEIGHT": "Poids",
+  "WEIGHT_KG": "Poids (kg)"
 }
