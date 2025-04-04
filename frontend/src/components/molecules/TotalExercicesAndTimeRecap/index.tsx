@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import "./TotalExercicesAndTimeRecap.scss";
 
 type TotalExercicesAndTimeRecapType = {
@@ -9,6 +11,8 @@ const TotalExercicesAndTimeRecap: React.FC<TotalExercicesAndTimeRecapType> = ({
   exercises,
   duration,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="recap-container">
       <div className="block-container">
@@ -19,11 +23,11 @@ const TotalExercicesAndTimeRecap: React.FC<TotalExercicesAndTimeRecapType> = ({
           <div className="recap-content">
             <div className="recap-item">
               <span className="recap-value">{exercises || 0}</span>
-              <span className="recap-label">Exercices</span>
+              <span className="recap-label">{t("TOTAL_EXERCISES_SPENT")}</span>
             </div>
             <div className="recap-item">
               <span className="recap-value">{duration || "0H00"}</span>
-              <span className="recap-label">Durée</span>
+              <span className="recap-label">{t("TOTAL_TIME_SPENT")}</span>
             </div>
           </div>
         </div>

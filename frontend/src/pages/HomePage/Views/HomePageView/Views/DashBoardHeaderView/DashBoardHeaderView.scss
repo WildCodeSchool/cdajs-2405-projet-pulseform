@@ -1,0 +1,31 @@
+@use "@assets/variables" as *;
+
+.dash-board-header-view-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 30%;
+  color: $primary;
+  @include h1-phone;
+
+  .dash-board-upper-header-weekly-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .dash-board-weekly-achievement-container{
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .dash-board-weekly-achievement-title-container {
+
+      .dash-board-weekly-achievement-title {
+        @include h2-phone;
+        margin: 0;
+      }
+
+    }
+  }
+}

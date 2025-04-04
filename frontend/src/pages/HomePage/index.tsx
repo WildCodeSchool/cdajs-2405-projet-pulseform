@@ -1,12 +1,16 @@
+import DoubleScreenLayout from "@components/atoms/DoubleScreenLayout";
+import MobileBodyLayout from "@components/atoms/MobileBodyLayout";
 import NavBar from "@components/molecules/NavBar";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { HomePageView, UserProfileView } from "./Views";
-import DoubleScreenLayout from "@components/atoms/DoubleScreenLayout";
 
 import "./HomePage.scss";
 
 const HomePage = () => {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
+  const [currenMobiletView, setCurrentMobileView] = useState("home");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -20,6 +24,22 @@ const HomePage = () => {
     };
   }, []);
 
+  const handleProfileClick = () => {
+    if (location.pathname === "/home") {
+      setCurrentMobileView("profile");
+    } else {
+      navigate("/home");
+    }
+  };
+
+  const handleActivityClick = () => {
+    if (location.pathname === "/home") {
+      setCurrentMobileView("home");
+    } else {
+      navigate("/home");
+    }
+  };
+
   return (
     <>
       <section className={isDesktop ? "desktop" : "mobile"}>
@@ -28,22 +48,22 @@ const HomePage = () => {
             <DoubleScreenLayout>
               <UserProfileView isDesktop={isDesktop} />
               {/* Left column with user profile */}
-              <HomePageView /> {/* Right column with the list of programs */}
-            </DoubleScreenLayout>
-            <DoubleScreenLayout>
-              <UserProfileView isDesktop={isDesktop} />
-              {/* Left column with user profile */}
-              <HomePageView /> {/* Right column with the list of programs */}
+              <HomePageView isDesktop={isDesktop} />
+              {/* Right column with the list of programs */}
             </DoubleScreenLayout>
           </>
         ) : (
-          <>
-            <HomePageView />
-            {/* First view for mobile : we toggle between HomePageView and UserProfileView */}
-            <UserProfileView isDesktop={isDesktop} />
-            {/* Second view for mobile */}
-            <NavBar />
-          </>
+          <MobileBodyLayout>
+            {currenMobiletView === "home" ? (
+              <HomePageView isDesktop={isDesktop} />
+            ) : (
+              <UserProfileView isDesktop={isDesktop} />
+            )}
+            <NavBar
+              onProfileClick={handleProfileClick}
+              onActivityClick={handleActivityClick}
+            />
+          </MobileBodyLayout>
         )}
       </section>
     </>
