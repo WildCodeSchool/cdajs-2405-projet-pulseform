@@ -19,7 +19,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: `${process.env.VITE_URL_FRONT}`,
+    origin: `${process.env.SERVEUR_URL}:${process.env.PORT_FRONT}`,
     credentials: true,
   }),
 );
@@ -79,8 +79,10 @@ const startServer = async () => {
   );
 
   // Démarre le serveur Express
-  app.listen(process.env.VITE_PORT_BACK, () => {
-    console.log(`🚀 Server is running on ${process.env.VITE_URL_BACK}/graphql`);
+  app.listen(process.env.PORT_BACK, () => {
+    console.log(
+      `🚀 Server is running on ${process.env.SERVEUR_URL}:${process.env.PORT_BACK}/graphql`,
+    );
   });
 };
 
