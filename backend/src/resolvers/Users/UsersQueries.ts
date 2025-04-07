@@ -27,4 +27,10 @@ export class UsersQueries {
     }
     return context.models.User.getById(id);
   }
+
+  // Récupérer l'utilisateur connecté (me)
+  @Query(() => User, { nullable: true })
+  async me(@Ctx() context: MyContext): Promise<User | null> {
+    return context.user ?? null;
+  }
 }

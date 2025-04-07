@@ -21,6 +21,16 @@ import { gql } from "@apollo/client";
 //     }
 // }`;
 
+export const ME_QUERY = gql`
+  query Me {
+    me {
+      id
+      email
+      role
+    }
+  }
+`;
+
 export const GET_USER_BY_ID = gql`
   query getUserById($id: Float!) {
     getUserById(id: $id) {

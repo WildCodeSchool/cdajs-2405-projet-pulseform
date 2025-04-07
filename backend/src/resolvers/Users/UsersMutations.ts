@@ -40,11 +40,19 @@ export class UsersMutations {
     const token = jwt.sign(
       { id: user.id, email: user.email, role: user.role },
       jwtSecret,
-      {
-        expiresIn: "24h",
-      },
+      { expiresIn: "24h" },
     );
-    return { token, user };
+
+    // Définir le cookie sécurisé
+    context.res.cookie("token", token, {
+      httpOnly: true, // Empêche l'accès via JS
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 24 * 60 * 60 * 1000, // 1 jour
+      path: "/", // Le cookie est valide pour toutes les routes
+    });
+
+    return { user };
   }
 
   // Mutation pour créer un nouvel utilisateur

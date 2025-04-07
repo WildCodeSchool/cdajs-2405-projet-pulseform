@@ -1,0 +1,173 @@
+name: deploy to staging
+
+on:
+  push:
+    branches: [ dev ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Étape 1 : Cloner le code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Étape 2 : Configurer SSH pour le serveur
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_rsa
+      
+      # Étape 3 : Obtenir la date
+      - name: Get current date and set app name
+        run: |
+          echo "date=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_ENV
+          echo "myapp=pulseform" >> $GITHUB_ENV
+          echo "environnement=staging" >> $GITHUB_ENV
+
+      # Étape 4 : Configurer QEMU pour la construction multiplateforme
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      # Étape 5 : Configurer Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Étape 6 : Se connecter à Docker Hub
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Étape 7 : Construire et pousser l'image Docker du Backend
+      - name: Build and push Backend Docker image
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          context: ./backend
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-backend:${{ env.environnement }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-backend:${{ github.sha }}
+          labels: |
+            maintainer=${{ secrets.DOCKERHUB_USERNAME }}
+            version=${{ github.sha }}
+            build-date=${{ env.date }}
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-backend:cache
+          cache-to: type=inline
+
+      # Étape 8 : Construire et pousser l'image Docker du Frontend
+      - name: Build and push Frontend Docker image
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          context: ./frontend
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-frontend:${{ env.environnement }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-frontend:${{ github.sha }}
+          labels: |
+            maintainer=${{ secrets.DOCKERHUB_USERNAME }}
+            version=${{ github.sha }}
+            build-date=${{ env.date }}
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-frontend:cache
+          cache-to: type=inline
+      
+          # Étape 9 : Construire et pousser l'image Docker du serveur de tranduction
+      - name: Build and push Translation Docker image
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          context: ./translation-server
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-translation:${{ env.environnement }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-translation:${{ github.sha }}
+          labels: |
+            maintainer=${{ secrets.DOCKERHUB_USERNAME }}
+            version=${{ github.sha }}
+            build-date=${{ env.date }}
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-translation:cache
+          cache-to: type=inline
+
+          # Étape 10 : Connexion à Docker Hub depuis le serveur
+      - name: Login to Docker Hub on main Server
+        run: |
+          ssh -v -o StrictHostKeyChecking=no -T -p 2269 wns_student@${{ secrets.SERVER_IP }} "
+            echo $DOCKERHUB_TOKEN | docker login -u $DOCKERHUB_USERNAME --password-stdin
+          "
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+         
+          # Étape 11 : Déployer sur le serveur la version staging
+      - name: Deploy to staging
+        run: |
+          ssh -o StrictHostKeyChecking=no -T -p 2269 wns_student@${{ secrets.SERVER_IP }} "
+            cd pulseform/staging &&
+            docker compose -f docker-compose.yml pull &&
+            docker compose -f docker-compose.yml up -d
+          "
+
+          e2e_test:
+            needs: deploy
+        
+            runs-on: ubuntu-latest
+        
+            steps:
+              - name: Checkout the code
+                uses: actions/checkout@v4
+        
+              # Print the current directory
+              - name: Debug logs (pwd)
+                run: pwd
+        
+              # List current directory
+              - name: Debug logs (ls -l)
+                run: ls -l
+        
+              # Install Docker Compose
+              - name: Install Docker Compose
+                run: |
+                  sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+                  sudo chmod +x /usr/local/bin/docker-compose
+        
+              # Start Docker
+              - name: Start Docker
+                run: sudo systemctl start docker
+        
+              # Install Playwright
+              - name: Install Playwright
+                run: npm install @playwright/test
+        
+              # Run interface test
+              - name: Run interface test
+                run: docker-compose -f docker-compose.e2e.yml up --build --exit-code-from e2e
+        
+              # Debug logs (screenshots)
+              - name: Debug logs (screenshots)
+                if: failure()
+                run: |
+                  mkdir -p ./e2e/screenshots
+                  ls -l ./e2e/screenshots
+        
+              # Capture Docker logs
+              - name: Capture Docker logs
+                if: failure()
+                run: docker-compose -f docker-compose.e2e.yml logs
+        
+              # Upload screenshots in case of failure
+              - name: Upload screenshots
+                if: failure()
+                uses: actions/upload-artifact@v4
+                with:
+                  name: e2e-snapshots
+                  path: ./e2e/screenshots
+        
+              # Stop and remove Docker containers (cleanup)
+              - name: Stop and remove Docker containers (cleanup)
+                if: always()
+                run: docker-compose -f docker-compose.e2e.yml down
+           

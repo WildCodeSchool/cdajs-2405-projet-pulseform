@@ -27,5 +27,6 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": ["src"]
+  "include": ["src", "vite-env.d.ts", "vite.config.ts"],
+  "files": ["vite-env.d.ts", "vite.config.ts"]
 }

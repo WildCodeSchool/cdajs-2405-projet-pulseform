@@ -1,6 +1,7 @@
 import {
   useGetAllUsersQuery,
   useGetUserByIdQuery,
+  useMeQuery,
 } from "@graphql/__generated__/schema";
 
 export const useGetAllUsers = () => {
@@ -26,3 +27,15 @@ export const useGetUserById = (id: number) => {
     user,
   };
 };
+
+export const useMe = () => {
+  const { loading, error, data } = useMeQuery();
+  const user = data?.me;
+
+  return {
+    loading,
+    error,
+    user,
+  };
+};
+
