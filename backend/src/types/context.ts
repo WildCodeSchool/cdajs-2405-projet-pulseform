@@ -1,12 +1,9 @@
-import type { Request, Response } from "express";
-import type { UserModel } from "src/models/UserModel";
 import type { User } from "../entities/User";
 
 export interface MyContext {
-  req: Request;
-  res: Response;
   user?: User | null;
   models: {
-    User: typeof UserModel;
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    User: any;
   };
 }
