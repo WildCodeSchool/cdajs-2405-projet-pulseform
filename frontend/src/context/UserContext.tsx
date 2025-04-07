@@ -1,21 +1,9 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { createContext, useContext } from "react";
+import { ME_QUERY } from "@graphql/queries/user";
+import { MeQuery, MeQueryVariables } from "@graphql/__generated__/schema";
 
-const ME_QUERY = gql`
-  query Me {
-    me {
-      id
-      email
-      role
-    }
-  }
-`;
-
-type User = {
-  id: number;
-  email: string;
-  role: string;
-};
+type User = MeQuery["me"];
 
 type UserContextType = {
   user: User | null;
@@ -30,7 +18,7 @@ const UserContext = createContext<UserContextType>({
 export const useUser = () => useContext(UserContext);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const { data, loading } = useQuery(ME_QUERY);
+  const { data, loading } = useQuery<MeQuery, MeQueryVariables>(ME_QUERY);
   const user = data?.me ?? null;
 
   return (
