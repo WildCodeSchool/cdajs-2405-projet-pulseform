@@ -29,7 +29,6 @@ export default defineConfig({
       "/graphql": `${process.env.VITE_SERVEUR_URL}:${process.env.VITE_PORT_BACK}/graphql`,
     },
     allowedHosts: [
-      "172.29.72.96",
       "052024-jaune-4.wns.wilders.dev",
       "staging.052024-jaune-4.wns.wilders.dev",
       "staging-apollo.052024-jaune-4.wns.wilders.dev",
@@ -42,6 +41,7 @@ export default defineConfig({
       "@hooks": path.resolve(__dirname, "src/hooks/"),
       "@assets": path.resolve(__dirname, "src/assets"),
       "@graphql": path.resolve(__dirname, "src/graphql/"),
+      "@context": path.resolve(__dirname, "src/context/"),
     },
   },
 });
