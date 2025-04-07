@@ -7,27 +7,18 @@ import {
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
+import { UserProvider } from "./context/UserContext";
 import "./i18n";
-import { setContext } from "@apollo/client/link/context";
 import router from "./routes";
 import "./index.css";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000/graphql",
-});
-
-const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem("token");
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : "",
-    },
-  };
+  uri: `${import.meta.env.VITE_SERVEUR_URL}:${import.meta.env.VITE_PORT_BACK}/graphql`,
+  credentials: "include",
 });
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: httpLink,
   cache: new InMemoryCache(),
 });
 
@@ -35,7 +26,9 @@ const client = new ApolloClient({
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ApolloProvider client={client}>
-      <RouterProvider router={router} />
+      <UserProvider>
+        <RouterProvider router={router} />
+      </UserProvider>
     </ApolloProvider>
   </StrictMode>,
 );
