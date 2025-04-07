@@ -1,28 +1,30 @@
-import { useQuery } from "@apollo/client";
 import { createContext, useContext } from "react";
-import { ME_QUERY } from "@graphql/queries/user";
-import { MeQuery, MeQueryVariables } from "@graphql/__generated__/schema";
+
+import type { MeQuery } from "@graphql/__generated__/schema";
+import { useMe } from "@hooks/useUsers";
 
 type User = MeQuery["me"];
 
 type UserContextType = {
   user: User | null;
   loading: boolean;
+  error: string | null;
 };
 
 const UserContext = createContext<UserContextType>({
   user: null,
   loading: true,
+  error: null,
 });
 
 export const useUser = () => useContext(UserContext);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const { data, loading } = useQuery<MeQuery, MeQueryVariables>(ME_QUERY);
-  const user = data?.me ?? null;
+  const { user, loading, error } = useMe();
+  const errorMessage = error?.message ?? null;
 
   return (
-    <UserContext.Provider value={{ user, loading }}>
+    <UserContext.Provider value={{ user, loading, error: errorMessage }}>
       {children}
     </UserContext.Provider>
   );
