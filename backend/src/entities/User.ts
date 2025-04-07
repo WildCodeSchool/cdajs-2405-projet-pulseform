@@ -49,9 +49,8 @@ export class User extends BaseEntity {
   @Field({ nullable: true })
   gender?: string;
 
-  @Column({ nullable: true })
-  @Field(() => Int, { nullable: true })
-  weight: number;
+  @Column("jsonb", { nullable: true })
+  weights?: { weight: number; month: string; update_at: Date }[];
 
   @Column({ nullable: true })
   @Field(() => Int, { nullable: true })
@@ -121,7 +120,7 @@ export class User extends BaseEntity {
     image: string,
     birthday: Date,
     gender: string,
-    weight: number,
+    weights: { weight: number; month: string; update_at: Date }[],
     height: number,
     created_at: Date,
     level: FitnessLevelEnum,
@@ -135,7 +134,7 @@ export class User extends BaseEntity {
     this.image = image;
     this.birthday = birthday;
     this.gender = gender;
-    this.weight = weight;
+    this.weights = weights;
     this.height = height;
     this.created_at = created_at;
     this.role = role;
