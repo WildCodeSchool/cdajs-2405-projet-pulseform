@@ -2,6 +2,7 @@ import WeightChart from "@components/molecules/WeightChart";
 import { DashBoardView, HistoryView } from "./Views";
 
 import "./UserProfileView.scss";
+import { useUser } from "@context/UserContext";
 import { useGetUserById } from "@hooks/useUsers";
 
 type UserProfileViewType = {
@@ -9,13 +10,15 @@ type UserProfileViewType = {
 };
 
 const UserProfileView = ({ isDesktop }: UserProfileViewType) => {
-  const { user } = useGetUserById(8);
-
+  const { user } = useUser();
   const userId = Number(user?.id);
+
+  const { userById } = useGetUserById(userId);
+  console.log("userById", userById, user);
 
   return (
     <div className="user-profile-view-container">
-      {user && <DashBoardView user={user} isDesktop={isDesktop} />}
+      {userById && <DashBoardView user={userById} isDesktop={isDesktop} />}
       <HistoryView /> {/* apparait onClick et remplace DashBoardView */}
       {<WeightChart userId={userId} />}
     </div>

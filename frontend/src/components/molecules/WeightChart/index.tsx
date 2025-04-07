@@ -23,8 +23,6 @@ function WeightChart({ userId }: { userId: number }) {
   if (error) return <p>Error: {error.message}</p>;
   if (!userWeight) return <p>No data available</p>;
 
-  console.log("userWeight", userWeight);
-
   const monthsOrder = [
     "Jan",
     "Feb",

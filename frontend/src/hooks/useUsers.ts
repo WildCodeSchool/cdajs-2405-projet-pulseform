@@ -25,7 +25,7 @@ export const useGetUserById = (id: number) => {
   return {
     loading,
     error,
-    user,
+    userById: user,
   };
 };
 
