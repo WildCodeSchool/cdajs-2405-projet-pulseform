@@ -6,6 +6,7 @@ import {
 } from "@apollo/client";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { UserProvider } from "./context/UserContext";
 import { RouterProvider } from "react-router-dom";
 import "./i18n";
 import router from "./routes";
@@ -25,7 +26,9 @@ const client = new ApolloClient({
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ApolloProvider client={client}>
-      <RouterProvider router={router} />
+    <UserProvider>
+        <RouterProvider router={router} />
+      </UserProvider>
     </ApolloProvider>
   </StrictMode>,
 );
