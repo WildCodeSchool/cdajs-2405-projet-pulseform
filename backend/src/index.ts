@@ -1,6 +1,6 @@
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
-import cookieParser from "cookie-parser";
+import cookieParser from 'cookie-parser';
 import cors from "cors";
 import dotenv from "dotenv";
 import express, { type Request } from "express";
@@ -19,9 +19,9 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: `${process.env.SERVEUR_URL}:${process.env.PORT_FRONT}`,
+    origin: `${process.env.SERVER_URL}:${process.env.PORT_FRONT}`,
     credentials: true,
-  }),
+  })
 );
 
 // Fonction pour récupérer l'utilisateur depuis le JWT
@@ -81,7 +81,7 @@ const startServer = async () => {
   // Démarre le serveur Express
   app.listen(process.env.PORT_BACK, () => {
     console.log(
-      `🚀 Server is running on ${process.env.SERVEUR_URL}:${process.env.PORT_BACK}/graphql`,
+      `🚀 Server is running on ${process.env.SERVER_URL}:${process.env.PORT_BACK}/graphql`,
     );
   });
 };
