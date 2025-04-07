@@ -10,6 +10,7 @@ import LoginImage from "@components/atoms/LoginImage";
 
 import { LOGIN_MUTATION } from "../../graphql/mutations";
 import "./LoginPage.scss";
+import { Link } from "react-router-dom";
 
 interface LoginFormValues {
   email: string;
@@ -92,12 +93,12 @@ function LoginPage() {
                 <div className="login-page__primary-trait" />
               </div>
               <div className="login-page__create-account-block">
-                <button
+                <Link
+                  to="/sign-up"
                   className="login-page__create-account-button"
-                  type="button"
                 >
                   {t("CREATE_ACCOUNT")}
-                </button>
+                </Link>
                 <div className="login-page__secondary-trait" />
               </div>
             </div>
