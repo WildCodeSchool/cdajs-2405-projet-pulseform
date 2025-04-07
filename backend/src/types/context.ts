@@ -6,6 +6,7 @@ export interface MyContext {
   res: Response;
   user?: User | null;
   models: {
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     User: any;
   };
 }

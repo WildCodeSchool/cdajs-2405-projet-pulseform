@@ -130,3 +130,28 @@ export const UserIcon = ({
 }: Omit<IconProps, "icon">) => (
   <Icon icon="ph:user" color={color} fontSize={fontSize} {...props} />
 );
+
+export const EyeOffIcon = ({
+  color = "$primary",
+  fontSize = "1.5em",
+  ...props
+}: Omit<IconProps, "icon">) => (
+  <Icon
+    icon="fluent:eye-off-16-filled"
+    color={color}
+    fontSize={fontSize}
+    {...props}
+  />
+);
+export const EyeOnIcon = ({
+  color = "$primary",
+  fontSize = "1.5em",
+  ...props
+}: Omit<IconProps, "icon">) => (
+  <Icon
+    icon="fluent:eye-16-filled"
+    color={color}
+    fontSize={fontSize}
+    {...props}
+  />
+);

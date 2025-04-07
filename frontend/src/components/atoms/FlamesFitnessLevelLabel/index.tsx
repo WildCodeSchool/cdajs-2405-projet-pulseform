@@ -1,5 +1,5 @@
-import { FlameIcon } from "@assets/icons/icon-list/iconList";
 import { FitnessLevel } from "@graphql/__generated__/schema";
+import { FlameIcon } from "@utils/icon-list/iconList";
 import { useTranslation } from "react-i18next";
 import "./FlamesFitnessLevelLabel.scss";
 
