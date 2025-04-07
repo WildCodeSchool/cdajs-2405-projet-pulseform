@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@types/cookie-parser": "^1.4.8",
     "@types/cors": "^2.8.17",
     "husky": "^9.1.7",
     "lint-staged": "^15.3.0"
@@ -20,9 +19,7 @@
   },
   "dependencies": {
     "body-parser": "^1.20.3",
-    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
-    "express": "^4.21.2",
-    "object-assign": "^4.1.1"
+    "express": "^4.21.2"
   }
 }
