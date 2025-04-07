@@ -1,16 +1,15 @@
 import { useMutation } from "@apollo/client";
-import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-
 import blopLoginPage from "@assets/icons/blob/blob3.svg";
 import BasicButton from "@components/atoms/BasicButton";
 import InputField from "@components/atoms/ImputField/ImputField";
 import LittleLogo from "@components/atoms/LittleLogo/index";
 import LoginImage from "@components/atoms/LoginImage";
-
-import { LOGIN_MUTATION } from "../../graphql/mutations";
-import "./LoginPage.scss";
+import { LOGIN_MUTATION } from "@graphql/mutations";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+
+import "./LoginPage.scss";
 
 interface LoginFormValues {
   email: string;

@@ -3,12 +3,12 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import blopLoginPage from "@assets/icons/blob/blob3.svg";
 import BasicButton from "@components/atoms/BasicButton";
 import InputField from "@components/atoms/ImputField/ImputField";
 import BodyStepQuestions from "@components/molecules/BodyStepQuestions";
 import UserInfoAddView from "@components/molecules/UserInfoAddView";
 
+import blopLoginPage from "@assets/icons/blob/blob3.svg";
 import "./UserCredentialsView.scss";
 
 interface FormData {
@@ -44,10 +44,8 @@ function UserCredentialsView() {
           src={blopLoginPage}
           alt={t("BLOB_ALT_TEXT")}
         />
-
         <div className="signup-page__form-container">
           <h1 className="signup-page__title">{t("CREATE_ACCOUNT")}</h1>
-
           <form className="signup-page__form" onSubmit={handleSubmit(onSubmit)}>
             <InputField<FormData>
               name="email"
@@ -78,7 +76,6 @@ function UserCredentialsView() {
                 {formState.errors.confirmPassword.message as string}
               </p>
             )}
-
             <BasicButton
               typeButton="orange"
               type="submit"
@@ -88,7 +85,6 @@ function UserCredentialsView() {
             </BasicButton>
           </form>
         </div>
-
         <section className="signup-page__section">
           <div className="signup-page__align">
             <div className="signup-page__motivation-block">
@@ -106,7 +102,6 @@ function UserCredentialsView() {
           </div>
         </section>
       </section>
-
       <section className="signup-page__desktop">
         <BodyStepQuestions
           questionLabel={t("CREATE_ACCOUNT")}
