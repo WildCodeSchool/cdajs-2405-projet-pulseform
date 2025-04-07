@@ -110,64 +110,64 @@ jobs:
             docker compose -f docker-compose.yml pull &&
             docker compose -f docker-compose.yml up -d
           "
+          
+  e2e_test:
+    needs: deploy
 
-          e2e_test:
-            needs: deploy
-        
-            runs-on: ubuntu-latest
-        
-            steps:
-              - name: Checkout the code
-                uses: actions/checkout@v4
-        
-              # Print the current directory
-              - name: Debug logs (pwd)
-                run: pwd
-        
-              # List current directory
-              - name: Debug logs (ls -l)
-                run: ls -l
-        
-              # Install Docker Compose
-              - name: Install Docker Compose
-                run: |
-                  sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-                  sudo chmod +x /usr/local/bin/docker-compose
-        
-              # Start Docker
-              - name: Start Docker
-                run: sudo systemctl start docker
-        
-              # Install Playwright
-              - name: Install Playwright
-                run: npm install @playwright/test
-        
-              # Run interface test
-              - name: Run interface test
-                run: docker-compose -f docker-compose.e2e.yml up --build --exit-code-from e2e
-        
-              # Debug logs (screenshots)
-              - name: Debug logs (screenshots)
-                if: failure()
-                run: |
-                  mkdir -p ./e2e/screenshots
-                  ls -l ./e2e/screenshots
-        
-              # Capture Docker logs
-              - name: Capture Docker logs
-                if: failure()
-                run: docker-compose -f docker-compose.e2e.yml logs
-        
-              # Upload screenshots in case of failure
-              - name: Upload screenshots
-                if: failure()
-                uses: actions/upload-artifact@v4
-                with:
-                  name: e2e-snapshots
-                  path: ./e2e/screenshots
-        
-              # Stop and remove Docker containers (cleanup)
-              - name: Stop and remove Docker containers (cleanup)
-                if: always()
-                run: docker-compose -f docker-compose.e2e.yml down
-           
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
+      # Print the current directory
+      - name: Debug logs (pwd)
+        run: pwd
+
+      # List current directory
+      - name: Debug logs (ls -l)
+        run: ls -l
+
+      # Install Docker Compose
+      - name: Install Docker Compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+
+      # Start Docker
+      - name: Start Docker
+        run: sudo systemctl start docker
+
+      # Install Playwright
+      - name: Install Playwright
+        run: npm install @playwright/test
+
+      # Run interface test
+      - name: Run interface test
+        run: docker-compose -f docker-compose.e2e.yml up --build --exit-code-from e2e
+
+      # Debug logs (screenshots)
+      - name: Debug logs (screenshots)
+        if: failure()
+        run: |
+          mkdir -p ./e2e/screenshots
+          ls -l ./e2e/screenshots
+
+      # Capture Docker logs
+      - name: Capture Docker logs
+        if: failure()
+        run: docker-compose -f docker-compose.e2e.yml logs
+
+      # Upload screenshots in case of failure
+      - name: Upload screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-snapshots
+          path: ./e2e/screenshots
+
+      # Stop and remove Docker containers (cleanup)
+      - name: Stop and remove Docker containers (cleanup)
+        if: always()
+        run: docker-compose -f docker-compose.e2e.yml down
+    
