@@ -13,7 +13,7 @@ const config: CodegenConfig = {
       },
     },
   },
-  documents: ["src/graphql/queries/*.ts"],
+  documents: ["src/graphql/queries/*.ts", "src/graphql/mutations/*.ts"],
   generates: {
     "./src/graphql/__generated__/schema.ts": {
       plugins: [

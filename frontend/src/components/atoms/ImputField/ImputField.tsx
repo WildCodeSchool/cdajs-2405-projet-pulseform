@@ -38,7 +38,6 @@ const InputField = <T extends object>({
         type={inputType}
         placeholder={t(placeholderKey)}
       />
-
       {isPassword && (
         <button
           type="button"

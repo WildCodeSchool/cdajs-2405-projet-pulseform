@@ -46,7 +46,6 @@ function FirstView() {
           <BasicButton>{t("CREATE_ACCOUNT")}</BasicButton>
         </Link>
       </div>
-
       <div className="first-view__buttom-program">
         <BasicButton className="first-view__buttom-program__button">
           {t("TEST_PROGRAM")}
