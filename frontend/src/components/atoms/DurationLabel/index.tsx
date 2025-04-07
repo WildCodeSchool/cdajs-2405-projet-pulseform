@@ -1,4 +1,4 @@
-import { ClockIcon } from "@assets/icons/icon-list/iconList";
+import { ClockIcon } from "@utils/icon-list/iconList";
 import "./DurationLabel.scss";
 
 type DurationLabelProps = {
