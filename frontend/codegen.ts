@@ -6,7 +6,7 @@ dotenv.config();
 const config: CodegenConfig = {
   overwrite: true,
   schema: {
-    [`${process.env.VITE_SERVEUR_URL}:${process.env.VITE_PORT_BACK}/graphql`]: {
+    [`${process.env.VITE_SERVER_URL}:${process.env.VITE_PORT_BACK}/graphql`]: {
       headers: {
         Authorization: `Bearer ${process.env.VITE_GRAPHQL_AUTH_TOKEN}`,
       },
