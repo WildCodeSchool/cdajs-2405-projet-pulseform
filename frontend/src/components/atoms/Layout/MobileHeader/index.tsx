@@ -1,13 +1,13 @@
 import LittleLogo from "@components/atoms/LittleLogo";
-import type { MobileHeaderLayoutType } from "./MobileHeaderLayout.type";
+import type { MobileHeaderType } from "./MobileHeader.type";
 
-import "./MobileHeaderLayout.scss";
+import "./MobileHeader.scss";
 
-const MobileHeaderLayout = ({
+const MobileHeader = ({
   hasLogo,
   headerLabel,
   classname = "",
-}: MobileHeaderLayoutType) => {
+}: MobileHeaderType) => {
   return (
     <header
       className={`mobile-header-layout ${
@@ -20,4 +20,4 @@ const MobileHeaderLayout = ({
   );
 };
 
-export default MobileHeaderLayout;
+export default MobileHeader;

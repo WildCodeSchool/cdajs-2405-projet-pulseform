@@ -1,5 +1,6 @@
 import type { Program } from "@graphql/__generated__/schema";
 import { convertSecondsToMinRounded } from "@utils/timeUtils";
+import { useNavigate } from "react-router-dom";
 import DurationLabel from "../DurationLabel";
 import FlamesFitnessLevel from "../FlamesFitnessLevelLabel";
 
@@ -11,9 +12,14 @@ type ProgramCardProps = {
 
 const ProgramCard = ({ program }: ProgramCardProps) => {
   const convertedDuration = convertSecondsToMinRounded(program.total_duration);
+  const navigate = useNavigate();
 
   return (
-    <div className="program-card">
+    <button
+      type="button"
+      className="program-card"
+      onClick={() => navigate(`/program/${program.id}`)}
+    >
       <img
         src={program.image || ""}
         alt={program.name}
@@ -28,7 +34,7 @@ const ProgramCard = ({ program }: ProgramCardProps) => {
           <h3 className="program-card__title">{program.name}</h3>
         </div>
       </div>
-    </div>
+    </button>
   );
 };
 

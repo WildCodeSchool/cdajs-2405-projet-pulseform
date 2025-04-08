@@ -1,6 +1,7 @@
 @use "@assets/variables" as *;
 
 .program-card {
+  all:unset; // remove all button native styles
   position: relative;
   overflow: hidden;
   border-radius: 10px;

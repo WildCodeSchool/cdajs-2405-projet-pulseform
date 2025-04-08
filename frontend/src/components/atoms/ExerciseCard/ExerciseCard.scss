@@ -2,21 +2,52 @@
 
 .exercise-card {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  gap: 2rem;
+  padding: 0.5rem;
+
+  @media screen and (max-width: 768px) {
+    background-color: $beige;
+    border-radius: 10px;
+  }
+
+  &__img-header-container {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    gap: 2rem;
+  }
 
   &__image-container {
-    border-radius: 10px;
+    max-width: 100px;
 
     > img {
       object-fit: cover;
+      max-width: inherit;
+      height: 100%;
+      border-radius: 10px;
     }
   }
 
   &__header {
     display: flex;
-    align-items: center;
-    flex-direction: row;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
     color: $primary;
     @include body;
+
+    @media screen and (min-width: 768px) {
+      color: $white;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+
+    @media screen and (max-width: 768px) {
+      color: $tertiary;
+    }
   }
 }

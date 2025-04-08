@@ -1,5 +1,4 @@
-import DoubleScreenLayout from "@components/atoms/DoubleScreenLayout";
-import MobileBodyLayout from "@components/atoms/MobileBodyLayout";
+import DoubleScreenLayout from "@components/atoms/Layout/DoubleScreenLayout";
 import { useEffect, useState } from "react";
 import {
   CurrentExerciseView,
@@ -14,6 +13,7 @@ import "./ProgramPage.scss";
 
 const ProgramPage = () => {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
+  const [currentView, setCurrentView] = useState("ProgramSummaryView");
 
   useEffect(() => {
     const handleResize = () => {
@@ -26,6 +26,38 @@ const ProgramPage = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const renderMobileView = () => {
+    switch (currentView) {
+      case "CurrentExerciseView":
+        return (
+          <CurrentExerciseView
+          //  onNext={() => setCurrentView("RestView")}
+          />
+        );
+      case "RestView":
+        return (
+          <RestView
+          //  onNext={() => setCurrentView("ExitProgramView")}
+          />
+        );
+      case "ExitProgramView":
+        return (
+          <ExitProgramView
+          //  onNext={() => setCurrentView("FinishedProgramView")}
+          />
+        );
+      case "FinishedProgramView":
+        return <FinishedProgramView />;
+      default:
+        return (
+          <ProgramSummaryView
+            isDesktop={isDesktop}
+            onStartProgram={() => setCurrentView("CurrentExerciseView")}
+          />
+        );
+    }
+  };
 
   return (
     <>
@@ -45,18 +77,20 @@ const ProgramPage = () => {
           </DoubleScreenLayout>
         </>
       ) : (
-        <>
-          <ProgramSummaryView isDesktop={isDesktop} />
-          {/* on fait défiler une à une les vues avec un state*/}
+        <>{renderMobileView()}</>
 
-          {/* on fait défiler une à une les vues avec un state*/}
-          <MobileBodyLayout>
-            <CurrentExerciseView />
-            <RestView />
-            <ExitProgramView />
-            <FinishedProgramView />
-          </MobileBodyLayout>
-        </>
+        // <>
+        //   <ProgramSummaryView isDesktop={isDesktop} />
+        //   {/* on fait défiler une à une les vues avec un state*/}
+
+        //   {/* on fait défiler une à une les vues avec un state*/}
+        //   <MobileBodyLayout>
+        //     <CurrentExerciseView />
+        //     <RestView />
+        //     <ExitProgramView />
+        //     <FinishedProgramView />
+        //   </MobileBodyLayout>
+        // </>
       )}
     </>
   );

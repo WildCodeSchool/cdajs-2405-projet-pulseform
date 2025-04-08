@@ -10,6 +10,19 @@ export const BackIcon = ({
   <Icon icon="ooui:next-rtl" color={color} fontSize={fontSize} {...props} />
 );
 
+export const CheckIcon = ({
+  color = "$primary",
+  fontSize = "1.5em",
+  ...props
+}: Omit<IconProps, "icon">) => (
+  <Icon
+    icon="lets-icons:check-fill"
+    color={color}
+    fontSize={fontSize}
+    {...props}
+  />
+);
+
 export const ClockIcon = ({
   color = "$secondary",
   fontSize = "1.5em",
@@ -109,6 +122,19 @@ export const PauseIcon = ({
 }: Omit<IconProps, "icon">) => (
   <Icon
     icon="material-symbols:pause"
+    color={color}
+    fontSize={fontSize}
+    {...props}
+  />
+);
+
+export const ReturnIcon = ({
+  color = "$primary",
+  fontSize = "1.5em",
+  ...props
+}: Omit<IconProps, "icon">) => (
+  <Icon
+    icon="ic:round-arrow-back"
     color={color}
     fontSize={fontSize}
     {...props}

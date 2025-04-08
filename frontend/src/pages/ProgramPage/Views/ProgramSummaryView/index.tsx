@@ -7,9 +7,13 @@ import "./ProgramSummaryView.scss";
 
 type ProgramSummaryViewType = {
   isDesktop: boolean;
+  onStartProgram?: () => void;
 };
 
-const ProgramSummaryView = ({ isDesktop }: ProgramSummaryViewType) => {
+const ProgramSummaryView = ({
+  isDesktop,
+  onStartProgram,
+}: ProgramSummaryViewType) => {
   const { id } = useParams<{ id: string }>();
   const programId = Number(id);
   const { loading, error, program } = useGetProgramById(programId);
@@ -21,12 +25,13 @@ const ProgramSummaryView = ({ isDesktop }: ProgramSummaryViewType) => {
   return (
     <>
       {isDesktop ? (
-        <div>
-          <ProgramSummaryDesktopView />
-        </div>
+        <ProgramSummaryDesktopView program={program} />
       ) : (
         <div>
-          <ProgramSummaryMobileView program={program} />
+          <ProgramSummaryMobileView
+            program={program}
+            onStartProgram={onStartProgram}
+          />
         </div>
       )}
     </>

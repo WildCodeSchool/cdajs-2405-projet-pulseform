@@ -1,4 +1,4 @@
-export type MobileHeaderLayoutType = {
+export type MobileHeaderType = {
   hasLogo?: boolean;
   headerLabel: string;
   classname?: string;

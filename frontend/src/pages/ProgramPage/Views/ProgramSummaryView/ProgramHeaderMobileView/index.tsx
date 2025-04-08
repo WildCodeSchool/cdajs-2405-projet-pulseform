@@ -11,7 +11,7 @@ const ProgramHeaderMobileView = ({ program }: ProgramHeaderMobileViewType) => {
   return (
     <>
       <div className="program-header-mobile-view-container">
-        <ProgramSubHeader program={program} />
+        <ProgramSubHeader withExercises program={program} />
       </div>
     </>
   );

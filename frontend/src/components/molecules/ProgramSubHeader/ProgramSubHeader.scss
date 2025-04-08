@@ -1,4 +1,12 @@
-.program-subheader-container{
+.program-subheader-container {
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
+
+  .program-subheader-container__separator {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 }

@@ -2,7 +2,7 @@ import WeightChart from "@components/molecules/WeightChart";
 import { DashBoardView, HistoryView } from "./Views";
 
 import "./UserProfileView.scss";
-import MobileBodyLayout from "@components/atoms/MobileBodyLayout";
+import MobileBodyLayout from "@components/atoms/Layout/MobileBodyLayout";
 import { useUser } from "@context/UserContext";
 import { useGetUserById } from "@hooks/useUsers";
 

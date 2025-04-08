@@ -1,5 +1,5 @@
-import DoubleScreenLayout from "@components/atoms/DoubleScreenLayout";
-import MobileBodyLayout from "@components/atoms/MobileBodyLayout";
+import DoubleScreenLayout from "@components/atoms/Layout/DoubleScreenLayout";
+import MobileBodyLayout from "@components/atoms/Layout/MobileBodyLayout";
 import NavBar from "@components/molecules/NavBar";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
