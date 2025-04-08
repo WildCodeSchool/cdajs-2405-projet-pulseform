@@ -6,6 +6,7 @@ import "./DashBoardView.scss";
 
 type DashBoardViewType = {
   isDesktop: boolean;
+  user: GetUserByIdQuery["getUserById"];
 };
 // biome-ignore lint/correctness/noUnusedVariables: en cours de dev
 const DashBoardView = ({ isDesktop }: DashBoardViewType) => {
@@ -18,6 +19,7 @@ const DashBoardView = ({ isDesktop }: DashBoardViewType) => {
   return (
     <div className="dashboard-view-container">
       <UserAvatarAndUsername user={user} />
+      {/* todo finir le composent en dessous */}
       <TotalExercicesAndTimeRecap user={user} />
       {/* <StatsRecap/> */}
     </div>

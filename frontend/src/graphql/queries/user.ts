@@ -21,6 +21,16 @@ import { gql } from "@apollo/client";
 //     }
 // }`;
 
+export const ME_QUERY = gql`
+  query Me {
+    me {
+      id
+      email
+      role
+    }
+  }
+`;
+
 export const GET_USER_BY_ID = gql`
   query getUserById($id: Float!) {
     getUserById(id: $id) {
@@ -31,7 +41,6 @@ export const GET_USER_BY_ID = gql`
       image
       birthday
       gender
-      weight
       height
       created_at
       role
@@ -50,11 +59,20 @@ export const GET_ALL_USERS = gql`
       image
       birthday
       gender
-      weight
       height
       created_at
       role
       level
+    }
+  }
+`;
+
+export const GET_WEIGHT_BY_USER_ID = gql`
+  query GetWeightByUserId($id: Float!) {
+    getWeightByUserId(id: $id) {
+      month
+      update_at
+      weight
     }
   }
 `;

@@ -71,12 +71,17 @@ exports[`FirstView > renders the FirstView component 1`] = `
             <div
               class="first-view__header__container__buttom"
             >
-              <button
-                class="basic-button first-view__header__container__buttom__width basic-button--basic"
-                type="button"
+              <a
+                class="first-view__header__container__buttom__width"
+                href="/sign-up"
               >
-                CREATE_ACCOUNT
-              </button>
+                <button
+                  class="basic-button basic-button--basic"
+                  type="button"
+                >
+                  CREATE_ACCOUNT
+                </button>
+              </a>
             </div>
             <a
               class="first-view__header__container__connect"
@@ -94,12 +99,16 @@ exports[`FirstView > renders the FirstView component 1`] = `
         <div
           class="first-view__buttom"
         >
-          <button
-            class="basic-button basic-button--basic"
-            type="button"
+          <a
+            href="/sign-up"
           >
-            CREATE_ACCOUNT
-          </button>
+            <button
+              class="basic-button basic-button--basic"
+              type="button"
+            >
+              CREATE_ACCOUNT
+            </button>
+          </a>
         </div>
         <div
           class="first-view__buttom-program"
@@ -181,12 +190,17 @@ exports[`FirstView > renders the FirstView component 1`] = `
           <div
             class="first-view__header__container__buttom"
           >
-            <button
-              class="basic-button first-view__header__container__buttom__width basic-button--basic"
-              type="button"
+            <a
+              class="first-view__header__container__buttom__width"
+              href="/sign-up"
             >
-              CREATE_ACCOUNT
-            </button>
+              <button
+                class="basic-button basic-button--basic"
+                type="button"
+              >
+                CREATE_ACCOUNT
+              </button>
+            </a>
           </div>
           <a
             class="first-view__header__container__connect"
@@ -204,12 +218,16 @@ exports[`FirstView > renders the FirstView component 1`] = `
       <div
         class="first-view__buttom"
       >
-        <button
-          class="basic-button basic-button--basic"
-          type="button"
+        <a
+          href="/sign-up"
         >
-          CREATE_ACCOUNT
-        </button>
+          <button
+            class="basic-button basic-button--basic"
+            type="button"
+          >
+            CREATE_ACCOUNT
+          </button>
+        </a>
       </div>
       <div
         class="first-view__buttom-program"

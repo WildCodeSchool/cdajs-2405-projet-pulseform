@@ -1,6 +1,8 @@
 import {
   useGetAllUsersQuery,
   useGetUserByIdQuery,
+  useGetWeightByUserIdQuery,
+  useMeQuery,
 } from "@graphql/__generated__/schema";
 
 export const useGetAllUsers = () => {
@@ -23,6 +25,30 @@ export const useGetUserById = (id: number) => {
   return {
     loading,
     error,
+    userById: user,
+  };
+};
+
+export const useMe = () => {
+  const { loading, error, data } = useMeQuery();
+  const user = data?.me;
+
+  return {
+    loading,
+    error,
     user,
+  };
+};
+
+export const useGetUserByIdWithWeights = (id: number) => {
+  const { loading, error, data } = useGetWeightByUserIdQuery({
+    variables: { id },
+  });
+  const userWeight = data?.getWeightByUserId;
+
+  return {
+    loading,
+    error,
+    userWeight,
   };
 };

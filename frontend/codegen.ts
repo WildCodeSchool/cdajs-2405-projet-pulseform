@@ -1,13 +1,12 @@
 import type { CodegenConfig } from "@graphql-codegen/cli";
 import dotenv from "dotenv";
 
-// Load environment variables from .env file
 dotenv.config();
 
 const config: CodegenConfig = {
   overwrite: true,
   schema: {
-    "http://localhost:4000": {
+    [`${process.env.VITE_SERVER_URL}:${process.env.VITE_PORT_BACK}/graphql`]: {
       headers: {
         Authorization: `Bearer ${process.env.VITE_GRAPHQL_AUTH_TOKEN}`,
       },

@@ -38,7 +38,6 @@ export type AddTagInput = {
 
 export type AuthPayload = {
   __typename?: "AuthPayload";
-  token: Scalars["String"]["output"];
   user: User;
 };
 
@@ -91,7 +90,7 @@ export type CreateUserInput = {
   password: Scalars["String"]["input"];
   role: MemberRole;
   username: Scalars["String"]["input"];
-  weight: Scalars["Int"]["input"];
+  weights: Array<WeightInput>;
 };
 
 export type Exercise = {
@@ -210,6 +209,7 @@ export type Mutation = {
   addProgram: Program;
   addTag: Tag;
   addUserToGroup: GroupList;
+  addWeight: Array<Weight>;
   createExercise: Exercise;
   createGroup: Group;
   createUser: User;
@@ -251,6 +251,11 @@ export type MutationAddTagArgs = {
 
 export type MutationAddUserToGroupArgs = {
   data: GroupListsInput;
+};
+
+export type MutationAddWeightArgs = {
+  id: Scalars["Float"]["input"];
+  weight: Scalars["Float"]["input"];
 };
 
 export type MutationCreateExerciseArgs = {
@@ -380,6 +385,8 @@ export type Query = {
   getTagById?: Maybe<Tag>;
   getUserById?: Maybe<User>;
   getUserGroups: Array<Group>;
+  getWeightByUserId: Array<Weight>;
+  me?: Maybe<User>;
   searchPrograms: Array<Program>;
 };
 
@@ -456,6 +463,10 @@ export type QueryGetUserByIdArgs = {
 
 export type QueryGetUserGroupsArgs = {
   data: GetUserGroupsInput;
+};
+
+export type QueryGetWeightByUserIdArgs = {
+  id: Scalars["Float"]["input"];
 };
 
 export type QuerySearchProgramsArgs = {
@@ -552,7 +563,7 @@ export type UpdateUserInput = {
   password: Scalars["String"]["input"];
   role: MemberRole;
   username: Scalars["String"]["input"];
-  weight: Scalars["Float"]["input"];
+  weights: Array<WeightInput>;
 };
 
 export type User = {
@@ -570,7 +581,18 @@ export type User = {
   role: MemberRole;
   tags?: Maybe<Array<Tag>>;
   username: Scalars["String"]["output"];
-  weight?: Maybe<Scalars["Int"]["output"]>;
+};
+
+export type Weight = {
+  __typename?: "Weight";
+  month: Scalars["String"]["output"];
+  update_at: Scalars["DateTimeISO"]["output"];
+  weight: Scalars["Float"]["output"];
+};
+
+export type WeightInput = {
+  month: Scalars["String"]["input"];
+  weight: Scalars["Float"]["input"];
 };
 
 export type LoginMutationVariables = Exact<{
@@ -582,7 +604,6 @@ export type LoginMutation = {
   __typename?: "Mutation";
   login: {
     __typename?: "AuthPayload";
-    token: string;
     user: { __typename?: "User"; id: string; username: string; email: string };
   };
 };
@@ -685,6 +706,18 @@ export type GetProgramByIdQuery = {
   } | null;
 };
 
+export type MeQueryVariables = Exact<{ [key: string]: never }>;
+
+export type MeQuery = {
+  __typename?: "Query";
+  me?: {
+    __typename?: "User";
+    id: string;
+    email: string;
+    role: MemberRole;
+  } | null;
+};
+
 export type GetUserByIdQueryVariables = Exact<{
   id: Scalars["Float"]["input"];
 }>;
@@ -700,7 +733,6 @@ export type GetUserByIdQuery = {
     image?: string | null;
     birthday?: Date | null;
     gender?: string | null;
-    weight?: number | null;
     height?: number | null;
     created_at: Date;
     role: MemberRole;
@@ -721,7 +753,6 @@ export type GetAllUsersQuery = {
     image?: string | null;
     birthday?: Date | null;
     gender?: string | null;
-    weight?: number | null;
     height?: number | null;
     created_at: Date;
     role: MemberRole;
@@ -729,10 +760,23 @@ export type GetAllUsersQuery = {
   }>;
 };
 
+export type GetWeightByUserIdQueryVariables = Exact<{
+  id: Scalars["Float"]["input"];
+}>;
+
+export type GetWeightByUserIdQuery = {
+  __typename?: "Query";
+  getWeightByUserId: Array<{
+    __typename?: "Weight";
+    month: string;
+    update_at: Date;
+    weight: number;
+  }>;
+};
+
 export const LoginDocument = gql`
     mutation login($email: String!, $password: String!) {
   login(email: $email, password: $password) {
-    token
     user {
       id
       username
@@ -1158,6 +1202,61 @@ export type GetProgramByIdQueryResult = Apollo.QueryResult<
   GetProgramByIdQuery,
   GetProgramByIdQueryVariables
 >;
+export const MeDocument = gql`
+    query Me {
+  me {
+    id
+    email
+    role
+  }
+}
+    `;
+
+/**
+ * __useMeQuery__
+ *
+ * To run a query within a React component, call `useMeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMeQuery(
+  baseOptions?: Apollo.QueryHookOptions<MeQuery, MeQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<MeQuery, MeQueryVariables>(MeDocument, options);
+}
+export function useMeLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<MeQuery, MeQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<MeQuery, MeQueryVariables>(MeDocument, options);
+}
+export function useMeSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<MeQuery, MeQueryVariables>,
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<MeQuery, MeQueryVariables>(
+    MeDocument,
+    options,
+  );
+}
+export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
+export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
+export type MeSuspenseQueryHookResult = ReturnType<typeof useMeSuspenseQuery>;
+export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
 export const GetUserByIdDocument = gql`
     query getUserById($id: Float!) {
   getUserById(id: $id) {
@@ -1168,7 +1267,6 @@ export const GetUserByIdDocument = gql`
     image
     birthday
     gender
-    weight
     height
     created_at
     role
@@ -1259,7 +1357,6 @@ export const GetAllUsersDocument = gql`
     image
     birthday
     gender
-    weight
     height
     created_at
     role
@@ -1334,4 +1431,88 @@ export type GetAllUsersSuspenseQueryHookResult = ReturnType<
 export type GetAllUsersQueryResult = Apollo.QueryResult<
   GetAllUsersQuery,
   GetAllUsersQueryVariables
+>;
+export const GetWeightByUserIdDocument = gql`
+    query GetWeightByUserId($id: Float!) {
+  getWeightByUserId(id: $id) {
+    month
+    update_at
+    weight
+  }
+}
+    `;
+
+/**
+ * __useGetWeightByUserIdQuery__
+ *
+ * To run a query within a React component, call `useGetWeightByUserIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetWeightByUserIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetWeightByUserIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetWeightByUserIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetWeightByUserIdQuery,
+    GetWeightByUserIdQueryVariables
+  > &
+    (
+      | { variables: GetWeightByUserIdQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetWeightByUserIdQuery,
+    GetWeightByUserIdQueryVariables
+  >(GetWeightByUserIdDocument, options);
+}
+export function useGetWeightByUserIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetWeightByUserIdQuery,
+    GetWeightByUserIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetWeightByUserIdQuery,
+    GetWeightByUserIdQueryVariables
+  >(GetWeightByUserIdDocument, options);
+}
+export function useGetWeightByUserIdSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetWeightByUserIdQuery,
+        GetWeightByUserIdQueryVariables
+      >,
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    GetWeightByUserIdQuery,
+    GetWeightByUserIdQueryVariables
+  >(GetWeightByUserIdDocument, options);
+}
+export type GetWeightByUserIdQueryHookResult = ReturnType<
+  typeof useGetWeightByUserIdQuery
+>;
+export type GetWeightByUserIdLazyQueryHookResult = ReturnType<
+  typeof useGetWeightByUserIdLazyQuery
+>;
+export type GetWeightByUserIdSuspenseQueryHookResult = ReturnType<
+  typeof useGetWeightByUserIdSuspenseQuery
+>;
+export type GetWeightByUserIdQueryResult = Apollo.QueryResult<
+  GetWeightByUserIdQuery,
+  GetWeightByUserIdQueryVariables
 >;

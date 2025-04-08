@@ -1,14 +1,14 @@
 import { useMutation } from "@apollo/client";
-import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-
 import blopLoginPage from "@assets/icons/blob/blob3.svg";
 import BasicButton from "@components/atoms/BasicButton";
 import InputField from "@components/atoms/ImputField/ImputField";
 import LittleLogo from "@components/atoms/LittleLogo/index";
 import LoginImage from "@components/atoms/LoginImage";
+import { LOGIN_MUTATION } from "@graphql/mutations/user";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
-import { LOGIN_MUTATION } from "../../graphql/mutations/user";
 import "./LoginPage.scss";
 
 interface LoginFormValues {
@@ -26,14 +26,16 @@ function LoginPage() {
     try {
       const response = await login({ variables: formData });
 
-      if (response.data?.login.token) {
-        localStorage.setItem("token", response.data.login.token);
+      if (response.data?.login.user) {
+        console.log(
+          "Utilisateur connecté :",
+          response.data.login.user.username,
+        );
       }
     } catch (err) {
       console.error("Login error:", err);
     }
   };
-
   return (
     <>
       <LittleLogo className="login-page__logo" size="desktop" hasLabel={true} />
@@ -92,12 +94,12 @@ function LoginPage() {
                 <div className="login-page__primary-trait" />
               </div>
               <div className="login-page__create-account-block">
-                <button
+                <Link
+                  to="/sign-up"
                   className="login-page__create-account-button"
-                  type="button"
                 >
                   {t("CREATE_ACCOUNT")}
-                </button>
+                </Link>
                 <div className="login-page__secondary-trait" />
               </div>
             </div>

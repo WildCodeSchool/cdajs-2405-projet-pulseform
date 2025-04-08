@@ -4,8 +4,8 @@ WORKDIR /app
 
 COPY package*.json ./
 
+RUN npm install -g nodemon && npm install
+
 COPY . ./
 
-RUN rm -rf node_modules package-lock.json
-
-CMD npm i && npm run start
+CMD ["npm", "run", "start"]

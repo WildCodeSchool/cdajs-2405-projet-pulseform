@@ -37,4 +37,17 @@ export const UserModel = {
   async delete(id: number): Promise<void> {
     await AppDataSource.manager.delete(User, id);
   },
+
+  async getWeightByUserId(userId: number) {
+    const user = await AppDataSource.manager.findOne(User, {
+      where: { id: userId },
+      select: ["weights"],
+    });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    return user.weights || [];
+  },
 };
