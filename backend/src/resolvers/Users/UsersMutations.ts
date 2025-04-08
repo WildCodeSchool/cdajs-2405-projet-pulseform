@@ -1,3 +1,4 @@
+import { isStrongPassword, isValidEmail } from "@utils/validators";
 import * as argon2 from "argon2";
 import { GraphQLError } from "graphql";
 import jwt from "jsonwebtoken";
@@ -69,6 +70,18 @@ export class UsersMutations {
     if (existingUser) {
       throw new GraphQLError("User with this email already exists", {
         extensions: { code: "EMAIL_ALREADY_TAKEN" },
+      });
+    }
+
+    if (!isValidEmail(data.email)) {
+      throw new GraphQLError("Invalid email format", {
+        extensions: { code: "INVALID_EMAIL" },
+      });
+    }
+
+    if (!isStrongPassword(data.password)) {
+      throw new GraphQLError("Password is too weak", {
+        extensions: { code: "WEAK_PASSWORD" },
       });
     }
 
