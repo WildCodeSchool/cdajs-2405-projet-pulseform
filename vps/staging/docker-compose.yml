@@ -51,6 +51,7 @@ services:
       PORT_BACK: ${PORT_BACK}
       PORT_FRONT: ${PORT_FRONT}
       SERVER_URL: ${SERVER_URL}
+      VITE_URL_FRONT: ${VITE_URL_FRONT}
     networks:
       - staging 
 
@@ -66,6 +67,7 @@ services:
         VITE_PORT_TRAD: ${VITE_PORT_TRAD} 
         VITE_SERVER_URL: ${VITE_SERVER_URL}
         VITE_TRANSLATION_SERVER_URL: ${VITE_TRANSLATION_SERVER_URL}
+        VITE_URL_BACK: ${VITE_URL_BACK}
       networks:
       - staging
 

@@ -1,4 +1,3 @@
-import { isStrongPassword, isValidEmail } from "@utils/validators";
 import * as argon2 from "argon2";
 import { GraphQLError } from "graphql";
 import jwt from "jsonwebtoken";
@@ -8,6 +7,7 @@ import { CreateUserInput, UpdateUserInput } from "../../inputs/UsersInput";
 import { Weight } from "../../inputs/WeightsInput";
 import { AuthPayload } from "../../types/AuthPayload";
 import type { MyContext } from "../../types/context";
+import { isStrongPassword, isValidEmail } from "../../utils/validators";
 
 @Resolver(User)
 export class UsersMutations {

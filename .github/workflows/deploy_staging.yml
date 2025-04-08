@@ -113,7 +113,7 @@ jobs:
 
       - name: Clean up Docker on staging Server
         run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.SERVER_IP }} "
+          ssh -o StrictHostKeyChecking=no -T -p 2269 wns_student@${{ secrets.SERVER_IP }} "
             echo 'Starting Docker cleanup...' &&
             echo 'Before cleanup:' &&
             df -h &&
