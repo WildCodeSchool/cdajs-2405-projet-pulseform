@@ -1,0 +1,26 @@
+@use "@assets/variables" as *;
+
+.exercise-steps-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh; 
+  color: $primary;
+
+  &__header,
+  &__footer {
+    flex: 0 0 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  &__body {
+    flex: 1 1 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    overflow: hidden;
+  }
+}

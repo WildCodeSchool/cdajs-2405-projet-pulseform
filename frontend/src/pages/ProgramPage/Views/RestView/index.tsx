@@ -1,10 +1,15 @@
 import "./RestView.scss";
-const RestView = () => {
-	return (
-		<div>
-			<p>RestView</p>
-		</div>
-	);
+
+type RestViewType = {
+  timer: number;
+};
+const RestView = ({ timer }: RestViewType) => {
+  return (
+    <div>
+      <p>RestView</p>
+      <p>{timer} seconds</p>
+    </div>
+  );
 };
 
 export default RestView;
