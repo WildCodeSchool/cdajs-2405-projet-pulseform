@@ -53,9 +53,11 @@ const HomePage = () => {
             </DoubleScreenLayout>
           </>
         ) : (
-          <MobileBodyLayout>
+          <>
             {currenMobiletView === "home" ? (
-              <HomePageView isDesktop={isDesktop} />
+              <MobileBodyLayout>
+                <HomePageView isDesktop={isDesktop} />
+              </MobileBodyLayout>
             ) : (
               <UserProfileView isDesktop={isDesktop} />
             )}
@@ -63,7 +65,7 @@ const HomePage = () => {
               onProfileClick={handleProfileClick}
               onActivityClick={handleActivityClick}
             />
-          </MobileBodyLayout>
+          </>
         )}
       </section>
     </>

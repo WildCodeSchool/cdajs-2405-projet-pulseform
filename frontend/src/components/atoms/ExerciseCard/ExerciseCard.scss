@@ -1,0 +1,22 @@
+@use "@assets/variables" as *;
+
+.exercise-card {
+  display: flex;
+  flex-direction: column;
+
+  &__image-container {
+    border-radius: 10px;
+
+    > img {
+      object-fit: cover;
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    color: $primary;
+    @include body;
+  }
+}

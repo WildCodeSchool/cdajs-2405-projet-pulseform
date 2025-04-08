@@ -573,6 +573,56 @@ export type User = {
   weight?: Maybe<Scalars["Int"]["output"]>;
 };
 
+export type LoginMutationVariables = Exact<{
+  email: Scalars["String"]["input"];
+  password: Scalars["String"]["input"];
+}>;
+
+export type LoginMutation = {
+  __typename?: "Mutation";
+  login: {
+    __typename?: "AuthPayload";
+    token: string;
+    user: { __typename?: "User"; id: string; username: string; email: string };
+  };
+};
+
+export type GetAllExercisesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetAllExercisesQuery = {
+  __typename?: "Query";
+  getAllExercises: Array<{
+    __typename?: "Exercise";
+    id: string;
+    name: string;
+    description?: string | null;
+    duration: number;
+    kcal_loss: number;
+    muscle: MuscleGroup;
+    level: FitnessLevel;
+    img_src?: string | null;
+  }>;
+};
+
+export type GetExerciseByIdQueryVariables = Exact<{
+  id: Scalars["Float"]["input"];
+}>;
+
+export type GetExerciseByIdQuery = {
+  __typename?: "Query";
+  getExerciseById?: {
+    __typename?: "Exercise";
+    id: string;
+    name: string;
+    description?: string | null;
+    duration: number;
+    kcal_loss: number;
+    muscle: MuscleGroup;
+    level: FitnessLevel;
+    img_src?: string | null;
+  } | null;
+};
+
 export type GetAllProgramsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetAllProgramsQuery = {
@@ -615,7 +665,22 @@ export type GetProgramByIdQuery = {
     name: string;
     description?: string | null;
     image?: string | null;
+    total_duration?: number | null;
+    level: FitnessLevel;
     created_at: Date;
+    visibility: number;
+    like?: number | null;
+    exercises?: Array<{
+      __typename?: "Exercise";
+      id: string;
+      name: string;
+      description?: string | null;
+      duration: number;
+      kcal_loss: number;
+      muscle: MuscleGroup;
+      level: FitnessLevel;
+      img_src?: string | null;
+    }> | null;
     tags?: Array<{ __typename?: "Tag"; id: string; name: Tags }> | null;
   } | null;
 };
@@ -664,6 +729,232 @@ export type GetAllUsersQuery = {
   }>;
 };
 
+export const LoginDocument = gql`
+    mutation login($email: String!, $password: String!) {
+  login(email: $email, password: $password) {
+    token
+    user {
+      id
+      username
+      email
+    }
+  }
+}
+    `;
+export type LoginMutationFn = Apollo.MutationFunction<
+  LoginMutation,
+  LoginMutationVariables
+>;
+
+/**
+ * __useLoginMutation__
+ *
+ * To run a mutation, you first call `useLoginMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [loginMutation, { data, loading, error }] = useLoginMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useLoginMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    LoginMutation,
+    LoginMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<LoginMutation, LoginMutationVariables>(
+    LoginDocument,
+    options,
+  );
+}
+export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
+export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
+export type LoginMutationOptions = Apollo.BaseMutationOptions<
+  LoginMutation,
+  LoginMutationVariables
+>;
+export const GetAllExercisesDocument = gql`
+    query getAllExercises {
+  getAllExercises {
+    id
+    name
+    description
+    duration
+    kcal_loss
+    muscle
+    level
+    img_src
+  }
+}
+    `;
+
+/**
+ * __useGetAllExercisesQuery__
+ *
+ * To run a query within a React component, call `useGetAllExercisesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllExercisesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllExercisesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllExercisesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetAllExercisesQuery,
+    GetAllExercisesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetAllExercisesQuery, GetAllExercisesQueryVariables>(
+    GetAllExercisesDocument,
+    options,
+  );
+}
+export function useGetAllExercisesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAllExercisesQuery,
+    GetAllExercisesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetAllExercisesQuery,
+    GetAllExercisesQueryVariables
+  >(GetAllExercisesDocument, options);
+}
+export function useGetAllExercisesSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetAllExercisesQuery,
+        GetAllExercisesQueryVariables
+      >,
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    GetAllExercisesQuery,
+    GetAllExercisesQueryVariables
+  >(GetAllExercisesDocument, options);
+}
+export type GetAllExercisesQueryHookResult = ReturnType<
+  typeof useGetAllExercisesQuery
+>;
+export type GetAllExercisesLazyQueryHookResult = ReturnType<
+  typeof useGetAllExercisesLazyQuery
+>;
+export type GetAllExercisesSuspenseQueryHookResult = ReturnType<
+  typeof useGetAllExercisesSuspenseQuery
+>;
+export type GetAllExercisesQueryResult = Apollo.QueryResult<
+  GetAllExercisesQuery,
+  GetAllExercisesQueryVariables
+>;
+export const GetExerciseByIdDocument = gql`
+    query getExerciseById($id: Float!) {
+  getExerciseById(id: $id) {
+    id
+    name
+    description
+    duration
+    kcal_loss
+    muscle
+    level
+    img_src
+  }
+}
+    `;
+
+/**
+ * __useGetExerciseByIdQuery__
+ *
+ * To run a query within a React component, call `useGetExerciseByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetExerciseByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetExerciseByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetExerciseByIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetExerciseByIdQuery,
+    GetExerciseByIdQueryVariables
+  > &
+    (
+      | { variables: GetExerciseByIdQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetExerciseByIdQuery, GetExerciseByIdQueryVariables>(
+    GetExerciseByIdDocument,
+    options,
+  );
+}
+export function useGetExerciseByIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetExerciseByIdQuery,
+    GetExerciseByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetExerciseByIdQuery,
+    GetExerciseByIdQueryVariables
+  >(GetExerciseByIdDocument, options);
+}
+export function useGetExerciseByIdSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetExerciseByIdQuery,
+        GetExerciseByIdQueryVariables
+      >,
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    GetExerciseByIdQuery,
+    GetExerciseByIdQueryVariables
+  >(GetExerciseByIdDocument, options);
+}
+export type GetExerciseByIdQueryHookResult = ReturnType<
+  typeof useGetExerciseByIdQuery
+>;
+export type GetExerciseByIdLazyQueryHookResult = ReturnType<
+  typeof useGetExerciseByIdLazyQuery
+>;
+export type GetExerciseByIdSuspenseQueryHookResult = ReturnType<
+  typeof useGetExerciseByIdSuspenseQuery
+>;
+export type GetExerciseByIdQueryResult = Apollo.QueryResult<
+  GetExerciseByIdQuery,
+  GetExerciseByIdQueryVariables
+>;
 export const GetAllProgramsDocument = gql`
     query getAllPrograms {
   getAllPrograms {
@@ -770,7 +1061,21 @@ export const GetProgramByIdDocument = gql`
     name
     description
     image
+    total_duration
+    level
     created_at
+    visibility
+    like
+    exercises {
+      id
+      name
+      description
+      duration
+      kcal_loss
+      muscle
+      level
+      img_src
+    }
     tags {
       id
       name

@@ -8,6 +8,10 @@
       @include h1-phone;
       color: $primary;
 
+      &.white {
+        color: $white;
+      }
+
       .mobile-header-layout__header__title {
         margin: 0;
       }

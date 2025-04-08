@@ -1,4 +1,5 @@
 import type { Program } from "@graphql/__generated__/schema";
+import { convertSecondsToMinRounded } from "@utils/timeUtils";
 import DurationLabel from "../DurationLabel";
 import FlamesFitnessLevel from "../FlamesFitnessLevelLabel";
 
@@ -9,6 +10,8 @@ type ProgramCardProps = {
 };
 
 const ProgramCard = ({ program }: ProgramCardProps) => {
+  const convertedDuration = convertSecondsToMinRounded(program.total_duration);
+
   return (
     <div className="program-card">
       <img
@@ -18,7 +21,7 @@ const ProgramCard = ({ program }: ProgramCardProps) => {
       />
       <div className="program-card__overlay">
         <div className="program-card__header">
-          <DurationLabel duration={program.total_duration} />
+          <DurationLabel duration={convertedDuration} />
           <FlamesFitnessLevel level={program.level} />
         </div>
         <div className="program-card__title_container">

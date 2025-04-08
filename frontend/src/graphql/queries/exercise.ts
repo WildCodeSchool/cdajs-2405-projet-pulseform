@@ -17,7 +17,7 @@ export const GET_ALL_EXERCISES = gql`
 `;
 
 export const GET_EXERCICE_BY_ID = gql`
-  query getExerciseById($id: : Float!) {
+  query getExerciseById($id: Float!) {
     getExerciseById(id: $id) {
       id
       name

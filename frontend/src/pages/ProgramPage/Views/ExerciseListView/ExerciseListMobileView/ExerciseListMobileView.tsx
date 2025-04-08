@@ -1,13 +1,11 @@
 import "./ExerciseListMobileView.scss";
 
 const ExerciseListMobileView = () => {
-	return (
-		<>
-			<div>
-				<p>ExerciseListMobileView</p>
-			</div>
-		</>
-	);
+  return (
+    <>
+      <p>ExerciseListMobileView</p>
+    </>
+  );
 };
 
 export default ExerciseListMobileView;

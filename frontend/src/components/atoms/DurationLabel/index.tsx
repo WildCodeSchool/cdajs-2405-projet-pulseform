@@ -2,14 +2,14 @@ import { ClockIcon } from "@assets/icons/icon-list/iconList";
 import "./DurationLabel.scss";
 
 type DurationLabelProps = {
-  duration: number | undefined;
+  duration: string | undefined | null;
 };
 
 const DurationLabel = ({ duration }: DurationLabelProps) => {
   return (
     <div className="duration-label">
       <ClockIcon />
-      <span>{duration} min</span>
+      <span>{duration}</span>
     </div>
   );
 };

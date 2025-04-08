@@ -6,12 +6,17 @@ import "./MobileHeaderLayout.scss";
 const MobileHeaderLayout = ({
   hasLogo,
   headerLabel,
+  classname = "",
 }: MobileHeaderLayoutType) => {
   return (
-    <div className={`mobile-header-layout ${hasLogo ? "with-logo" : ""}`}>
+    <header
+      className={`mobile-header-layout ${
+        hasLogo ? "with-logo" : ""
+      } ${classname}`}
+    >
       <h1 className="mobile-header-layout__header__title">{headerLabel}</h1>
       {hasLogo && <LittleLogo size="mobile" />}
-    </div>
+    </header>
   );
 };
 
