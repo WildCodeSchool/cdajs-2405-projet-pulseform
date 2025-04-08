@@ -7,7 +7,7 @@ const PORT = process.env.PORT_TRAD || 8051;
 
 app.use(
   cors({
-    origin: `${process.env.SERVEUR_URL}:${process.env.PORT_FRONT}`,
+    origin: `${process.env.SERVER_URL}:${process.env.PORT_FRONT}`,
   }),
 );
 
@@ -16,7 +16,7 @@ app.use("/locales", express.static(path.join(__dirname, "locales")));
 
 app.listen(PORT, () => {
   console.log(
-    `Translation server is running on ${process.env.SERVEUR_URL}:${process.env.PORT_TRAD}, serving translations from ${path.join(
+    `Translation server is running on ${process.env.SERVER_URL}:${process.env.PORT_TRAD}, serving translations from ${path.join(
       __dirname,
       "locales",
     )}`,

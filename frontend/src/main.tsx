@@ -6,14 +6,14 @@ import {
 } from "@apollo/client";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { UserProvider } from "./context/UserContext";
 import { RouterProvider } from "react-router-dom";
+import { UserProvider } from "./context/UserContext";
 import "./i18n";
 import router from "./routes";
 import "./index.css";
 
 const httpLink = createHttpLink({
-  uri: `${import.meta.env.VITE_SERVEUR_URL}:${import.meta.env.VITE_PORT_BACK}/graphql`,
+  uri: `${import.meta.env.VITE_SERVER_URL}:${import.meta.env.VITE_PORT_BACK}/graphql`,
   credentials: "include",
 });
 
@@ -26,7 +26,7 @@ const client = new ApolloClient({
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ApolloProvider client={client}>
-    <UserProvider>
+      <UserProvider>
         <RouterProvider router={router} />
       </UserProvider>
     </ApolloProvider>

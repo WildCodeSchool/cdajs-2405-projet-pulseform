@@ -16,7 +16,7 @@ services:
       POSTGRES_DB_NAME: ${DB_NAME}
       PORT_BACK: ${PORT_BACK}
       PORT_FRONT: ${PORT_FRONT}
-      SERVEUR_URL: ${SERVEUR_URL}
+      SERVER_URL: ${SERVER_URL}
 
   db:
     image: postgres:16
@@ -57,8 +57,8 @@ services:
           VITE_PORT_FRONT: ${VITE_PORT_FRONT}
           VITE_PORT_BACK: ${VITE_PORT_BACK}
           VITE_PORT_TRAD: ${VITE_PORT_TRAD} 
-          VITE_SERVEUR_URL: ${VITE_SERVEUR_URL}
-          VITE_TRANSLATION_SERVEUR_URL: ${VITE_TRANSLATION_SERVEUR_URL}
+          VITE_SERVER_URL: ${VITE_SERVER_URL}
+          VITE_TRANSLATION_SERVER_URL: ${VITE_TRANSLATION_SERVER_URL}
 
   translation:
     build: ./translation-server
@@ -74,7 +74,7 @@ services:
       PORT_FRONT: ${PORT_FRONT}
       PORT_BACK: ${PORT_BACK}
       PORT_TRAD: ${PORT_TRAD} 
-      SERVEUR_URL: ${SERVEUR_URL}
+      SERVER_URL: ${SERVER_URL}
 
 volumes:
   pgdata:

@@ -10,7 +10,7 @@ const options = {
   order: ["navigator", "cookie"],
 
   debug: false,
-  loadPath: `${import.meta.env.VITE_TRANSLATION_SERVEUR_URL}:${import.meta.env.VITE_PORT_TRAD}/locales/{{lng}}/{{ns}}.json`,
+  loadPath: `${import.meta.env.VITE_TRANSLATION_SERVER_URL}:${import.meta.env.VITE_PORT_TRAD}/locales/{{lng}}/{{ns}}.json`,
   interpolation: {
     escapeValue: false, // not needed for react!!
     formatSeparator: ",",
