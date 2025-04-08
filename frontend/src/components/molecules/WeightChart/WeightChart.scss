@@ -1,0 +1,8 @@
+@use "@assets/variables" as *;
+
+weight-chart {
+  &__title {
+    @include h2-phone;
+    color: $primary;
+  }
+}

@@ -42,6 +42,14 @@ export default defineConfig({
       "@assets": path.resolve(__dirname, "src/assets"),
       "@graphql": path.resolve(__dirname, "src/graphql/"),
       "@context": path.resolve(__dirname, "src/context/"),
+      "@utils": path.resolve(__dirname, "src/utils/"),
+    },
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@use "sass:color";`,
+      },
     },
   },
 });

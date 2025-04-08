@@ -16,12 +16,8 @@ exports[`FlamesFitnessLevelLabel Component > matches the snapshot 1`] = `
         <div
           class="flames-list"
         >
-          <svg
-            data-testid="flame-icon"
-          />
-          <svg
-            data-testid="flame-icon"
-          />
+          <span />
+          <span />
         </div>
       </div>
     </div>
@@ -38,12 +34,8 @@ exports[`FlamesFitnessLevelLabel Component > matches the snapshot 1`] = `
       <div
         class="flames-list"
       >
-        <svg
-          data-testid="flame-icon"
-        />
-        <svg
-          data-testid="flame-icon"
-        />
+        <span />
+        <span />
       </div>
     </div>
   </div>,

@@ -1,6 +1,7 @@
-import type { BasicButtonProps } from "./BasicButton.type";
-import "./BasicButton.scss";
 import classNames from "classnames";
+
+import "./BasicButton.scss";
+import type { BasicButtonProps } from "./BasicButton.type";
 
 function BasicButton({
   children,

@@ -16,9 +16,8 @@ app.use("/locales", express.static(path.join(__dirname, "locales")));
 
 app.listen(PORT, () => {
   console.log(
-    `Translation server is running on ${process.env.SERVER_URL}:${process.env.PORT_TRAD}, serving translations from ${path.join(
-      __dirname,
-      "locales",
-    )}`,
+    `Translation server is running on ${process.env.SERVER_URL}:${
+      process.env.PORT_TRAD
+    }, serving translations from ${path.join(__dirname, "locales")}`,
   );
 });

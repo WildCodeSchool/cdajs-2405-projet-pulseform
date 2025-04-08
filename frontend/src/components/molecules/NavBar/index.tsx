@@ -1,4 +1,4 @@
-import { LightingIcon, UserIcon } from "@assets/icons/icon-list/iconList";
+import { LightingIcon, UserIcon } from "@utils/icon-list/iconList";
 
 import "./NavBar.scss";
 

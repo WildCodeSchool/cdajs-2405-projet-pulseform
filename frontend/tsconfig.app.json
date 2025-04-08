@@ -22,7 +22,9 @@
       "@assets/*": ["src/assets/*"],
       "@hooks/*": ["src/hooks/*"],
       "@pages/*": ["src/pages/*"],
-      "@graphql/*": ["src/graphql/*"]
+      "@graphql/*": ["src/graphql/*"],
+      "@utils/*": ["src/utils/*"],
+      "@context/*": ["src/context/*"]
     },
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true

@@ -1,6 +1,6 @@
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
-import cookieParser from 'cookie-parser';
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import express, { type Request } from "express";
@@ -21,7 +21,7 @@ app.use(
   cors({
     origin: `${process.env.SERVER_URL}:${process.env.PORT_FRONT}`,
     credentials: true,
-  })
+  }),
 );
 
 // Fonction pour récupérer l'utilisateur depuis le JWT
@@ -46,6 +46,7 @@ const getUser = async (req: Request): Promise<User | null> => {
 
 const startServer = async () => {
   await AppDataSource.initialize();
+  // await AppDataSource.synchronize(true);
 
   const schema = await buildSchema({
     resolvers,

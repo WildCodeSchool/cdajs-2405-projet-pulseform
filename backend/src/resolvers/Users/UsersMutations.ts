@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { User } from "../../entities/User";
 import { CreateUserInput, UpdateUserInput } from "../../inputs/UsersInput";
+import { Weight } from "../../inputs/WeightsInput";
 import { AuthPayload } from "../../types/AuthPayload";
 import type { MyContext } from "../../types/context";
 
@@ -167,5 +168,67 @@ export class UsersMutations {
     // Supprimer l'utilisateur
     await UserModel.delete(id);
     return true;
+  }
+
+  // Mutation pour ajouter un poids
+  @Mutation(() => [Weight])
+  async addWeight(
+    @Arg("id") id: number,
+    @Arg("weight") weight: number,
+    @Ctx() context: MyContext,
+  ): Promise<Weight[]> {
+    const {
+      user,
+      models: { User: UserModel },
+    } = context;
+
+    // Vérifier l'authentification
+    if (!user) {
+      throw new GraphQLError("Unauthorized", {
+        extensions: { code: "UNAUTHORIZED" },
+      });
+    }
+
+    // Vérifier si l'utilisateur existe
+    const existingUser = await UserModel.getById(id);
+    if (!existingUser) {
+      throw new GraphQLError("User not found", {
+        extensions: { code: "USER_NOT_FOUND" },
+      });
+    }
+
+    // Vérifier que l'utilisateur peut modifier ces données
+    const isAdmin = user.role === "admin";
+    const isSelf = user.id === id;
+    if (!isAdmin && !isSelf) {
+      throw new GraphQLError("Permission denied", {
+        extensions: { code: "FORBIDDEN" },
+      });
+    }
+
+    const updatedWeights = [...existingUser.weights];
+
+    // Traiter chaque poids reçu
+    const formattedDate = new Date().toLocaleString("en-US", {
+      month: "short",
+    });
+
+    // Vérifier si la date existe déjà dans le tableau
+    const existingEntry = updatedWeights.find((e) => e.date === formattedDate);
+
+    if (existingEntry) {
+      // Mise à jour du poids existant
+      existingEntry.weight = weight;
+    } else {
+      updatedWeights.push({
+        weight,
+        month: formattedDate,
+        update_at: new Date(),
+      });
+    }
+
+    await UserModel.update(id, { weights: updatedWeights });
+
+    return updatedWeights;
   }
 }
