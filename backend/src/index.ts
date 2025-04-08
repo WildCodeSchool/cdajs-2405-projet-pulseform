@@ -19,7 +19,18 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: `${process.env.SERVER_URL}:${process.env.PORT_FRONT}`,
+    origin: (origin, callback) => {
+      const allowedOrigins = [
+        `${process.env.SERVER_URL}:${process.env.PORT_FRONT}`,
+        "https://staging.052024-jaune-4.wns.wilders.dev",
+        "https:/052024-jaune-4.wns.wilders.dev",
+      ];
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   }),
 );
