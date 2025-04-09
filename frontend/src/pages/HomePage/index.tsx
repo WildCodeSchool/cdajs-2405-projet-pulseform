@@ -1,10 +1,10 @@
-import DoubleScreenLayout from "@components/atoms/DoubleScreenLayout";
-import MobileBodyLayout from "@components/atoms/MobileBodyLayout";
-import NavBar from "@components/molecules/NavBar";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { HomePageView, UserProfileView } from "./Views";
 
+import DoubleScreenLayout from "@components/atoms/Layout/DoubleScreenLayout";
+import MobileBodyLayout from "@components/atoms/Layout/MobileBodyLayout";
+import NavBar from "@components/molecules/NavBar";
+import { HomePageView, UserProfileView } from "./Views";
 import "./HomePage.scss";
 
 const HomePage = () => {
@@ -53,9 +53,11 @@ const HomePage = () => {
             </DoubleScreenLayout>
           </>
         ) : (
-          <MobileBodyLayout>
+          <>
             {currenMobiletView === "home" ? (
-              <HomePageView isDesktop={isDesktop} />
+              <MobileBodyLayout>
+                <HomePageView isDesktop={isDesktop} />
+              </MobileBodyLayout>
             ) : (
               <UserProfileView isDesktop={isDesktop} />
             )}
@@ -63,7 +65,7 @@ const HomePage = () => {
               onProfileClick={handleProfileClick}
               onActivityClick={handleActivityClick}
             />
-          </MobileBodyLayout>
+          </>
         )}
       </section>
     </>

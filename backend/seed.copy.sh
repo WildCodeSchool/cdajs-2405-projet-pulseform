@@ -49,7 +49,15 @@ INSERT INTO "program" (id, name, description, total_duration, level, created_at,
 (1, 'Full Body Workout', 'Un programme complet pour tout le corps', 60, 'intermediate', NOW(), 0, 10),
 (2, 'Cardio Blast', 'Idéal pour brûler des calories', 45, 'beginner', NOW(), 1, 5),
 (3, 'Legs Day', 'Ciblez vos jambes avec ces exercices', 45, 'intermediate', NOW(), 1, 8),
-(4, 'Core Strength', 'Renforcez votre ceinture abdominale', 30, 'beginner', NOW(), 2, 6)
+(4, 'Core Strength', 'Renforcez votre ceinture abdominale', 30, 'beginner', NOW(), 2, 6),
+(5, 'Full Body Workout', 'Un programme complet pour tout le corps', 60, 'intermediate', 'https://picsum.photos/400/300', NOW(), 0, 10),
+(6, 'Cardio Blast', 'Idéal pour brûler des calories', 45, 'beginner', 'https://picsum.photos/400/300', NOW(), 1, 5),
+(7, 'Legs Day', 'Ciblez vos jambes avec ces exercices', 45, 'intermediate', 'https://picsum.photos/400/300', NOW(), 1, 8),
+(8, 'Core Strength', 'Renforcez votre ceinture abdominale', 30, 'beginner', 'https://picsum.photos/400/300', NOW(), 2, 6),
+(9, 'Full Body Workout', 'Un programme complet pour tout le corps', 60, 'intermediate', 'https://picsum.photos/400/300', NOW(), 0, 10),
+(10, 'Cardio Blast', 'Idéal pour brûler des calories', 45, 'beginner', 'https://picsum.photos/400/300', NOW(), 1, 5),
+(11, 'Legs Day', 'Ciblez vos jambes avec ces exercices', 45, 'intermediate', 'https://picsum.photos/400/300', NOW(), 1, 8),
+(12, 'Core Strength', 'Renforcez votre ceinture abdominale', 30, 'beginner', 'https://picsum.photos/400/300', NOW(), 2, 6)
 ON CONFLICT DO NOTHING;
 
 -- ✅ Insérer les tags
@@ -72,7 +80,11 @@ INSERT INTO "exercise" (id, name, description, duration, kcal_loss, muscle, leve
 (1, 'Push-ups', 'Exercise de musculation classique', 30, 100, 'Chest', 'beginner', 'pushups.jpg'),
 (2, 'Squats', 'Excellent pour les jambes', 40, 120, 'Legs', 'intermediate', 'squats.jpg'),
 (3, 'Lunges', 'Exercice pour renforcer les jambes et les fessiers', 35, 110, 'Legs', 'intermediate', 'lunges.jpg'),
-(4, 'Planks', 'Exercice pour renforcer la sangle abdominale', 40, 90, 'Abdominals', 'beginner', 'planks.jpg')
+(4, 'Planks', 'Exercice pour renforcer la sangle abdominale', 40, 90, 'Abdominals', 'beginner', 'planks.jpg'),
+(5, 'Burpees', 'Exercice complet pour le corps', 50, 150, 'Chest', 'advanced', 'https://picsum.photos/400/300'),
+(6, 'Deadlifts', 'Exercice de musculation pour le dos et les jambes', 60, 200, 'Back', 'advanced', 'https://picsum.photos/400/300'),
+(7, 'Bench Press', 'Exercice classique pour le haut du corps', 45, 180, 'Chest', 'intermediate', 'https://picsum.photos/400/300'),
+(8, 'Bicep Curls', 'Exercice pour les bras', 30, 80, 'Arms', 'beginner', 'https://picsum.photos/400/300')
 ON CONFLICT DO NOTHING;
 
 -- ✅ Associer exercices et programmes
@@ -80,6 +92,11 @@ INSERT INTO "exercise_list" (program_id, exercise_id) VALUES
 (1, 1),
 (1, 2),
 (1, 3),
+(1, 4),
+(1, 5),
+(1, 6),
+(1, 7),
+(1, 8),
 (2, 4),
 (3, 2),
 (3, 3),

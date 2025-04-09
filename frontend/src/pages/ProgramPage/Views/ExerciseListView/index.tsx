@@ -1,20 +1,22 @@
-import ExerciseListDesktopView from "./ExerciseListDesktopView/ExerciseListDesktopView";
-import ExerciseListMobileView from "./ExerciseListMobileView/ExerciseListMobileView";
+import ExerciseCard from "@components/atoms/ExerciseCard";
+import type { Exercise } from "@graphql/__generated__/schema";
+
 import "./ExerciseListView.scss";
 
-const ExerciseListView = () => {
-	return (
-		<>
-			{/* if phone size  */}
-			<div>
-				<ExerciseListMobileView />
-			</div>
-			{/* if desktop size  */}
-			<div>
-				<ExerciseListDesktopView />
-			</div>
-		</>
-	);
+type ExercicesListViewType = {
+  exercises: Exercise[];
+};
+
+const ExerciseListView = ({ exercises }: ExercicesListViewType) => {
+  return (
+    <>
+      <div className="exercise-list-container">
+        {exercises.map((exercise) => (
+          <ExerciseCard key={exercise.id} exercise={exercise} />
+        ))}
+      </div>
+    </>
+  );
 };
 
 export default ExerciseListView;

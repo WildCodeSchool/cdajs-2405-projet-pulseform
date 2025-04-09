@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 
+import MobileHeaderLayout from "@components/atoms/Layout/MobileHeader";
 import LittleLogo from "@components/atoms/LittleLogo";
-import MobileHeaderLayout from "@components/atoms/MobileHeaderLayout";
 import Ruban from "@components/atoms/Ruban/Ruban";
 
 import "./DashBoardHeaderView.scss";

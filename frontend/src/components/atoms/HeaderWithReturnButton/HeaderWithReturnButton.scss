@@ -1,0 +1,23 @@
+@use "@assets/variables" as *;
+
+.header-with-return {
+  cursor: pointer;
+
+  &__back-btn {
+    all: unset; // remove all native button styles
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.25rem;
+    color: $white;
+    @include h2-phone;
+
+      svg {
+      transition: transform 0.2s ease;
+    }
+
+    &:hover svg {
+      transform: translateX(-6px); // Move the arrow left
+    }
+  }
+}

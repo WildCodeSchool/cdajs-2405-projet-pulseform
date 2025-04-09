@@ -1,9 +1,10 @@
-import WeightChart from "@components/molecules/WeightChart";
+import MobileBodyLayout from "@components/atoms/Layout/MobileBodyLayout";
 import { DashBoardView, HistoryView } from "./Views";
 
-import "./UserProfileView.scss";
+import WeightChart from "@components/molecules/WeightChart";
 import { useUser } from "@context/UserContext";
 import { useGetUserById } from "@hooks/useUsers";
+import "./UserProfileView.scss";
 
 type UserProfileViewType = {
   isDesktop: boolean;
@@ -19,8 +20,10 @@ const UserProfileView = ({ isDesktop }: UserProfileViewType) => {
   return (
     <div className="user-profile-view-container">
       {userById && <DashBoardView user={userById} isDesktop={isDesktop} />}
-      <HistoryView /> {/* apparait onClick et remplace DashBoardView */}
-      {<WeightChart userId={userId} />}
+      <MobileBodyLayout>
+        <HistoryView /> {/* apparait onClick et remplace DashBoardView */}
+        <WeightChart userId={userId} />
+      </MobileBodyLayout>
     </div>
   );
 };
