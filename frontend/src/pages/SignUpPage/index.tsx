@@ -1,3 +1,4 @@
+import { useMutation } from "@apollo/client";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -8,6 +9,7 @@ import LittleLogo from "@components/atoms/LittleLogo";
 import AlreadyMemberBlock from "@components/molecules/AlreadyMemberBlock/AlreadyMemberBlock";
 import UserInfoAddView from "@components/molecules/UserInfoAddView";
 
+import { CREATE_ACCOUNT_MUTATION } from "@graphql/mutations/user";
 import { isStrongPassword, isValidEmail } from "@utils/validators";
 
 import blopLoginPage from "@assets/icons/blob/blob3.svg";
@@ -33,8 +35,9 @@ function UserCredentialsView() {
 
   const { t } = useTranslation();
   const [isNextStep, setIsNextStep] = useState(false);
+  const [createAccount, { loading }] = useMutation(CREATE_ACCOUNT_MUTATION);
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = async (data: FormData) => {
     if (!isValidEmail(data.email)) {
       setError("email", {
         type: "manual",
@@ -59,7 +62,23 @@ function UserCredentialsView() {
       return;
     }
 
-    setIsNextStep(true);
+    try {
+      await createAccount({
+        variables: {
+          data: {
+            email: data.email,
+            password: data.password,
+          },
+        },
+      });
+      setIsNextStep(true);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Signup failed";
+      setError("email", {
+        type: "manual",
+        message,
+      });
+    }
   };
 
   if (isNextStep) return <UserInfoAddView />;
@@ -140,8 +159,9 @@ function UserCredentialsView() {
               type="submit"
               className="signup-page__connect-button"
               aria-label={t("CREATE_ACCOUNT")}
+              disabled={loading}
             >
-              {t("CREATE_ACCOUNT")}
+              {loading ? t("LOADING") : t("CREATE_ACCOUNT")}
             </BasicButton>
           </form>
           <AlreadyMemberBlock />

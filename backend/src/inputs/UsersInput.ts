@@ -84,3 +84,12 @@ export class UpdateUserInput {
   @Field(() => MemberRoleEnum)
   role!: MemberRoleEnum;
 }
+
+@InputType()
+export class CreateAccountInput {
+  @Field()
+  email!: string;
+
+  @Field()
+  password!: string;
+}
