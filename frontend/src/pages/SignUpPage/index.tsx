@@ -45,15 +45,21 @@ function UserCredentialsView() {
           alt={t("BLOB_ALT_TEXT")}
         />
         <div className="signup-page__form-container">
-          <h1 className="signup-page__title">{t("CREATE_ACCOUNT")}</h1>
-          <form className="signup-page__form" onSubmit={handleSubmit(onSubmit)}>
+          <h1 className="signup-page__title" aria-level={1}>
+            {t("CREATE_ACCOUNT")}
+          </h1>
+          <form
+            className="signup-page__form"
+            onSubmit={handleSubmit(onSubmit)}
+            aria-label="Sign up form"
+          >
             <InputField<FormData>
               name="email"
               type="email"
               placeholderKey="EMAIL"
               register={register}
               required
-              ariaLabel="EMAIL"
+              ariaLabel={t("EMAIL")}
             />
             <InputField<FormData>
               name="password"
@@ -61,7 +67,7 @@ function UserCredentialsView() {
               placeholderKey="PASSWORD"
               register={register}
               required
-              ariaLabel="PASSWORD"
+              ariaLabel={t("PASSWORD")}
             />
             <InputField<FormData>
               name="confirmPassword"
@@ -69,10 +75,14 @@ function UserCredentialsView() {
               placeholderKey="CONFIRM_PASSWORD"
               register={register}
               required
-              ariaLabel="CONFIRM_PASSWORD"
+              ariaLabel={t("CONFIRM_PASSWORD")}
             />
             {formState.errors.confirmPassword && (
-              <p className="signup-page__error-message">
+              <p
+                className="signup-page__error-message"
+                role="alert"
+                id="confirmPassword-error"
+              >
                 {formState.errors.confirmPassword.message as string}
               </p>
             )}
@@ -80,12 +90,17 @@ function UserCredentialsView() {
               typeButton="orange"
               type="submit"
               className="signup-page__connect-button"
+              aria-label={t("CREATE_ACCOUNT")}
             >
               {t("CREATE_ACCOUNT")}
             </BasicButton>
           </form>
         </div>
-        <section className="signup-page__section">
+
+        <section
+          className="signup-page__section"
+          aria-label={t("ACCOUNT_ACTIONS")}
+        >
           <div className="signup-page__align">
             <div className="signup-page__motivation-block">
               <p className="signup-page__motivation-title">
@@ -94,7 +109,11 @@ function UserCredentialsView() {
               <div className="signup-page__primary-trait" />
             </div>
             <div className="signup-page__create-account-block">
-              <Link to="/login" className="signup-page__create-account-button">
+              <Link
+                to="/login"
+                className="signup-page__create-account-button"
+                aria-label={t("GO_TO_LOGIN")}
+              >
                 {t("CONNECT")}
               </Link>
               <div className="signup-page__secondary-trait" />
@@ -102,6 +121,7 @@ function UserCredentialsView() {
           </div>
         </section>
       </section>
+
       <section className="signup-page__desktop">
         <BodyStepQuestions
           questionLabel={t("CREATE_ACCOUNT")}
@@ -110,6 +130,7 @@ function UserCredentialsView() {
           <form
             className="user-credentials-view__container__form"
             onSubmit={handleSubmit(onSubmit)}
+            aria-label="Sign up form desktop"
           >
             <InputField<FormData>
               name="email"
@@ -117,7 +138,7 @@ function UserCredentialsView() {
               placeholderKey="EMAIL"
               register={register}
               required
-              ariaLabel="EMAIL"
+              ariaLabel={t("EMAIL")}
             />
             <InputField<FormData>
               name="password"
@@ -125,7 +146,7 @@ function UserCredentialsView() {
               placeholderKey="PASSWORD"
               register={register}
               required
-              ariaLabel="PASSWORD"
+              ariaLabel={t("PASSWORD")}
             />
             <InputField<FormData>
               name="confirmPassword"
@@ -133,10 +154,14 @@ function UserCredentialsView() {
               placeholderKey="CONFIRM_PASSWORD"
               register={register}
               required
-              ariaLabel="CONFIRM_PASSWORD"
+              ariaLabel={t("CONFIRM_PASSWORD")}
             />
             {formState.errors.confirmPassword && (
-              <p className="signup-page__error-message">
+              <p
+                className="signup-page__error-message"
+                role="alert"
+                id="confirmPassword-error-desktop"
+              >
                 {formState.errors.confirmPassword.message as string}
               </p>
             )}
@@ -144,6 +169,7 @@ function UserCredentialsView() {
               className="user-credentials-view__container__form__btn"
               type="submit"
               typeButton="orange"
+              aria-label={t("CREATE_ACCOUNT")}
             >
               {t("CREATE_ACCOUNT")}
             </BasicButton>

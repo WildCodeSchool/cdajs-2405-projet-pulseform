@@ -26,11 +26,10 @@ export default defineConfig({
     host: "0.0.0.0",
     proxy: {
       "/locales": `${process.env.VITE_TRANSLATION_SERVER_URL}:${process.env.VITE_PORT_TRAD}`,
-      "/graphql": `${process.env.VITE_SERVER_URL}:${process.env.VITE_PORT_BACK}/graphql`,
+      "/graphql": `${process.env.VITE_URL_BACK}/graphql`,
     },
     allowedHosts: [
       "052024-jaune-4.wns.wilders.dev",
-      "staging.052024-jaune-4.wns.wilders.dev",
       "staging-apollo.052024-jaune-4.wns.wilders.dev",
     ],
   },

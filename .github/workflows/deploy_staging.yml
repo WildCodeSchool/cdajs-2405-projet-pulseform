@@ -76,7 +76,7 @@ jobs:
           cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-frontend:cache
           cache-to: type=inline
       
-          # Étape 9 : Construire et pousser l'image Docker du serveur de tranduction
+      # Étape 9 : Construire et pousser l'image Docker du serveur de tranduction
       - name: Build and push Translation Docker image
         uses: docker/build-push-action@v4
         with:
@@ -92,7 +92,7 @@ jobs:
           cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-translation:cache
           cache-to: type=inline
 
-          # Étape 10 : Connexion à Docker Hub depuis le serveur
+      # Étape 10 : Connexion à Docker Hub depuis le serveur
       - name: Login to Docker Hub on main Server
         run: |
           ssh -v -o StrictHostKeyChecking=no -T -p 2269 wns_student@${{ secrets.SERVER_IP }} "
@@ -102,13 +102,28 @@ jobs:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
          
-          # Étape 11 : Déployer sur le serveur la version staging
+      # Étape 11 : Déployer sur le serveur la version staging
       - name: Deploy to staging
         run: |
           ssh -o StrictHostKeyChecking=no -T -p 2269 wns_student@${{ secrets.SERVER_IP }} "
             cd pulseform/staging &&
             docker compose -f docker-compose.yml pull &&
             docker compose -f docker-compose.yml up -d
+          "
+
+      - name: Clean up Docker on staging Server
+        run: |
+          ssh -o StrictHostKeyChecking=no -T -p 2269 wns_student@${{ secrets.SERVER_IP }} "
+            echo 'Starting Docker cleanup...' &&
+            echo 'Before cleanup:' &&
+            df -h &&
+            docker system prune -a --force &&
+            docker image prune -a --force &&
+            docker volume prune --force &&
+            docker network prune --force &&
+            echo 'After cleanup:' &&
+            df -h &&
+            echo 'Docker cleanup completed successfully.'
           "
           
   e2e_test:
