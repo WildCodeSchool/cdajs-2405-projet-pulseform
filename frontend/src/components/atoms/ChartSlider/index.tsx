@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import "./ChartSlider.scss";
+import { BackIcon, NextIcon } from "@utils/icon-list/iconList";
 import type { ChartSliderProps } from "./ChartSlider.type";
 
 function ChartSlider({ charts, title, names }: ChartSliderProps) {
@@ -21,7 +22,7 @@ function ChartSlider({ charts, title, names }: ChartSliderProps) {
           type="button"
           onClick={prev}
         >
-          {"<"}
+          <BackIcon fontSize="1rem" />
         </button>
         <div className="chart-slider__container__content">
           <div key={index} className="chart-slider__content__fade-in">
@@ -33,7 +34,7 @@ function ChartSlider({ charts, title, names }: ChartSliderProps) {
           type="button"
           onClick={next}
         >
-          {">"}
+          <NextIcon fontSize="1rem" />
         </button>
       </div>
     </div>

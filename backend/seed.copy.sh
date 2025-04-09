@@ -45,11 +45,11 @@ INSERT INTO "user" (id, username, description, email, password, image, birthday,
 ON CONFLICT DO NOTHING;
 
 -- ✅ Insérer les programmes
-INSERT INTO "program" (id, name, description, total_duration, level, created_at, visibility, "like") VALUES
-(1, 'Full Body Workout', 'Un programme complet pour tout le corps', 60, 'intermediate', NOW(), 0, 10),
-(2, 'Cardio Blast', 'Idéal pour brûler des calories', 45, 'beginner', NOW(), 1, 5),
-(3, 'Legs Day', 'Ciblez vos jambes avec ces exercices', 45, 'intermediate', NOW(), 1, 8),
-(4, 'Core Strength', 'Renforcez votre ceinture abdominale', 30, 'beginner', NOW(), 2, 6),
+INSERT INTO "program" (id, name, description, total_duration, level, image, created_at, visibility, "like") VALUES
+(1, 'Full Body Workout', 'Un programme complet pour tout le corps', 60, 'intermediate', NULL, NOW(), 0, 10),
+(2, 'Cardio Blast', 'Idéal pour brûler des calories', 45, 'beginner','https://picsum.photos/400/300', NOW(), 1, 5),
+(3, 'Legs Day', 'Ciblez vos jambes avec ces exercices', 45, 'intermediate', 'https://picsum.photos/400/300', NOW(), 1, 8),
+(4, 'Core Strength', 'Renforcez votre ceinture abdominale', 30, 'beginner', 'https://picsum.photos/400/300', NOW(), 2, 6),
 (5, 'Full Body Workout', 'Un programme complet pour tout le corps', 60, 'intermediate', 'https://picsum.photos/400/300', NOW(), 0, 10),
 (6, 'Cardio Blast', 'Idéal pour brûler des calories', 45, 'beginner', 'https://picsum.photos/400/300', NOW(), 1, 5),
 (7, 'Legs Day', 'Ciblez vos jambes avec ces exercices', 45, 'intermediate', 'https://picsum.photos/400/300', NOW(), 1, 8),
