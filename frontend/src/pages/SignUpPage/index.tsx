@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 
 import BasicButton from "@components/atoms/BasicButton";
 import InputField from "@components/atoms/ImputField/ImputField";
-import BodyStepQuestions from "@components/molecules/BodyStepQuestions";
+import LittleLogo from "@components/atoms/LittleLogo";
+import AlreadyMemberBlock from "@components/molecules/AlreadyMemberBlock/AlreadyMemberBlock";
 import UserInfoAddView from "@components/molecules/UserInfoAddView";
 
+import { isStrongPassword, isValidEmail } from "@utils/validators";
+
 import blopLoginPage from "@assets/icons/blob/blob3.svg";
+import stepImage from "@assets/images/step-img.svg";
+
 import "./UserCredentialsView.scss";
 
 interface FormData {
@@ -18,11 +22,35 @@ interface FormData {
 }
 
 function UserCredentialsView() {
-  const { register, handleSubmit, setError, formState } = useForm<FormData>();
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<FormData>({
+    mode: "onTouched",
+  });
+
   const { t } = useTranslation();
   const [isNextStep, setIsNextStep] = useState(false);
 
   const onSubmit = (data: FormData) => {
+    if (!isValidEmail(data.email)) {
+      setError("email", {
+        type: "manual",
+        message: t("INVALID_EMAIL"),
+      });
+      return;
+    }
+
+    if (!isStrongPassword(data.password)) {
+      setError("password", {
+        type: "manual",
+        message: t("WEAK_PASSWORD"),
+      });
+      return;
+    }
+
     if (data.password !== data.confirmPassword) {
       setError("confirmPassword", {
         type: "manual",
@@ -37,22 +65,37 @@ function UserCredentialsView() {
   if (isNextStep) return <UserInfoAddView />;
 
   return (
-    <div className="signup-page">
-      <section className="signup-page__form-section signup-page__mobile">
-        <img
-          className="signup-page__blob"
-          src={blopLoginPage}
-          alt={t("BLOB_ALT_TEXT")}
-        />
+    <>
+      <LittleLogo
+        className="signup-page__logo"
+        size="desktop"
+        hasLabel={true}
+      />
+      <img
+        className="signup-page__blob"
+        src={blopLoginPage}
+        alt={t("BLOB_ALT_TEXT")}
+        aria-hidden="true"
+      />
+      <div className="signup-page__test-program-container">
+        <button type="button" className="signup-page__test-program-button">
+          {t("TEST_PROGRAM")}
+        </button>
+      </div>
+      <section className="signup-page__form-section">
+        <div className="signup-page__image-side desktop-only">
+          <img
+            src={stepImage}
+            alt={t("STEP_IMAGE_ALT")}
+            className="signup-page__step-image"
+          />
+        </div>
         <div className="signup-page__form-container">
-          <h1 className="signup-page__title" aria-level={1}>
+          <h1 className="login-page__title signup-page__ready-title mobile-only">
             {t("CREATE_ACCOUNT")}
           </h1>
-          <form
-            className="signup-page__form"
-            onSubmit={handleSubmit(onSubmit)}
-            aria-label="Sign up form"
-          >
+          <h1 className="signup-page__title">{t("CREATE_ACCOUNT")}</h1>
+          <form className="signup-page__form" onSubmit={handleSubmit(onSubmit)}>
             <InputField<FormData>
               name="email"
               type="email"
@@ -61,6 +104,11 @@ function UserCredentialsView() {
               required
               ariaLabel={t("EMAIL")}
             />
+            {errors.email && (
+              <p className="signup-page__error-message" role="alert">
+                {errors.email.message}
+              </p>
+            )}
             <InputField<FormData>
               name="password"
               type="password"
@@ -77,13 +125,14 @@ function UserCredentialsView() {
               required
               ariaLabel={t("CONFIRM_PASSWORD")}
             />
-            {formState.errors.confirmPassword && (
-              <p
-                className="signup-page__error-message"
-                role="alert"
-                id="confirmPassword-error"
-              >
-                {formState.errors.confirmPassword.message as string}
+            {errors.confirmPassword && (
+              <p className="signup-page__error-message" role="alert">
+                {errors.confirmPassword.message}
+              </p>
+            )}
+            {errors.password && (
+              <p className="signup-page__error-message" role="alert">
+                {errors.password.message}
               </p>
             )}
             <BasicButton
@@ -95,88 +144,10 @@ function UserCredentialsView() {
               {t("CREATE_ACCOUNT")}
             </BasicButton>
           </form>
+          <AlreadyMemberBlock />
         </div>
-
-        <section
-          className="signup-page__section"
-          aria-label={t("ACCOUNT_ACTIONS")}
-        >
-          <div className="signup-page__align">
-            <div className="signup-page__motivation-block">
-              <p className="signup-page__motivation-title">
-                {t("ALREADY_HAVE_ACCOUNT")}
-              </p>
-              <div className="signup-page__primary-trait" />
-            </div>
-            <div className="signup-page__create-account-block">
-              <Link
-                to="/login"
-                className="signup-page__create-account-button"
-                aria-label={t("GO_TO_LOGIN")}
-              >
-                {t("CONNECT")}
-              </Link>
-              <div className="signup-page__secondary-trait" />
-            </div>
-          </div>
-        </section>
       </section>
-
-      <section className="signup-page__desktop">
-        <BodyStepQuestions
-          questionLabel={t("CREATE_ACCOUNT")}
-          ctaExit={() => {}}
-        >
-          <form
-            className="user-credentials-view__container__form"
-            onSubmit={handleSubmit(onSubmit)}
-            aria-label="Sign up form desktop"
-          >
-            <InputField<FormData>
-              name="email"
-              type="email"
-              placeholderKey="EMAIL"
-              register={register}
-              required
-              ariaLabel={t("EMAIL")}
-            />
-            <InputField<FormData>
-              name="password"
-              type="password"
-              placeholderKey="PASSWORD"
-              register={register}
-              required
-              ariaLabel={t("PASSWORD")}
-            />
-            <InputField<FormData>
-              name="confirmPassword"
-              type="password"
-              placeholderKey="CONFIRM_PASSWORD"
-              register={register}
-              required
-              ariaLabel={t("CONFIRM_PASSWORD")}
-            />
-            {formState.errors.confirmPassword && (
-              <p
-                className="signup-page__error-message"
-                role="alert"
-                id="confirmPassword-error-desktop"
-              >
-                {formState.errors.confirmPassword.message as string}
-              </p>
-            )}
-            <BasicButton
-              className="user-credentials-view__container__form__btn"
-              type="submit"
-              typeButton="orange"
-              aria-label={t("CREATE_ACCOUNT")}
-            >
-              {t("CREATE_ACCOUNT")}
-            </BasicButton>
-          </form>
-        </BodyStepQuestions>
-      </section>
-    </div>
+    </>
   );
 }
 
