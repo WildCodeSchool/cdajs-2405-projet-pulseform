@@ -1,8 +1,7 @@
+import { EyeOffIcon, EyeOnIcon } from "@utils/icon-list/iconList";
 import { useState } from "react";
 import type { FieldValues, Path, UseFormRegister } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-
-import { EyeOffIcon, EyeOnIcon } from "@utils/icon-list/iconList";
 import "./ImputField.scss";
 
 interface InputFieldProps<T extends FieldValues> {
@@ -12,6 +11,7 @@ interface InputFieldProps<T extends FieldValues> {
   register: UseFormRegister<T>;
   required?: boolean;
   ariaLabel: string;
+  defaultValue?: string;
 }
 
 const InputField = <T extends object>({
@@ -21,10 +21,10 @@ const InputField = <T extends object>({
   register,
   required = false,
   ariaLabel,
+  defaultValue = "",
 }: InputFieldProps<T>) => {
   const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
-
   const isPassword = type === "password";
   const inputType = isPassword ? (showPassword ? "text" : "password") : type;
 
@@ -32,18 +32,17 @@ const InputField = <T extends object>({
     <div className="input-field-wrapper">
       <input
         className="input__login-page"
-        {...register(name, { required })}
-        aria-label={t(ariaLabel)}
-        aria-required={required}
         type={inputType}
         placeholder={t(placeholderKey)}
+        aria-label={t(ariaLabel)}
+        aria-required={required}
+        defaultValue={defaultValue}
+        {...register(name, { required })}
       />
       {isPassword && (
         <button
           type="button"
-          className={`input-field-wrapper__toggle ${
-            showPassword ? "bounce" : ""
-          }`}
+          className={`input-field-wrapper__toggle ${showPassword ? "bounce" : ""}`}
           onClick={() => setShowPassword((prev) => !prev)}
           aria-label={showPassword ? t("HIDE_PASSWORD") : t("SHOW_PASSWORD")}
         >
