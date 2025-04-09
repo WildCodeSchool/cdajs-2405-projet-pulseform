@@ -1,8 +1,9 @@
-import { useGetProgramById } from "@hooks/usePrograms";
 import { useParams } from "react-router-dom";
+
 import ProgramSummaryDesktopView from "./ProgramSummaryDesktopView";
 import ProgramSummaryMobileView from "./ProgramSummaryMobileView";
 
+import { useGetProgramById } from "@hooks/usePrograms";
 import "./ProgramSummaryView.scss";
 
 type ProgramSummaryViewType = {

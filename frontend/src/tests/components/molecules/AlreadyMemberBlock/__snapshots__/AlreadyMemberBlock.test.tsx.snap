@@ -1,101 +1,83 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ProgramCard Component > matches the snapshot 1`] = `
+exports[`AlreadyMemberBlock > renders the AlreadyMemberBlock component 1`] = `
 {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <button
-        class="program-card"
-        type="button"
+      <section
+        aria-label="ACCOUNT_ACTIONS"
+        class="already-member"
       >
-        <img
-          alt="Test Program"
-          class="program-card__image"
-          src=""
-        />
         <div
-          class="program-card__overlay"
+          class="already-member__align"
         >
           <div
-            class="program-card__header"
+            class="already-member__motivation-block"
           >
-            <div
-              class="duration-label"
+            <p
+              class="already-member__motivation-title"
             >
-              <span />
-              <span>
-                1 min
-              </span>
-            </div>
+              ALREADY_HAVE_ACCOUNT
+            </p>
             <div
-              class="flames-fitness-level-container"
-            >
-              <div
-                class="flames-list"
-              >
-                <span />
-              </div>
-            </div>
+              class="already-member__primary-trait"
+            />
           </div>
           <div
-            class="program-card__title_container"
+            class="already-member__create-account-block"
           >
-            <h3
-              class="program-card__title"
+            <a
+              aria-label="GO_TO_LOGIN"
+              class="already-member__create-account-button"
+              href="/login"
             >
-              Test Program
-            </h3>
+              CONNECT
+            </a>
+            <div
+              class="already-member__secondary-trait"
+            />
           </div>
         </div>
-      </button>
+      </section>
     </div>
   </body>,
   "container": <div>
-    <button
-      class="program-card"
-      type="button"
+    <section
+      aria-label="ACCOUNT_ACTIONS"
+      class="already-member"
     >
-      <img
-        alt="Test Program"
-        class="program-card__image"
-        src=""
-      />
       <div
-        class="program-card__overlay"
+        class="already-member__align"
       >
         <div
-          class="program-card__header"
+          class="already-member__motivation-block"
         >
-          <div
-            class="duration-label"
+          <p
+            class="already-member__motivation-title"
           >
-            <span />
-            <span>
-              1 min
-            </span>
-          </div>
+            ALREADY_HAVE_ACCOUNT
+          </p>
           <div
-            class="flames-fitness-level-container"
-          >
-            <div
-              class="flames-list"
-            >
-              <span />
-            </div>
-          </div>
+            class="already-member__primary-trait"
+          />
         </div>
         <div
-          class="program-card__title_container"
+          class="already-member__create-account-block"
         >
-          <h3
-            class="program-card__title"
+          <a
+            aria-label="GO_TO_LOGIN"
+            class="already-member__create-account-button"
+            href="/login"
           >
-            Test Program
-          </h3>
+            CONNECT
+          </a>
+          <div
+            class="already-member__secondary-trait"
+          />
         </div>
       </div>
-    </button>
+    </section>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],

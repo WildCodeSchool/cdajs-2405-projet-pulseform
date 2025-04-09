@@ -7,6 +7,7 @@ import { CreateUserInput, UpdateUserInput } from "../../inputs/UsersInput";
 import { Weight } from "../../inputs/WeightsInput";
 import { AuthPayload } from "../../types/AuthPayload";
 import type { MyContext } from "../../types/context";
+import { isStrongPassword, isValidEmail } from "../../utils/validators";
 
 @Resolver(User)
 export class UsersMutations {
@@ -69,6 +70,18 @@ export class UsersMutations {
     if (existingUser) {
       throw new GraphQLError("User with this email already exists", {
         extensions: { code: "EMAIL_ALREADY_TAKEN" },
+      });
+    }
+
+    if (!isValidEmail(data.email)) {
+      throw new GraphQLError("Invalid email format", {
+        extensions: { code: "INVALID_EMAIL" },
+      });
+    }
+
+    if (!isStrongPassword(data.password)) {
+      throw new GraphQLError("Password is too weak", {
+        extensions: { code: "WEAK_PASSWORD" },
       });
     }
 

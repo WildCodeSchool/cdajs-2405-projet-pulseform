@@ -1,0 +1,87 @@
+@use "@assets/variables" as *;
+
+.already-member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+  width: 100%;
+
+  &__align {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  &__motivation-block,
+  &__create-account-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__motivation-title,
+  &__create-account-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+    font-size: 0.9rem;
+    text-align: center;
+    @include h3-phone;
+  }
+
+  &__motivation-title {
+    color: $primary;
+  }
+
+  &__create-account-button {
+    background-color: $white;
+    color: $secondary;
+    text-decoration: none;
+    width: 110px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+
+  &__primary-trait {
+    width: 100px;
+    background-color: $primary;
+    border-radius: 5px 0 0 5px;
+    height: 5px;
+  }
+
+  &__secondary-trait {
+    width: 100px;
+    height: 6px;
+    background-color: $secondary;
+    border-radius: 0 5px 5px 0;
+  }
+
+  @media screen and (min-width: 768px) {
+    background-color: $primary;
+    border-radius: 10px;
+
+    &__motivation-title {
+      color: $white;
+    }
+
+    &__primary-trait {
+      background-color: $white;
+    }
+
+    &__create-account-button {
+      background-color: transparent;
+      color: $secondary;
+    }
+
+    &__secondary-trait {
+      background-color: $secondary;
+    }
+  }
+}

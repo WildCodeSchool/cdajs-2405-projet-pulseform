@@ -1,10 +1,10 @@
-import WeightChart from "@components/molecules/WeightChart";
+import MobileBodyLayout from "@components/atoms/Layout/MobileBodyLayout";
 import { DashBoardView, HistoryView } from "./Views";
 
-import "./UserProfileView.scss";
-import MobileBodyLayout from "@components/atoms/Layout/MobileBodyLayout";
+import WeightChart from "@components/molecules/WeightChart";
 import { useUser } from "@context/UserContext";
 import { useGetUserById } from "@hooks/useUsers";
+import "./UserProfileView.scss";
 
 type UserProfileViewType = {
   isDesktop: boolean;

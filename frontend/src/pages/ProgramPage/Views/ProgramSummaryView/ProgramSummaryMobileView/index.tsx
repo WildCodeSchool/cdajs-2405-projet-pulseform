@@ -1,10 +1,11 @@
+import { useTranslation } from "react-i18next";
+
 import BasicButton from "@components/atoms/BasicButton";
 import MobileHeaderLayout from "@components/atoms/Layout/MobileHeader";
-import type { Program } from "@graphql/__generated__/schema";
-import { useTranslation } from "react-i18next";
 import ExerciseListView from "../../ExerciseListView";
 import ProgramHeaderMobileView from "../ProgramHeaderMobileView";
 
+import type { Program } from "@graphql/__generated__/schema";
 import "./ProgramSummaryMobileView.scss";
 
 type ProgramSummaryMobileViewType = {
@@ -31,7 +32,7 @@ const ProgramSummaryMobileView = ({
             <header className="program-summary-view-header__overlay__content">
               <MobileHeaderLayout
                 classname="white"
-                headerLabel={program.name}
+                headerLabel={program?.name}
               />
               <ProgramHeaderMobileView program={program} />
             </header>
@@ -43,7 +44,6 @@ const ProgramSummaryMobileView = ({
           </BasicButton>
         </div>
       </section>
-
       <section className="program-summary-view__scrollable-content">
         <ExerciseListView exercises={program.exercises || []} />
       </section>

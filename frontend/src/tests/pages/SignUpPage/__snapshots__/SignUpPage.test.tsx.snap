@@ -6,351 +6,55 @@ exports[`SignUpPage > renders the SignUp Page 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="signup-page"
-      >
-        <section
-          class="signup-page__form-section signup-page__mobile"
-        >
-          <img
-            alt="BLOB_ALT_TEXT"
-            class="signup-page__blob"
-            src="/src/assets/icons/blob/blob3.svg"
-          />
-          <div
-            class="signup-page__form-container"
-          >
-            <h1
-              class="signup-page__title"
-            >
-              CREATE_ACCOUNT
-            </h1>
-            <form
-              class="signup-page__form"
-            >
-              <div
-                class="input-field-wrapper"
-              >
-                <input
-                  aria-label="EMAIL"
-                  aria-required="true"
-                  class="input__login-page"
-                  name="email"
-                  placeholder="EMAIL"
-                  type="email"
-                />
-              </div>
-              <div
-                class="input-field-wrapper"
-              >
-                <input
-                  aria-label="PASSWORD"
-                  aria-required="true"
-                  class="input__login-page"
-                  name="password"
-                  placeholder="PASSWORD"
-                  type="password"
-                />
-                <button
-                  aria-label="SHOW_PASSWORD"
-                  class="input-field-wrapper__toggle "
-                  type="button"
-                >
-                  <span />
-                </button>
-              </div>
-              <div
-                class="input-field-wrapper"
-              >
-                <input
-                  aria-label="CONFIRM_PASSWORD"
-                  aria-required="true"
-                  class="input__login-page"
-                  name="confirmPassword"
-                  placeholder="CONFIRM_PASSWORD"
-                  type="password"
-                />
-                <button
-                  aria-label="SHOW_PASSWORD"
-                  class="input-field-wrapper__toggle "
-                  type="button"
-                >
-                  <span />
-                </button>
-              </div>
-              <button
-                class="basic-button signup-page__connect-button basic-button--orange"
-                type="submit"
-              >
-                CREATE_ACCOUNT
-              </button>
-            </form>
-          </div>
-          <section
-            class="signup-page__section"
-          >
-            <div
-              class="signup-page__align"
-            >
-              <div
-                class="signup-page__motivation-block"
-              >
-                <p
-                  class="signup-page__motivation-title"
-                >
-                  ALREADY_HAVE_ACCOUNT
-                </p>
-                <div
-                  class="signup-page__primary-trait"
-                />
-              </div>
-              <div
-                class="signup-page__create-account-block"
-              >
-                <a
-                  class="signup-page__create-account-button"
-                  href="/login"
-                >
-                  CONNECT
-                </a>
-                <div
-                  class="signup-page__secondary-trait"
-                />
-              </div>
-            </div>
-          </section>
-        </section>
-        <section
-          class="signup-page__desktop"
-        >
-          <div
-            class="body-step-questions"
-          >
-            <div
-              class="body-step-questions__header-d"
-            >
-              <div
-                class="body-step-questions__header-d__logo"
-              >
-                <div
-                  class="little-logo little-logo--desktop"
-                >
-                  <img
-                    alt="Logo Pulse Form"
-                    class="little-logo__img"
-                    src="/src/assets/icons/mobile-logo.svg"
-                  />
-                  <p
-                    class="little-logo__title little-logo__title--desktop"
-                  >
-                    Pulse Form
-                  </p>
-                </div>
-              </div>
-              <div
-                class="body-step-questions__header-d__container"
-              >
-                <button
-                  class="body-step-questions__header-d__container__btn"
-                  type="button"
-                >
-                  TEST_PROGRAM
-                </button>
-              </div>
-            </div>
-            <button
-              class="body-step-questions__exit"
-              type="button"
-            >
-              <img
-                alt="Close"
-                src="/src/assets/icons/blue-cross.svg"
-              />
-            </button>
-            <h2
-              class="body-step-questions__question"
-            >
-              CREATE_ACCOUNT
-            </h2>
-            <img
-              alt="blob-girl"
-              class="body-step-questions__blob-girl"
-              src="/src/assets/images/blob-girl.svg"
-            />
-            <div
-              class="body-step-questions__container"
-            >
-              <form
-                class="user-credentials-view__container__form"
-              >
-                <div
-                  class="input-field-wrapper"
-                >
-                  <input
-                    aria-label="EMAIL"
-                    aria-required="true"
-                    class="input__login-page"
-                    name="email"
-                    placeholder="EMAIL"
-                    type="email"
-                  />
-                </div>
-                <div
-                  class="input-field-wrapper"
-                >
-                  <input
-                    aria-label="PASSWORD"
-                    aria-required="true"
-                    class="input__login-page"
-                    name="password"
-                    placeholder="PASSWORD"
-                    type="password"
-                  />
-                  <button
-                    aria-label="SHOW_PASSWORD"
-                    class="input-field-wrapper__toggle "
-                    type="button"
-                  >
-                    <span />
-                  </button>
-                </div>
-                <div
-                  class="input-field-wrapper"
-                >
-                  <input
-                    aria-label="CONFIRM_PASSWORD"
-                    aria-required="true"
-                    class="input__login-page"
-                    name="confirmPassword"
-                    placeholder="CONFIRM_PASSWORD"
-                    type="password"
-                  />
-                  <button
-                    aria-label="SHOW_PASSWORD"
-                    class="input-field-wrapper__toggle "
-                    type="button"
-                  >
-                    <span />
-                  </button>
-                </div>
-                <button
-                  class="basic-button user-credentials-view__container__form__btn basic-button--orange"
-                  type="submit"
-                >
-                  CREATE_ACCOUNT
-                </button>
-              </form>
-            </div>
-            <div
-              class="body-step-questions__container-d"
-            >
-              <div
-                class="body-step-questions__container-d__question"
-              >
-                <img
-                  alt="sport"
-                  class="body-step-questions__container-d__question__img"
-                  src="/src/assets/images/step-img.svg"
-                />
-                <div
-                  class="body-step-questions__container-d__question__container"
-                >
-                  <p
-                    class="body-step-questions__container-d__question__container__label"
-                  >
-                    MOTIVATIONAL_LABEL
-                  </p>
-                </div>
-              </div>
-              <div
-                class="body-step-questions__container-d__children"
-              >
-                <p
-                  class="body-step-questions__container-d__children__label"
-                >
-                  CREATE_ACCOUNT
-                </p>
-                <form
-                  class="user-credentials-view__container__form"
-                >
-                  <div
-                    class="input-field-wrapper"
-                  >
-                    <input
-                      aria-label="EMAIL"
-                      aria-required="true"
-                      class="input__login-page"
-                      name="email"
-                      placeholder="EMAIL"
-                      type="email"
-                    />
-                  </div>
-                  <div
-                    class="input-field-wrapper"
-                  >
-                    <input
-                      aria-label="PASSWORD"
-                      aria-required="true"
-                      class="input__login-page"
-                      name="password"
-                      placeholder="PASSWORD"
-                      type="password"
-                    />
-                    <button
-                      aria-label="SHOW_PASSWORD"
-                      class="input-field-wrapper__toggle "
-                      type="button"
-                    >
-                      <span />
-                    </button>
-                  </div>
-                  <div
-                    class="input-field-wrapper"
-                  >
-                    <input
-                      aria-label="CONFIRM_PASSWORD"
-                      aria-required="true"
-                      class="input__login-page"
-                      name="confirmPassword"
-                      placeholder="CONFIRM_PASSWORD"
-                      type="password"
-                    />
-                    <button
-                      aria-label="SHOW_PASSWORD"
-                      class="input-field-wrapper__toggle "
-                      type="button"
-                    >
-                      <span />
-                    </button>
-                  </div>
-                  <button
-                    class="basic-button user-credentials-view__container__form__btn basic-button--orange"
-                    type="submit"
-                  >
-                    CREATE_ACCOUNT
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-    </div>
-  </body>,
-  "container": <div>
-    <div
-      class="signup-page"
-    >
-      <section
-        class="signup-page__form-section signup-page__mobile"
+        class="little-logo signup-page__logo little-logo--desktop"
       >
         <img
-          alt="BLOB_ALT_TEXT"
-          class="signup-page__blob"
-          src="/src/assets/icons/blob/blob3.svg"
+          alt="Logo Pulse Form"
+          class="little-logo__img"
+          src="/src/assets/icons/mobile-logo.svg"
         />
+        <p
+          class="little-logo__title little-logo__title--desktop"
+        >
+          Pulse Form
+        </p>
+      </div>
+      <img
+        alt="BLOB_ALT_TEXT"
+        aria-hidden="true"
+        class="signup-page__blob"
+        src="/src/assets/icons/blob/blob3.svg"
+      />
+      <div
+        class="signup-page__test-program-container"
+      >
+        <button
+          class="signup-page__test-program-button"
+          type="button"
+        >
+          TEST_PROGRAM
+        </button>
+      </div>
+      <section
+        class="signup-page__form-section"
+      >
+        <div
+          class="signup-page__image-side desktop-only"
+        >
+          <img
+            alt="STEP_IMAGE_ALT"
+            class="signup-page__step-image"
+            src="/src/assets/images/step-img.svg"
+          />
+        </div>
         <div
           class="signup-page__form-container"
         >
+          <h1
+            class="login-page__title signup-page__ready-title mobile-only"
+          >
+            CREATE_ACCOUNT
+          </h1>
           <h1
             class="signup-page__title"
           >
@@ -369,6 +73,7 @@ exports[`SignUpPage > renders the SignUp Page 1`] = `
                 name="email"
                 placeholder="EMAIL"
                 type="email"
+                value=""
               />
             </div>
             <div
@@ -381,6 +86,7 @@ exports[`SignUpPage > renders the SignUp Page 1`] = `
                 name="password"
                 placeholder="PASSWORD"
                 type="password"
+                value=""
               />
               <button
                 aria-label="SHOW_PASSWORD"
@@ -400,6 +106,7 @@ exports[`SignUpPage > renders the SignUp Page 1`] = `
                 name="confirmPassword"
                 placeholder="CONFIRM_PASSWORD"
                 type="password"
+                value=""
               />
               <button
                 aria-label="SHOW_PASSWORD"
@@ -410,262 +117,209 @@ exports[`SignUpPage > renders the SignUp Page 1`] = `
               </button>
             </div>
             <button
+              aria-label="CREATE_ACCOUNT"
               class="basic-button signup-page__connect-button basic-button--orange"
               type="submit"
             >
               CREATE_ACCOUNT
             </button>
           </form>
-        </div>
-        <section
-          class="signup-page__section"
-        >
-          <div
-            class="signup-page__align"
+          <section
+            aria-label="ACCOUNT_ACTIONS"
+            class="already-member"
           >
             <div
-              class="signup-page__motivation-block"
+              class="already-member__align"
+            >
+              <div
+                class="already-member__motivation-block"
+              >
+                <p
+                  class="already-member__motivation-title"
+                >
+                  ALREADY_HAVE_ACCOUNT
+                </p>
+                <div
+                  class="already-member__primary-trait"
+                />
+              </div>
+              <div
+                class="already-member__create-account-block"
+              >
+                <a
+                  aria-label="GO_TO_LOGIN"
+                  class="already-member__create-account-button"
+                  href="/login"
+                >
+                  CONNECT
+                </a>
+                <div
+                  class="already-member__secondary-trait"
+                />
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="little-logo signup-page__logo little-logo--desktop"
+    >
+      <img
+        alt="Logo Pulse Form"
+        class="little-logo__img"
+        src="/src/assets/icons/mobile-logo.svg"
+      />
+      <p
+        class="little-logo__title little-logo__title--desktop"
+      >
+        Pulse Form
+      </p>
+    </div>
+    <img
+      alt="BLOB_ALT_TEXT"
+      aria-hidden="true"
+      class="signup-page__blob"
+      src="/src/assets/icons/blob/blob3.svg"
+    />
+    <div
+      class="signup-page__test-program-container"
+    >
+      <button
+        class="signup-page__test-program-button"
+        type="button"
+      >
+        TEST_PROGRAM
+      </button>
+    </div>
+    <section
+      class="signup-page__form-section"
+    >
+      <div
+        class="signup-page__image-side desktop-only"
+      >
+        <img
+          alt="STEP_IMAGE_ALT"
+          class="signup-page__step-image"
+          src="/src/assets/images/step-img.svg"
+        />
+      </div>
+      <div
+        class="signup-page__form-container"
+      >
+        <h1
+          class="login-page__title signup-page__ready-title mobile-only"
+        >
+          CREATE_ACCOUNT
+        </h1>
+        <h1
+          class="signup-page__title"
+        >
+          CREATE_ACCOUNT
+        </h1>
+        <form
+          class="signup-page__form"
+        >
+          <div
+            class="input-field-wrapper"
+          >
+            <input
+              aria-label="EMAIL"
+              aria-required="true"
+              class="input__login-page"
+              name="email"
+              placeholder="EMAIL"
+              type="email"
+              value=""
+            />
+          </div>
+          <div
+            class="input-field-wrapper"
+          >
+            <input
+              aria-label="PASSWORD"
+              aria-required="true"
+              class="input__login-page"
+              name="password"
+              placeholder="PASSWORD"
+              type="password"
+              value=""
+            />
+            <button
+              aria-label="SHOW_PASSWORD"
+              class="input-field-wrapper__toggle "
+              type="button"
+            >
+              <span />
+            </button>
+          </div>
+          <div
+            class="input-field-wrapper"
+          >
+            <input
+              aria-label="CONFIRM_PASSWORD"
+              aria-required="true"
+              class="input__login-page"
+              name="confirmPassword"
+              placeholder="CONFIRM_PASSWORD"
+              type="password"
+              value=""
+            />
+            <button
+              aria-label="SHOW_PASSWORD"
+              class="input-field-wrapper__toggle "
+              type="button"
+            >
+              <span />
+            </button>
+          </div>
+          <button
+            aria-label="CREATE_ACCOUNT"
+            class="basic-button signup-page__connect-button basic-button--orange"
+            type="submit"
+          >
+            CREATE_ACCOUNT
+          </button>
+        </form>
+        <section
+          aria-label="ACCOUNT_ACTIONS"
+          class="already-member"
+        >
+          <div
+            class="already-member__align"
+          >
+            <div
+              class="already-member__motivation-block"
             >
               <p
-                class="signup-page__motivation-title"
+                class="already-member__motivation-title"
               >
                 ALREADY_HAVE_ACCOUNT
               </p>
               <div
-                class="signup-page__primary-trait"
+                class="already-member__primary-trait"
               />
             </div>
             <div
-              class="signup-page__create-account-block"
+              class="already-member__create-account-block"
             >
               <a
-                class="signup-page__create-account-button"
+                aria-label="GO_TO_LOGIN"
+                class="already-member__create-account-button"
                 href="/login"
               >
                 CONNECT
               </a>
               <div
-                class="signup-page__secondary-trait"
+                class="already-member__secondary-trait"
               />
             </div>
           </div>
         </section>
-      </section>
-      <section
-        class="signup-page__desktop"
-      >
-        <div
-          class="body-step-questions"
-        >
-          <div
-            class="body-step-questions__header-d"
-          >
-            <div
-              class="body-step-questions__header-d__logo"
-            >
-              <div
-                class="little-logo little-logo--desktop"
-              >
-                <img
-                  alt="Logo Pulse Form"
-                  class="little-logo__img"
-                  src="/src/assets/icons/mobile-logo.svg"
-                />
-                <p
-                  class="little-logo__title little-logo__title--desktop"
-                >
-                  Pulse Form
-                </p>
-              </div>
-            </div>
-            <div
-              class="body-step-questions__header-d__container"
-            >
-              <button
-                class="body-step-questions__header-d__container__btn"
-                type="button"
-              >
-                TEST_PROGRAM
-              </button>
-            </div>
-          </div>
-          <button
-            class="body-step-questions__exit"
-            type="button"
-          >
-            <img
-              alt="Close"
-              src="/src/assets/icons/blue-cross.svg"
-            />
-          </button>
-          <h2
-            class="body-step-questions__question"
-          >
-            CREATE_ACCOUNT
-          </h2>
-          <img
-            alt="blob-girl"
-            class="body-step-questions__blob-girl"
-            src="/src/assets/images/blob-girl.svg"
-          />
-          <div
-            class="body-step-questions__container"
-          >
-            <form
-              class="user-credentials-view__container__form"
-            >
-              <div
-                class="input-field-wrapper"
-              >
-                <input
-                  aria-label="EMAIL"
-                  aria-required="true"
-                  class="input__login-page"
-                  name="email"
-                  placeholder="EMAIL"
-                  type="email"
-                />
-              </div>
-              <div
-                class="input-field-wrapper"
-              >
-                <input
-                  aria-label="PASSWORD"
-                  aria-required="true"
-                  class="input__login-page"
-                  name="password"
-                  placeholder="PASSWORD"
-                  type="password"
-                />
-                <button
-                  aria-label="SHOW_PASSWORD"
-                  class="input-field-wrapper__toggle "
-                  type="button"
-                >
-                  <span />
-                </button>
-              </div>
-              <div
-                class="input-field-wrapper"
-              >
-                <input
-                  aria-label="CONFIRM_PASSWORD"
-                  aria-required="true"
-                  class="input__login-page"
-                  name="confirmPassword"
-                  placeholder="CONFIRM_PASSWORD"
-                  type="password"
-                />
-                <button
-                  aria-label="SHOW_PASSWORD"
-                  class="input-field-wrapper__toggle "
-                  type="button"
-                >
-                  <span />
-                </button>
-              </div>
-              <button
-                class="basic-button user-credentials-view__container__form__btn basic-button--orange"
-                type="submit"
-              >
-                CREATE_ACCOUNT
-              </button>
-            </form>
-          </div>
-          <div
-            class="body-step-questions__container-d"
-          >
-            <div
-              class="body-step-questions__container-d__question"
-            >
-              <img
-                alt="sport"
-                class="body-step-questions__container-d__question__img"
-                src="/src/assets/images/step-img.svg"
-              />
-              <div
-                class="body-step-questions__container-d__question__container"
-              >
-                <p
-                  class="body-step-questions__container-d__question__container__label"
-                >
-                  MOTIVATIONAL_LABEL
-                </p>
-              </div>
-            </div>
-            <div
-              class="body-step-questions__container-d__children"
-            >
-              <p
-                class="body-step-questions__container-d__children__label"
-              >
-                CREATE_ACCOUNT
-              </p>
-              <form
-                class="user-credentials-view__container__form"
-              >
-                <div
-                  class="input-field-wrapper"
-                >
-                  <input
-                    aria-label="EMAIL"
-                    aria-required="true"
-                    class="input__login-page"
-                    name="email"
-                    placeholder="EMAIL"
-                    type="email"
-                  />
-                </div>
-                <div
-                  class="input-field-wrapper"
-                >
-                  <input
-                    aria-label="PASSWORD"
-                    aria-required="true"
-                    class="input__login-page"
-                    name="password"
-                    placeholder="PASSWORD"
-                    type="password"
-                  />
-                  <button
-                    aria-label="SHOW_PASSWORD"
-                    class="input-field-wrapper__toggle "
-                    type="button"
-                  >
-                    <span />
-                  </button>
-                </div>
-                <div
-                  class="input-field-wrapper"
-                >
-                  <input
-                    aria-label="CONFIRM_PASSWORD"
-                    aria-required="true"
-                    class="input__login-page"
-                    name="confirmPassword"
-                    placeholder="CONFIRM_PASSWORD"
-                    type="password"
-                  />
-                  <button
-                    aria-label="SHOW_PASSWORD"
-                    class="input-field-wrapper__toggle "
-                    type="button"
-                  >
-                    <span />
-                  </button>
-                </div>
-                <button
-                  class="basic-button user-credentials-view__container__form__btn basic-button--orange"
-                  type="submit"
-                >
-                  CREATE_ACCOUNT
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+      </div>
+    </section>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],

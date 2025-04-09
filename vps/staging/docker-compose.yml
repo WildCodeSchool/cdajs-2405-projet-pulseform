@@ -1,0 +1,93 @@
+services:
+  db:
+    image: ${IMAGE_DB}
+    restart: unless-stopped
+    environment:
+      JWT_SECRET: ${JWT_SECRET}
+      POSTGRES_PASSWORD: ${PASSWORD}
+      POSTGRES_USER: ${USERNAME}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - staging
+    ports:
+      - "${PORT_DB}:5432"
+
+  seeder:
+    image: ${IMAGE_BACKEND}
+    restart: "no"
+    depends_on:
+      - db
+    command: npm run seed
+    environment:
+      JWT_SECRET: ${JWT_SECRET}
+      POSTGRES_PASSWORD: ${PASSWORD}
+      POSTGRES_USERNAME: ${USERNAME}
+      POSTGRES_DB_NAME: ${DB_NAME}
+      SERVER_URL: ${SERVER_URL}
+    networks:
+      - staging
+
+  adminer:
+    image: ${IMAGE_ADMINER}
+    restart: unless-stopped
+    ports:
+      - "${PORT_ADMINER}:8080"
+    networks:
+      - staging
+
+  back:
+    image: ${IMAGE_BACKEND}
+    restart: unless-stopped
+    ports:
+      - "${PORT_BACK}:4000"
+    command: npm run start
+    environment:
+      JWT_SECRET: ${JWT_SECRET}
+      POSTGRES_PASSWORD: ${PASSWORD}
+      POSTGRES_USERNAME: ${USERNAME}
+      POSTGRES_DB_NAME: ${DB_NAME}
+      PORT_BACK: ${PORT_BACK}
+      PORT_FRONT: ${PORT_FRONT}
+      SERVER_URL: ${SERVER_URL}
+      VITE_URL_FRONT: ${VITE_URL_FRONT}
+    networks:
+      - staging 
+
+  client:
+      image: ${IMAGE_FRONTEND}
+      restart: unless-stopped
+      ports:
+          - "${PORT_FRONT}:3000"
+      command: npm run dev
+      environment:
+        VITE_PORT_FRONT: ${VITE_PORT_FRONT}
+        VITE_PORT_BACK: ${VITE_PORT_BACK}
+        VITE_PORT_TRAD: ${VITE_PORT_TRAD} 
+        VITE_SERVER_URL: ${VITE_SERVER_URL}
+        VITE_TRANSLATION_SERVER_URL: ${VITE_TRANSLATION_SERVER_URL}
+        VITE_URL_BACK: ${VITE_URL_BACK}
+      networks:
+      - staging
+
+  translation:
+    image: ${IMAGE_TRANSLATION}
+    restart: unless-stopped
+    ports:
+      - "${PORT_TRAD}:8051"
+    command: npm run start
+    environment:
+      PORT_FRONT: ${PORT_FRONT}
+      PORT_BACK: ${PORT_BACK}
+      PORT_TRAD: ${PORT_TRAD} 
+      SERVER_URL: ${SERVER_URL}
+    networks:
+      - staging
+      
+volumes:
+  pgdata:
+
+networks:
+  staging:
+    external: true

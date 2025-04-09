@@ -1,6 +1,5 @@
 import LittleLogo from "@components/atoms/LittleLogo";
 import type { MobileHeaderType } from "./MobileHeader.type";
-
 import "./MobileHeader.scss";
 
 const MobileHeader = ({

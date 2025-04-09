@@ -1,12 +1,13 @@
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+
 import HeaderWithReturnButton from "@components/atoms/HeaderWithReturnButton";
 import MobileHeaderLayout from "@components/atoms/Layout/MobileHeader";
-import type { Program } from "@graphql/__generated__/schema";
-import { useTranslation } from "react-i18next";
 import ExerciseListView from "../../ExerciseListView";
 import ProgramHeaderMobileView from "../ProgramHeaderMobileView";
 
+import type { Program } from "@graphql/__generated__/schema";
 import "./ProgramSummaryDesktopView.scss";
-import { useNavigate } from "react-router-dom";
 
 type ProgramSummaryDesktopViewType = {
   program: Program;
@@ -29,7 +30,7 @@ const ProgramSummaryDesktopView = ({
             label={t("CHECK_ANOTHER_PROGRAM")}
             onReturnClick={() => navigate("/home")}
           />
-          <MobileHeaderLayout classname="white" headerLabel={program.name} />
+          <MobileHeaderLayout classname="white" headerLabel={program?.name} />
           <ProgramHeaderMobileView program={program} />
         </header>
 

@@ -1,6 +1,6 @@
-import ProgramSubHeader from "@components/molecules/ProgramSubHeader";
 import type { Program } from "@graphql/__generated__/schema";
 
+import ProgramSubHeader from "@components/molecules/ProgramSubHeader";
 import "./ProgramHeaderMobileView.scss";
 
 type ProgramHeaderMobileViewType = {
