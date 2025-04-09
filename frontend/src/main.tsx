@@ -13,7 +13,8 @@ import router from "./routes";
 import "./index.css";
 
 const httpLink = createHttpLink({
-  uri: `${import.meta.env.VITE_URL_BACK}/graphql`,
+  // uri: `${import.meta.env.VITE_URL_BACK}/graphql`,
+  uri: "http://localhost:4000/graphql",
   credentials: "include",
 });
 

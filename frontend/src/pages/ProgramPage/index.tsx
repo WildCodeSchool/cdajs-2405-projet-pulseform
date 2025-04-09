@@ -240,7 +240,15 @@ const ProgramPage = () => {
           />
         );
       case "rest":
-        return <RestView timer={timer} />;
+        return (
+          <RestView
+            onBack={handleBack}
+            onNext={handleStepComplete}
+            onPauseToggle={togglePause}
+            isPaused={isPaused}
+            timer={timer}
+          />
+        );
       case "finished":
         return <FinishedProgramView />;
       default:
@@ -272,7 +280,15 @@ const ProgramPage = () => {
             totalExercises={exerciseList.length}
           />
         )}
-        {currentView === "rest" && <RestView timer={timer} />}
+        {currentView === "rest" && (
+          <RestView
+            onBack={handleBack}
+            onNext={handleStepComplete}
+            onPauseToggle={togglePause}
+            isPaused={isPaused}
+            timer={timer}
+          />
+        )}
         {currentView === "exit" && <ExitProgramView />}
         {currentView === "finished" && <FinishedProgramView />}
       </section>

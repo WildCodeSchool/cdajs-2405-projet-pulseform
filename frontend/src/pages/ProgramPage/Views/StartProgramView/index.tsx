@@ -24,7 +24,7 @@ const StartProgramView = ({ onStart }: StartProgramViewType) => {
         body={
           <div className="start-program-view__body">
             <img
-              src={blobMenGirl}
+              src={blobMenGirl || ""}
               alt="Start Program"
               className="start-program-view-image"
             />

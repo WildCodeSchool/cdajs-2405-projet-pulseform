@@ -74,7 +74,6 @@ const CurrentExerciseView = ({
     <ExerciseStepsLayout
       header={
         <div className="current-exercise-view__header">
-          <span>{exercise.name}</span>
           <span>
             Exercise {currentIndex + 1} / {totalExercises}
           </span>
@@ -91,7 +90,7 @@ const CurrentExerciseView = ({
       }
       footer={
         <div className="current-exercise-view__footer">
-          <span>{exercise.description}</span>
+          <span>{exercise.name}</span>
           <ProgressBar
             duration={exercise.duration}
             timeLeft={timer}
