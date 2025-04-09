@@ -1,5 +1,5 @@
-import DoubleScreenLayout from "@components/atoms/Layout/DoubleScreenLayout";
 import { useEffect, useState } from "react";
+
 import {
   CurrentExerciseView,
   ExitProgramView,
@@ -9,6 +9,7 @@ import {
   StartProgramView,
 } from "./Views";
 
+import DoubleScreenLayout from "@components/atoms/Layout/DoubleScreenLayout";
 import "./ProgramPage.scss";
 
 const ProgramPage = () => {

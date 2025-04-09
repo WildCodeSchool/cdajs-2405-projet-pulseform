@@ -1,9 +1,10 @@
-import DurationLabel from "@components/atoms/DurationLabel";
-import FlamesFitnessLevelLabel from "@components/atoms/FlamesFitnessLevelLabel";
-import type { Program } from "@graphql/__generated__/schema";
-import { convertSecondsToMinRounded } from "@utils/timeUtils";
 import { useTranslation } from "react-i18next";
 
+import DurationLabel from "@components/atoms/DurationLabel";
+import FlamesFitnessLevelLabel from "@components/atoms/FlamesFitnessLevelLabel";
+
+import type { Program } from "@graphql/__generated__/schema";
+import { convertSecondsToMinRounded } from "@utils/timeUtils";
 import "./ProgramSubHeader.scss";
 
 type ProgramSubHeaderType = {
@@ -19,7 +20,6 @@ const ProgramSubHeader = ({ program, withExercises }: ProgramSubHeaderType) => {
     <>
       <div className="program-subheader-container">
         <FlamesFitnessLevelLabel withLabel level={program.level} />
-
         <div className="program-subheader-container__separator">
           {withExercises && (
             <span>
