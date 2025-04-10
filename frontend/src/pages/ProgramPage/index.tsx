@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import {
@@ -26,8 +26,8 @@ const ProgramPage = () => {
   const [timer, setTimer] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
-  // Track elapsed time and completed exercises
   const [totalTimeElapsed, setTotalTimeElapsed] = useState(0);
+  const [lastUnpausedTime, setLastUnpausedTime] = useState<number | null>(null);
   const [completedExercises, setCompletedExercises] = useState<number[]>([]);
 
   const { id } = useParams<{ id: string }>();
@@ -37,55 +37,85 @@ const ProgramPage = () => {
   const exerciseList = program?.exercises || [];
   const currentExercise = exerciseList[currentExerciseIndex];
 
-  useEffect(() => {
-    const handleResize = () => {
-      const isNowDesktop = window.innerWidth >= 768;
-      setIsDesktop(isNowDesktop);
-      // Don't reset currentView here!
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+  const resizeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Handle window resizing with debouncing
+  const handleResize = useCallback(() => {
+    if (resizeTimeoutRef.current) clearTimeout(resizeTimeoutRef.current);
+    resizeTimeoutRef.current = setTimeout(() => {
+      setIsDesktop(window.innerWidth >= 768);
+    }, 200); // Wait for 200ms after resize stops
   }, []);
 
-  // Reset the timer whenever the exercise changes
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      if (resizeTimeoutRef.current) clearTimeout(resizeTimeoutRef.current);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [handleResize]);
+
+  // Reset timer when entering new exercise or rest
   useEffect(() => {
     if (currentView === "exercise") {
       const exercise = exerciseList[currentExerciseIndex];
       setTimer(exercise?.duration || 0);
+    } else if (currentView === "rest") {
+      setTimer(REST_DURATION);
     }
   }, [currentExerciseIndex, currentView, exerciseList]);
 
   useEffect(() => {
+    // If we're on a non-active view (summary, exit, finished, or start), reset the timer state
     if (
-      isPaused ||
       currentView === "summary" ||
       currentView === "exit" ||
       currentView === "finished" ||
       currentView === "start"
-    )
-      return;
+    ) {
+      setLastUnpausedTime(null); // Reset the pause time
+      return; // Exit early if we shouldn't be tracking time
+    }
 
-    // Clear any previous interval before starting a new one
-    const interval = setInterval(() => {
-      setTimer((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          handleStepComplete();
-          return 0;
-        }
-        // Count time only when not paused
-        setTotalTimeElapsed((time) => time + 1);
-        return prev - 1;
-      });
-    }, 1000);
+    // Handle running the timer when not paused
+    if (!isPaused) {
+      const now = Date.now();
+      setLastUnpausedTime(now); // Update the last unpaused time
 
-    return () => clearInterval(interval);
+      const interval = setInterval(() => {
+        setTimer((prev) => {
+          if (prev <= 1) {
+            clearInterval(interval); // Stop the interval when it reaches 0
+            handleStepComplete();
+            return 0;
+          }
+          return prev - 1;
+        });
+
+        setTotalTimeElapsed((prev) => prev + 1); // Update total elapsed time
+      }, 1000);
+
+      return () => clearInterval(interval); // Clean up the interval when the effect re-runs
+    }
   }, [isPaused, currentView]);
 
+  // Debounce togglePause to avoid unnecessary state changes
+  const togglePause = useCallback(() => {
+    if (!isPaused && lastUnpausedTime) {
+      const now = Date.now();
+      const secondsSinceUnpaused = Math.floor((now - lastUnpausedTime) / 1000);
+      setTotalTimeElapsed((prev) => prev + secondsSinceUnpaused);
+      setLastUnpausedTime(null);
+    } else {
+      setLastUnpausedTime(Date.now());
+    }
+    setIsPaused((prev) => !prev);
+  }, [isPaused, lastUnpausedTime]);
+
   const startExercise = useCallback(() => {
-    const exercise = exerciseList[currentExerciseIndex]; // Ensure it's the latest exercise
-    setTimer(exercise?.duration || 0); // Set the timer based on the current exercise
-    setCurrentView("exercise"); // Transition to the exercise view
+    const exercise = exerciseList[currentExerciseIndex];
+    setTimer(exercise?.duration || 0);
+    setCurrentView("exercise");
   }, [currentExerciseIndex, exerciseList]);
 
   const startRest = useCallback(() => {
@@ -95,7 +125,6 @@ const ProgramPage = () => {
 
   const handleStepComplete = () => {
     if (currentView === "exercise") {
-      // Only mark it complete if it ran its full course
       setCompletedExercises((prev) =>
         prev.includes(currentExerciseIndex)
           ? prev
@@ -132,7 +161,17 @@ const ProgramPage = () => {
     }
   };
 
-  const togglePause = () => setIsPaused((prev) => !prev);
+  // Memoize to avoid unnecessary recalculations of child components
+  const programSummaryView = useMemo(() => {
+    if (!program) return null;
+    return (
+      <ProgramSummaryView
+        isDesktop={isDesktop}
+        program={program}
+        onStartProgram={startExercise}
+      />
+    );
+  }, [isDesktop, program, startExercise]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -144,11 +183,7 @@ const ProgramPage = () => {
         return isDesktop ? (
           <StartProgramView onStart={startExercise} />
         ) : (
-          <ProgramSummaryView
-            isDesktop={false}
-            program={program}
-            onStartProgram={startExercise}
-          />
+          programSummaryView
         );
 
       case "exercise":
@@ -189,19 +224,13 @@ const ProgramPage = () => {
         );
 
       default:
-        return (
-          <ProgramSummaryView
-            isDesktop={isDesktop}
-            program={program}
-            onStartProgram={startExercise}
-          />
-        );
+        return programSummaryView;
     }
   };
 
   return isDesktop ? (
     <DoubleScreenLayout>
-      <ProgramSummaryView isDesktop program={program} />
+      {programSummaryView}
       <section className="main-program-view">{renderMainProgramView()}</section>
     </DoubleScreenLayout>
   ) : (
