@@ -1,5 +1,6 @@
 import {
   useGetAllUsersQuery,
+  useGetHistoryByUserIdQuery,
   useGetUserByIdQuery,
   useGetWeightByUserIdQuery,
   useMeQuery,
@@ -52,5 +53,18 @@ export const useGetUserByIdWithWeights = (id: number) => {
     loading,
     error,
     userWeight,
+  };
+};
+
+export const useGetUserExercicesForChart = (id: number) => {
+  const { loading, error, data } = useGetHistoryByUserIdQuery({
+    variables: { id },
+  });
+  const userExercicesChart = data?.getHistoryByUserId;
+
+  return {
+    loading,
+    error,
+    userExercicesChart,
   };
 };

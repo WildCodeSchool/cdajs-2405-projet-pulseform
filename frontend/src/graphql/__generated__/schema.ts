@@ -179,6 +179,7 @@ export type History = {
   __typename?: "History";
   end_date?: Maybe<Scalars["DateTimeISO"]["output"]>;
   id: Scalars["ID"]["output"];
+  program: Program;
   start_date?: Maybe<Scalars["DateTimeISO"]["output"]>;
   total_kcal_loss?: Maybe<Scalars["Int"]["output"]>;
   user: User;
@@ -828,6 +829,22 @@ export type GetWeightByUserIdQuery = {
     month: string;
     update_at: Date;
     weight: number;
+  }>;
+};
+
+export type GetHistoryByUserIdQueryVariables = Exact<{
+  id: Scalars["Float"]["input"];
+}>;
+
+export type GetHistoryByUserIdQuery = {
+  __typename?: "Query";
+  getHistoryByUserId: Array<{
+    __typename?: "History";
+    end_date?: Date | null;
+    program: {
+      __typename?: "Program";
+      tags?: Array<{ __typename?: "Tag"; name: Tags }> | null;
+    };
   }>;
 };
 
@@ -1692,4 +1709,91 @@ export type GetWeightByUserIdSuspenseQueryHookResult = ReturnType<
 export type GetWeightByUserIdQueryResult = Apollo.QueryResult<
   GetWeightByUserIdQuery,
   GetWeightByUserIdQueryVariables
+>;
+export const GetHistoryByUserIdDocument = gql`
+    query GetHistoryByUserId($id: Float!) {
+  getHistoryByUserId(user_id: $id) {
+    end_date
+    program {
+      tags {
+        name
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetHistoryByUserIdQuery__
+ *
+ * To run a query within a React component, call `useGetHistoryByUserIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetHistoryByUserIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetHistoryByUserIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetHistoryByUserIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetHistoryByUserIdQuery,
+    GetHistoryByUserIdQueryVariables
+  > &
+    (
+      | { variables: GetHistoryByUserIdQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetHistoryByUserIdQuery,
+    GetHistoryByUserIdQueryVariables
+  >(GetHistoryByUserIdDocument, options);
+}
+export function useGetHistoryByUserIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetHistoryByUserIdQuery,
+    GetHistoryByUserIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetHistoryByUserIdQuery,
+    GetHistoryByUserIdQueryVariables
+  >(GetHistoryByUserIdDocument, options);
+}
+export function useGetHistoryByUserIdSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetHistoryByUserIdQuery,
+        GetHistoryByUserIdQueryVariables
+      >,
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    GetHistoryByUserIdQuery,
+    GetHistoryByUserIdQueryVariables
+  >(GetHistoryByUserIdDocument, options);
+}
+export type GetHistoryByUserIdQueryHookResult = ReturnType<
+  typeof useGetHistoryByUserIdQuery
+>;
+export type GetHistoryByUserIdLazyQueryHookResult = ReturnType<
+  typeof useGetHistoryByUserIdLazyQuery
+>;
+export type GetHistoryByUserIdSuspenseQueryHookResult = ReturnType<
+  typeof useGetHistoryByUserIdSuspenseQuery
+>;
+export type GetHistoryByUserIdQueryResult = Apollo.QueryResult<
+  GetHistoryByUserIdQuery,
+  GetHistoryByUserIdQueryVariables
 >;
