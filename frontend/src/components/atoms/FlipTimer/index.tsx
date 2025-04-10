@@ -14,17 +14,23 @@ const formatTime = (seconds: number): string => {
 
 const FlipTimer = ({ seconds }: FlipTimerType) => {
   const formatted = formatTime(seconds);
-  const [min1, min2, , sec1, sec2] = formatted;
+  const digits = [
+    { id: "min1", char: formatted[0] },
+    { id: "min2", char: formatted[1] },
+    { id: "colon", char: ":" },
+    { id: "sec1", char: formatted[3] },
+    { id: "sec2", char: formatted[4] },
+  ];
 
   return (
     <div className="flip-clock">
-      {[min1, min2, ":", sec1, sec2].map((char) =>
+      {digits.map(({ id, char }) =>
         char === ":" ? (
-          <div key="colon" className="flip-clock__colon">
-            :
+          <div key={id} className="flip-clock__colon">
+            {char}
           </div>
         ) : (
-          <div key={char} className="flip-clock__digit">
+          <div key={id} className="flip-clock__digit">
             {char}
           </div>
         ),

@@ -26,7 +26,7 @@ const ProgramPage = () => {
   const [timer, setTimer] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
-  // Track elapsd time and completed exercises
+  // Track elapsed time and completed exercises
   const [totalTimeElapsed, setTotalTimeElapsed] = useState(0);
   const [completedExercises, setCompletedExercises] = useState<number[]>([]);
 
@@ -47,6 +47,14 @@ const ProgramPage = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Reset the timer whenever the exercise changes
+  useEffect(() => {
+    if (currentView === "exercise") {
+      const exercise = exerciseList[currentExerciseIndex];
+      setTimer(exercise?.duration || 0);
+    }
+  }, [currentExerciseIndex, currentView, exerciseList]);
+
   useEffect(() => {
     if (
       isPaused ||
@@ -57,6 +65,7 @@ const ProgramPage = () => {
     )
       return;
 
+    // Clear any previous interval before starting a new one
     const interval = setInterval(() => {
       setTimer((prev) => {
         if (prev <= 1) {
@@ -74,9 +83,10 @@ const ProgramPage = () => {
   }, [isPaused, currentView]);
 
   const startExercise = useCallback(() => {
-    setTimer(currentExercise?.duration);
-    setCurrentView("exercise");
-  }, [currentExercise]);
+    const exercise = exerciseList[currentExerciseIndex]; // Ensure it's the latest exercise
+    setTimer(exercise?.duration || 0); // Set the timer based on the current exercise
+    setCurrentView("exercise"); // Transition to the exercise view
+  }, [currentExerciseIndex, exerciseList]);
 
   const startRest = useCallback(() => {
     setTimer(REST_DURATION);
