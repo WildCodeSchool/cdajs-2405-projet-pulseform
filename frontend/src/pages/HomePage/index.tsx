@@ -3,13 +3,12 @@ import { useNavigate } from "react-router-dom";
 
 import DoubleScreenLayout from "@components/atoms/Layout/DoubleScreenLayout";
 import MobileBodyLayout from "@components/atoms/Layout/MobileBodyLayout";
-import NavBar from "@components/molecules/NavBar";
 import { HomePageView, UserProfileView } from "./Views";
 import "./HomePage.scss";
 
 const HomePage = () => {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
-  const [currenMobiletView, setCurrentMobileView] = useState("home");
+  const [currentMobileView, setCurrentMobileView] = useState("home");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -53,19 +52,16 @@ const HomePage = () => {
             </DoubleScreenLayout>
           </>
         ) : (
-          <>
-            {currenMobiletView === "home" ? (
-              <MobileBodyLayout>
-                <HomePageView isDesktop={isDesktop} />
-              </MobileBodyLayout>
+          <MobileBodyLayout
+            handleProfileClick={handleProfileClick}
+            handleActivityClick={handleActivityClick}
+          >
+            {currentMobileView === "home" ? (
+              <HomePageView isDesktop={isDesktop} />
             ) : (
               <UserProfileView isDesktop={isDesktop} />
             )}
-            <NavBar
-              onProfileClick={handleProfileClick}
-              onActivityClick={handleActivityClick}
-            />
-          </>
+          </MobileBodyLayout>
         )}
       </section>
     </>

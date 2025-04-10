@@ -1,4 +1,3 @@
-import MobileBodyLayout from "@components/atoms/Layout/MobileBodyLayout";
 import { DashBoardView, HistoryView } from "./Views";
 
 import WeightChart from "@components/molecules/WeightChart";
@@ -20,10 +19,10 @@ const UserProfileView = ({ isDesktop }: UserProfileViewType) => {
   return (
     <div className="user-profile-view-container">
       {userById && <DashBoardView user={userById} isDesktop={isDesktop} />}
-      <MobileBodyLayout>
+      <div className="user-profile-view-bottom">
         <HistoryView /> {/* apparait onClick et remplace DashBoardView */}
         <WeightChart userId={userId} />
-      </MobileBodyLayout>
+      </div>
     </div>
   );
 };

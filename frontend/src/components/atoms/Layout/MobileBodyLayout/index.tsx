@@ -1,20 +1,24 @@
-// import NavBar from "@components/molecules/NavBar";
+import NavBar from "@components/molecules/NavBar";
 import "./MobileBodyLayout.scss";
 
 type MobileBodyLayoutType = {
   children: React.ReactNode;
-  // handleProfileClick: () => void;
-  // handleActivityClick: () => void;
+  handleProfileClick: () => void;
+  handleActivityClick: () => void;
 };
 
-const MobileBodyLayout = ({ children }: MobileBodyLayoutType) => {
+const MobileBodyLayout = ({
+  children,
+  handleActivityClick,
+  handleProfileClick,
+}: MobileBodyLayoutType) => {
   return (
     <>
       <div className="mobile-body-layout">{children}</div>
-      {/* <NavBar
+      <NavBar
         onProfileClick={handleProfileClick}
         onActivityClick={handleActivityClick}
-      /> */}
+      />
     </>
   );
 };
