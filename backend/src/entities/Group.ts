@@ -23,10 +23,6 @@ export class Group extends BaseEntity {
   @Field(() => Int)
   create_by: number;
 
-  @Column({ nullable: true })
-  @Field(() => Int)
-  deleted_by: number;
-
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   @Field(() => Date)
   created_at: Date;
@@ -37,16 +33,10 @@ export class Group extends BaseEntity {
   )
   groupLists!: GroupList[];
 
-  constructor(
-    name: string,
-    create_by: number,
-    deleted_by: number,
-    created_at: Date,
-  ) {
+  constructor(name: string, create_by: number, created_at: Date) {
     super();
     this.name = name;
     this.create_by = create_by;
-    this.deleted_by = deleted_by;
     this.created_at = created_at;
   }
 }
