@@ -5,8 +5,9 @@ exports[`ProgramCard Component > matches the snapshot 1`] = `
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <div
+      <button
         class="program-card"
+        type="button"
       >
         <img
           alt="Test Program"
@@ -24,8 +25,7 @@ exports[`ProgramCard Component > matches the snapshot 1`] = `
             >
               <span />
               <span>
-                60
-                 min
+                1 min
               </span>
             </div>
             <div
@@ -48,12 +48,13 @@ exports[`ProgramCard Component > matches the snapshot 1`] = `
             </h3>
           </div>
         </div>
-      </div>
+      </button>
     </div>
   </body>,
   "container": <div>
-    <div
+    <button
       class="program-card"
+      type="button"
     >
       <img
         alt="Test Program"
@@ -71,8 +72,7 @@ exports[`ProgramCard Component > matches the snapshot 1`] = `
           >
             <span />
             <span>
-              60
-               min
+              1 min
             </span>
           </div>
           <div
@@ -95,7 +95,7 @@ exports[`ProgramCard Component > matches the snapshot 1`] = `
           </h3>
         </div>
       </div>
-    </div>
+    </button>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],

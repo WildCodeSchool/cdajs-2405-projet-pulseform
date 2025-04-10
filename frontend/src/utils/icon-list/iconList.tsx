@@ -10,6 +10,19 @@ export const BackIcon = ({
   <Icon icon="ooui:next-rtl" color={color} fontSize={fontSize} {...props} />
 );
 
+export const CheckIcon = ({
+  color = "$primary",
+  fontSize = "1.5em",
+  ...props
+}: Omit<IconProps, "icon">) => (
+  <Icon
+    icon="lets-icons:check-fill"
+    color={color}
+    fontSize={fontSize}
+    {...props}
+  />
+);
+
 export const ClockIcon = ({
   color = "$secondary",
   fontSize = "1.5em",
@@ -25,6 +38,32 @@ export const CrossIcon = ({
 }: Omit<IconProps, "icon">) => (
   <Icon
     icon="icomoon-free:cross"
+    color={color}
+    fontSize={fontSize}
+    {...props}
+  />
+);
+
+export const EyeOffIcon = ({
+  color = "$primary",
+  fontSize = "1.5em",
+  ...props
+}: Omit<IconProps, "icon">) => (
+  <Icon
+    icon="fluent:eye-off-16-filled"
+    color={color}
+    fontSize={fontSize}
+    {...props}
+  />
+);
+
+export const EyeOnIcon = ({
+  color = "$primary",
+  fontSize = "1.5em",
+  ...props
+}: Omit<IconProps, "icon">) => (
+  <Icon
+    icon="fluent:eye-16-filled"
     color={color}
     fontSize={fontSize}
     {...props}
@@ -89,6 +128,19 @@ export const PauseIcon = ({
   />
 );
 
+export const ReturnIcon = ({
+  color = "$primary",
+  fontSize = "1.5em",
+  ...props
+}: Omit<IconProps, "icon">) => (
+  <Icon
+    icon="ic:round-arrow-back"
+    color={color}
+    fontSize={fontSize}
+    {...props}
+  />
+);
+
 export const RibbonIcon = ({
   color = "$primary",
   fontSize = "1.5em",
@@ -129,29 +181,4 @@ export const UserIcon = ({
   ...props
 }: Omit<IconProps, "icon">) => (
   <Icon icon="ph:user" color={color} fontSize={fontSize} {...props} />
-);
-
-export const EyeOffIcon = ({
-  color = "$primary",
-  fontSize = "1.5em",
-  ...props
-}: Omit<IconProps, "icon">) => (
-  <Icon
-    icon="fluent:eye-off-16-filled"
-    color={color}
-    fontSize={fontSize}
-    {...props}
-  />
-);
-export const EyeOnIcon = ({
-  color = "$primary",
-  fontSize = "1.5em",
-  ...props
-}: Omit<IconProps, "icon">) => (
-  <Icon
-    icon="fluent:eye-16-filled"
-    color={color}
-    fontSize={fontSize}
-    {...props}
-  />
 );

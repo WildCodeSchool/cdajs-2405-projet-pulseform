@@ -22,10 +22,14 @@ export class HistoriesQueries {
 
     const history: History[] = await AppDataSource.manager.find(History, {
       where: { user: { id: user_id } },
-      relations: ["user", "program"],
+      relations: ["user", "program", "program.tags"],
     });
 
-    return history;
+    if (!history.length) {
+      throw new Error("User not history");
+    }
+
+    return history.filter((h) => h.program !== null);
   }
 
   // Récupérer un historique spécifique basé sur un identifiant

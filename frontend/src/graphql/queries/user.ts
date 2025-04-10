@@ -76,3 +76,16 @@ export const GET_WEIGHT_BY_USER_ID = gql`
     }
   }
 `;
+
+export const GET_USER_ERXERCICES_FOR_CHART = gql`
+query GetHistoryByUserId($id: Float!) {
+getHistoryByUserId(user_id: $id) {
+    end_date
+    program {
+      tags {
+        name
+      }
+    }
+  }
+}
+`;

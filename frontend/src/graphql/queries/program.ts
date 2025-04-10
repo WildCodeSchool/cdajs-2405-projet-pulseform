@@ -37,7 +37,21 @@ export const GET_PROGRAM_BY_ID = gql`
       name
       description
       image
+      total_duration
+      level
       created_at
+      visibility
+      like
+      exercises {
+        id
+        name
+        description
+        duration
+        kcal_loss
+        muscle
+        level
+        img_src
+      }
       tags {
         id
         name
