@@ -84,9 +84,9 @@ function WeightChart({ userId }: { userId: number }) {
   };
 
   return (
-    <>
+    <section className="weight-chart">
       {!loading && !error && userWeight.length > 0 && (
-        <div style={{ width: 320, height: 220, position: "relative" }}>
+        <div style={{ height: 220, position: "relative" }}>
           <div
             style={{
               display: "flex",
@@ -145,7 +145,7 @@ function WeightChart({ userId }: { userId: number }) {
           </ResponsiveContainer>
         </div>
       )}
-    </>
+    </section>
   );
 }
 

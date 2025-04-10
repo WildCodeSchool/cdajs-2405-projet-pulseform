@@ -20,7 +20,6 @@ export class History extends BaseEntity {
   @ManyToOne(
     () => User,
     (user) => user.histories,
-    { eager: true },
   )
   @JoinColumn({ name: "user_id" })
   @Field(() => User)
@@ -29,9 +28,9 @@ export class History extends BaseEntity {
   @ManyToOne(
     () => Program,
     (program) => program.histories,
-    { eager: true },
   )
   @JoinColumn({ name: "program_id" })
+  @Field(() => Program)
   program!: Program;
 
   @Column({ nullable: true })
