@@ -17,6 +17,21 @@ export const CREATE_ACCOUNT_MUTATION = gql`
     createAccount(data: $data) {
       id
       email
+      username
+    }
+  }
+`;
+
+export const UPDATE_USER_MUTATION = gql`
+  mutation UpdateUser($data: UpdateUserInput!) {
+    updateUser(data: $data) {
+      id
+      email
+      username
+      birthday
+      gender
+      height
+      level
     }
   }
 `;

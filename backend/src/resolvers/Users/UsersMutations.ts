@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { User } from "../../entities/User";
 import {
-  type CreateAccountInput,
+  CreateAccountInput,
   CreateUserInput,
   UpdateUserInput,
 } from "../../inputs/UsersInput";
@@ -51,11 +51,11 @@ export class UsersMutations {
 
     // Définir le cookie sécurisé
     context.res.cookie("token", token, {
-      httpOnly: true, // Empêche l'accès via JS
+      httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 24 * 60 * 60 * 1000, // 1 jour
-      path: "/", // Le cookie est valide pour toutes les routes
+      maxAge: 24 * 60 * 60 * 1000,
+      path: "/",
     });
 
     return { user };
@@ -251,7 +251,7 @@ export class UsersMutations {
 
   @Mutation(() => User)
   async createAccount(
-    @Arg("data") data: CreateAccountInput,
+    @Arg("data", () => CreateAccountInput) data: CreateAccountInput,
     @Ctx() context: MyContext,
   ): Promise<User> {
     const { User: UserModel } = context.models;
@@ -280,12 +280,12 @@ export class UsersMutations {
 
     const newUser = await UserModel.create({
       email: data.email,
+      username: data.username,
       password: hashedPassword,
-      username: "", // valeur temporaire
-      description: "", // valeur temporaire
+      description: "",
       image: "",
       created_at: new Date(),
-      role: "user", // ou MemberRoleEnum.USER
+      role: "user",
       level: null,
       birthday: null,
       gender: null,

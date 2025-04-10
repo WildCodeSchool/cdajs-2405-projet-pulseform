@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 import BasicButton from "@components/atoms/BasicButton";
 
@@ -8,6 +9,7 @@ import type { ExitSignUpStepProps } from "./ExitSignUpStep.type";
 
 function ExitSignUpStep({ isCompleted = false }: ExitSignUpStepProps) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <section className="exit-sign-up-step">
@@ -25,7 +27,10 @@ function ExitSignUpStep({ isCompleted = false }: ExitSignUpStepProps) {
           {t("COMPLITED_NEXT_TIME_PROFILE")}
         </p>
       )}
-      <BasicButton className="exit-sign-up-step__btn">
+      <BasicButton
+        className="exit-sign-up-step__btn"
+        onClick={() => navigate("/home")}
+      >
         {t("DISCOVERY_PROGRAMS")}
       </BasicButton>
     </section>

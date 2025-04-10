@@ -26,7 +26,19 @@ export const ME_QUERY = gql`
     me {
       id
       email
+      username
+      description
+      image
+      created_at
       role
+      level
+      birthday
+      height
+      gender
+      weights {
+        month
+        weight
+      }
     }
   }
 `;
