@@ -12,13 +12,13 @@ services:
     networks:
       - staging
     ports:
-      - "${PORT_DB}:5432"
+      - "${PORT_DB}:${PORT_DB}"
 
   adminer:
     image: ${IMAGE_ADMINER}
     restart: unless-stopped
     ports:
-      - "${PORT_ADMINER}:8080"
+      - "${PORT_ADMINER}:${PORT_ADMINER}"
     networks:
       - staging
 
@@ -26,9 +26,10 @@ services:
     image: ${IMAGE_BACKEND}
     restart: unless-stopped
     ports:
-      - "${PORT_BACK}:4000"
-    command: npm run start
+      - "${PORT_BACK}:${PORT_BACK}"
+    command: ["sh", "-c", "npm run migration:run && npm run start"]
     environment:
+      NODE_ENV: production
       JWT_SECRET: ${JWT_SECRET}
       POSTGRES_PASSWORD: ${PASSWORD}
       POSTGRES_USERNAME: ${USERNAME}
@@ -43,7 +44,7 @@ services:
       image: ${IMAGE_FRONTEND}
       restart: unless-stopped
       ports:
-          - "${PORT_FRONT}:3000"
+          - "${PORT_FRONT}:${PORT_FRONT}"
       command: npm run dev
       environment:
         VITE_PORT_FRONT: ${VITE_PORT_FRONT}
@@ -58,7 +59,7 @@ services:
     image: ${IMAGE_TRANSLATION}
     restart: unless-stopped
     ports:
-      - "${PORT_TRAD}:8051"
+      - "${PORT_TRAD}:${PORT_TRAD}"
     command: npm run start
     environment:
       PORT_FRONT: ${PORT_FRONT}

@@ -1,11 +1,48 @@
 services:
+
+  db:
+    image: ${IMAGE_DB}
+    restart: unless-stopped
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: ${PASSWORD}
+      POSTGRES_USER: ${USERNAME}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${PORT_DB}:${PORT_DB}"
+    volumes:
+        - pgdata:/var/lib/postgresql/data
+    healthcheck:
+        test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+        interval: 10s
+        retries: 5
+        start_period: 30s
+        timeout: 5s
+
+  seeder:
+    build: ${IMAGE_SEEDER}
+    restart: "no"
+    depends_on:
+      - db
+    command: ["sh", "-c", "until nc -z -v -w30 db 5432; do echo 'Waiting for database...'; sleep 5; done; npm run seed && touch /tmp/seed_done"]
+    environment:
+      JWT_SECRET: ${JWT_SECRET}
+      POSTGRES_PASSWORD: ${PASSWORD}
+      POSTGRES_USERNAME: ${USERNAME}
+      POSTGRES_DB_NAME: ${DB_NAME}
+      POSTGRES_HOST: ${HOST}
+      SERVER_URL: ${SERVER_URL}
+
   back:
-    build: ./backend
+    depends_on:
+      - seeder
+    build: ${IMAGE_BACKEND}
     restart: unless-stopped
     ports:
-      - "${PORT_BACK}:4000"
+      - "${PORT_BACK}:${PORT_BACK}"
     volumes:
       - ./backend:/app
+    #command: ["sh", "-c", "while [ ! -f /tmp/seed_done ]; do echo 'Waiting for seeder to finish...'; sleep 1; done; npm run start"]
     environment:
       # le serveur doit se connecter sur localhost
       WDS_SOCKET: 127.0.0.1 # active la lib chokidar pour surveiller les changements
@@ -18,30 +55,17 @@ services:
       PORT_FRONT: ${PORT_FRONT}
       SERVER_URL: ${SERVER_URL}
 
-  db:
-    image: postgres:16
-    restart: unless-stopped
-    shm_size: 128mb
-    environment:
-      POSTGRES_PASSWORD: ${PASSWORD}
-      POSTGRES_USER: ${USERNAME}
-      POSTGRES_DB: ${DB_NAME}
-    ports:
-      - 5432:5432
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-
   adminer:
-    image: adminer
+    image: ${IMAGE_ADMINER}
     restart: always
     ports:
-      - 8080:8080
+      - "${PORT_ADMINER}:${PORT_ADMINER}"
 
   client:
-      build: ./frontend
+      build: ${IMAGE_FRONTEND}
       restart: unless-stopped
       ports: 
-          - "${PORT_FRONT}:3000"
+          - "${PORT_FRONT}:${PORT_FRONT}"
       command: npm run dev
       volumes:
       - ./frontend/src:/app/src
@@ -56,15 +80,16 @@ services:
           WATCHPACK_POLLING: true
           VITE_PORT_FRONT: ${VITE_PORT_FRONT}
           VITE_PORT_BACK: ${VITE_PORT_BACK}
-          VITE_PORT_TRAD: ${VITE_PORT_TRAD} 
+          VITE_PORT_TRAD: ${VITE_PORT_TRAD}
           VITE_SERVER_URL: ${VITE_SERVER_URL}
+          VITE_URL_BACK: ${VITE_URL_BACK}
           VITE_TRANSLATION_SERVER_URL: ${VITE_TRANSLATION_SERVER_URL}
 
   translation:
-    build: ./translation-server
+    build: ${IMAGE_TRANSLATION}
     restart: unless-stopped
     ports:
-      - "${PORT_TRAD}:8051"
+      - "${PORT_TRAD}:${PORT_TRAD}"
     volumes:
       - ./translation-server:/app
     environment:

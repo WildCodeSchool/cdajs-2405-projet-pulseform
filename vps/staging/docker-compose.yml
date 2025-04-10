@@ -12,7 +12,7 @@ services:
     networks:
       - staging
     ports:
-      - "${PORT_DB}:5432"
+      - "${PORT_DB}:${PORT_DB}"
 
   seeder:
     image: ${IMAGE_BACKEND}
@@ -33,7 +33,7 @@ services:
     image: ${IMAGE_ADMINER}
     restart: unless-stopped
     ports:
-      - "${PORT_ADMINER}:8080"
+      - "${PORT_ADMINER}:${PORT_ADMINER}"
     networks:
       - staging
 
@@ -41,9 +41,10 @@ services:
     image: ${IMAGE_BACKEND}
     restart: unless-stopped
     ports:
-      - "${PORT_BACK}:4000"
+      - "${PORT_BACK}:${PORT_BACK}"
     command: npm run start
     environment:
+      NODE_ENV: staging
       JWT_SECRET: ${JWT_SECRET}
       POSTGRES_PASSWORD: ${PASSWORD}
       POSTGRES_USERNAME: ${USERNAME}
@@ -51,7 +52,6 @@ services:
       PORT_BACK: ${PORT_BACK}
       PORT_FRONT: ${PORT_FRONT}
       SERVER_URL: ${SERVER_URL}
-      VITE_URL_FRONT: ${VITE_URL_FRONT}
     networks:
       - staging 
 
@@ -59,7 +59,7 @@ services:
       image: ${IMAGE_FRONTEND}
       restart: unless-stopped
       ports:
-          - "${PORT_FRONT}:3000"
+          - "${PORT_FRONT}:${PORT_FRONT}"
       command: npm run dev
       environment:
         VITE_PORT_FRONT: ${VITE_PORT_FRONT}
@@ -75,7 +75,7 @@ services:
     image: ${IMAGE_TRANSLATION}
     restart: unless-stopped
     ports:
-      - "${PORT_TRAD}:8051"
+      - "${PORT_TRAD}:${PORT_TRAD}"
     command: npm run start
     environment:
       PORT_FRONT: ${PORT_FRONT}

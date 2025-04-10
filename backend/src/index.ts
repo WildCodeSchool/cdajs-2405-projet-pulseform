@@ -22,8 +22,8 @@ app.use(
     origin: (origin, callback) => {
       const allowedOrigins = [
         `${process.env.SERVER_URL}:${process.env.PORT_FRONT}`,
-        "https://staging.052024-jaune-4.wns.wilders.dev",
-        "https:/052024-jaune-4.wns.wilders.dev",
+        `${process.env.SERVER_URL_STAGING}`,
+        `${process.env.SERVER_URL_PRODUCTION}`,
       ];
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
@@ -57,7 +57,6 @@ const getUser = async (req: Request): Promise<User | null> => {
 
 const startServer = async () => {
   await AppDataSource.initialize();
-  // await AppDataSource.synchronize(true);
 
   const schema = await buildSchema({
     resolvers,

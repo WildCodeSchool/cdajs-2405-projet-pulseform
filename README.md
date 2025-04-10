@@ -9,15 +9,7 @@ In order to work on the project, you should pull it and fetch dependencies befor
 
 ## Development
 ### Scripts preparation
-The first time you open the project, you need to prepare scripts in order to launch the app.
-
-In the main folder, copy and paste the `start.copy.sh` script.
-In the start.sh file, replace the values PASSWORD, USERNAME and DB_NAME by values you need to ask to project owners, and then launch the script:
-```
-bash start.sh
-```
-
-
+To grand user privileges in db :
 In the backend folder, copy and paste the `init-db.copy.sh` script.
 In the init-db.sh file, replace the values <postgres-db-docker>, <name-user> and <password> by values you need to ask to project owners, and then launch the script:
 ```
@@ -27,9 +19,9 @@ bash inti-db.sh
 
 
 ### Running the app (backend, frontend, bdd)
-To run the backend app, launch the script start.sh in the main folder
+To run the app, launch the script start.sh in the main folder
 ```
-./start.sh
+npm run pulse
 ```
 
 

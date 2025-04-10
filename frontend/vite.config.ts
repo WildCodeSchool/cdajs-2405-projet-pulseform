@@ -29,8 +29,10 @@ export default defineConfig({
       "/graphql": `${process.env.VITE_URL_BACK}/graphql`,
     },
     allowedHosts: [
-      "052024-jaune-4.wns.wilders.dev",
-      "staging-apollo.052024-jaune-4.wns.wilders.dev",
+      `${process.env.SERVER_URL_STAGING}`,
+      `${process.env.SERVER_URL_STAGING_APOLLO}`,
+      `${process.env.SERVER_URL_PRODUCTION}`,
+      `${process.env.SERVER_URL_PRODUCTION_APOLLO}`,
     ],
   },
   resolve: {

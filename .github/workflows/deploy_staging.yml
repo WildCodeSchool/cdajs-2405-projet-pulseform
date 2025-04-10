@@ -76,7 +76,7 @@ jobs:
           cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-frontend:cache
           cache-to: type=inline
       
-      # Étape 9 : Construire et pousser l'image Docker du serveur de tranduction
+      # Étape 9 : Construire et pousser l'image Docker du serveur de traduction
       - name: Build and push Translation Docker image
         uses: docker/build-push-action@v4
         with:
@@ -110,7 +110,7 @@ jobs:
             docker compose -f docker-compose.yml pull &&
             docker compose -f docker-compose.yml up -d
           "
-
+      # Étape 12 : Nettoyer le serveur
       - name: Clean up Docker on staging Server
         run: |
           ssh -o StrictHostKeyChecking=no -T -p 2269 wns_student@${{ secrets.SERVER_IP }} "
