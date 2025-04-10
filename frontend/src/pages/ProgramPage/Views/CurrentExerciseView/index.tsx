@@ -1,57 +1,14 @@
-// import ExerciseStepsLayout from "@components/atoms/ExerciseStepsLayout";
-// import type { Exercise } from "@graphql/__generated__/schema";
-
-// import "./CurrentExerciseView.scss";
-// import ProgressBar from "@components/atoms/ProgressBar";
-
-// type CurrentExerciseViewType = {
-//   exercise: Exercise;
-// };
-
-// const CurrentExerciseView = ({ exercise }: CurrentExerciseViewType) => {
-//   return (
-//     <ExerciseStepsLayout
-//       header={
-//         <div className="current-exercise-view__header">
-//           <span>{exercise.name}</span>
-//         </div>
-//       }
-//       body={
-//         <div className="current-exercise-view__body">
-//           <img
-//             src={exercise.img_src || ""}
-//             alt={exercise.name}
-//             className="current-exercise-view-image"
-//           />
-//         </div>
-//       }
-//       footer={
-//         <div className="current-exercise-view__footer">
-//           <span>{exercise.description}</span>
-//           <span>{exercise.duration} seconds</span>
-//           <ProgressBar
-//             duration={exercise.duration}
-//             onComplete={() => {
-//               console.log("Exercise completed");
-//             }}
-//           />
-//         </div>
-//       }
-//     />
-//   );
-// };
-
-// export default CurrentExerciseView;
-
 import ExerciseStepsLayout from "@components/atoms/ExerciseStepsLayout";
 import ProgressBar from "@components/atoms/ProgressBar";
 import type { Exercise } from "@graphql/__generated__/schema";
 
+import FlipTimer from "@components/atoms/FlipTimer";
 import "./CurrentExerciseView.scss";
 
 type CurrentExerciseViewProps = {
   exercise: Exercise;
   timer: number;
+  duration: number;
   onNext: () => void;
   onBack: () => void;
   onPauseToggle: () => void;
@@ -63,6 +20,7 @@ type CurrentExerciseViewProps = {
 const CurrentExerciseView = ({
   exercise,
   timer,
+  duration,
   onNext,
   onBack,
   onPauseToggle,
@@ -70,29 +28,31 @@ const CurrentExerciseView = ({
   currentIndex,
   totalExercises,
 }: CurrentExerciseViewProps) => {
+  console.log("exercise", exercise);
   return (
     <ExerciseStepsLayout
       header={
         <div className="current-exercise-view__header">
-          <span>
-            Exercise {currentIndex + 1} / {totalExercises}
-          </span>
+          <span>{exercise?.name}</span>
         </div>
       }
       body={
         <div className="current-exercise-view__body">
           <img
             src={exercise.img_src || ""}
-            alt={exercise.name}
-            className="current-exercise-view-image"
+            alt={exercise?.name}
+            className="current-exercise-view__body-image"
           />
         </div>
       }
       footer={
         <div className="current-exercise-view__footer">
-          <span>{exercise.name}</span>
+          <span>
+            Exercise {currentIndex + 1} / {totalExercises}
+          </span>
+          <FlipTimer seconds={timer} />
           <ProgressBar
-            duration={exercise.duration}
+            duration={duration}
             timeLeft={timer}
             onNext={onNext}
             onBack={onBack}
