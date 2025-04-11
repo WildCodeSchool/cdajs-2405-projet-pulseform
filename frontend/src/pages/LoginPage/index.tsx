@@ -53,11 +53,6 @@ function LoginPage() {
         alt={t("BLOB_ALT_TEXT")}
       />
       <section className="login-page__form-section">
-        <div className="login-page__test-program-container">
-          <button type="button" className="login-page__test-program-button">
-            {t("TEST_PROGRAM")}
-          </button>
-        </div>
         <div className="login-page__image-side">
           <LoginImage size="desktop" />
         </div>
