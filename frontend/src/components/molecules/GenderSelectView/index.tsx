@@ -22,6 +22,7 @@ import girl2 from "@assets/images/girl2.svg";
 import men from "@assets/images/men.svg";
 import noAnswerSex from "@assets/images/no-answer-sex.svg";
 import otherSex from "@assets/images/other-sex.svg";
+import CompleteLaterButton from "../CompleteLaterButton/CompleteLaterButton";
 
 function GenderSelectView() {
   const [isExit, setIsExit] = useState(false);
@@ -199,6 +200,7 @@ function GenderSelectView() {
                 <BasicButton type="submit" disabled={currentSlideId === null}>
                   {t("NEXT")}
                 </BasicButton>
+                <CompleteLaterButton />
               </form>
             </BodyStepQuestions>
           </section>

@@ -61,6 +61,19 @@ export class UsersMutations {
     return { user };
   }
 
+  // Delete the cookie
+  @Mutation(() => Boolean)
+  async logout(@Ctx() context: MyContext): Promise<boolean> {
+    context.res.clearCookie("token", {
+      path: "/",
+      httpOnly: true,
+      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production",
+    });
+
+    return true;
+  }
+
   // Mutation pour créer un nouvel utilisateur
   @Mutation(() => User)
   async createUser(
