@@ -72,6 +72,14 @@ export class Exercice extends BaseEntity {
 	@Field(() => [Program], { nullable: true })
 	programs?: Program[];
 
+
+	@ManyToMany(
+		() => Exercice,
+		(exercice) => exercice.listOfSubExercices,
+	)
+	//@Field(() => [Program], { nullable: true })
+	listOfSubExercices?: Exercice[];
+
 	constructor(
 		name: string,
 		description: string | null,
@@ -89,5 +97,15 @@ export class Exercice extends BaseEntity {
 		this.muscle = muscle;
 		this.level = level;
 		this.img_src = img_src;
+	}
+
+	getTotalActivityTimeMinutes() {
+		let totalTime = this.duration;
+		if (this.listOfSubExercices) {
+			for (const ex of this.listOfSubExercices) {
+				totalTime += ex.getTotalActivityTimeMinutes();
+			}
+		}
+		return totalTime;
 	}
 }
