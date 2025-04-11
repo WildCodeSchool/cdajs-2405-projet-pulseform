@@ -19,6 +19,7 @@ export const convertSecondsToMinRounded = (
 
 // Converts seconds to a "XXHXX" format showing hours and minutes.
 export const convertSecondsToHoursMin = (seconds: number): string => {
+  if (seconds < 60) return "0H00";
   const hours = Math.floor(seconds / 3600); // Get hours (3600 seconds in 1 hour)
   const minutes = Math.floor((seconds % 3600) / 60); // Get remaining minutes after hours are removed
 
