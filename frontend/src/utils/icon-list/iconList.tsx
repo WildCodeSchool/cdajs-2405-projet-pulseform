@@ -128,6 +128,19 @@ export const PauseIcon = ({
   />
 );
 
+export const PlayIcon = ({
+  color = "$primary",
+  fontSize = "1.5em",
+  ...props
+}: Omit<IconProps, "icon">) => (
+  <Icon
+    icon="iconoir:play-solid"
+    color={color}
+    fontSize={fontSize}
+    {...props}
+  />
+);
+
 export const ReturnIcon = ({
   color = "$primary",
   fontSize = "1.5em",

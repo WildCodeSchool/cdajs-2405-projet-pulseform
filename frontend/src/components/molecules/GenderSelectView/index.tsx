@@ -1,3 +1,4 @@
+import { useMutation } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { EffectCoverflow } from "swiper/modules";
@@ -8,9 +9,14 @@ import BodyStepQuestions from "@components/molecules/BodyStepQuestions";
 import ExitSignUpStep from "@components/molecules/ExitSignUpStep";
 import FitnessLevelSelectView from "@components/molecules/FitnessLevelSelectView";
 
+import { useUser } from "@context/UserContext";
+import { FitnessLevel, MemberRole } from "@graphql/__generated__/schema";
+import { UPDATE_USER_MUTATION } from "@graphql/mutations/user";
+
 import "./GenderSelectView.scss";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
+
 import blueCross from "@assets/icons/blue-cross.svg";
 import girl2 from "@assets/images/girl2.svg";
 import men from "@assets/images/men.svg";
@@ -24,14 +30,8 @@ function GenderSelectView() {
   const [isNextStep, setIsNextStep] = useState(false);
 
   const { t } = useTranslation();
-
-  function handleExit() {
-    setIsExit(true);
-  }
-
-  function handleNextStep() {
-    setIsNextStep(true);
-  }
+  const { user } = useUser();
+  const [updateUser] = useMutation(UPDATE_USER_MUTATION);
 
   const slides = [
     { id: 1, content: "GIRL", src: girl2 },
@@ -40,15 +40,64 @@ function GenderSelectView() {
     { id: 4, content: "NOT_WISH_TO_ANSWER", src: noAnswerSex },
   ];
 
-  type Swiper = {
+  type SwiperType = {
     activeIndex: number;
   };
 
-  const handleSlideChange = (swiper: Swiper): void => {
-    const activeIndex = swiper.activeIndex; // Index de la diapositive visible au centre
-    const activeSlideId = slides[activeIndex]?.id || null; // Récupère l'ID correspondant
+  const handleSlideChange = (swiper: SwiperType): void => {
+    const activeIndex = swiper.activeIndex;
+    const activeSlideId = slides[activeIndex]?.id || null;
     setCurrentSlideId(activeSlideId);
   };
+
+  function handleExit() {
+    setIsExit(true);
+  }
+
+  async function handleNextStep() {
+    if (!user || currentSlideId === null) return;
+
+    const genderMap = {
+      1: "FEMALE",
+      2: "MALE",
+      3: "OTHER",
+      4: "NOT_WISH_TO_ANSWER",
+    };
+
+    const gender = genderMap[currentSlideId as keyof typeof genderMap];
+
+    try {
+      const weights =
+        user.weights?.map(({ month, weight }) => ({
+          month,
+          weight,
+        })) ?? [];
+
+      await updateUser({
+        variables: {
+          data: {
+            id: Number(user.id),
+            username: user.username,
+            email: user.email,
+            password: "",
+            description: user.description ?? "",
+            image: user.image ?? "",
+            role: user.role ?? MemberRole.User,
+            created_at: new Date(user.created_at),
+            level: user.level ?? FitnessLevel.Beginner,
+            gender,
+            birthday: user.birthday ?? new Date(),
+            height: user.height ?? 170,
+            weights,
+          },
+        },
+      });
+
+      setIsNextStep(true);
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour du genre :", error);
+    }
+  }
 
   useEffect(() => {
     function handleResize() {
@@ -85,8 +134,8 @@ function GenderSelectView() {
             <Swiper
               className="gender-select-view__swiper-container"
               effect="coverflow"
-              grabCursor={true}
-              centeredSlides={true}
+              grabCursor
+              centeredSlides
               slidesPerView={2}
               spaceBetween={spaceBetween}
               onSlideChange={handleSlideChange}
@@ -118,6 +167,7 @@ function GenderSelectView() {
               className="gender-select-view__btn"
               type="button"
               onClick={handleNextStep}
+              disabled={currentSlideId === null}
             >
               {t("NEXT")}
             </BasicButton>
@@ -128,48 +178,27 @@ function GenderSelectView() {
               questionLabel={t("YOUR_ARE")}
               ctaExit={handleExit}
             >
-              <form className="gender-select-view-d__form" action="">
-                <BasicButton
-                  typeButton="white"
-                  type="button"
-                  onClick={() => setCurrentSlideId(1)}
-                  hasFocus
-                >
-                  {t("GIRL")}
-                </BasicButton>
-                <BasicButton
-                  typeButton="white"
-                  type="button"
-                  onClick={() => setCurrentSlideId(2)}
-                  hasFocus
-                >
-                  {t("MEN")}
-                </BasicButton>
-                <BasicButton
-                  typeButton="white"
-                  onClick={() => setCurrentSlideId(3)}
-                  hasFocus
-                >
-                  {t("OTHER")}
-                </BasicButton>
-                <BasicButton
-                  typeButton="white"
-                  type="button"
-                  onClick={() => setCurrentSlideId(4)}
-                  hasFocus
-                >
-                  {t("NOT_WISH_TO_ANSWER")}
-                </BasicButton>
-                <BasicButton
-                  type="submit"
-                  onClick={handleNextStep}
-                  disabled={currentSlideId === null}
-                >
+              <form
+                className="gender-select-view-d__form"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleNextStep();
+                }}
+              >
+                {slides.map((slide) => (
+                  <BasicButton
+                    key={slide.id}
+                    typeButton="white"
+                    type="button"
+                    onClick={() => setCurrentSlideId(slide.id)}
+                    hasFocus
+                  >
+                    {t(slide.content)}
+                  </BasicButton>
+                ))}
+                <BasicButton type="submit" disabled={currentSlideId === null}>
                   {t("NEXT")}
                 </BasicButton>
-                <p style={{ color: "white" }}>
-                  Diapositive active : {currentSlideId || 1}
-                </p>
               </form>
             </BodyStepQuestions>
           </section>

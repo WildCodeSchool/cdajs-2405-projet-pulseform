@@ -80,6 +80,19 @@ exports[`SignUpPage > renders the SignUp Page 1`] = `
               class="input-field-wrapper"
             >
               <input
+                aria-label="USERNAME"
+                aria-required="true"
+                class="input__login-page"
+                name="username"
+                placeholder="USERNAME"
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              class="input-field-wrapper"
+            >
+              <input
                 aria-label="PASSWORD"
                 aria-required="true"
                 class="input__login-page"
@@ -232,6 +245,19 @@ exports[`SignUpPage > renders the SignUp Page 1`] = `
               name="email"
               placeholder="EMAIL"
               type="email"
+              value=""
+            />
+          </div>
+          <div
+            class="input-field-wrapper"
+          >
+            <input
+              aria-label="USERNAME"
+              aria-required="true"
+              class="input__login-page"
+              name="username"
+              placeholder="USERNAME"
+              type="text"
               value=""
             />
           </div>

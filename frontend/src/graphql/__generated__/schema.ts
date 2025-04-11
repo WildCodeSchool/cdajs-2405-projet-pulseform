@@ -41,6 +41,12 @@ export type AuthPayload = {
   user: User;
 };
 
+export type CreateAccountInput = {
+  email: Scalars["String"]["input"];
+  password: Scalars["String"]["input"];
+  username: Scalars["String"]["input"];
+};
+
 export type CreateExerciseInput = {
   description?: InputMaybe<Scalars["String"]["input"]>;
   duration: Scalars["Int"]["input"];
@@ -59,10 +65,12 @@ export type CreateGroupInput = {
 };
 
 export type CreateHistoryInput = {
+  completed_exercises?: InputMaybe<Scalars["Float"]["input"]>;
   end_date: Scalars["DateTimeISO"]["input"];
   program_id: Scalars["Float"]["input"];
   start_date: Scalars["DateTimeISO"]["input"];
   total_kcal_loss: Scalars["Float"]["input"];
+  total_time_spent?: InputMaybe<Scalars["Float"]["input"]>;
   user_id: Scalars["Float"]["input"];
 };
 
@@ -175,7 +183,9 @@ export type History = {
   id: Scalars["ID"]["output"];
   program: Program;
   start_date?: Maybe<Scalars["DateTimeISO"]["output"]>;
+  total_completed_exercises?: Maybe<Scalars["Int"]["output"]>;
   total_kcal_loss?: Maybe<Scalars["Int"]["output"]>;
+  total_time_spent?: Maybe<Scalars["Int"]["output"]>;
   user: User;
 };
 
@@ -211,6 +221,7 @@ export type Mutation = {
   addTag: Tag;
   addUserToGroup: GroupList;
   addWeight: Array<Weight>;
+  createAccount: User;
   createExercise: Exercise;
   createGroup: Group;
   createUser: User;
@@ -257,6 +268,10 @@ export type MutationAddUserToGroupArgs = {
 export type MutationAddWeightArgs = {
   id: Scalars["Float"]["input"];
   weight: Scalars["Float"]["input"];
+};
+
+export type MutationCreateAccountArgs = {
+  data: CreateAccountInput;
 };
 
 export type MutationCreateExerciseArgs = {
@@ -581,7 +596,10 @@ export type User = {
   password: Scalars["String"]["output"];
   role: MemberRole;
   tags?: Maybe<Array<Tag>>;
+  total_completed_exercises: Scalars["Int"]["output"];
+  total_time_spent: Scalars["Int"]["output"];
   username: Scalars["String"]["output"];
+  weights?: Maybe<Array<Weight>>;
 };
 
 export type Weight = {
@@ -596,6 +614,31 @@ export type WeightInput = {
   weight: Scalars["Float"]["input"];
 };
 
+export type AddHistoryMutationVariables = Exact<{
+  data: CreateHistoryInput;
+}>;
+
+export type AddHistoryMutation = {
+  __typename?: "Mutation";
+  addHistory: {
+    __typename?: "History";
+    id: string;
+    total_kcal_loss?: number | null;
+    total_completed_exercises?: number | null;
+    total_time_spent?: number | null;
+    start_date?: Date | null;
+    end_date?: Date | null;
+    user: {
+      __typename?: "User";
+      id: string;
+      username: string;
+      total_completed_exercises: number;
+      total_time_spent: number;
+    };
+    program: { __typename?: "Program"; id: string; name: string };
+  };
+};
+
 export type LoginMutationVariables = Exact<{
   email: Scalars["String"]["input"];
   password: Scalars["String"]["input"];
@@ -606,6 +649,38 @@ export type LoginMutation = {
   login: {
     __typename?: "AuthPayload";
     user: { __typename?: "User"; id: string; username: string; email: string };
+  };
+};
+
+export type CreateAccountMutationVariables = Exact<{
+  data: CreateAccountInput;
+}>;
+
+export type CreateAccountMutation = {
+  __typename?: "Mutation";
+  createAccount: {
+    __typename?: "User";
+    id: string;
+    email: string;
+    username: string;
+  };
+};
+
+export type UpdateUserMutationVariables = Exact<{
+  data: UpdateUserInput;
+}>;
+
+export type UpdateUserMutation = {
+  __typename?: "Mutation";
+  updateUser: {
+    __typename?: "User";
+    id: string;
+    email: string;
+    username: string;
+    birthday?: Date | null;
+    gender?: string | null;
+    height?: number | null;
+    level?: FitnessLevel | null;
   };
 };
 
@@ -715,7 +790,20 @@ export type MeQuery = {
     __typename?: "User";
     id: string;
     email: string;
+    username: string;
+    description: string;
+    image?: string | null;
+    created_at: Date;
     role: MemberRole;
+    level?: FitnessLevel | null;
+    birthday?: Date | null;
+    height?: number | null;
+    gender?: string | null;
+    weights?: Array<{
+      __typename?: "Weight";
+      month: string;
+      weight: number;
+    }> | null;
   } | null;
 };
 
@@ -791,6 +879,71 @@ export type GetHistoryByUserIdQuery = {
   }>;
 };
 
+export const AddHistoryDocument = gql`
+    mutation addHistory($data: CreateHistoryInput!) {
+  addHistory(data: $data) {
+    id
+    user {
+      id
+      username
+      total_completed_exercises
+      total_time_spent
+    }
+    program {
+      id
+      name
+    }
+    total_kcal_loss
+    total_completed_exercises
+    total_time_spent
+    start_date
+    end_date
+  }
+}
+    `;
+export type AddHistoryMutationFn = Apollo.MutationFunction<
+  AddHistoryMutation,
+  AddHistoryMutationVariables
+>;
+
+/**
+ * __useAddHistoryMutation__
+ *
+ * To run a mutation, you first call `useAddHistoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddHistoryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addHistoryMutation, { data, loading, error }] = useAddHistoryMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useAddHistoryMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    AddHistoryMutation,
+    AddHistoryMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<AddHistoryMutation, AddHistoryMutationVariables>(
+    AddHistoryDocument,
+    options,
+  );
+}
+export type AddHistoryMutationHookResult = ReturnType<
+  typeof useAddHistoryMutation
+>;
+export type AddHistoryMutationResult =
+  Apollo.MutationResult<AddHistoryMutation>;
+export type AddHistoryMutationOptions = Apollo.BaseMutationOptions<
+  AddHistoryMutation,
+  AddHistoryMutationVariables
+>;
 export const LoginDocument = gql`
     mutation login($email: String!, $password: String!) {
   login(email: $email, password: $password) {
@@ -842,6 +995,114 @@ export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<
   LoginMutation,
   LoginMutationVariables
+>;
+export const CreateAccountDocument = gql`
+    mutation CreateAccount($data: CreateAccountInput!) {
+  createAccount(data: $data) {
+    id
+    email
+    username
+  }
+}
+    `;
+export type CreateAccountMutationFn = Apollo.MutationFunction<
+  CreateAccountMutation,
+  CreateAccountMutationVariables
+>;
+
+/**
+ * __useCreateAccountMutation__
+ *
+ * To run a mutation, you first call `useCreateAccountMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAccountMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAccountMutation, { data, loading, error }] = useCreateAccountMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateAccountMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateAccountMutation,
+    CreateAccountMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    CreateAccountMutation,
+    CreateAccountMutationVariables
+  >(CreateAccountDocument, options);
+}
+export type CreateAccountMutationHookResult = ReturnType<
+  typeof useCreateAccountMutation
+>;
+export type CreateAccountMutationResult =
+  Apollo.MutationResult<CreateAccountMutation>;
+export type CreateAccountMutationOptions = Apollo.BaseMutationOptions<
+  CreateAccountMutation,
+  CreateAccountMutationVariables
+>;
+export const UpdateUserDocument = gql`
+    mutation UpdateUser($data: UpdateUserInput!) {
+  updateUser(data: $data) {
+    id
+    email
+    username
+    birthday
+    gender
+    height
+    level
+  }
+}
+    `;
+export type UpdateUserMutationFn = Apollo.MutationFunction<
+  UpdateUserMutation,
+  UpdateUserMutationVariables
+>;
+
+/**
+ * __useUpdateUserMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserMutation, { data, loading, error }] = useUpdateUserMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateUserMutation,
+    UpdateUserMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(
+    UpdateUserDocument,
+    options,
+  );
+}
+export type UpdateUserMutationHookResult = ReturnType<
+  typeof useUpdateUserMutation
+>;
+export type UpdateUserMutationResult =
+  Apollo.MutationResult<UpdateUserMutation>;
+export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<
+  UpdateUserMutation,
+  UpdateUserMutationVariables
 >;
 export const GetAllExercisesDocument = gql`
     query getAllExercises {
@@ -1224,7 +1485,19 @@ export const MeDocument = gql`
   me {
     id
     email
+    username
+    description
+    image
+    created_at
     role
+    level
+    birthday
+    height
+    gender
+    weights {
+      month
+      weight
+    }
   }
 }
     `;

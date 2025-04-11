@@ -16,6 +16,7 @@ function NavBar({ onProfileClick, onActivityClick }: NavBarType) {
         onClick={() => {
           onActivityClick();
         }}
+        className="nav-bar__button"
       />
       <UserIcon
         color="#fffffc"
@@ -23,6 +24,7 @@ function NavBar({ onProfileClick, onActivityClick }: NavBarType) {
         onClick={() => {
           onProfileClick();
         }}
+        className="nav-bar__button"
       />
     </div>
   );
