@@ -24,7 +24,6 @@
   "EXERCISES": "Exercises",
   "EXERCISE": "Exercise",
   "EXERCISE_TYPE_DISTRIBUTION": "Distribution of exercise types",
-  "EXERCISES": "Exercises",
   "FEB": "Feb",
   "FINISHED_PROGRAM_MESSAGE": "Well done ! You finished your program !",
   "FLEXIBILITY": "Flexibility",
@@ -84,5 +83,6 @@
   "WEIGHT": "Weight",
   "WELCOME": "Welcome to PulseForm!",
   "YOUR_ARE": "You are ...",
-  "YOUR_DID_NOT_HAVE_ACCESS": "It looks like you don't have the access to view this page !"
+  "YOUR_DID_NOT_HAVE_ACCESS": "It looks like you don't have the access to view this page !",
+  "MY_PROGRAMS": "Consult my programs"
 }

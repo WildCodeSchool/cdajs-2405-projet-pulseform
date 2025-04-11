@@ -115,11 +115,6 @@ function UserCredentialsView() {
         alt={t("BLOB_ALT_TEXT")}
         aria-hidden="true"
       />
-      <div className="signup-page__test-program-container">
-        <button type="button" className="signup-page__test-program-button">
-          {t("TEST_PROGRAM")}
-        </button>
-      </div>
       <section className="signup-page__form-section">
         <div className="signup-page__image-side desktop-only">
           <img
