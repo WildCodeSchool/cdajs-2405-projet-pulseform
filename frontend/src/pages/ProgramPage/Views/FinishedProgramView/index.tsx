@@ -9,6 +9,7 @@ import ExerciseStepsLayout from "@components/atoms/ExerciseStepsLayout";
 import girlWithBall from "@assets/images/girl-standing-ball.svg";
 import { convertSecondsToMinSec } from "@utils/timeUtils";
 import "./FinishedProgramView.scss";
+import { ToastContainer } from "react-toastify";
 
 type FinishedProgramViewType = {
   totalTime: number;
@@ -27,6 +28,7 @@ const FinishedProgramView = ({
   return (
     <>
       <Confetti numberOfPieces={400} recycle={false} />
+      <ToastContainer />
       <ExerciseStepsLayout
         header={
           <div className="finished-program-view__header">

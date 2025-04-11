@@ -1,11 +1,11 @@
 import { useTranslation } from "react-i18next";
 
 import "./TotalExercicesAndTimeRecap.scss";
-import type { User } from "@graphql/__generated__/schema";
+import type { GetUserByIdQuery } from "@graphql/__generated__/schema";
 import { convertSecondsToHoursMin } from "@utils/timeUtils";
 
 type TotalExercicesAndTimeRecapType = {
-  user: User;
+  user: GetUserByIdQuery["getUserById"];
 };
 
 const TotalExercicesAndTimeRecap: React.FC<TotalExercicesAndTimeRecapType> = ({
@@ -13,8 +13,7 @@ const TotalExercicesAndTimeRecap: React.FC<TotalExercicesAndTimeRecapType> = ({
 }) => {
   const { t } = useTranslation();
 
-  console.log("user?.total_time_spent", user?.total_time_spent);
-  const convertedTime = convertSecondsToHoursMin(user?.total_time_spent);
+  const convertedTime = convertSecondsToHoursMin(user?.total_time_spent ?? 0);
 
   return (
     <div className="recap-container">

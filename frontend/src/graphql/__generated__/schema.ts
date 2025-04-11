@@ -804,6 +804,8 @@ export type MeQuery = {
     birthday?: Date | null;
     height?: number | null;
     gender?: string | null;
+    total_completed_exercises: number;
+    total_time_spent: number;
     weights?: Array<{
       __typename?: "Weight";
       month: string;
@@ -831,6 +833,8 @@ export type GetUserByIdQuery = {
     created_at: Date;
     role: MemberRole;
     level?: FitnessLevel | null;
+    total_completed_exercises: number;
+    total_time_spent: number;
   } | null;
 };
 
@@ -851,6 +855,8 @@ export type GetAllUsersQuery = {
     created_at: Date;
     role: MemberRole;
     level?: FitnessLevel | null;
+    total_completed_exercises: number;
+    total_time_spent: number;
   }>;
 };
 
@@ -1552,6 +1558,8 @@ export const MeDocument = gql`
     birthday
     height
     gender
+    total_completed_exercises
+    total_time_spent
     weights {
       month
       weight
@@ -1619,6 +1627,8 @@ export const GetUserByIdDocument = gql`
     created_at
     role
     level
+    total_completed_exercises
+    total_time_spent
   }
 }
     `;
@@ -1709,6 +1719,8 @@ export const GetAllUsersDocument = gql`
     created_at
     role
     level
+    total_completed_exercises
+    total_time_spent
   }
 }
     `;

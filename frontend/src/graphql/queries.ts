@@ -18,6 +18,8 @@ export const ME_QUERY = gql`
         month
         weight
       }
+      total_completed_exercises
+      total_time_spent
     }
   }
 `;
