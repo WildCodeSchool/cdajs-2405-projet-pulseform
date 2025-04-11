@@ -24,7 +24,6 @@
   "EXERCISES": "Exercices",
   "EXERCISE": "Exercice",
   "EXERCISE_TYPE_DISTRIBUTION": "Répartition des types d'exercices",
-  "EXERCISES": "Exercices",
   "FEB": "Févr.",
   "FINISHED_PROGRAM_MESSAGE": "Bravo ! Tu as terminé ton programme !",
   "FLEXIBILITY": "Souplesse",
@@ -84,5 +83,6 @@
   "WEIGHT": "Poids",
   "WELCOME": "Bienvenu·e sur PulseForm !",
   "YOUR_ARE": "Tu es ...",
-  "YOUR_DID_NOT_HAVE_ACCESS": "On dirait que tu n'as pas les accès pour visualiser cette page !"
+  "YOUR_DID_NOT_HAVE_ACCESS": "On dirait que tu n'as pas les accès pour visualiser cette page !",
+  "MY_PROGRAMS": "Consulter mes programmes"
 }
