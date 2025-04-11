@@ -1,3 +1,4 @@
+import { useMutation } from "@apollo/client";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -8,6 +9,10 @@ import LittleLogo from "@components/atoms/LittleLogo";
 import AlreadyMemberBlock from "@components/molecules/AlreadyMemberBlock/AlreadyMemberBlock";
 import UserInfoAddView from "@components/molecules/UserInfoAddView";
 
+import {
+  CREATE_ACCOUNT_MUTATION,
+  LOGIN_MUTATION,
+} from "@graphql/mutations/user";
 import { isStrongPassword, isValidEmail } from "@utils/validators";
 
 import blopLoginPage from "@assets/icons/blob/blob3.svg";
@@ -17,6 +22,7 @@ import "./UserCredentialsView.scss";
 
 interface FormData {
   email: string;
+  username: string;
   password: string;
   confirmPassword: string;
 }
@@ -34,7 +40,14 @@ function UserCredentialsView() {
   const { t } = useTranslation();
   const [isNextStep, setIsNextStep] = useState(false);
 
-  const onSubmit = (data: FormData) => {
+  const [createAccount, { loading: creating }] = useMutation(
+    CREATE_ACCOUNT_MUTATION,
+  );
+  const [login, { loading: loggingIn }] = useMutation(LOGIN_MUTATION, {
+    refetchQueries: ["Me"],
+  });
+
+  const onSubmit = async (data: FormData) => {
     if (!isValidEmail(data.email)) {
       setError("email", {
         type: "manual",
@@ -59,7 +72,32 @@ function UserCredentialsView() {
       return;
     }
 
-    setIsNextStep(true);
+    try {
+      await createAccount({
+        variables: {
+          data: {
+            email: data.email,
+            username: data.username,
+            password: data.password,
+          },
+        },
+      });
+
+      await login({
+        variables: {
+          email: data.email,
+          password: data.password,
+        },
+      });
+
+      setIsNextStep(true);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Signup failed";
+      setError("email", {
+        type: "manual",
+        message,
+      });
+    }
   };
 
   if (isNextStep) return <UserInfoAddView />;
@@ -110,6 +148,14 @@ function UserCredentialsView() {
               </p>
             )}
             <InputField<FormData>
+              name="username"
+              type="text"
+              placeholderKey="USERNAME"
+              register={register}
+              required
+              ariaLabel={t("USERNAME")}
+            />
+            <InputField<FormData>
               name="password"
               type="password"
               placeholderKey="PASSWORD"
@@ -140,8 +186,9 @@ function UserCredentialsView() {
               type="submit"
               className="signup-page__connect-button"
               aria-label={t("CREATE_ACCOUNT")}
+              disabled={creating || loggingIn}
             >
-              {t("CREATE_ACCOUNT")}
+              {creating || loggingIn ? t("LOADING") : t("CREATE_ACCOUNT")}
             </BasicButton>
           </form>
           <AlreadyMemberBlock />

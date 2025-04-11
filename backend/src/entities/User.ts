@@ -8,6 +8,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Weight } from "../inputs/WeightsInput";
 import { FitnessLevelEnum, MemberRoleEnum } from "./Enums";
 import { GroupList } from "./GroupList";
 import { History } from "./History";
@@ -49,6 +50,7 @@ export class User extends BaseEntity {
   @Field({ nullable: true })
   gender?: string;
 
+  @Field(() => [Weight], { nullable: true })
   @Column("jsonb", { nullable: true })
   weights?: { weight: number; month: string; update_at: Date }[];
 
