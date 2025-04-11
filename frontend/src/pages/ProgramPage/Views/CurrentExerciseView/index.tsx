@@ -28,7 +28,6 @@ const CurrentExerciseView = ({
   currentIndex,
   totalExercises,
 }: CurrentExerciseViewProps) => {
-  console.log("exercise", exercise);
   return (
     <ExerciseStepsLayout
       header={

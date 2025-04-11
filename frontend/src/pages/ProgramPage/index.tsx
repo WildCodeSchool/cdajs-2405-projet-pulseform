@@ -11,12 +11,22 @@ import {
 } from "./Views";
 
 import DoubleScreenLayout from "@components/atoms/Layout/DoubleScreenLayout";
+import { useUser } from "@context/UserContext";
 import { useGetProgramById } from "@hooks/usePrograms";
+import { useGetUserById } from "@hooks/useUsers";
 
 import "./ProgramPage.scss";
+import { useAddHistoryMutation } from "@graphql/__generated__/schema";
 
 const ProgramPage = () => {
+  const { user } = useUser();
+  const userId = Number(user?.id);
+
+  const { userById } = useGetUserById(userId);
+
   const REST_DURATION = 20;
+  const [addHistoryMutation] = useAddHistoryMutation();
+
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
   const [currentView, setCurrentView] = useState<
     "summary" | "start" | "exercise" | "rest" | "exit" | "finished"
@@ -141,6 +151,26 @@ const ProgramPage = () => {
     }
   };
 
+  // Handle mutation when program is finished
+  const handleFinishProgram = async () => {
+    const historyData = {
+      user_id: Number(userById?.id), // TO DO pourquoi mon userById est une string ?
+      program_id: programId,
+      completed_exercises: completedExercises.length,
+      total_kcal_loss: 0, // Empty for now
+      total_time_spent: totalTimeElapsed,
+      start_date: new Date(),
+      end_date: new Date(),
+    };
+
+    try {
+      await addHistoryMutation({ variables: { data: historyData } });
+      console.log("History added successfully!"); //TO DO : add toaster notificaion
+    } catch (err) {
+      console.error("Error adding history:", err);
+    }
+  };
+
   const handleBack = () => {
     if (currentExerciseIndex > 0) {
       setCurrentExerciseIndex((prev) => prev - 1);
@@ -157,6 +187,7 @@ const ProgramPage = () => {
         startExercise();
       } else {
         setCurrentView("finished");
+        handleFinishProgram(); // Call the mutation when the program is finished
       }
     }
   };

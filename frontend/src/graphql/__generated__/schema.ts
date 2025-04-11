@@ -59,10 +59,12 @@ export type CreateGroupInput = {
 };
 
 export type CreateHistoryInput = {
+  completed_exercises?: InputMaybe<Scalars["Float"]["input"]>;
   end_date: Scalars["DateTimeISO"]["input"];
   program_id: Scalars["Float"]["input"];
   start_date: Scalars["DateTimeISO"]["input"];
   total_kcal_loss: Scalars["Float"]["input"];
+  total_time_spent?: InputMaybe<Scalars["Float"]["input"]>;
   user_id: Scalars["Float"]["input"];
 };
 
@@ -175,7 +177,9 @@ export type History = {
   id: Scalars["ID"]["output"];
   program: Program;
   start_date?: Maybe<Scalars["DateTimeISO"]["output"]>;
+  total_completed_exercises?: Maybe<Scalars["Int"]["output"]>;
   total_kcal_loss?: Maybe<Scalars["Int"]["output"]>;
+  total_time_spent?: Maybe<Scalars["Int"]["output"]>;
   user: User;
 };
 
@@ -581,6 +585,8 @@ export type User = {
   password: Scalars["String"]["output"];
   role: MemberRole;
   tags?: Maybe<Array<Tag>>;
+  total_completed_exercises: Scalars["Int"]["output"];
+  total_time_spent: Scalars["Int"]["output"];
   username: Scalars["String"]["output"];
 };
 
@@ -594,6 +600,31 @@ export type Weight = {
 export type WeightInput = {
   month: Scalars["String"]["input"];
   weight: Scalars["Float"]["input"];
+};
+
+export type AddHistoryMutationVariables = Exact<{
+  data: CreateHistoryInput;
+}>;
+
+export type AddHistoryMutation = {
+  __typename?: "Mutation";
+  addHistory: {
+    __typename?: "History";
+    id: string;
+    total_kcal_loss?: number | null;
+    total_completed_exercises?: number | null;
+    total_time_spent?: number | null;
+    start_date?: Date | null;
+    end_date?: Date | null;
+    user: {
+      __typename?: "User";
+      id: string;
+      username: string;
+      total_completed_exercises: number;
+      total_time_spent: number;
+    };
+    program: { __typename?: "Program"; id: string; name: string };
+  };
 };
 
 export type LoginMutationVariables = Exact<{
@@ -791,6 +822,71 @@ export type GetHistoryByUserIdQuery = {
   }>;
 };
 
+export const AddHistoryDocument = gql`
+    mutation addHistory($data: CreateHistoryInput!) {
+  addHistory(data: $data) {
+    id
+    user {
+      id
+      username
+      total_completed_exercises
+      total_time_spent
+    }
+    program {
+      id
+      name
+    }
+    total_kcal_loss
+    total_completed_exercises
+    total_time_spent
+    start_date
+    end_date
+  }
+}
+    `;
+export type AddHistoryMutationFn = Apollo.MutationFunction<
+  AddHistoryMutation,
+  AddHistoryMutationVariables
+>;
+
+/**
+ * __useAddHistoryMutation__
+ *
+ * To run a mutation, you first call `useAddHistoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddHistoryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addHistoryMutation, { data, loading, error }] = useAddHistoryMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useAddHistoryMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    AddHistoryMutation,
+    AddHistoryMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<AddHistoryMutation, AddHistoryMutationVariables>(
+    AddHistoryDocument,
+    options,
+  );
+}
+export type AddHistoryMutationHookResult = ReturnType<
+  typeof useAddHistoryMutation
+>;
+export type AddHistoryMutationResult =
+  Apollo.MutationResult<AddHistoryMutation>;
+export type AddHistoryMutationOptions = Apollo.BaseMutationOptions<
+  AddHistoryMutation,
+  AddHistoryMutationVariables
+>;
 export const LoginDocument = gql`
     mutation login($email: String!, $password: String!) {
   login(email: $email, password: $password) {
