@@ -113,16 +113,6 @@ exports[`LandingPage > renders the Landing Page 1`] = `
               </button>
             </a>
           </div>
-          <div
-            class="first-view__buttom-program"
-          >
-            <button
-              class="basic-button first-view__buttom-program__button basic-button--basic"
-              type="button"
-            >
-              TEST_PROGRAM
-            </button>
-          </div>
         </div>
         <div
           class="second-view"
@@ -291,16 +281,6 @@ exports[`LandingPage > renders the Landing Page 1`] = `
               CREATE_ACCOUNT
             </button>
           </a>
-        </div>
-        <div
-          class="first-view__buttom-program"
-        >
-          <button
-            class="basic-button first-view__buttom-program__button basic-button--basic"
-            type="button"
-          >
-            TEST_PROGRAM
-          </button>
         </div>
       </div>
       <div

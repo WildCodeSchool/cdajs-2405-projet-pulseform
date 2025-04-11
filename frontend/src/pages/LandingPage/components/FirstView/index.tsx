@@ -40,43 +40,52 @@ function FirstView() {
           <LittleLogo hasLabel />
         </div>
         <div className="first-view__header__container">
-          <div className="first-view__header__container__buttom">
-            <Link
-              to="/sign-up"
-              className="first-view__header__container__buttom__width"
-            >
-              <BasicButton>{t("CREATE_ACCOUNT")}</BasicButton>
-            </Link>
-          </div>
           {user ? (
-            <button
-              type="button"
-              onClick={() => logout()}
-              className="first-view__header__container__logout"
-            >
-              {t("LOGOUT")}
-            </button>
+            <>
+              <div className="first-view__header__container__buttom">
+                <Link
+                  to="/home"
+                  className="first-view__header__container__buttom__width"
+                >
+                  <BasicButton>{t("MY_PROGRAMS")}</BasicButton>
+                </Link>
+              </div>
+              <button
+                type="button"
+                onClick={() => logout()}
+                className="first-view__header__container__logout"
+              >
+                {t("LOGOUT")}
+              </button>
+            </>
           ) : (
-            <Link
-              to="/login"
-              className="first-view__header__container__connect"
-            >
-              {t("CONNECT_MY")}
-            </Link>
+            <>
+              <div className="first-view__header__container__buttom">
+                <Link
+                  to="/sign-up"
+                  className="first-view__header__container__buttom__width"
+                >
+                  <BasicButton>{t("CREATE_ACCOUNT")}</BasicButton>
+                </Link>
+              </div>
+              <Link
+                to="/login"
+                className="first-view__header__container__connect"
+              >
+                {t("CONNECT_MY")}
+              </Link>
+            </>
           )}
         </div>
       </div>
       <p className="first-view__description">{t("LANDING_DESCRIPTION")}</p>
-      <div className="first-view__buttom">
-        <Link to="/sign-up">
-          <BasicButton>{t("CREATE_ACCOUNT")}</BasicButton>
-        </Link>
-      </div>
-      <div className="first-view__buttom-program">
-        <BasicButton className="first-view__buttom-program__button">
-          {t("TEST_PROGRAM")}
-        </BasicButton>
-      </div>
+      {!user && (
+        <div className="first-view__buttom">
+          <Link to="/sign-up">
+            <BasicButton>{t("CREATE_ACCOUNT")}</BasicButton>
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
