@@ -40,14 +40,16 @@ function FirstView() {
           <LittleLogo hasLabel />
         </div>
         <div className="first-view__header__container">
-          <div className="first-view__header__container__buttom">
-            <Link
-              to="/sign-up"
-              className="first-view__header__container__buttom__width"
-            >
-              <BasicButton>{t("CREATE_ACCOUNT")}</BasicButton>
-            </Link>
-          </div>
+          {!user && (
+            <div className="first-view__header__container__buttom">
+              <Link
+                to="/sign-up"
+                className="first-view__header__container__buttom__width"
+              >
+                <BasicButton>{t("CREATE_ACCOUNT")}</BasicButton>
+              </Link>
+            </div>
+          )}
           {user ? (
             <button
               type="button"
@@ -67,16 +69,13 @@ function FirstView() {
         </div>
       </div>
       <p className="first-view__description">{t("LANDING_DESCRIPTION")}</p>
-      <div className="first-view__buttom">
-        <Link to="/sign-up">
-          <BasicButton>{t("CREATE_ACCOUNT")}</BasicButton>
-        </Link>
-      </div>
-      <div className="first-view__buttom-program">
-        <BasicButton className="first-view__buttom-program__button">
-          {t("TEST_PROGRAM")}
-        </BasicButton>
-      </div>
+      {!user && (
+        <div className="first-view__buttom">
+          <Link to="/sign-up">
+            <BasicButton>{t("CREATE_ACCOUNT")}</BasicButton>
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

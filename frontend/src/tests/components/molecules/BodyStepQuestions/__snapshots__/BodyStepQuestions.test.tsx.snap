@@ -29,16 +29,6 @@ exports[`BodyStepQuestions Component > renders the BodyStepQuestions component 1
               </p>
             </div>
           </div>
-          <div
-            class="body-step-questions__header-d__container"
-          >
-            <button
-              class="body-step-questions__header-d__container__btn"
-              type="button"
-            >
-              TEST_PROGRAM
-            </button>
-          </div>
         </div>
         <button
           class="body-step-questions__exit"
@@ -123,16 +113,6 @@ exports[`BodyStepQuestions Component > renders the BodyStepQuestions component 1
               Pulse Form
             </p>
           </div>
-        </div>
-        <div
-          class="body-step-questions__header-d__container"
-        >
-          <button
-            class="body-step-questions__header-d__container__btn"
-            type="button"
-          >
-            TEST_PROGRAM
-          </button>
         </div>
       </div>
       <button
