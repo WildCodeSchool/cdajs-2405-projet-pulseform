@@ -66,8 +66,8 @@ export class UpdateUserInput {
   @Field()
   birthday!: Date;
 
-  @Field()
-  gender!: string;
+  @Field({ nullable: true })
+  gender?: string;
 
   @Field(() => [WeightInput])
   weights!: WeightInput[];
@@ -83,4 +83,16 @@ export class UpdateUserInput {
 
   @Field(() => MemberRoleEnum)
   role!: MemberRoleEnum;
+}
+
+@InputType()
+export class CreateAccountInput {
+  @Field()
+  email!: string;
+
+  @Field()
+  username!: string;
+
+  @Field()
+  password!: string;
 }
