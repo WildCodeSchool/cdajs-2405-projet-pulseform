@@ -20,21 +20,15 @@ const WeekDetails = () => {
   const sunday = format(endDate, "dd/MM/yy");
   const weekDates: string = `${monday} - ${sunday}`;
 
-  // query programs done during the current week
-  //   const { histories } = useHistoryByUserId(userId);
-  //   console.log("histories");
-  //   console.log(histories);
-
+  // get user histories with programs done during the current week
   const { histories } = useUserHistoryByDatesRange(userId, startDate, endDate);
-  console.log("histories");
-  console.log(histories);
 
-  const programsDatas: ProgramLight[] = [];
-  const programs = [];
+  // build a programs array from user history
+  const programs: ProgramLight[] = [];
   if (histories) {
     for (const history of histories) {
       if (history.program && history.end_date) {
-        programsDatas.push({
+        programs.push({
           id: history.program.id,
           name: history.program.name,
           total_duration: history.program.total_duration
@@ -42,12 +36,11 @@ const WeekDetails = () => {
             : 0,
           end_date: history.end_date,
         });
-        programs.push(history.program);
       }
     }
   }
 
-  // get the total duration and total exercices for the week
+  // get the total duration for the week
   let weekDurationInSec = 0;
   for (const program of programs) {
     if (program.total_duration) {
@@ -72,12 +65,8 @@ const WeekDetails = () => {
         </div>
       </div>
       <div className="week-details__programs">
-        {programsDatas.map((program) => (
-          <ProgramDoneCard
-            key={program.id}
-            program={program}
-            date={program.end_date}
-          />
+        {programs.map((program) => (
+          <ProgramDoneCard key={program.id} program={program} />
         ))}
       </div>
     </div>
