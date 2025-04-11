@@ -24,6 +24,7 @@ app.use(
         `${process.env.SERVER_URL}:${process.env.PORT_FRONT}`,
         "https://staging.052024-jaune-4.wns.wilders.dev",
         "https:/052024-jaune-4.wns.wilders.dev",
+        `${process.env.SERVER_URL}:${process.env.PORT_BACK}`,
       ];
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);

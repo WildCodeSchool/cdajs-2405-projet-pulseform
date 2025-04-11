@@ -1,0 +1,27 @@
+@use "@assets/variables" as *;
+
+.program-done-card {
+  @include small-phone;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  width: 100%;
+  background: $white;
+  color: $primary;
+  padding: 21px 15px;
+  border-radius: 10px;
+  border: none;
+  margin-bottom: 17px;
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    &__date {
+      @include extra-small-phone;
+    }
+  }
+}
