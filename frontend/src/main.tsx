@@ -14,8 +14,8 @@ import "./index.css";
 import { HomeMobileViewProvider } from "@context/MobileHomeViewContext";
 
 const httpLink = createHttpLink({
-  uri: `${import.meta.env.VITE_URL_BACK}/graphql`,
-  //uri: "localhost:4000/graphql",
+  // uri: `${import.meta.env.VITE_URL_BACK}/graphql`,
+  uri: "http://localhost:4000/graphql",
   credentials: "include",
 });
 

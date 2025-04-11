@@ -1,0 +1,39 @@
+@use "@assets/variables" as *;
+
+.exercise-steps-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: $primary;
+
+  @media screen and (max-width: 768px) {
+   height: 100dvh;
+  }
+
+  &__header {
+    @include logo-big-label;
+    text-align: center
+  }
+
+  &__header,
+  &__footer {
+    flex: 0 0 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  &__footer {
+    @include h2-phone;
+  }
+
+  &__body {
+    flex: 1 1 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    overflow: hidden;
+  }
+}

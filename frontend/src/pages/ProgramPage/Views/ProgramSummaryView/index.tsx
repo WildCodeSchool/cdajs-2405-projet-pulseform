@@ -1,28 +1,20 @@
-import { useParams } from "react-router-dom";
-
 import ProgramSummaryDesktopView from "./ProgramSummaryDesktopView";
 import ProgramSummaryMobileView from "./ProgramSummaryMobileView";
 
-import { useGetProgramById } from "@hooks/usePrograms";
+import type { Program } from "@graphql/__generated__/schema";
 import "./ProgramSummaryView.scss";
 
 type ProgramSummaryViewType = {
   isDesktop: boolean;
   onStartProgram?: () => void;
+  program: Program;
 };
 
 const ProgramSummaryView = ({
   isDesktop,
   onStartProgram,
+  program,
 }: ProgramSummaryViewType) => {
-  const { id } = useParams<{ id: string }>();
-  const programId = Number(id);
-  const { loading, error, program } = useGetProgramById(programId);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
-  if (!program) return <p>No program found</p>;
-
   return (
     <>
       {isDesktop ? (

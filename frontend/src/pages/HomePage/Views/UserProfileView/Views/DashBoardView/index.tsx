@@ -19,9 +19,7 @@ const DashBoardView = ({ isDesktop }: DashBoardViewType) => {
   return (
     <div className="dashboard-view-container">
       <UserAvatarAndUsername user={user} />
-      {/* todo finir le composent en dessous */}
       <TotalExercicesAndTimeRecap user={user} />
-      {/* <StatsRecap/> */}
     </div>
   );
 };

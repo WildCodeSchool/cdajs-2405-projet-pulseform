@@ -1,3 +1,4 @@
+import path from "node:path";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import cookieParser from "cookie-parser";
@@ -17,13 +18,17 @@ dotenv.config();
 const app = express();
 app.use(cookieParser());
 
+// Serve static images from the "public" folder
+app.use("/images", express.static(path.join(__dirname, "public", "images")));
+
 app.use(
   cors({
     origin: (origin, callback) => {
       const allowedOrigins = [
         `${process.env.SERVER_URL}:${process.env.PORT_FRONT}`,
         "https://staging.052024-jaune-4.wns.wilders.dev",
-        "https:/052024-jaune-4.wns.wilders.dev",
+        "https://052024-jaune-4.wns.wilders.dev",
+        `${process.env.SERVER_URL}:${process.env.PORT_BACK}`,
       ];
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);

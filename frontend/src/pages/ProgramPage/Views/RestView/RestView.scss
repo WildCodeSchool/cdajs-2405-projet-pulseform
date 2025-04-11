@@ -1,0 +1,11 @@
+@use "@assets/variables" as *;
+
+.rest-view {
+  &__footer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+}
