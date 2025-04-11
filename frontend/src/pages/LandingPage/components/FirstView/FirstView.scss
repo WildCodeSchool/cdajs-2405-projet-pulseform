@@ -106,6 +106,15 @@
           cursor: pointer;
         }
       }
+
+      &__logout {
+        all: unset;
+        @include h2-phone;
+        color: $white;
+        &:hover {
+          cursor: pointer;
+        }
+      }
     }
   }
 
