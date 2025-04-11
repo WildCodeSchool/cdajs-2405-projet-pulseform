@@ -15,7 +15,15 @@ export class HistoriesMutations {
   async addHistory(
     @Arg("data", () => CreateHistoryInput) data: CreateHistoryInput,
   ): Promise<History> {
-    const { user_id, program_id, total_kcal_loss, start_date, end_date } = data;
+    const {
+      user_id,
+      program_id,
+      total_kcal_loss,
+      completed_exercises = 0,
+      total_time_spent = 0,
+      start_date,
+      end_date,
+    } = data;
 
     const user = await AppDataSource.manager.findOne(User, {
       where: { id: user_id },
@@ -34,14 +42,28 @@ export class HistoriesMutations {
     }
 
     // Créer une nouvelle entrée d'historique
+
     const history = new History(
       user,
       program,
       total_kcal_loss,
       start_date,
       end_date,
+      completed_exercises,
+      total_time_spent,
     );
-    return await history.save();
+
+    await history.save();
+
+    // Update user lifetime stats
+    user.total_completed_exercises =
+      (user.total_completed_exercises || 0) + completed_exercises;
+
+    user.total_time_spent = (user.total_time_spent || 0) + total_time_spent;
+
+    await user.save();
+
+    return history;
   }
 
   // Mutation pour mettre à jour un historique existant

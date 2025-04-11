@@ -1,6 +1,7 @@
 import {
   useGetAllUsersQuery,
   useGetHistoryByUserIdQuery,
+  useGetHistoryEndDateProgramByUserIdQuery,
   useGetUserByIdQuery,
   useGetWeightByUserIdQuery,
   useMeQuery,
@@ -31,7 +32,9 @@ export const useGetUserById = (id: number) => {
 };
 
 export const useMe = () => {
-  const { loading, error, data } = useMeQuery();
+  const { loading, error, data } = useMeQuery({
+    fetchPolicy: "network-only",
+  });
   const user = data?.me;
 
   return {
@@ -64,5 +67,18 @@ export const useGetUserExercicesForChart = (id: number) => {
     loading,
     error,
     userExercicesChart,
+  };
+};
+
+export const GetHistoryEndDateProgramByUserId = (id: number) => {
+  const { loading, error, data } = useGetHistoryEndDateProgramByUserIdQuery({
+    variables: { id },
+  });
+  const historyEndDateProgram = data?.getHistoryByUserId;
+
+  return {
+    loading,
+    error,
+    historyEndDateProgram,
   };
 };

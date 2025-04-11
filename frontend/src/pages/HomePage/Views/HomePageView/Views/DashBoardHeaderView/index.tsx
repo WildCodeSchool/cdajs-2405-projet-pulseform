@@ -1,10 +1,13 @@
 import { useTranslation } from "react-i18next";
 
 import MobileHeaderLayout from "@components/atoms/Layout/MobileHeader";
-import LittleLogo from "@components/atoms/LittleLogo";
-import Ruban from "@components/atoms/Ruban/Ruban";
+import Ribbon from "@components/atoms/Ribbon";
 
 import "./DashBoardHeaderView.scss";
+
+import { useUser } from "@context/UserContext";
+import { useGetUserById } from "@hooks/useUsers";
+import { GetHistoryEndDateProgramByUserId } from "@hooks/useUsers";
 
 type DashBoardHeaderViewType = {
   isDesktop: boolean;
@@ -13,12 +16,20 @@ type DashBoardHeaderViewType = {
 // Existe seulement en phone
 const DashBoardHeaderView = ({ isDesktop }: DashBoardHeaderViewType) => {
   const { t } = useTranslation();
+  const { user } = useUser();
+
+  const userId = Number(user?.id);
+
+  const { userById } = useGetUserById(userId);
+
+  const { historyEndDateProgram } = GetHistoryEndDateProgramByUserId(userId);
 
   return (
     <div className="dash-board-header-view-container">
       {isDesktop ? (
         <>
-          <LittleLogo hasLabel className="little-logo--static" />
+          {/* <LittleLogo hasLabel className="little-logo--static" /> */}
+          <span>Hello {userById?.username} !</span>
           <h1>{t("PROGRAMS")}</h1>
         </>
       ) : (
@@ -30,7 +41,7 @@ const DashBoardHeaderView = ({ isDesktop }: DashBoardHeaderViewType) => {
                 {t("WEEKLY_RECAP")}
               </h2>
             </div>
-            <Ruban days={3} />
+            <Ribbon endDate={historyEndDateProgram} />
           </div>
         </div>
       )}

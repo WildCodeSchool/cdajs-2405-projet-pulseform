@@ -7,9 +7,10 @@ import LoginImage from "@components/atoms/LoginImage";
 import { LOGIN_MUTATION } from "@graphql/mutations/user";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./LoginPage.scss";
+import { ME_QUERY } from "@graphql/queries";
 
 interface LoginFormValues {
   email: string;
@@ -18,9 +19,12 @@ interface LoginFormValues {
 
 function LoginPage() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm<LoginFormValues>();
 
-  const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION);
+  const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION, {
+    refetchQueries: [{ query: ME_QUERY }],
+  });
 
   const onSubmit = async (formData: LoginFormValues) => {
     try {
@@ -31,6 +35,10 @@ function LoginPage() {
           "Utilisateur connecté :",
           response.data.login.user.username,
         );
+
+        setTimeout(() => {
+          navigate("/home");
+        }, 1000);
       }
     } catch (err) {
       console.error("Login error:", err);

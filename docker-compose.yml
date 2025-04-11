@@ -84,6 +84,7 @@ services:
           VITE_SERVER_URL: ${VITE_SERVER_URL}
           VITE_URL_BACK: ${VITE_URL_BACK}
           VITE_TRANSLATION_SERVER_URL: ${VITE_TRANSLATION_SERVER_URL}
+          VITE_URL_BACK: ${VITE_URL_BACK}
 
   translation:
     build: ${IMAGE_TRANSLATION}

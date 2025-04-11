@@ -18,14 +18,6 @@ function BodyStepQuestions({
         <div className="body-step-questions__header-d__logo">
           <LittleLogo hasLabel />
         </div>
-        <div className="body-step-questions__header-d__container">
-          <button
-            className="body-step-questions__header-d__container__btn"
-            type="button"
-          >
-            {t("TEST_PROGRAM")}
-          </button>
-        </div>
       </div>
       <button
         className="body-step-questions__exit"

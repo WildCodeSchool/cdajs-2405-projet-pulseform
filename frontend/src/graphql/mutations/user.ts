@@ -11,3 +11,33 @@ export const LOGIN_MUTATION = gql`
     }
   }
 `;
+
+export const CREATE_ACCOUNT_MUTATION = gql`
+  mutation CreateAccount($data: CreateAccountInput!) {
+    createAccount(data: $data) {
+      id
+      email
+      username
+    }
+  }
+`;
+
+export const UPDATE_USER_MUTATION = gql`
+  mutation UpdateUser($data: UpdateUserInput!) {
+    updateUser(data: $data) {
+      id
+      email
+      username
+      birthday
+      gender
+      height
+      level
+    }
+  }
+`;
+
+export const LOGOUT_MUTATION = gql`
+  mutation Logout {
+    logout
+  }
+`;

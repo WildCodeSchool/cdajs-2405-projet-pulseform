@@ -1,3 +1,4 @@
+import path from "node:path";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import cookieParser from "cookie-parser";
@@ -16,6 +17,9 @@ dotenv.config();
 // Initialise Express
 const app = express();
 app.use(cookieParser());
+
+// Serve static images from the "public" folder
+app.use("/images", express.static(path.join(__dirname, "public", "images")));
 
 app.use(
   cors({

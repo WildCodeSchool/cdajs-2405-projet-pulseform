@@ -25,16 +25,6 @@ exports[`SignUpPage > renders the SignUp Page 1`] = `
         class="signup-page__blob"
         src="/src/assets/icons/blob/blob3.svg"
       />
-      <div
-        class="signup-page__test-program-container"
-      >
-        <button
-          class="signup-page__test-program-button"
-          type="button"
-        >
-          TEST_PROGRAM
-        </button>
-      </div>
       <section
         class="signup-page__form-section"
       >
@@ -73,6 +63,19 @@ exports[`SignUpPage > renders the SignUp Page 1`] = `
                 name="email"
                 placeholder="EMAIL"
                 type="email"
+                value=""
+              />
+            </div>
+            <div
+              class="input-field-wrapper"
+            >
+              <input
+                aria-label="USERNAME"
+                aria-required="true"
+                class="input__login-page"
+                name="username"
+                placeholder="USERNAME"
+                type="text"
                 value=""
               />
             </div>
@@ -184,16 +187,6 @@ exports[`SignUpPage > renders the SignUp Page 1`] = `
       class="signup-page__blob"
       src="/src/assets/icons/blob/blob3.svg"
     />
-    <div
-      class="signup-page__test-program-container"
-    >
-      <button
-        class="signup-page__test-program-button"
-        type="button"
-      >
-        TEST_PROGRAM
-      </button>
-    </div>
     <section
       class="signup-page__form-section"
     >
@@ -232,6 +225,19 @@ exports[`SignUpPage > renders the SignUp Page 1`] = `
               name="email"
               placeholder="EMAIL"
               type="email"
+              value=""
+            />
+          </div>
+          <div
+            class="input-field-wrapper"
+          >
+            <input
+              aria-label="USERNAME"
+              aria-required="true"
+              class="input__login-page"
+              name="username"
+              placeholder="USERNAME"
+              type="text"
               value=""
             />
           </div>

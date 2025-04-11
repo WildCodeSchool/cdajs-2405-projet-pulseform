@@ -8,6 +8,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Weight } from "../inputs/WeightsInput";
 import { FitnessLevelEnum, MemberRoleEnum } from "./Enums";
 import { GroupList } from "./GroupList";
 import { History } from "./History";
@@ -49,6 +50,7 @@ export class User extends BaseEntity {
   @Field({ nullable: true })
   gender?: string;
 
+  @Field(() => [Weight], { nullable: true })
   @Column("jsonb", { nullable: true })
   weights?: { weight: number; month: string; update_at: Date }[];
 
@@ -75,6 +77,14 @@ export class User extends BaseEntity {
   })
   @Field(() => FitnessLevelEnum, { nullable: true })
   level: FitnessLevelEnum;
+
+  @Column({ type: "int", default: 0 })
+  @Field(() => Int)
+  total_completed_exercises: number;
+
+  @Column({ type: "int", default: 0 })
+  @Field(() => Int)
+  total_time_spent: number;
 
   @ManyToMany(
     () => Tag,
@@ -124,6 +134,8 @@ export class User extends BaseEntity {
     height: number,
     created_at: Date,
     level: FitnessLevelEnum,
+    total_completed_exercises: number | undefined,
+    total_time_spent: number | undefined,
     role: MemberRoleEnum = MemberRoleEnum.USER,
   ) {
     super();
@@ -139,5 +151,7 @@ export class User extends BaseEntity {
     this.created_at = created_at;
     this.role = role;
     this.level = level;
+    this.total_completed_exercises = total_completed_exercises || 0;
+    this.total_time_spent = total_time_spent || 0;
   }
 }

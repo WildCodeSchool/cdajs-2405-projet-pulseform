@@ -35,3 +35,17 @@
     }
   }
 }
+
+.user-info-add-view__container__form__btn--transparent {
+  background: transparent;
+  border: none;
+  color: $white;
+  text-decoration: underline;
+  font-size: 1rem;
+  align-self: center;
+
+  &:hover {
+    background: transparent;
+    cursor: pointer;
+  }
+}

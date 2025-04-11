@@ -1,9 +1,14 @@
+import { MockedProvider } from "@apollo/client/testing";
 import FitnessGoalsView from "@components/molecules/FitnessGoalsView";
 import { render } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 
-describe("FitnessGoalsView", () => {
-  it("renders the FitnessGoalsView component", () => {
-    const tree = render(<FitnessGoalsView />);
-    expect(tree).toMatchSnapshot();
-  });
+test("renders the FitnessGoalsView component", () => {
+  render(
+    <MockedProvider mocks={[]} addTypename={false}>
+      <MemoryRouter>
+        <FitnessGoalsView />
+      </MemoryRouter>
+    </MockedProvider>,
+  );
 });

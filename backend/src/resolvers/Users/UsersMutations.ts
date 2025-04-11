@@ -3,7 +3,11 @@ import { GraphQLError } from "graphql";
 import jwt from "jsonwebtoken";
 import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { User } from "../../entities/User";
-import { CreateUserInput, UpdateUserInput } from "../../inputs/UsersInput";
+import {
+  CreateAccountInput,
+  CreateUserInput,
+  UpdateUserInput,
+} from "../../inputs/UsersInput";
 import { Weight } from "../../inputs/WeightsInput";
 import { AuthPayload } from "../../types/AuthPayload";
 import type { MyContext } from "../../types/context";
@@ -47,14 +51,27 @@ export class UsersMutations {
 
     // Définir le cookie sécurisé
     context.res.cookie("token", token, {
-      httpOnly: true, // Empêche l'accès via JS
+      httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 24 * 60 * 60 * 1000, // 1 jour
-      path: "/", // Le cookie est valide pour toutes les routes
+      maxAge: 24 * 60 * 60 * 1000,
+      path: "/",
     });
 
     return { user };
+  }
+
+  // Delete the cookie
+  @Mutation(() => Boolean)
+  async logout(@Ctx() context: MyContext): Promise<boolean> {
+    context.res.clearCookie("token", {
+      path: "/",
+      httpOnly: true,
+      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production",
+    });
+
+    return true;
   }
 
   // Mutation pour créer un nouvel utilisateur
@@ -243,5 +260,52 @@ export class UsersMutations {
     await UserModel.update(id, { weights: updatedWeights });
 
     return updatedWeights;
+  }
+
+  @Mutation(() => User)
+  async createAccount(
+    @Arg("data", () => CreateAccountInput) data: CreateAccountInput,
+    @Ctx() context: MyContext,
+  ): Promise<User> {
+    const { User: UserModel } = context.models;
+
+    // Vérifier si un utilisateur avec cet email existe déjà
+    const existingUser = await UserModel.getByEmail(data.email);
+    if (existingUser) {
+      throw new GraphQLError("Email already used", {
+        extensions: { code: "EMAIL_ALREADY_TAKEN" },
+      });
+    }
+
+    if (!isValidEmail(data.email)) {
+      throw new GraphQLError("Invalid email", {
+        extensions: { code: "INVALID_EMAIL" },
+      });
+    }
+
+    if (!isStrongPassword(data.password)) {
+      throw new GraphQLError("Weak password", {
+        extensions: { code: "WEAK_PASSWORD" },
+      });
+    }
+
+    const hashedPassword = await argon2.hash(data.password);
+
+    const newUser = await UserModel.create({
+      email: data.email,
+      username: data.username,
+      password: hashedPassword,
+      description: "",
+      image: "",
+      created_at: new Date(),
+      role: "user",
+      level: null,
+      birthday: null,
+      gender: null,
+      weights: null,
+      height: null,
+    });
+
+    return newUser;
   }
 }
