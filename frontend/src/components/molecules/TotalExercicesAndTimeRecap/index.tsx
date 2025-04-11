@@ -13,7 +13,6 @@ const TotalExercicesAndTimeRecap: React.FC<TotalExercicesAndTimeRecapType> = ({
 }) => {
   const { t } = useTranslation();
 
-  console.log("user?.total_time_spent", user?.total_time_spent);
   const convertedTime = convertSecondsToHoursMin(user?.total_time_spent ?? 0);
 
   return (
