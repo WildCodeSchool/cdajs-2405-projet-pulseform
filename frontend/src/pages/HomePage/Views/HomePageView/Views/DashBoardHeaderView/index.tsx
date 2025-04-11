@@ -1,8 +1,9 @@
 import { useTranslation } from "react-i18next";
 
 import MobileHeaderLayout from "@components/atoms/Layout/MobileHeader";
-import LittleLogo from "@components/atoms/LittleLogo";
 import Ruban from "@components/atoms/Ruban/Ruban";
+import { useUser } from "@context/UserContext";
+import { useGetUserById } from "@hooks/useUsers";
 
 import "./DashBoardHeaderView.scss";
 
@@ -13,12 +14,17 @@ type DashBoardHeaderViewType = {
 // Existe seulement en phone
 const DashBoardHeaderView = ({ isDesktop }: DashBoardHeaderViewType) => {
   const { t } = useTranslation();
+  const { user } = useUser();
+  const userId = Number(user?.id);
+
+  const { userById } = useGetUserById(userId);
 
   return (
     <div className="dash-board-header-view-container">
       {isDesktop ? (
         <>
-          <LittleLogo hasLabel className="little-logo--static" />
+          {/* <LittleLogo hasLabel className="little-logo--static" /> */}
+          <span>Hello {userById?.username} !</span>
           <h1>{t("PROGRAMS")}</h1>
         </>
       ) : (
