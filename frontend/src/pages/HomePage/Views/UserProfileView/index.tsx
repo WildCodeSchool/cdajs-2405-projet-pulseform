@@ -1,12 +1,11 @@
 import ChartSlider from "@components/atoms/ChartSlider";
-import MobileBodyLayout from "@components/atoms/Layout/MobileBodyLayout";
 import ExercicesChart from "@components/molecules/ExercicesChart";
 import WeightChart from "@components/molecules/WeightChart";
+import { useUser } from "@context/UserContext";
+import { useGetUserById } from "@hooks/useUsers";
 import { DashBoardView, HistoryView } from "./Views";
 
 import "./UserProfileView.scss";
-import { useUser } from "@context/UserContext";
-import { useGetUserById } from "@hooks/useUsers";
 
 type UserProfileViewType = {
   isDesktop: boolean;
@@ -21,7 +20,7 @@ const UserProfileView = ({ isDesktop }: UserProfileViewType) => {
   return (
     <div className="user-profile-view-container">
       {userById && <DashBoardView user={userById} isDesktop={isDesktop} />}
-      <MobileBodyLayout>
+      <div className="user-profile-view-bottom">
         <HistoryView /> {/* apparait onClick et remplace DashBoardView */}
         <ChartSlider
           charts={[
@@ -29,7 +28,7 @@ const UserProfileView = ({ isDesktop }: UserProfileViewType) => {
             <ExercicesChart key="exercices-chart" userId={userId} />,
           ]}
         />
-      </MobileBodyLayout>
+      </div>
     </div>
   );
 };

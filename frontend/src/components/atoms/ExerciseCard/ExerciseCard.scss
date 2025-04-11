@@ -5,16 +5,20 @@
   flex-direction: row;
   gap: 2rem;
   padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.2); /* semi-transparent background */
+  backdrop-filter: blur(20px); /* blur effect for the background */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
 
   @media screen and (max-width: 768px) {
     background-color: $beige;
-    border-radius: 10px;
+    backdrop-filter: none;
   }
 
   &__img-header-container {
     display: flex;
     flex-direction: row;
-    width: 80%;
+    width: 90%;
     gap: 2rem;
   }
 
