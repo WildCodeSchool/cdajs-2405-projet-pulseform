@@ -11,6 +11,7 @@ import { FitnessLevel, MemberRole } from "@graphql/__generated__/schema";
 import { UPDATE_USER_MUTATION } from "@graphql/mutations/user";
 
 import "./FitnessLevelSelectView.scss";
+import CompleteLaterButton from "../CompleteLaterButton/CompleteLaterButton";
 
 function FitnessLevelSelectView() {
   const [isExit, setIsExit] = useState(false);
@@ -122,6 +123,7 @@ function FitnessLevelSelectView() {
               >
                 {t("NEXT")}
               </BasicButton>
+              <CompleteLaterButton />
             </form>
           </BodyStepQuestions>
         </section>

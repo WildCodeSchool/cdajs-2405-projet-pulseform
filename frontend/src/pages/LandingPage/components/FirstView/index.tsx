@@ -1,8 +1,12 @@
+import { useMutation } from "@apollo/client";
+import { useTranslation } from "react-i18next";
+import { Link, useNavigate } from "react-router-dom";
+
 import BasicButton from "@components/atoms/BasicButton";
 import LittleLogo from "@components/atoms/LittleLogo";
 
-import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { useUser } from "@context/UserContext";
+import { LOGOUT_MUTATION } from "@graphql/mutations/user";
 
 import blobFirstView from "@assets/blobs/blob.svg";
 import girldImage from "@assets/images/girl.svg";
@@ -10,6 +14,15 @@ import "./FirstView.scss";
 
 function FirstView() {
   const { t } = useTranslation();
+  const { user } = useUser();
+  const navigate = useNavigate();
+
+  const [logout] = useMutation(LOGOUT_MUTATION, {
+    refetchQueries: ["Me"],
+    onCompleted: () => {
+      navigate("/");
+    },
+  });
 
   return (
     <div className="first-view">
@@ -35,9 +48,22 @@ function FirstView() {
               <BasicButton>{t("CREATE_ACCOUNT")}</BasicButton>
             </Link>
           </div>
-          <Link to="/login" className="first-view__header__container__connect">
-            {t("CONNECT_MY")}
-          </Link>
+          {user ? (
+            <button
+              type="button"
+              onClick={() => logout()}
+              className="first-view__header__container__logout"
+            >
+              {t("LOGOUT")}
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              className="first-view__header__container__connect"
+            >
+              {t("CONNECT_MY")}
+            </Link>
+          )}
         </div>
       </div>
       <p className="first-view__description">{t("LANDING_DESCRIPTION")}</p>
