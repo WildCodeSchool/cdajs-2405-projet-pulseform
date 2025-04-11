@@ -11,6 +11,7 @@ import { UserProvider } from "./context/UserContext";
 import "./i18n";
 import router from "./routes";
 import "./index.css";
+import { HomeMobileViewProvider } from "@context/MobileHomeViewContext";
 
 const httpLink = createHttpLink({
   // uri: `${import.meta.env.VITE_URL_BACK}/graphql`,
@@ -27,9 +28,11 @@ const client = new ApolloClient({
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ApolloProvider client={client}>
-      <UserProvider>
-        <RouterProvider router={router} />
-      </UserProvider>
+      <HomeMobileViewProvider>
+        <UserProvider>
+          <RouterProvider router={router} />
+        </UserProvider>
+      </HomeMobileViewProvider>
     </ApolloProvider>
   </StrictMode>,
 );

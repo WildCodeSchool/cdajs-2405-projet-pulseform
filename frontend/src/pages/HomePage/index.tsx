@@ -1,16 +1,13 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-
 import DoubleScreenLayout from "@components/atoms/Layout/DoubleScreenLayout";
 import MobileBodyLayout from "@components/atoms/Layout/MobileBodyLayout";
-import NavBar from "@components/molecules/NavBar";
+import { useHomeMobileView } from "@context/MobileHomeViewContext";
+import { useEffect, useState } from "react";
 import { HomePageView, UserProfileView } from "./Views";
 import "./HomePage.scss";
 
 const HomePage = () => {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
-  const [currenMobiletView, setCurrentMobileView] = useState("home");
-  const navigate = useNavigate();
+  const { homeMobileview } = useHomeMobileView();
 
   useEffect(() => {
     const handleResize = () => {
@@ -23,22 +20,6 @@ const HomePage = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  const handleProfileClick = () => {
-    if (location.pathname === "/home") {
-      setCurrentMobileView("profile");
-    } else {
-      navigate("/home");
-    }
-  };
-
-  const handleActivityClick = () => {
-    if (location.pathname === "/home") {
-      setCurrentMobileView("home");
-    } else {
-      navigate("/home");
-    }
-  };
 
   return (
     <>
@@ -53,19 +34,13 @@ const HomePage = () => {
             </DoubleScreenLayout>
           </>
         ) : (
-          <>
-            {currenMobiletView === "home" ? (
-              <MobileBodyLayout>
-                <HomePageView isDesktop={isDesktop} />
-              </MobileBodyLayout>
+          <MobileBodyLayout>
+            {homeMobileview === "home" ? (
+              <HomePageView isDesktop={isDesktop} />
             ) : (
               <UserProfileView isDesktop={isDesktop} />
             )}
-            <NavBar
-              onProfileClick={handleProfileClick}
-              onActivityClick={handleActivityClick}
-            />
-          </>
+          </MobileBodyLayout>
         )}
       </section>
     </>

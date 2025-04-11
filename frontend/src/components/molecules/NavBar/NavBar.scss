@@ -10,10 +10,14 @@
   border: 1px solid $grey;
   cursor: pointer;
 
+  &__button {
+    width: 100%;
+  }
+
   @media screen and (max-width: 768px) {
     z-index: 10000;
     position: fixed;
     bottom: 0px;
-    width:100%;
+    width: 100%;
   }
 }
