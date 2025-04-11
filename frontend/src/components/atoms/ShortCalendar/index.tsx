@@ -8,7 +8,7 @@ const ShortCalendar = ({ endDate }: ShortCalendarProps) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const last8Days = Array.from({ length: 7 }).map((_, i) => {
+  const lastSevenDays = Array.from({ length: 7 }).map((_, i) => {
     const date = new Date();
     date.setDate(today.getDate() - (6 - i));
     date.setHours(0, 0, 0, 0);
@@ -30,9 +30,9 @@ const ShortCalendar = ({ endDate }: ShortCalendarProps) => {
   );
 
   const getStreakClass = (index: number): string | null => {
-    const currentKey = last8Days[index].toISOString();
-    const prevKey = last8Days[index - 1]?.toISOString();
-    const nextKey = last8Days[index + 1]?.toISOString();
+    const currentKey = lastSevenDays[index].toISOString();
+    const prevKey = lastSevenDays[index - 1]?.toISOString();
+    const nextKey = lastSevenDays[index + 1]?.toISOString();
 
     const isCurrent = historyMap[currentKey];
     const isPrev = historyMap[prevKey];
@@ -47,7 +47,7 @@ const ShortCalendar = ({ endDate }: ShortCalendarProps) => {
 
   return (
     <div className="short-calendar">
-      {last8Days.map((date, index) => {
+      {lastSevenDays.map((date, index) => {
         const key = date.toISOString();
         const events = historyMap[key] || [];
         const isFilled = events.length > 0;

@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import ChartSlider from "@components/atoms/ChartSlider";
-import MobileBodyLayout from "@components/atoms/Layout/MobileBodyLayout";
 import ShortCalendar from "@components/atoms/ShortCalendar";
 import ExercicesChart from "@components/molecules/ExercicesChart";
 import WeightChart from "@components/molecules/WeightChart";
@@ -33,27 +32,27 @@ const UserProfileView = ({ isDesktop }: UserProfileViewType) => {
   };
 
   return (
-    <div className="user-profile-view-container">
+    <div className="user-profile-view">
       {userById && <DashBoardView user={userById} isDesktop={isDesktop} />}
-      <MobileBodyLayout>
+      <div className="user-profile-view__container">
         {isHistoryView && <HistoryView />}
         {/* apparait onClick et remplace DashBoardView */}
-        <div className="user-profile-view-container__short-calendar">
-          <div className="user-profile-view-container__short-calendar__container">
-            <p className="user-profile-view-container__short-calendar__container__title">
+        <div className="user-profile-view__container__short-calendar">
+          <div className="user-profile-view__container__short-calendar__container">
+            <p className="user-profile-view__container__short-calendar__container__title">
               {t("WEEKLY_SUMMARY")}
             </p>
             <button
               type="button"
               onClick={handleHistoryView}
-              className="user-profile-view-container__short-calendar__container__label"
+              className="user-profile-view__container__short-calendar__container__label"
             >
               {t("SEE_MORE")}
             </button>
           </div>
           {userId && <ShortCalendar endDate={historyEndDateProgram} />}
         </div>
-        <div className="user-profile-view-container__ribbon">
+        <div className="user-profile-view__container__ribbon">
           {historyEndDateProgram && <Ribbon endDate={historyEndDateProgram} />}
         </div>
         <ChartSlider

@@ -69,7 +69,7 @@ export type CreateHistoryInput = {
   end_date: Scalars["DateTimeISO"]["input"];
   program_id: Scalars["Float"]["input"];
   start_date: Scalars["DateTimeISO"]["input"];
-  total_kcal_loss: Scalars["Float"]["input"];
+  total_kcal_loss?: InputMaybe<Scalars["Int"]["input"]>;
   total_time_spent?: InputMaybe<Scalars["Float"]["input"]>;
   user_id: Scalars["Float"]["input"];
 };
@@ -233,6 +233,7 @@ export type Mutation = {
   deleteUser: Scalars["Boolean"]["output"];
   filterPrograms: Array<Program>;
   login: AuthPayload;
+  logout: Scalars["Boolean"]["output"];
   removeUserFromGroup: Scalars["Boolean"]["output"];
   shareProgramWithFriend: SharedProgramList;
   unshareProgram: Scalars["Boolean"]["output"];
@@ -571,7 +572,7 @@ export type UpdateUserInput = {
   created_at: Scalars["DateTimeISO"]["input"];
   description: Scalars["String"]["input"];
   email: Scalars["String"]["input"];
-  gender: Scalars["String"]["input"];
+  gender?: InputMaybe<Scalars["String"]["input"]>;
   height: Scalars["Float"]["input"];
   id: Scalars["Float"]["input"];
   image: Scalars["String"]["input"];
@@ -683,6 +684,10 @@ export type UpdateUserMutation = {
     level?: FitnessLevel | null;
   };
 };
+
+export type LogoutMutationVariables = Exact<{ [key: string]: never }>;
+
+export type LogoutMutation = { __typename?: "Mutation"; logout: boolean };
 
 export type GetAllExercisesQueryVariables = Exact<{ [key: string]: never }>;
 
@@ -879,6 +884,15 @@ export type GetHistoryByUserIdQuery = {
   }>;
 };
 
+export type GetHistoryEndDateProgramByUserIdQueryVariables = Exact<{
+  id: Scalars["Float"]["input"];
+}>;
+
+export type GetHistoryEndDateProgramByUserIdQuery = {
+  __typename?: "Query";
+  getHistoryByUserId: Array<{ __typename?: "History"; end_date?: Date | null }>;
+};
+
 export const AddHistoryDocument = gql`
     mutation addHistory($data: CreateHistoryInput!) {
   addHistory(data: $data) {
@@ -944,15 +958,6 @@ export type AddHistoryMutationOptions = Apollo.BaseMutationOptions<
   AddHistoryMutation,
   AddHistoryMutationVariables
 >;
-export type GetHistoryEndDateProgramByUserIdQueryVariables = Exact<{
-  id: Scalars["Float"]["input"];
-}>;
-
-export type GetHistoryEndDateProgramByUserIdQuery = {
-  __typename?: "Query";
-  getHistoryByUserId: Array<{ __typename?: "History"; end_date?: Date | null }>;
-};
-
 export const LoginDocument = gql`
     mutation login($email: String!, $password: String!) {
   login(email: $email, password: $password) {
@@ -1112,6 +1117,50 @@ export type UpdateUserMutationResult =
 export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<
   UpdateUserMutation,
   UpdateUserMutationVariables
+>;
+export const LogoutDocument = gql`
+    mutation Logout {
+  logout
+}
+    `;
+export type LogoutMutationFn = Apollo.MutationFunction<
+  LogoutMutation,
+  LogoutMutationVariables
+>;
+
+/**
+ * __useLogoutMutation__
+ *
+ * To run a mutation, you first call `useLogoutMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLogoutMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [logoutMutation, { data, loading, error }] = useLogoutMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useLogoutMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    LogoutMutation,
+    LogoutMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<LogoutMutation, LogoutMutationVariables>(
+    LogoutDocument,
+    options,
+  );
+}
+export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
+export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
+export type LogoutMutationOptions = Apollo.BaseMutationOptions<
+  LogoutMutation,
+  LogoutMutationVariables
 >;
 export const GetAllExercisesDocument = gql`
     query getAllExercises {

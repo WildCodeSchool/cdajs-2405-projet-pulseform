@@ -48,19 +48,25 @@ async function seed() {
     `);
 
     await client.query(`
-      INSERT INTO "program" (id, name, description, total_duration, level, image, created_at, visibility, "like") VALUES
-      (1, 'Full Body Workout', 'Un programme complet pour tout le corps', 60, 'intermediate', NULL, NOW(), 0, 10),
-      (2, 'Cardio Blast', 'Idéal pour brûler des calories', 45, 'beginner','https://picsum.photos/400/300', NOW(), 1, 5),
-      (3, 'Legs Day', 'Ciblez vos jambes avec ces exercices', 45, 'intermediate', 'https://picsum.photos/400/300', NOW(), 1, 8),
-      (4, 'Core Strength', 'Renforcez votre ceinture abdominale', 30, 'beginner', 'https://picsum.photos/400/300', NOW(), 2, 6),
-      (5, 'Full Body Workout', 'Un programme complet pour tout le corps', 60, 'intermediate', 'https://picsum.photos/400/300', NOW(), 0, 10),
-      (6, 'Cardio Blast', 'Idéal pour brûler des calories', 45, 'beginner', 'https://picsum.photos/400/300', NOW(), 1, 5),
-      (7, 'Legs Day', 'Ciblez vos jambes avec ces exercices', 45, 'intermediate', 'https://picsum.photos/400/300', NOW(), 1, 8),
-      (8, 'Core Strength', 'Renforcez votre ceinture abdominale', 30, 'beginner', 'https://picsum.photos/400/300', NOW(), 2, 6),
-      (9, 'Full Body Workout', 'Un programme complet pour tout le corps', 60, 'intermediate', 'https://picsum.photos/400/300', NOW(), 0, 10),
-      (10, 'Cardio Blast', 'Idéal pour brûler des calories', 45, 'beginner', 'https://picsum.photos/400/300', NOW(), 1, 5),
-      (11, 'Legs Day', 'Ciblez vos jambes avec ces exercices', 45, 'intermediate', 'https://picsum.photos/400/300', NOW(), 1, 8),
-      (12, 'Core Strength', 'Renforcez votre ceinture abdominale', 30, 'beginner', 'https://picsum.photos/400/300', NOW(), 2, 6)
+     <INSERT INTO "program" (id, name, description, total_duration, level, image, created_at, visibility, "like") VALUES
+      (1, 'Renforcement intégral', 'Un programme complet pour tout le corps', 420, 'beginner','http://localhost:4000/images/exercises/programCards/programCard1.jpg', NOW(), 0, 10),
+      (2, 'Etirement haut du corps', 'Idéal pour brûler des calories', 420, 'beginner', 'http://localhost:4000/images/exercises/programCards/programCard2.jpg', NOW(), 1, 5),
+      (3, 'Yoga Vinyasa', 'Ciblez vos jambes avec ces exercices', 420, 'beginner', 'http://localhost:4000/images/exercises/programCards/programCard3.jpg', NOW(), 1, 8),
+      (4, 'Booty Beauty', 'Idéal pour brûler des calories', 420, 'beginner', 'http://localhost:4000/images/exercises/programCards/programCard13.jpg', NOW(), 1, 5),
+      (5, 'Abdos Sculpt', 'Renforcez votre ceinture abdominale', 420, 'advanced', 'http://localhost:4000/images/exercises/programCards/programCard4.jpg', NOW(), 2, 6),
+      (6, 'Bras en feu', 'Un programme complet pour tout le corps', 420, 'advanced', 'http://localhost:4000/images/exercises/programCards/programCard5.jpg', NOW(), 0, 10),
+      (7, 'Renforcement du dos', 'Idéal pour brûler des calories', 360, 'intermediate', 'http://localhost:4000/images/exercises/programCards/programCard15.jpg', NOW(), 1, 5),
+      (8, 'Core Power', 'Ciblez vos jambes avec ces exercices', 420, 'intermediate', 'http://localhost:4000/images/exercises/programCards/programCard7.jpg', NOW(), 1, 8),
+      (9, 'Cardio Blast', 'Renforcez votre ceinture abdominale', 420, 'intermediate', 'http://localhost:4000/images/exercises/programCards/programCard8.jpg', NOW(), 2, 6),
+      (10, 'Récupération sportive', 'Un programme complet pour tout le corps', 420, 'beginner', 'http://localhost:4000/images/exercises/programCards/programCard9.jpg', NOW(), 0, 10),
+      (11, 'Souplesse du dos', 'Idéal pour brûler des calories', 420, 'intermediate', 'http://localhost:4000/images/exercises/programCards/programCard10.jpg', NOW(), 1, 5),
+      (12, 'Dos en feu', 'Ciblez vos jambes avec ces exercices', 420, 'advanced', 'http://localhost:4000/images/exercises/programCards/programCard11.jpg', NOW(), 1, 8),
+      (13, 'Handstand', 'Renforcez votre ceinture abdominale', 420, 'advanced', 'http://localhost:4000/images/exercises/programCards/programCard12.jpg', NOW(), 2, 6),
+      (14, 'Renforcement des bras', 'Un programme complet pour tout le corps', 420, 'beginner', 'http://localhost:4000/images/exercises/programCards/programCard14.jpg', NOW(), 0, 10),
+      (15, 'Tonifier tout', 'Idéal pour brûler des calories', 420, 'intermediate', 'http://localhost:4000/images/exercises/programCards/programCard16.jpg', NOW(), 1, 5),
+      (16, 'Objectif Cobra', 'Ciblez vos jambes avec ces exercices', 420, 'advanced', 'http://localhost:4000/images/exercises/programCards/programCard17.jpg', NOW(), 1, 8),
+      (17, 'Full Body Burn ', 'Ciblez vos jambes avec ces exercices', 420, 'intermediate', 'http://localhost:4000/images/exercises/programCards/programCard15.jpg', NOW(), 1, 8),
+      (18, 'Souplesse & Equilibre', 'Ciblez vos jambes avec ces exercices', 420, 'beginner', 'http://localhost:4000/images/exercises/programCards/programCard18.jpg', NOW(), 1, 8)
       ON CONFLICT DO NOTHING;
     `);
 
@@ -83,31 +89,36 @@ async function seed() {
 
     await client.query(`
       INSERT INTO "exercise" (id, name, description, duration, kcal_loss, muscle, level, img_src) VALUES
-      (1, 'Push-ups', 'Exercise de musculation classique', 30, 100, 'Chest', 'beginner', 'pushups.jpg'),
-      (2, 'Squats', 'Excellent pour les jambes', 40, 120, 'Legs', 'intermediate', 'squats.jpg'),
-      (3, 'Lunges', 'Exercice pour renforcer les jambes et les fessiers', 35, 110, 'Legs', 'intermediate', 'lunges.jpg'),
-      (4, 'Planks', 'Exercice pour renforcer la sangle abdominale', 40, 90, 'Abdominals', 'beginner', 'planks.jpg'),
-      (5, 'Burpees', 'Exercice complet pour le corps', 50, 150, 'Chest', 'advanced', 'https://picsum.photos/400/300'),
-      (6, 'Deadlifts', 'Exercice de musculation pour le dos et les jambes', 60, 200, 'Back', 'advanced', 'https://picsum.photos/400/300'),
-      (7, 'Bench Press', 'Exercice classique pour le haut du corps', 45, 180, 'Chest', 'intermediate', 'https://picsum.photos/400/300'),
-      (8, 'Bicep Curls', 'Exercice pour les bras', 30, 80, 'Arms', 'beginner', 'https://picsum.photos/400/300')
+      (1, 'Fente latérale', 'Exercise de musculation classique', 30, 100, 'Legs', 'beginner', 'http://localhost:4000/images/exercises/exercisesGIFs/FentesLaterales.gif'),
+      (2, 'Levée de jambes', 'Excellent pour les jambes', 60, 120, 'Legs', 'intermediate', 'http://localhost:4000/images/exercises/exercisesGIFs/LeveeDeJambe.gif'),
+      (3, 'Mains en avant', 'Exercice pour renforcer les jambes et les fessiers', 90, 110, 'Legs', 'intermediate', 'http://localhost:4000/images/exercises/exercisesGIFs/MainsEnAvant.gif'),
+      (4, 'Pose du pigeon droite', 'Exercice pour renforcer la sangle abdominale', 60, 90, 'Abdominals', 'beginner', 'http://localhost:4000/images/exercises/exercisesGIFs/PigeonDroit.gif'),
+      (5, 'Pose du pigeon gauche', 'Exercice complet pour le corps', 60, 150, 'Chest', 'advanced', 'http://localhost:4000/images/exercises/exercisesGIFs/PigeonGauche.gif'),
+      (6, 'Planche', 'Exercice de musculation pour le dos et les jambes', 60, 200, 'Back', 'advanced', 'http://localhost:4000/images/exercises/exercisesGIFs/Planche.gif'),
+      (7, 'Squats', 'Exercice classique pour le haut du corps', 60, 180, 'Chest', 'intermediate', 'http://localhost:4000/images/exercises/exercisesGIFs/Squat.gif')
       ON CONFLICT DO NOTHING;
     `);
 
     await client.query(`
       INSERT INTO "exercise_list" (program_id, exercise_id) VALUES
-      (1, 1),
-      (1, 2),
-      (1, 3),
-      (1, 4),
-      (1, 5),
-      (1, 6),
-      (1, 7),
-      (1, 8),
-      (2, 4),
-      (3, 2),
-      (3, 3),
-      (4, 1)
+      (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 2), (1, 1),
+      (2, 2), (2, 3), (2, 4), (2, 5), (2, 6), (2, 7), (2, 1),
+      (3, 3), (3, 4), (3, 5), (3, 2), (3, 6), (3, 1), (3, 7),
+      (4,1),(4,2),(4,3),(4,4),(4,5),(4,6),(4,7),
+      (5,1),(5,2),(5,3),(5,4),(5,5),(5,6),(5,7),
+      (6,1),(6,2),(6,3),(6,4),(6,5),(6,6),(6,7),
+      (7,1),(7,2),(7,3),(7,4),(7,5),(7,6),
+      (8,1),(8,2),(8,3),(8,4),(8,5),(8,6),(8,7),
+      (9,1),(9,2),(9,3),(9,4),(9,5),(9,6),(9,7),
+      (10,1),(10,2),(10,3),(10,4),(10,5),(10,6),(10,7),
+      (11,1),(11,2),(11,3),(11,4),(11,5),(11,6),(11,7),
+      (12,1),(12,2),(12,3),(12,4),(12,5),(12,6),(12,7),
+      (13,1),(13,2),(13,3),(13,4),(13,5),(13,6),(13,7),
+      (14,1),(14,2),(14,3),(14,4),(14,5),(14,6),(14,7),
+      (15,1),(15,2),(15,3),(15,4),(15,5),(15,6),(15,7),
+      (16,1),(16,2),(16,3),(16,4),(16,5),(16,6),(16,7),
+      (17,1),(17,2),(17,3),(17,4),(17,5),(17,6),(17,7),
+      (18,1),(18,2),(18,3),(18,4),(18,5),(18,6),(18,7)
       ON CONFLICT DO NOTHING;
     `);
 

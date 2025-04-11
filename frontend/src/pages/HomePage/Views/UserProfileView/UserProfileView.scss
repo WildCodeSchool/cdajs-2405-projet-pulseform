@@ -1,6 +1,6 @@
 @use "@assets/variables" as *;
 
-.user-profile-view-container {
+.user-profile-view {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -8,42 +8,47 @@
   height: 100vh;
   width: 100%;
 
-  &__ribbon {
-    margin-bottom: 28px;
-  }
+  &__container {
+    padding: 1rem 1rem;
+    width: 91%;
 
-  &__short-calendar {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 38px;
-    margin-bottom: 14px;
+    &__ribbon {
+      margin-bottom: 28px;
+    }
 
-    &__container {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      gap: 10px;
+    &__short-calendar {
       width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 38px;
+      margin-bottom: 14px;
 
-      &__title {
-        @include h2-phone;
-        color: $primary;
-      }
+      &__container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
 
-      &__label {
-        @include body;
-        color: $primary;
-        border: none;
-        margin: 0;
-        padding: 0;
-        background: none;
-        cursor: pointer;
-        transition: color 0.2s;
+        &__title {
+          @include h2-phone;
+          color: $primary;
+        }
 
-        &:hover {
-          color: $dark-grey;
+        &__label {
+          @include body;
+          color: $primary;
+          border: none;
+          margin: 0;
+          padding: 0;
+          background: none;
+          cursor: pointer;
+          transition: color 0.2s;
+
+          &:hover {
+            color: $dark-grey;
+          }
         }
       }
     }

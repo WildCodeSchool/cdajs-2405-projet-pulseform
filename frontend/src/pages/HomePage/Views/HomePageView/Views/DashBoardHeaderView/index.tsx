@@ -4,6 +4,7 @@ import MobileHeaderLayout from "@components/atoms/Layout/MobileHeader";
 import Ribbon from "@components/atoms/Ribbon";
 
 import "./DashBoardHeaderView.scss";
+
 import { useUser } from "@context/UserContext";
 import { useGetUserById } from "@hooks/useUsers";
 import { GetHistoryEndDateProgramByUserId } from "@hooks/useUsers";
@@ -20,9 +21,6 @@ const DashBoardHeaderView = ({ isDesktop }: DashBoardHeaderViewType) => {
   const userId = Number(user?.id);
 
   const { userById } = useGetUserById(userId);
-
-  const { user } = useUser();
-  const userId = Number(user?.id);
 
   const { historyEndDateProgram } = GetHistoryEndDateProgramByUserId(userId);
 
