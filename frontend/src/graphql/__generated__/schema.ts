@@ -890,6 +890,15 @@ export type GetHistoryByUserIdQuery = {
   }>;
 };
 
+export type GetHistoryEndDateProgramByUserIdQueryVariables = Exact<{
+  id: Scalars["Float"]["input"];
+}>;
+
+export type GetHistoryEndDateProgramByUserIdQuery = {
+  __typename?: "Query";
+  getHistoryByUserId: Array<{ __typename?: "History"; end_date?: Date | null }>;
+};
+
 export const AddHistoryDocument = gql`
     mutation addHistory($data: CreateHistoryInput!) {
   addHistory(data: $data) {
@@ -1953,4 +1962,88 @@ export type GetHistoryByUserIdSuspenseQueryHookResult = ReturnType<
 export type GetHistoryByUserIdQueryResult = Apollo.QueryResult<
   GetHistoryByUserIdQuery,
   GetHistoryByUserIdQueryVariables
+>;
+export const GetHistoryEndDateProgramByUserIdDocument = gql`
+    query GetHistoryEndDateProgramByUserId($id: Float!) {
+  getHistoryByUserId(user_id: $id) {
+    end_date
+  }
+}
+    `;
+
+/**
+ * __useGetHistoryEndDateProgramByUserIdQuery__
+ *
+ * To run a query within a React component, call `useGetHistoryEndDateProgramByUserIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetHistoryEndDateProgramByUserIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetHistoryEndDateProgramByUserIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetHistoryEndDateProgramByUserIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetHistoryEndDateProgramByUserIdQuery,
+    GetHistoryEndDateProgramByUserIdQueryVariables
+  > &
+    (
+      | {
+          variables: GetHistoryEndDateProgramByUserIdQueryVariables;
+          skip?: boolean;
+        }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetHistoryEndDateProgramByUserIdQuery,
+    GetHistoryEndDateProgramByUserIdQueryVariables
+  >(GetHistoryEndDateProgramByUserIdDocument, options);
+}
+export function useGetHistoryEndDateProgramByUserIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetHistoryEndDateProgramByUserIdQuery,
+    GetHistoryEndDateProgramByUserIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetHistoryEndDateProgramByUserIdQuery,
+    GetHistoryEndDateProgramByUserIdQueryVariables
+  >(GetHistoryEndDateProgramByUserIdDocument, options);
+}
+export function useGetHistoryEndDateProgramByUserIdSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetHistoryEndDateProgramByUserIdQuery,
+        GetHistoryEndDateProgramByUserIdQueryVariables
+      >,
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    GetHistoryEndDateProgramByUserIdQuery,
+    GetHistoryEndDateProgramByUserIdQueryVariables
+  >(GetHistoryEndDateProgramByUserIdDocument, options);
+}
+export type GetHistoryEndDateProgramByUserIdQueryHookResult = ReturnType<
+  typeof useGetHistoryEndDateProgramByUserIdQuery
+>;
+export type GetHistoryEndDateProgramByUserIdLazyQueryHookResult = ReturnType<
+  typeof useGetHistoryEndDateProgramByUserIdLazyQuery
+>;
+export type GetHistoryEndDateProgramByUserIdSuspenseQueryHookResult =
+  ReturnType<typeof useGetHistoryEndDateProgramByUserIdSuspenseQuery>;
+export type GetHistoryEndDateProgramByUserIdQueryResult = Apollo.QueryResult<
+  GetHistoryEndDateProgramByUserIdQuery,
+  GetHistoryEndDateProgramByUserIdQueryVariables
 >;

@@ -86,3 +86,11 @@ getHistoryByUserId(user_id: $id) {
   }
 }
 `;
+
+export const GET_PROGRAM_HISTORY_END_DATE_BY_USER_ID = gql`
+  query GetHistoryEndDateProgramByUserId($id: Float!) {
+    getHistoryByUserId(user_id: $id) {
+      end_date
+    }
+  }
+`;
