@@ -1,11 +1,12 @@
 import { useTranslation } from "react-i18next";
 
 import MobileHeaderLayout from "@components/atoms/Layout/MobileHeader";
-import Ruban from "@components/atoms/Ruban/Ruban";
-import { useUser } from "@context/UserContext";
-import { useGetUserById } from "@hooks/useUsers";
+import Ribbon from "@components/atoms/Ribbon";
 
 import "./DashBoardHeaderView.scss";
+import { useUser } from "@context/UserContext";
+import { useGetUserById } from "@hooks/useUsers";
+import { GetHistoryEndDateProgramByUserId } from "@hooks/useUsers";
 
 type DashBoardHeaderViewType = {
   isDesktop: boolean;
@@ -15,9 +16,15 @@ type DashBoardHeaderViewType = {
 const DashBoardHeaderView = ({ isDesktop }: DashBoardHeaderViewType) => {
   const { t } = useTranslation();
   const { user } = useUser();
+
   const userId = Number(user?.id);
 
   const { userById } = useGetUserById(userId);
+
+  const { user } = useUser();
+  const userId = Number(user?.id);
+
+  const { historyEndDateProgram } = GetHistoryEndDateProgramByUserId(userId);
 
   return (
     <div className="dash-board-header-view-container">
@@ -36,7 +43,7 @@ const DashBoardHeaderView = ({ isDesktop }: DashBoardHeaderViewType) => {
                 {t("WEEKLY_RECAP")}
               </h2>
             </div>
-            <Ruban days={3} />
+            <Ribbon endDate={historyEndDateProgram} />
           </div>
         </div>
       )}

@@ -1,6 +1,7 @@
 import {
   useGetAllUsersQuery,
   useGetHistoryByUserIdQuery,
+  useGetHistoryEndDateProgramByUserIdQuery,
   useGetUserByIdQuery,
   useGetWeightByUserIdQuery,
   useMeQuery,
@@ -66,5 +67,18 @@ export const useGetUserExercicesForChart = (id: number) => {
     loading,
     error,
     userExercicesChart,
+  };
+};
+
+export const GetHistoryEndDateProgramByUserId = (id: number) => {
+  const { loading, error, data } = useGetHistoryEndDateProgramByUserIdQuery({
+    variables: { id },
+  });
+  const historyEndDateProgram = data?.getHistoryByUserId;
+
+  return {
+    loading,
+    error,
+    historyEndDateProgram,
   };
 };
