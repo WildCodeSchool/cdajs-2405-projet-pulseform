@@ -1,0 +1,32 @@
+@use "@assets/variables" as *;
+
+.history-view {
+  &__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+
+    &__title {
+      @include h2-phone;
+      color: $primary;
+    }
+
+    &__button {
+      @include body;
+      color: $primary;
+      border: none;
+      margin: 0;
+      padding: 0;
+      background: none;
+      cursor: pointer;
+      transition: color 0.2s;
+
+      &:hover {
+        color: $dark-grey;
+      }
+    }
+  }
+}

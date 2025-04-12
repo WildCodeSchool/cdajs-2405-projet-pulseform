@@ -1,10 +1,11 @@
 import "./HistoryView.scss";
+import Calendar from "@components/atoms/Calendar/Calendar";
 
 const HistoryView = () => {
   return (
-    <div>
-      <p>HistoryView</p>
-    </div>
+    <section className="history-view">
+      <Calendar />
+    </section>
   );
 };
 
