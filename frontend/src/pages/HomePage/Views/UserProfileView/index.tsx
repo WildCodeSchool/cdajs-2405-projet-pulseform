@@ -24,6 +24,7 @@ const UserProfileView = ({ isDesktop }: UserProfileViewType) => {
     setIsHistoryView(!isHistoryView);
   };
 
+  // TO DO AGL: faire une section en mode desktop et une autre en mode mobile ?
   return (
     <div className="user-profile-view">
       {userById && <DashBoardView user={userById} isDesktop={isDesktop} />}
@@ -32,7 +33,7 @@ const UserProfileView = ({ isDesktop }: UserProfileViewType) => {
           isHistoryView={isHistoryView}
           handleHistoryView={handleHistoryView}
         />
-        {isHistoryView && <HistoryView />}
+        {isHistoryView && <HistoryView userId={userId} />}
         {!isHistoryView && <ChartsView userId={userId} />}
       </div>
     </div>

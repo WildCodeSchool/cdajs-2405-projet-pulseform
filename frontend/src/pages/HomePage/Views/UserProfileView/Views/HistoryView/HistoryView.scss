@@ -1,6 +1,13 @@
 @use "@assets/variables" as *;
 
-.history-view {
+.user-history-view {
+  display: flex;
+  flex-direction: column;
   padding: 1rem 1rem;
   width: 91%;
+
+  &__calendar {
+  }
+  &__week-details {
+  }
 }
