@@ -6,8 +6,10 @@ import "./ProgramDoneCard.scss";
 export type ProgramLight = {
   id: string;
   name: string;
-  total_duration: number;
+  // total_duration: number;
   end_date: Date;
+  total_completed_exercises: number;
+  total_time_spent: number;
 };
 
 type ProgramDoneCardType = {
@@ -16,7 +18,9 @@ type ProgramDoneCardType = {
 
 export function ProgramDoneCard({ program }: ProgramDoneCardType) {
   const navigate = useNavigate();
-  const convertedDuration = convertSecondsToMinRounded(program?.total_duration);
+  const convertedDuration = convertSecondsToMinRounded(
+    program?.total_time_spent,
+  );
   const program_date = format(new Date(program.end_date), "dd/MM/yy");
 
   return (

@@ -6,6 +6,8 @@ export const GET_USER_HISTORY_BY_DATES = gql`
     id
     start_date
     end_date
+    total_completed_exercises
+    total_time_spent
     program {
       id
       name
