@@ -149,6 +149,12 @@ async function seed() {
 
     await client.query(`
       INSERT INTO "history" (user_id, program_id, total_kcal_loss, start_date, end_date) VALUES
+      (1, 1, 500, NOW(), NOW() + INTERVAL '1 week'),
+      (2, 2, 300, NOW(), NOW() + INTERVAL '4 days'),
+      (3, 3, 450, NOW(), NOW() + INTERVAL '6 days'),
+      (7, 3, 450, NOW(), NOW()),
+      (7, 2, 450, NOW(), NOW()),
+      (7, 1, 450, NOW(), NOW())
       (1, 1, 500, NOW() - INTERVAL '1 week', NOW()),
       (2, 2, 300, NOW() - INTERVAL '7 days', NOW() - INTERVAL '2 days'),
       (3, 3, 450, NOW() - INTERVAL '7 days', NOW() - INTERVAL '1 days'),
