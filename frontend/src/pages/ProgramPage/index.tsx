@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import {
   CurrentExerciseView,
@@ -15,14 +16,17 @@ import { useUser } from "@context/UserContext";
 import { useGetProgramById } from "@hooks/usePrograms";
 import { useGetUserById } from "@hooks/useUsers";
 
-import "./ProgramPage.scss";
 import { useAddHistoryMutation } from "@graphql/__generated__/schema";
+import "./ProgramPage.scss";
+import { useTranslation } from "react-i18next";
 
 const ProgramPage = () => {
   const { user } = useUser();
   const userId = Number(user?.id);
 
   const { userById } = useGetUserById(userId);
+
+  const { t } = useTranslation();
 
   const REST_DURATION = 20;
   const [addHistoryMutation] = useAddHistoryMutation();
@@ -165,8 +169,21 @@ const ProgramPage = () => {
 
     try {
       await addHistoryMutation({ variables: { data: historyData } });
-      console.log("History added successfully!"); //TO DO : add toaster notificaion
+      toast.success(t("HISTORY_UPDATE_SUCCESS"), {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        theme: "light",
+      });
     } catch (err) {
+      toast.error(t("HISTORY_UPDATE_FAIL"), {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        theme: "light",
+      });
       console.error("Error adding history:", err);
     }
   };

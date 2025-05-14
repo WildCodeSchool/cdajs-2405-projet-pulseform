@@ -144,6 +144,8 @@ INSERT INTO "history" (user_id, program_id, total_kcal_loss, start_date, end_dat
 (3, 3, 450, NOW() - INTERVAL '7 days', NOW() - INTERVAL '1 days'),
 (8, 1, 450, NOW() - INTERVAL '7 days', NOW() - INTERVAL '1 days'),
 (8, 2, 500, NOW() - INTERVAL '7 days', NOW() - INTERVAL '1 days'),
+(8, 2, 500, NOW() - INTERVAL '2 days', NOW() - INTERVAL '1 days'),
+(8, 2, 500, NOW() - INTERVAL '5 days', NOW() - INTERVAL '1 days'),
 (8, 3, 550, NOW() - INTERVAL '7 days', NOW() - INTERVAL '1 days'),
 (8, 4, 250, NOW() - INTERVAL '2 month', NOW()),
 (8, 2, 500, NOW() - INTERVAL '2 month', NOW() - INTERVAL '1 month'),

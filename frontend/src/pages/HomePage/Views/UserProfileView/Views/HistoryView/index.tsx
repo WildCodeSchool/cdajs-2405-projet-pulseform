@@ -6,7 +6,9 @@ const HistoryView = () => {
   return (
     <div>
       <p>HistoryView</p>
+
       <WeekDetails />
+
     </div>
   );
 };

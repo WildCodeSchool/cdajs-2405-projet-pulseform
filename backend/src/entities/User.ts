@@ -134,8 +134,8 @@ export class User extends BaseEntity {
     height: number,
     created_at: Date,
     level: FitnessLevelEnum,
-    total_completed_exercises: number,
-    total_time_spent: number,
+    total_completed_exercises: number | undefined,
+    total_time_spent: number | undefined,
     role: MemberRoleEnum = MemberRoleEnum.USER,
   ) {
     super();
@@ -151,7 +151,7 @@ export class User extends BaseEntity {
     this.created_at = created_at;
     this.role = role;
     this.level = level;
-    this.total_completed_exercises = total_completed_exercises;
-    this.total_time_spent = total_time_spent;
+    this.total_completed_exercises = total_completed_exercises || 0;
+    this.total_time_spent = total_time_spent || 0;
   }
 }

@@ -1,26 +1,5 @@
 import { gql } from "@apollo/client";
 
-// export const USER_LOGIN_QUERY = gql`
-//   query LoginUser($email: String!, $password: String!) {
-//     login(email: $email, password: $password)
-//   }
-// `;
-
-// export const USER_CREATE_QUERY = gql`
-//   mutation CreateUser($email: String!, $role: String!, $password: String!) {
-//     createUser(email: $email, role: $role, password: $password) {
-//       id
-//     }
-//   }
-// `;
-
-// export const USER_UPDATE_QUERY = gql`
-//   mutation UpdateUser($id: ID!, $username: String!, $description: String!, $role: String!, $password: String!, $email: String!, weight: number!, height: number!, age: number!) {
-//     updateUser(id: $id, username: $username, description: $description) {
-//       id
-//     }
-// }`;
-
 export const ME_QUERY = gql`
   query Me {
     me {
@@ -35,6 +14,8 @@ export const ME_QUERY = gql`
       birthday
       height
       gender
+      total_completed_exercises
+      total_time_spent
       weights {
         month
         weight
@@ -57,6 +38,8 @@ export const GET_USER_BY_ID = gql`
       created_at
       role
       level
+      total_completed_exercises
+      total_time_spent
     }
   }
 `;
@@ -75,6 +58,8 @@ export const GET_ALL_USERS = gql`
       created_at
       role
       level
+      total_completed_exercises
+      total_time_spent
     }
   }
 `;
@@ -100,4 +85,12 @@ getHistoryByUserId(user_id: $id) {
     }
   }
 }
+`;
+
+export const GET_PROGRAM_HISTORY_END_DATE_BY_USER_ID = gql`
+  query GetHistoryEndDateProgramByUserId($id: Float!) {
+    getHistoryByUserId(user_id: $id) {
+      end_date
+    }
+  }
 `;
