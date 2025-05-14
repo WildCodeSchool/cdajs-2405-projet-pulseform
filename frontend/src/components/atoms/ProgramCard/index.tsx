@@ -40,4 +40,6 @@ const ProgramCard = ({ program }: ProgramCardProps) => {
   );
 };
 
+ProgramCard.displayName = "ProgramCard";
+
 export default ProgramCard;
