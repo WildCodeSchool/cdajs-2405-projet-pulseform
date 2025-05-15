@@ -1,11 +1,11 @@
 name: deploy to production
 
-on: 
+on:
   push:
     branches: [ main ]
 
 jobs:
-  deploy:
+  deploy_production:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,8 +26,6 @@ jobs:
       - name: Get current date and set app name
         run: |
           echo "date=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_ENV
-          echo "myapp=pulseform" >> $GITHUB_ENV
-          echo "environnement=main" >> $GITHUB_ENV
 
       # Étape 4 : Configurer QEMU pour la construction multiplateforme
       - name: Set up QEMU
@@ -37,99 +35,94 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # Étape 6 : Se connecter à Docker Hub
-      - name: Login to Docker Hub
+      # Log in to GitHub Container Registry
+      - name: Log in to GitHub Container Registry
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_PAT }}
+      
+      # Extract repository name in lowercase
+      - name: Extract repository name in lowercase
+        id: repo_name
+        run: echo "REPO_NAME=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
       # Étape 7 : Construire et pousser l'image Docker du Backend
-      - name: Build and push Backend Docker image
-        uses: docker/build-push-action@v4
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
         with:
-          push: true
           context: ./backend
+          push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-backend:${{ env.environnement }}
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-backend:${{ github.sha }}
-          labels: |
-            maintainer=${{ secrets.DOCKERHUB_USERNAME }}
-            version=${{ github.sha }}
-            build-date=${{ env.date }}
-          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-backend:cache
-          cache-to: type=inline
+            ghcr.io/${{ env.REPO_NAME }}:${{ github.sha }}
+            ghcr.io/${{ env.REPO_NAME }}:backend-production
+          build-args: |
+            CACHEBUST=${{ github.sha }}  # Cache-busting
 
       # Étape 8 : Construire et pousser l'image Docker du Frontend
-      - name: Build and push Frontend Docker image
-        uses: docker/build-push-action@v4
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
         with:
-          push: true
           context: ./frontend
-          tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-frontend:${{ env.environnement }}
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-frontend:${{ github.sha }}
-          labels: |
-            maintainer=${{ secrets.DOCKERHUB_USERNAME }}
-            version=${{ github.sha }}
-            build-date=${{ env.date }}
-          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-frontend:cache
-          cache-to: type=inline
-
-      # Étape 9 : Construire et pousser l'image Docker du serveur de tranduction
-      - name: Build and push Translation Docker image
-        uses: docker/build-push-action@v4
-        with:
           push: true
-          context: ./translation-server
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-translation:${{ env.environnement }}
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-translation:${{ github.sha }}
-          labels: |
-            maintainer=${{ secrets.DOCKERHUB_USERNAME }}
-            version=${{ github.sha }}
-            build-date=${{ env.date }}
-          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-translation:cache
-          cache-to: type=inline
+            ghcr.io/${{ env.REPO_NAME }}:${{ github.sha }}
+            ghcr.io/${{ env.REPO_NAME }}:frontend-production
+          build-args: |
+            CACHEBUST=${{ github.sha }}  # Cache-busting
+      
+      # Étape 9 : Construire et pousser l'image Docker du serveur de traduction
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./translation-server
+          push: true
+          tags: |
+            ghcr.io/${{ env.REPO_NAME }}:${{ github.sha }}
+            ghcr.io/${{ env.REPO_NAME }}:translation-production
+          build-args: |
+            CACHEBUST=${{ github.sha }}  # Cache-busting
 
-      # Étape 10 : Connexion à Docker Hub depuis le serveur
-      - name: Login to Docker Hub on main Server
+       # Authenticate Docker on the server
+      - name: Authenticate Docker on the server
         run: |
-          ssh -v -o StrictHostKeyChecking=no -T -p 2269 wns_student@${{ secrets.SERVER_IP }} "
-            echo $DOCKERHUB_TOKEN | docker login -u $DOCKERHUB_USERNAME --password-stdin
+          ssh -o StrictHostKeyChecking=no -p 2269 wns_student@${{ secrets.SERVER_IP }} "
+            echo ${{ secrets.GHCR_PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           "
-        env:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
       # Étape 11 : Sauvegarder la base de données
       - name: Run DB backup on main Server
         run: |
-          ssh -o StrictHostKeyChecking=no -T -p 2269 wns_student@${{ secrets.SERVER_IP }} "
+          ssh -o StrictHostKeyChecking=no -p 2269 wns_student@${{ secrets.SERVER_IP }} "
             echo '📦 Starting DB backup...' &&
-            bash /home/wns_student/pulseform/scripts/backup-db.sh
-          "        
-          
-      # Étape 12 : Déployer sur le serveur la version de production
-      - name: Deploy to main
-        run: |
-          ssh -o StrictHostKeyChecking=no -T -p 2269 wns_student@${{ secrets.SERVER_IP }} "
-            cd pulseform &&
-            docker compose -f docker-compose.yml pull &&
-            docker compose -f docker-compose.yml up -d
-          "
+            bash pulseform/production/backup-db.sh
+          " 
 
-      # Étape 13 : Nettoyer le serveur
-      - name: Clean up Docker on Server
+      # Deploy to VPS with logs
+      - name: Deploy to VPS
         run: |
-          ssh -o StrictHostKeyChecking=no -T -p 2269 wns_student@${{ secrets.SERVER_IP }} "
+          ssh -o StrictHostKeyChecking=no -p 2269 wns_student@${{ secrets.SERVER_IP }} "
+            cd pulseform/production &&
+            echo 'Pulling and deploying Docker container...' &&
+            docker compose -f docker-compose.yml pull &&
+            docker compose -f docker-compose.yml up -d &&
+            echo 'Deployment complete.'
+          "
+          
+      # Étape 12 : Nettoyer le serveur
+      - name: Clean up Docker on staging Server
+        run: |
+         ssh -o StrictHostKeyChecking=no -p 2269 wns_student@${{ secrets.SERVER_IP }} "
             echo 'Starting Docker cleanup...' &&
             echo 'Before cleanup:' &&
             df -h &&
             docker system prune -a --force &&
+            docker image prune -a --force &&
             docker volume prune --force &&
             docker network prune --force &&
             echo 'After cleanup:' &&
             df -h &&
             echo 'Docker cleanup completed successfully.'
           "
+          

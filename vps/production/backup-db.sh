@@ -10,6 +10,6 @@ DATE=$(date +%F-%H-%M)
 
 mkdir -p "$BACKUP_DIR"
 
-docker exec -t "$DB_CONTAINER" pg_dump -U "$DB_USER" -d "$DB_NAME" -F c > "$BACKUP_DIR/backup-$DATE.dump"
+docker exec -t "$DB_CONTAINER" pg_dump -U "$POSTGRES_USER" -d "$POSTGRES_DB" -F c > "$BACKUP_DIR/backup-$DATE.dump"
 
 echo "✅ Backup completed: $BACKUP_DIR/backup-$DATE.dump"

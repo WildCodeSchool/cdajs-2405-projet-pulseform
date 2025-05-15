@@ -16,6 +16,9 @@ const ProgramCard = ({ program }: ProgramCardProps) => {
   const convertedDuration = convertSecondsToMinRounded(program.total_duration);
   const navigate = useNavigate();
 
+  const imageBasePath = `${import.meta.env.VITE_URL_BACK}/${import.meta.env.VITE_IMAGE_PROGRAMME}`;
+  const imageUrl = `${imageBasePath}/${program.image}`;
+
   return (
     <button
       type="button"
@@ -23,7 +26,7 @@ const ProgramCard = ({ program }: ProgramCardProps) => {
       onClick={() => navigate(`/program/${program.id}`)}
     >
       <img
-        src={program?.image || ""}
+        src={imageUrl || ""}
         alt={program?.name || ""}
         className="program-card__image"
       />

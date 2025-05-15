@@ -1,5 +1,5 @@
 import { ProgramListView } from "@pages/HomePage/Views/HomePageView/Views";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import FitnessLevelMenu from "../FitnessLevelMenu";
 
@@ -9,16 +9,27 @@ import SearchModal from "@components/molecules/SearchModal";
 
 const ProgramListWithToggle = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([
+    "beginner",
+  ]);
+
+  useEffect(() => {
+    setSelectedFilters(["beginner"]);
+  }, []);
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
 
   return (
     <div className="program-list-view-with-toggle">
-      <FitnessLevelMenu />
+      <FitnessLevelMenu setSelectedFilters={setSelectedFilters} />
       <ProgrammSearchButton onClick={openModal} />
-      <ProgramListView />
-      <SearchModal isOpen={isModalOpen} onClose={closeModal} />
+      <ProgramListView selectedFilters={selectedFilters} />
+      <SearchModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onSearch={(filters) => setSelectedFilters(filters)}
+      />
     </div>
   );
 };

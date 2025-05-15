@@ -19,6 +19,10 @@
     background-color: $tertiary;
     color: white;
     border-color: $tertiary;
+
+    &:hover {
+      background-color: color.adjust($tertiary, $lightness: 10%);
+    }
   }
 
   &:hover {
