@@ -1,0 +1,6 @@
+docker exec -it <postgres-db-docker> psql -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE app TO <name-user>;"
+docker exec -it <postgres-db-docker> psql -U postgres -d app -c "GRANT ALL ON SCHEMA public TO <name-user>;"
+docker exec -it <postgres-db-docker> psql -U postgres -d app -c "GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO <name-user>;"
+docker exec -it <postgres-db-docker> psql -U postgres -d app -c "GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public TO <name-user>;"
+docker exec -it <postgres-db-docker> psql -U postgres -d app -c "GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO <name-user>;"
+docker exec -it <postgres-db-docker> psql -U postgres -d app -c "ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL PRIVILEGES ON TABLES TO <name-user>;"

@@ -1,4 +1,5 @@
 import { useMutation } from "@apollo/client";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -14,7 +15,7 @@ import "./FirstView.scss";
 
 function FirstView() {
   const { t } = useTranslation();
-  const { user } = useUser();
+  const { user, loading } = useUser();
   const navigate = useNavigate();
 
   const [logout] = useMutation(LOGOUT_MUTATION, {
@@ -23,6 +24,15 @@ function FirstView() {
       navigate("/");
     },
   });
+
+  // ✅ Redirection si connecté
+  useEffect(() => {
+    if (!loading && user) {
+      navigate("/home");
+    }
+  }, [user, loading, navigate]);
+
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div className="first-view">

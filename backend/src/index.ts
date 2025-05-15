@@ -4,7 +4,7 @@ import { expressMiddleware } from "@apollo/server/express4";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
-import express, { type Request } from "express";
+import express, { type Request, type Response } from "express";
 import jwt from "jsonwebtoken";
 import { buildSchema } from "type-graphql";
 import AppDataSource from "./AppDataSource";
@@ -25,10 +25,9 @@ app.use(
   cors({
     origin: (origin, callback) => {
       const allowedOrigins = [
-        `${process.env.SERVER_URL}:${process.env.PORT_FRONT}`,
-        "https://staging.052024-jaune-4.wns.wilders.dev",
-        "https://052024-jaune-4.wns.wilders.dev",
-        `${process.env.SERVER_URL}:${process.env.PORT_BACK}`,
+        `${process.env.SERVER_URL_DEV}`,
+        `${process.env.SERVER_URL_STAGING}`,
+        `${process.env.SERVER_URL_PRODUCTION}`,
       ];
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
@@ -62,7 +61,6 @@ const getUser = async (req: Request): Promise<User | null> => {
 
 const startServer = async () => {
   await AppDataSource.initialize();
-  // await AppDataSource.synchronize(true);
 
   const schema = await buildSchema({
     resolvers,
@@ -85,7 +83,7 @@ const startServer = async () => {
 
   // Middleware GraphQL avec CORS activé
   app.use(
-    "/graphql",
+    "/",
     express.json(),
     expressMiddleware(server, {
       context: async ({ req, res }): Promise<MyContext> => {
@@ -95,10 +93,22 @@ const startServer = async () => {
     }),
   );
 
+  // Route de Health Check
+  app.get("/health", async (_req: Request, res: Response): Promise<void> => {
+    try {
+      const dbStatus = (await AppDataSource.isInitialized)
+        ? "connected"
+        : "disconnected";
+      res.status(200).json({ status: "ok", database: dbStatus });
+    } catch (_) {
+      res.status(500).json({ status: "error", database: "disconnected" });
+    }
+  });
+
   // Démarre le serveur Express
   app.listen(process.env.PORT_BACK, () => {
     console.log(
-      `🚀 Server is running on ${process.env.SERVER_URL}:${process.env.PORT_BACK}/graphql`,
+      `🚀 Server is running on ${process.env.SERVER_URL}:${process.env.PORT_BACK}`,
     );
   });
 };

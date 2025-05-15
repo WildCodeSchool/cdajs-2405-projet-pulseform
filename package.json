@@ -9,7 +9,8 @@
   },
   "scripts": {
     "format": "npx @biomejs/biome lint --write",
-    "prepare": "husky"
+    "prepare": "husky",
+    "pulse": "chmod +x ./backend/src/db/manage-db.sh && sh ./backend/src/db/manage-db.sh"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx,json}": [
