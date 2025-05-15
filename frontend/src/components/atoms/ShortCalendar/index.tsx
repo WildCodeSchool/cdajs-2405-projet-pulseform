@@ -8,9 +8,14 @@ const ShortCalendar = ({ endDate }: ShortCalendarProps) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const lastSevenDays = Array.from({ length: 7 }).map((_, i) => {
-    const date = new Date();
-    date.setDate(today.getDate() - (6 - i));
+  const dayOfWeek = today.getDay();
+  const daysFromMonday = (dayOfWeek + 6) % 7;
+  const monday = new Date(today);
+  monday.setDate(today.getDate() - daysFromMonday);
+
+  const currentWeekDays = Array.from({ length: 7 }).map((_, i) => {
+    const date = new Date(monday);
+    date.setDate(monday.getDate() + i);
     date.setHours(0, 0, 0, 0);
     return date;
   });
@@ -30,9 +35,9 @@ const ShortCalendar = ({ endDate }: ShortCalendarProps) => {
   );
 
   const getStreakClass = (index: number): string | null => {
-    const currentKey = lastSevenDays[index].toISOString();
-    const prevKey = lastSevenDays[index - 1]?.toISOString();
-    const nextKey = lastSevenDays[index + 1]?.toISOString();
+    const currentKey = currentWeekDays[index].toISOString();
+    const prevKey = currentWeekDays[index - 1]?.toISOString();
+    const nextKey = currentWeekDays[index + 1]?.toISOString();
 
     const isCurrent = historyMap[currentKey];
     const isPrev = historyMap[prevKey];
@@ -47,7 +52,7 @@ const ShortCalendar = ({ endDate }: ShortCalendarProps) => {
 
   return (
     <div className="short-calendar">
-      {lastSevenDays.map((date, index) => {
+      {currentWeekDays.map((date, index) => {
         const key = date.toISOString();
         const events = historyMap[key] || [];
         const isFilled = events.length > 0;

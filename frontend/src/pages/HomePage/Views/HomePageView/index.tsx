@@ -3,12 +3,9 @@ import { useState } from "react";
 import { DashBoardHeaderView } from "./Views";
 
 import "./HomePageView.scss";
+import type { HomePageViewProps } from "./HomePageView.type";
 
-type HomePageViewType = {
-  isDesktop: boolean;
-};
-
-const HomePageView = ({ isDesktop }: HomePageViewType) => {
+const HomePageView = ({ isDesktop, user }: HomePageViewProps) => {
   const [isActiveMenu, setIsActiveMenu] = useState(false);
 
   const _handleMenuParameters = () => {
@@ -17,7 +14,7 @@ const HomePageView = ({ isDesktop }: HomePageViewType) => {
 
   return (
     <div className="home-page-view">
-      <DashBoardHeaderView isDesktop={isDesktop} />
+      <DashBoardHeaderView isDesktop={isDesktop} user={user} />
       <ProgramListWithToggle />
     </div>
   );
