@@ -1,0 +1,15 @@
+@use "@assets/variables" as *;
+
+.parameters-menu {
+  display: flex;
+  flex: column;
+  background-color: $tertiary;
+  color: $white;
+
+  &__button {
+    padding: 10px;
+    @include h2-phone;
+    cursor: pointer;
+    border: none;
+  }
+}
