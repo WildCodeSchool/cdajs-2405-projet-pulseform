@@ -906,6 +906,7 @@ export type GetHistoryByUserIdQuery = {
       id: string;
       name: string;
       total_duration?: number | null;
+      tags?: Array<{ __typename?: "Tag"; name: Tags }> | null;
     };
   }>;
 };
@@ -2003,6 +2004,9 @@ export const GetHistoryByUserIdDocument = gql`
       id
       name
       total_duration
+      tags {
+        name
+      }
     }
   }
 }

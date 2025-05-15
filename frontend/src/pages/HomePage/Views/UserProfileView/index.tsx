@@ -10,6 +10,7 @@ import { DashBoardView, HistoryView } from "./Views";
 
 import "./UserProfileView.scss";
 import { GetHistoryEndDateProgramByUserId } from "@hooks/useUsers";
+import { useGetUserExercicesForChart } from "@hooks/useUsers";
 
 import type { UserProfileViewProps } from "./UserProfileView.type";
 
@@ -18,12 +19,25 @@ const UserProfileView = ({ isDesktop, user }: UserProfileViewProps) => {
   const { t } = useTranslation();
 
   const { historyEndDateProgram } = GetHistoryEndDateProgramByUserId(userId);
+  const { userExercicesChart } = useGetUserExercicesForChart(userId);
 
   const [isHistoryView, setIsHistoryView] = useState(false);
 
   const handleHistoryView = () => {
     setIsHistoryView(!isHistoryView);
   };
+
+  const rawUserExercicesChart = userExercicesChart ?? [];
+
+  const parsedUserExercicesChart = rawUserExercicesChart.map((item) => ({
+    end_date: item?.end_date ?? "",
+    program: {
+      tags:
+        item?.program?.tags?.map((tag) => ({
+          name: tag?.name ?? "",
+        })) ?? [],
+    },
+  }));
 
   return (
     <div className="user-profile-view">
@@ -72,7 +86,10 @@ const UserProfileView = ({ isDesktop, user }: UserProfileViewProps) => {
                     key="weight-chart"
                     dataWeight={user?.weights || []}
                   />,
-                  <ExercicesChart key="exercices-chart" userId={userId} />,
+                  <ExercicesChart
+                    key="exercices-chart"
+                    userExercicesChart={parsedUserExercicesChart}
+                  />,
                 ]}
               />
             </>

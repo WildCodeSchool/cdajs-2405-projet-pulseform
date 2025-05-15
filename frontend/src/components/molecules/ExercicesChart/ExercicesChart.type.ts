@@ -21,3 +21,11 @@ export interface Data {
   strength: number;
   cardio: number;
 }
+export interface userExercicesChartProps {
+  end_date?: string | Date;
+  program: {
+    tags?: {
+      name: string;
+    }[];
+  };
+}

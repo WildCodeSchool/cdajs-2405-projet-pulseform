@@ -6,6 +6,7 @@ import WeekDetails from "@components/molecules/WeekDetails";
 import WeightChart from "@components/molecules/WeightChart";
 
 import "./HistoryView.scss";
+import { useGetUserExercicesForChart } from "@hooks/useUsers";
 import type { HistoryViewProps } from "./HistoryView.type";
 
 const HistoryView = ({
@@ -15,6 +16,20 @@ const HistoryView = ({
 }: HistoryViewProps) => {
   const { t } = useTranslation();
   const userId = Number(user?.id);
+
+  const { userExercicesChart } = useGetUserExercicesForChart(userId);
+
+  const rawUserExercicesChart = userExercicesChart ?? [];
+
+  const parsedUserExercicesChart = rawUserExercicesChart.map((item) => ({
+    end_date: item?.end_date ?? "",
+    program: {
+      tags:
+        item?.program?.tags?.map((tag) => ({
+          name: tag?.name ?? "",
+        })) ?? [],
+    },
+  }));
 
   return (
     <div className="HistoryView">
@@ -37,7 +52,10 @@ const HistoryView = ({
         <ChartSlider
           charts={[
             <WeightChart key="weight-chart" dataWeight={user?.weights || []} />,
-            <ExercicesChart key="exercices-chart" userId={userId} />,
+            <ExercicesChart
+              key="exercices-chart"
+              userExercicesChart={parsedUserExercicesChart}
+            />,
           ]}
         />
       )}

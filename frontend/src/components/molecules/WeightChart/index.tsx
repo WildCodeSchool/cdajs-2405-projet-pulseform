@@ -44,7 +44,8 @@ const WeightChart = ({ dataWeight }: { dataWeight: DataPoint[] }) => {
 
   const completeData: DataPoint[] = last6Months.map((month) => {
     const entry = dataWeight?.find((d) => d.month === month);
-    return entry || { month, weight: null }; // Ajoute le mois s'il manque
+
+    return entry || { month, weight: null };
   });
 
   const isAllNull = completeData.every((d) => d.weight === null);
@@ -91,7 +92,6 @@ const WeightChart = ({ dataWeight }: { dataWeight: DataPoint[] }) => {
         >
           <span className="weight-chart__title">{t("WEIGHT_KG")}</span>
         </div>
-
         {isAllNull && (
           <p
             style={{
@@ -104,7 +104,6 @@ const WeightChart = ({ dataWeight }: { dataWeight: DataPoint[] }) => {
             {t("NO_WEIGHT_DATA")}
           </p>
         )}
-
         <ResponsiveContainer width="100%" height={180}>
           <LineChart data={safeData}>
             {safeData.map((entry) => (
@@ -115,7 +114,6 @@ const WeightChart = ({ dataWeight }: { dataWeight: DataPoint[] }) => {
                 strokeDasharray="3 3"
               />
             ))}
-
             <XAxis
               dataKey="month"
               tick={(props: {
