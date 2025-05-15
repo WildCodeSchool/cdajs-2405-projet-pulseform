@@ -4,23 +4,14 @@ import MobileHeaderLayout from "@components/atoms/Layout/MobileHeader";
 import Ribbon from "@components/atoms/Ribbon";
 
 import "./DashBoardHeaderView.scss";
-
-import { useUser } from "@context/UserContext";
-import { useGetUserById } from "@hooks/useUsers";
 import { GetHistoryEndDateProgramByUserId } from "@hooks/useUsers";
-
-type DashBoardHeaderViewType = {
-  isDesktop: boolean;
-};
+import type { DashBoardHeaderViewProps } from "./DashBoardHeaderView.type";
 
 // Existe seulement en phone
-const DashBoardHeaderView = ({ isDesktop }: DashBoardHeaderViewType) => {
+const DashBoardHeaderView = ({ isDesktop, user }: DashBoardHeaderViewProps) => {
   const { t } = useTranslation();
-  const { user } = useUser();
 
   const userId = Number(user?.id);
-
-  const { userById } = useGetUserById(userId);
 
   const { historyEndDateProgram } = GetHistoryEndDateProgramByUserId(userId);
 
@@ -29,7 +20,7 @@ const DashBoardHeaderView = ({ isDesktop }: DashBoardHeaderViewType) => {
       {isDesktop ? (
         <>
           {/* <LittleLogo hasLabel className="little-logo--static" /> */}
-          <span>Hello {userById?.username} !</span>
+          <span>Hello {user?.username} !</span>
           <h1>{t("PROGRAMS")}</h1>
         </>
       ) : (

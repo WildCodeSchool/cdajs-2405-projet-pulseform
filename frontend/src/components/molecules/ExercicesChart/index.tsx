@@ -16,7 +16,7 @@ import type { CustomBar, Data, DataFromApi } from "./ExercicesChart.type";
 import "./ExercicesChart.scss";
 import { useGetUserExercicesForChart } from "@hooks/useUsers";
 
-function ExercicesChart({ userId }: { userId: number }) {
+const ExercicesChart = ({ userId }: { userId: number }) => {
   const { userExercicesChart } = useGetUserExercicesForChart(userId);
   const { t } = useTranslation();
 
@@ -231,6 +231,6 @@ function ExercicesChart({ userId }: { userId: number }) {
       </div>
     </div>
   );
-}
+};
 
 export default ExercicesChart;

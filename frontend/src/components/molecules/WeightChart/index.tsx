@@ -8,20 +8,11 @@ import {
   type TooltipProps,
   XAxis,
 } from "recharts";
-
-import { useGetUserByIdWithWeights } from "@hooks/useUsers";
 import type { DataPoint } from "./WeightChart.type";
 import "./WeightChart.scss";
 
-function WeightChart({ userId }: { userId: number }) {
+function WeightChart({ dataWeight }: { dataWeight: DataPoint[] }) {
   const { t } = useTranslation();
-
-  const { loading, error, userWeight } = useGetUserByIdWithWeights(userId);
-
-  // todo nelson a finir
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-  if (!userWeight) return <p>No data available</p>;
 
   const monthsOrder = [
     "Jan",
@@ -55,7 +46,7 @@ function WeightChart({ userId }: { userId: number }) {
 
   // Construire les données complètes avec des valeurs manquantes si besoin
   const completeData: DataPoint[] = last6Months.map((month) => {
-    const entry = userWeight.find((d) => d.month === month);
+    const entry = dataWeight.find((d) => d.month === month);
     return entry || { month, weight: null }; // Ajoute le mois s'il manque
   });
 
@@ -85,7 +76,7 @@ function WeightChart({ userId }: { userId: number }) {
 
   return (
     <section className="weight-chart">
-      {!loading && !error && userWeight.length > 0 && (
+      {dataWeight.length > 0 && (
         <div style={{ height: 220, position: "relative" }}>
           <div
             style={{

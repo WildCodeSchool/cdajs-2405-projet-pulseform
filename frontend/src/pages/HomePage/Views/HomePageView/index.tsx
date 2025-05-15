@@ -2,15 +2,12 @@ import ProgramListWithToggle from "@components/molecules/ProgramListWithToggle";
 import { DashBoardHeaderView } from "./Views";
 
 import "./HomePageView.scss";
+import type { HomePageViewProps } from "./HomePageView.type";
 
-type HomePageViewType = {
-  isDesktop: boolean;
-};
-
-const HomePageView = ({ isDesktop }: HomePageViewType) => {
+const HomePageView = ({ isDesktop, user }: HomePageViewProps) => {
   return (
     <div className="home-page-view">
-      <DashBoardHeaderView isDesktop={isDesktop} />
+      <DashBoardHeaderView isDesktop={isDesktop} user={user} />
       <ProgramListWithToggle />
     </div>
   );
