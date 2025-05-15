@@ -12,6 +12,7 @@ describe("ProgramCard Component", () => {
     level: FitnessLevel.Beginner,
     created_at: new Date(),
     visibility: 0,
+    image: "test.jpg",
   };
 
   it("matches the snapshot", () => {
