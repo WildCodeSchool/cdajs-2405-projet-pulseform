@@ -6,7 +6,6 @@ import "./ProgramDoneCard.scss";
 export type ProgramLight = {
   id: string;
   name: string;
-  // total_duration: number;
   end_date: Date;
   total_completed_exercises: number;
   total_time_spent: number;
