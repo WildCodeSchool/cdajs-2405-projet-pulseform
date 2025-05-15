@@ -1,1 +1,0 @@
-PASSWORD=pulseform USERNAME=team4 DB_NAME=app docker compose up --build -d --force-recreate
