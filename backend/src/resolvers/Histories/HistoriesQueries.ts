@@ -103,6 +103,9 @@ export class HistoriesQueries {
         start_date: MoreThanOrEqual(start_date),
         end_date: LessThanOrEqual(end_date),
       },
+      order: {
+        start_date: "DESC", // Latest date first
+      },
       relations: ["user", "program"],
     });
     return histories;

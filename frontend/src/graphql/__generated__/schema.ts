@@ -745,6 +745,8 @@ export type GetUserHistoryByDateRangeQuery = {
     id: string;
     start_date?: Date | null;
     end_date?: Date | null;
+    total_completed_exercises?: number | null;
+    total_time_spent?: number | null;
     program: {
       __typename?: "Program";
       id: string;
@@ -1380,6 +1382,8 @@ export const GetUserHistoryByDateRangeDocument = gql`
     id
     start_date
     end_date
+    total_completed_exercises
+    total_time_spent
     program {
       id
       name

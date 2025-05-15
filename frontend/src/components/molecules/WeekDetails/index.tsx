@@ -1,11 +1,12 @@
 import { useUser } from "@context/UserContext";
-import { ClockIcon } from "@utils/icon-list/iconList";
 import { convertSecondsToHoursMin } from "@utils/timeUtils";
 import { endOfWeek, format, startOfWeek } from "date-fns";
 import { useTranslation } from "react-i18next";
 import { ProgramDoneCard, type ProgramLight } from "../ProgramDoneCard";
 
 import "./WeekDetails.scss";
+import DurationLabel from "@components/atoms/DurationLabel";
+import WeekDetailsSkeleton from "@components/atoms/Skeleton/WeekDetailsSkeleton";
 import { useUserHistoryByDatesRange } from "@hooks/useHistory";
 
 const WeekDetails = () => {
@@ -21,7 +22,11 @@ const WeekDetails = () => {
   const weekDates: string = `${monday} - ${sunday}`;
 
   // get user histories with programs done during the current week
-  const { histories } = useUserHistoryByDatesRange(userId, startDate, endDate);
+  const { loading, error, histories } = useUserHistoryByDatesRange(
+    userId,
+    startDate,
+    endDate,
+  );
 
   // build a programs array from user history
   const programs: ProgramLight[] = [];
@@ -31,8 +36,11 @@ const WeekDetails = () => {
         programs.push({
           id: history.program.id,
           name: history.program.name,
-          total_duration: history.program.total_duration
-            ? history.program.total_duration
+          total_completed_exercises: history.total_completed_exercises
+            ? history.total_completed_exercises
+            : 0,
+          total_time_spent: history.total_time_spent
+            ? history.total_time_spent
             : 0,
           end_date: history.end_date,
         });
@@ -43,11 +51,13 @@ const WeekDetails = () => {
   // get the total duration for the week
   let weekDurationInSec = 0;
   for (const program of programs) {
-    if (program.total_duration) {
-      weekDurationInSec += program.total_duration;
+    if (program.total_time_spent) {
+      weekDurationInSec += program.total_time_spent;
     }
   }
   const weekDuration = convertSecondsToHoursMin(weekDurationInSec);
+  if (error) return <p>Error: {error.message}</p>;
+  if (loading) return <WeekDetailsSkeleton />;
 
   return (
     <div className="week-details">
@@ -55,8 +65,7 @@ const WeekDetails = () => {
         <p className="week-details__header__dates">{weekDates}</p>
         <div className="week-details__header__details">
           <div className="week-details__header__details__duration">
-            <ClockIcon />
-            <p>{weekDuration}</p>
+            <DurationLabel duration={weekDuration} />
           </div>
           <p>
             {programs.length}{" "}
