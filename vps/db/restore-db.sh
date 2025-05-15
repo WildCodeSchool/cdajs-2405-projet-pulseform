@@ -38,6 +38,6 @@ SELECTED_FILE=$(echo "$BACKUP_FILES" | sed -n "${CHOICE}p")
 
 # Restaurer le dump dans la base de données
 echo "🔄 Restauration du backup ${SELECTED_FILE}..."
-docker exec -i "$DB_CONTAINER" pg_restore -U "$USERNAME" -d "$DB_NAME" < "$SELECTED_FILE"
+docker exec -i "$DB_CONTAINER" pg_restore -U "$POSTGRES_USER" -d "$POSTGRES_DB" < "$SELECTED_FILE"
 
 echo "✅ Restauration du backup terminée."

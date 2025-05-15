@@ -1,6 +1,8 @@
 name: Back & Front - Unit Tests
 
-on: 
+on:
+  pull_request:
+    branches: [ dev ]
   push:
     branches: [ dev ]
 
