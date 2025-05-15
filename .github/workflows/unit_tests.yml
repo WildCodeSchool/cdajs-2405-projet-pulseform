@@ -1,0 +1,70 @@
+name: Back & Front - Unit Tests
+
+on: 
+  push:
+    branches: [ dev ]
+
+jobs:
+  back_unit_tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+
+    steps:
+      # Étape 1 : Cloner le code
+      - name: Checkout PulseForm code
+        uses: actions/checkout@v4
+
+      # Étape 2 : Cacher les dépendances NPM
+      - name: Cache NPM dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-back-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-back-
+
+      # Étape 3 : Installer les dépendances
+      - name: npm install dependencies
+        run: npm ci
+
+      # Étape 4 : Transpiller typescript
+      - name: Typescript transpile
+        run: npx tsc
+
+      # Étape 5 : Exécuter les tests unitaires du backend
+      - name: Run back unit tests
+        run: npm test
+      
+  front_unit_tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    steps:
+      # Étape 1 : Cloner le code
+      - name: Checkout PulseForm code
+        uses: actions/checkout@v4
+
+      # Étape 2 : Cacher les dépendances NPM
+      - name: Cache NPM dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-front-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-front-
+
+      # Étape 3 : Installer les dépendances
+      - name: npm install dependencies
+        run: npm ci
+
+      # Étape 4 : Transpiller typescript
+      - name: Typescript transpile
+        run: npx tsc
+
+      # Étape 5 : Exécuter les tests unitaires du frontend
+      - name: Run front unit tests
+        run: npm test

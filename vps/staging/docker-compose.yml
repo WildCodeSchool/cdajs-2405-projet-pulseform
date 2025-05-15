@@ -4,13 +4,13 @@ services:
     restart: unless-stopped
     environment:
       JWT_SECRET: ${JWT_SECRET}
-      POSTGRES_PASSWORD: ${PASSWORD}
-      POSTGRES_USER: ${USERNAME}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
-      - staging
+      - pulseform-staging
     ports:
       - "${PORT_DB}:5432"
 
@@ -19,15 +19,16 @@ services:
     restart: "no"
     depends_on:
       - db
-    command: npm run seed
+    command: ["sh", "-c", "until nc -z -v -w30 db 5432; do echo 'Waiting for database...'; sleep 5; done; npm run seed && touch /tmp/seed_done"]
     environment:
       JWT_SECRET: ${JWT_SECRET}
-      POSTGRES_PASSWORD: ${PASSWORD}
-      POSTGRES_USERNAME: ${USERNAME}
-      POSTGRES_DB_NAME: ${DB_NAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      HOST: ${HOST}
       SERVER_URL: ${SERVER_URL}
     networks:
-      - staging
+      - pulseform-staging
 
   adminer:
     image: ${IMAGE_ADMINER}
@@ -35,59 +36,69 @@ services:
     ports:
       - "${PORT_ADMINER}:8080"
     networks:
-      - staging
+      - pulseform-staging
 
   back:
     image: ${IMAGE_BACKEND}
     restart: unless-stopped
     ports:
-      - "${PORT_BACK}:4000"
+      - "${PORT_BACK}:${PORT_BACK}"
     command: npm run start
     environment:
+      NODE_ENV: pulseform-staging
       JWT_SECRET: ${JWT_SECRET}
-      POSTGRES_PASSWORD: ${PASSWORD}
-      POSTGRES_USERNAME: ${USERNAME}
-      POSTGRES_DB_NAME: ${DB_NAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
       PORT_BACK: ${PORT_BACK}
       PORT_FRONT: ${PORT_FRONT}
       SERVER_URL: ${SERVER_URL}
-      VITE_URL_FRONT: ${VITE_URL_FRONT}
+      SERVER_URL_STAGING: ${SERVER_URL_STAGING}
+      SERVER_URL_PRODUCTION: ${SERVER_URL_PRODUCTION}
+      HOST: ${HOST}
     networks:
-      - staging 
+      - pulseform-staging
 
   client:
-      image: ${IMAGE_FRONTEND}
-      restart: unless-stopped
-      ports:
-          - "${PORT_FRONT}:3000"
-      command: npm run dev
-      environment:
-        VITE_PORT_FRONT: ${VITE_PORT_FRONT}
-        VITE_PORT_BACK: ${VITE_PORT_BACK}
-        VITE_PORT_TRAD: ${VITE_PORT_TRAD} 
-        VITE_SERVER_URL: ${VITE_SERVER_URL}
-        VITE_TRANSLATION_SERVER_URL: ${VITE_TRANSLATION_SERVER_URL}
-        VITE_URL_BACK: ${VITE_URL_BACK}
-      networks:
-      - staging
+    image: ${IMAGE_FRONTEND}
+    restart: unless-stopped
+    ports:
+        - "${PORT_FRONT}:${PORT_FRONT}"
+    command: npm run dev
+    environment:
+      VITE_PORT_FRONT: ${VITE_PORT_FRONT}
+      VITE_PORT_BACK: ${VITE_PORT_BACK}
+      VITE_PORT_TRAD: ${VITE_PORT_TRAD}
+      VITE_SERVER_URL: ${VITE_SERVER_URL}
+      VITE_TRANSLATION_SERVER_URL: ${VITE_TRANSLATION_SERVER_URL}
+      VITE_URL_BACK: ${VITE_URL_BACK}
+      VITE_IMAGE_PROGRAMME: ${VITE_IMAGE_PROGRAMME}
+      VITE_SERVER_URL_STAGING: ${VITE_SERVER_URL_STAGING}
+      VITE_SERVER_URL_STAGING_APOLLO: ${VITE_SERVER_URL_STAGING_APOLLO}
+      VITE_SERVER_URL_PRODUCTION: ${VITE_SERVER_URL_PRODUCTION}
+      VITE_SERVER_URL_PRODUCTION_APOLLO: ${VITE_SERVER_URL_PRODUCTION_APOLLO}
+
+
+    networks:
+      - pulseform-staging
 
   translation:
     image: ${IMAGE_TRANSLATION}
     restart: unless-stopped
     ports:
-      - "${PORT_TRAD}:8051"
+      - "${PORT_TRAD}:${PORT_TRAD}"
     command: npm run start
     environment:
       PORT_FRONT: ${PORT_FRONT}
       PORT_BACK: ${PORT_BACK}
-      PORT_TRAD: ${PORT_TRAD} 
+      PORT_TRAD: ${PORT_TRAD}
       SERVER_URL: ${SERVER_URL}
     networks:
-      - staging
-      
+      - pulseform-staging
+
 volumes:
   pgdata:
 
 networks:
-  staging:
+  pulseform-staging:
     external: true

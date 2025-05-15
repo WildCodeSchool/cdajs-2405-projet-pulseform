@@ -5,7 +5,7 @@ on:
     branches: [ dev ]
 
 jobs:
-  deploy:
+  deploy_staging:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,7 +22,7 @@ jobs:
           eval "$(ssh-agent -s)"
           ssh-add ~/.ssh/id_rsa
       
-      # Étape 3 : Obtenir la date
+       # Étape 3 : Obtenir la date
       - name: Get current date and set app name
         run: |
           echo "date=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_ENV
@@ -43,8 +43,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      # Étape 7 : Construire et pousser l'image Docker du Backend
+      
+       # Étape 7 : Construire et pousser l'image Docker du Backend
       - name: Build and push Backend Docker image
         uses: docker/build-push-action@v4
         with:
@@ -91,7 +91,7 @@ jobs:
             build-date=${{ env.date }}
           cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-translation:cache
           cache-to: type=inline
-
+      
       # Étape 10 : Connexion à Docker Hub depuis le serveur
       - name: Login to Docker Hub on main Server
         run: |
@@ -101,19 +101,22 @@ jobs:
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-         
-      # Étape 11 : Déployer sur le serveur la version staging
-      - name: Deploy to staging
-        run: |
-          ssh -o StrictHostKeyChecking=no -T -p 2269 wns_student@${{ secrets.SERVER_IP }} "
-            cd pulseform/staging &&
-            docker compose -f docker-compose.yml pull &&
-            docker compose -f docker-compose.yml up -d
-          "
 
+      # Étape 11 : Déployer sur le serveur la version staging
+      - name: Deploy to VPS staging version
+        run: |
+          ssh -o StrictHostKeyChecking=no -p 2269 wns_student@${{ secrets.SERVER_IP }} "
+            cd pulseform/staging &&
+            echo 'Pulling and deploying Docker container...' &&
+            docker compose -f docker-compose.yml pull &&
+            docker compose -f docker-compose.yml up -d &&
+            echo 'Deployment complete.'
+          "
+          
+      # Étape 12 : Nettoyer le serveur
       - name: Clean up Docker on staging Server
         run: |
-          ssh -o StrictHostKeyChecking=no -T -p 2269 wns_student@${{ secrets.SERVER_IP }} "
+          ssh -o StrictHostKeyChecking=no -p 2269 wns_student@${{ secrets.SERVER_IP }} "
             echo 'Starting Docker cleanup...' &&
             echo 'Before cleanup:' &&
             df -h &&
@@ -126,63 +129,69 @@ jobs:
             echo 'Docker cleanup completed successfully.'
           "
           
-  e2e_test:
-    needs: deploy
-
+  e2e_tests:
+    needs: deploy_staging
     runs-on: ubuntu-latest
 
     steps:
+      # Étape 13 : Cloner le code
       - name: Checkout the code
         uses: actions/checkout@v4
 
-      # Print the current directory
-      - name: Debug logs (pwd)
-        run: pwd
-
-      # List current directory
-      - name: Debug logs (ls -l)
-        run: ls -l
-
-      # Install Docker Compose
-      - name: Install Docker Compose
+      # Étape 14 : Attendre que la staging soit déployée
+      - name: Wait for staging to be ready
         run: |
-          sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-          sudo chmod +x /usr/local/bin/docker-compose
+          echo "Checking staging environment availability..."
+          for i in {1..10}; do
+            if curl --max-time 3 -sSf https://staging.052024-jaune-4.wns.wilders.dev/health; then
+              echo "Staging is up! Proceeding with tests."
+              exit 0
+            fi
+            echo "Staging not ready yet. Retrying in 5s... ($i/10)"
+            sleep 5
+          done
+          echo "Staging did not become ready in time."
+          exit 1
 
-      # Start Docker
-      - name: Start Docker
-        run: sudo systemctl start docker
+      # Étape 15 : Installer les dépendances
+      - name: Install dependencies
+        run: |
+          cd e2e
+          npm ci
 
-      # Install Playwright
-      - name: Install Playwright
-        run: npm install @playwright/test
+      # Étape 16 : Installer playwright et ses dépendences et lancer les tests
+      - name: Install Playwright and run tests
+        run: |
+          cd e2e
+          npx playwright install --with-deps
+          npx playwright test --reporter=html
 
-      # Run interface test
-      - name: Run interface test
-        run: docker-compose -f docker-compose.e2e.yml up --build --exit-code-from e2e
+      # Étape 17 : Charger le rapport html
+      - name: Upload HTML Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-html-report
+          path: e2e/playwright-report/
 
-      # Debug logs (screenshots)
+      # Étape 18 : Créer le rapport des tests e2e
+      - name: Upload Playwright Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: e2e/playwright-report.json
+
+      # Étape 19 : Afficher la liste des screenshots d'échec
       - name: Debug logs (screenshots)
         if: failure()
         run: |
-          mkdir -p ./e2e/screenshots
-          ls -l ./e2e/screenshots
+          ls -l e2e/test-results/
 
-      # Capture Docker logs
-      - name: Capture Docker logs
-        if: failure()
-        run: docker-compose -f docker-compose.e2e.yml logs
-
-      # Upload screenshots in case of failure
+      # Étape 20 : Créer un artifact des screenshots d'échec
       - name: Upload screenshots
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: e2e-snapshots
-          path: ./e2e/screenshots
-
-      # Stop and remove Docker containers (cleanup)
-      - name: Stop and remove Docker containers (cleanup)
-        if: always()
-        run: docker-compose -f docker-compose.e2e.yml down
-    
+          path: e2e/test-results/
+        

@@ -7,7 +7,7 @@ import { ME_QUERY } from "../graphql/queries";
 const mocks = [
   {
     request: { query: ME_QUERY },
-    result: { data: { me: { id: "2", name: "Gael" } } },
+    result: { data: { me: { id: "4", name: "Gael" } } },
   },
 ];
 

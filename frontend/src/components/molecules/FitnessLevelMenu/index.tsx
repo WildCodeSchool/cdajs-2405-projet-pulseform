@@ -1,29 +1,39 @@
+import { FitnessLevel } from "@graphql/__generated__/schema";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { SelectionButton } from "../../atoms/SelectionButton/index.";
-
-import { FitnessLevel } from "@graphql/__generated__/schema";
-
 import "./FitnessLevelMenu.scss";
-function FitnessLevelMenu() {
+
+type FitnessLevelMenuProps = {
+  setSelectedFilters: (filters: string[]) => void;
+};
+
+function FitnessLevelMenu({ setSelectedFilters }: FitnessLevelMenuProps) {
   const { t } = useTranslation();
 
   const [activeIndex, setActiveIndex] = useState(0);
 
   const fitnessLevels = [
-    { label: t(FitnessLevel.Beginner), id: 0 },
-    { label: t(FitnessLevel.Intermediate), id: 1 },
-    { label: t(FitnessLevel.Advanced), id: 2 },
+    { label: t(FitnessLevel.Beginner), level: FitnessLevel.Beginner },
+    { label: t(FitnessLevel.Intermediate), level: FitnessLevel.Intermediate },
+    { label: t(FitnessLevel.Advanced), level: FitnessLevel.Advanced },
   ];
+
+  const handleLevelClick = (level: FitnessLevel) => {
+    setSelectedFilters([level]);
+    setActiveIndex(
+      fitnessLevels.findIndex((fitnessLevel) => fitnessLevel.level === level),
+    );
+  };
 
   return (
     <div className="fitness-level-menu">
-      {fitnessLevels.map((level) => (
+      {fitnessLevels.map((level, index) => (
         <SelectionButton
-          key={level.id}
+          key={index}
           label={level.label}
-          isActive={activeIndex === level.id}
-          onClick={() => setActiveIndex(level.id)}
+          isActive={activeIndex === index}
+          onClick={() => handleLevelClick(level.level)}
         />
       ))}
     </div>

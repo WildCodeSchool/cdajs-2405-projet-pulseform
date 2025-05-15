@@ -37,15 +37,17 @@ function PrivateRoute({ children }: RouteType) {
 function PublicRoute({ children }: RouteType) {
   const { user, loading } = useUser();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    if (!loading && user) {
-      navigate("/home"); // Redirect signed-in user to /home or any other page
+    const isMultiStep = location.pathname === "/sign-up";
+    if (!loading && user && !isMultiStep) {
+      navigate("/home");
     }
-  }, [user, loading, navigate]);
+  }, [user, loading, navigate, location]);
 
   if (loading) return <div>Loading...</div>;
-  if (user) return null;
+  if (user && location.pathname !== "/sign-up") return null;
 
   return children;
 }

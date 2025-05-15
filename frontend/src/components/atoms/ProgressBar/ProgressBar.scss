@@ -4,7 +4,7 @@
   position: relative;
   width: 100%;
   height: 7rem;
-  background-color: lighten($primary, 60%);
+  background-color: color.adjust($primary, $lightness: 60%);
   border-radius: 0.5rem;
   overflow: hidden;
 
