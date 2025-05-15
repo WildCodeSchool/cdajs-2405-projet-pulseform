@@ -1,0 +1,29 @@
+.program-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 0;
+  justify-content: space-between;
+  overflow: hidden;
+
+  .program-list-container {
+    display: grid;
+    flex-grow: 1;
+    min-height: 0;
+    gap: 1rem;
+    justify-items: stretch;
+
+    // Default: mobile (1 column)
+    grid-template-columns: 1fr;
+    
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr); // Tablet
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(4, 1fr); // Desktop
+      grid-template-rows: repeat(2, 1fr); // Only apply 2 rows here
+    }
+  }
+}

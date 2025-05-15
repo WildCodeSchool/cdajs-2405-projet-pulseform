@@ -1,0 +1,18 @@
+@use "@assets/variables" as *;
+
+.mobile-header-layout {
+    display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+      @include h1-phone;
+      color: $primary;
+
+      &.white {
+        color: $white;
+      }
+
+      .mobile-header-layout__header__title {
+        margin: 0;
+      }
+}

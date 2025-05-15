@@ -1,5 +1,6 @@
 import { Field, InputType, Int } from "type-graphql";
 import { FitnessLevelEnum, MemberRoleEnum } from "../entities/Enums";
+import { WeightInput } from "./WeightsInput";
 
 // Create a user
 @InputType()
@@ -25,8 +26,8 @@ export class CreateUserInput {
   @Field()
   gender!: string;
 
-  @Field(() => Int)
-  weight!: number;
+  @Field(() => [WeightInput])
+  weights!: WeightInput[];
 
   @Field(() => Int)
   height!: number;
@@ -65,11 +66,11 @@ export class UpdateUserInput {
   @Field()
   birthday!: Date;
 
-  @Field()
-  gender!: string;
+  @Field({ nullable: true })
+  gender?: string;
 
-  @Field()
-  weight!: number;
+  @Field(() => [WeightInput])
+  weights!: WeightInput[];
 
   @Field()
   height!: number;
@@ -82,4 +83,16 @@ export class UpdateUserInput {
 
   @Field(() => MemberRoleEnum)
   role!: MemberRoleEnum;
+}
+
+@InputType()
+export class CreateAccountInput {
+  @Field()
+  email!: string;
+
+  @Field()
+  username!: string;
+
+  @Field()
+  password!: string;
 }

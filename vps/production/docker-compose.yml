@@ -1,0 +1,88 @@
+services:
+  db:
+    image: ${IMAGE_DB}
+    restart: unless-stopped
+    environment:
+      JWT_SECRET: ${JWT_SECRET}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - pulseform-production
+    ports:
+      - "${PORT_DB}:5432"
+
+  adminer:
+    image: ${IMAGE_ADMINER}
+    restart: unless-stopped
+    ports:
+      - "${PORT_ADMINER}:8080"
+    networks:
+      - pulseform-production
+
+  back:
+    image: ${IMAGE_BACKEND}
+    restart: unless-stopped
+    ports:
+      - "${PORT_BACK}:${PORT_BACK}"
+    command: ["sh", "-c", "npm run migration:run && npm run start"]
+    environment:
+      NODE_ENV: production
+      JWT_SECRET: ${JWT_SECRET}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      PORT_BACK: ${PORT_BACK}
+      PORT_FRONT: ${PORT_FRONT}
+      SERVER_URL: ${SERVER_URL}
+      SERVER_URL_DEV: ${SERVER_URL_DEV}
+      SERVER_URL_STAGING: ${SERVER_URL_STAGING}
+      SERVER_URL_PRODUCTION: ${SERVER_URL_PRODUCTION}
+      HOST: ${HOST}
+    networks:
+      - pulseform-production
+
+  client:
+      image: ${IMAGE_FRONTEND}
+      restart: unless-stopped
+      ports:
+          - "${PORT_FRONT}:${PORT_FRONT}"
+      command: npm run dev
+      environment:
+        VITE_PORT_FRONT: ${VITE_PORT_FRONT}
+        VITE_PORT_BACK: ${VITE_PORT_BACK}
+        VITE_PORT_TRAD: ${VITE_PORT_TRAD}
+        VITE_SERVER_URL: ${VITE_SERVER_URL}
+        VITE_TRANSLATION_SERVER_URL: ${VITE_TRANSLATION_SERVER_URL}
+        VITE_URL_BACK: ${VITE_URL_BACK}
+        VITE_IMAGE_PROGRAMME: ${VITE_IMAGE_PROGRAMME}
+        VITE_SERVER_URL_DEV: ${VITE_SERVER_URL_DEV}
+        VITE_SERVER_URL_STAGING: ${VITE_SERVER_URL_STAGING}
+        VITE_SERVER_URL_STAGING_APOLLO: ${VITE_SERVER_URL_STAGING_APOLLO}
+        VITE_SERVER_URL_PRODUCTION: ${VITE_SERVER_URL_PRODUCTION}
+        VITE_SERVER_URL_PRODUCTION_APOLLO: ${VITE_SERVER_URL_PRODUCTION_APOLLO}
+      networks:
+      - pulseform-production
+
+  translation:
+    image: ${IMAGE_TRANSLATION}
+    restart: unless-stopped
+    ports:
+      - "${PORT_TRAD}:${PORT_TRAD}"
+    command: npm run start
+    environment:
+      PORT_FRONT: ${PORT_FRONT}
+      PORT_BACK: ${PORT_BACK}
+      PORT_TRAD: ${PORT_TRAD}
+      SERVER_URL: ${SERVER_URL}
+    networks:
+      - pulseform-production
+
+volumes:
+  pgdata:
+
+networks:
+  pulseform-production:
+    external: true

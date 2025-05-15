@@ -1,4 +1,4 @@
-import { Field, InputType } from "type-graphql";
+import { Field, InputType, Int } from "type-graphql";
 
 // Create history
 @InputType()
@@ -9,8 +9,14 @@ export class CreateHistoryInput {
   @Field()
   program_id!: number;
 
-  @Field()
-  total_kcal_loss!: number;
+  @Field(() => Int, { nullable: true })
+  total_kcal_loss?: number | null;
+
+  @Field({ nullable: true })
+  completed_exercises?: number;
+
+  @Field({ nullable: true })
+  total_time_spent?: number;
 
   @Field()
   start_date!: Date;

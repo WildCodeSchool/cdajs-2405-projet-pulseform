@@ -1,0 +1,25 @@
+@use "@assets/variables" as *;
+
+.selection-button {
+  @include h2-phone;
+  display: flex;
+  background: transparent;
+  position: relative;
+  color: $primary;
+  border: none;
+  z-index: 2;
+  cursor: pointer;
+
+  &-active {
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      bottom: -3px;
+      right: 6px;
+      width: 70%;
+      height: 15px;
+      background-color: $secondary;
+    }
+  }
+}

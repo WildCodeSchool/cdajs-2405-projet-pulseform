@@ -1,4 +1,4 @@
-@import "@assets/variables.scss";
+@use "@assets/variables" as *;
 
 .basic-button {
   &--basic {
@@ -19,7 +19,7 @@
     }
 
     &:hover {
-      background-color: darken($secondary, 10%);
+      background-color: color.adjust($secondary, $lightness: -10%);
     }
   }
 
@@ -65,7 +65,7 @@
     transition: background-color 0.3s ease;
 
     &:hover {
-      background-color: darken($secondary, 10%);
+      background-color: color.adjust($secondary, $lightness: -10%);
     }
 
     &:disabled {

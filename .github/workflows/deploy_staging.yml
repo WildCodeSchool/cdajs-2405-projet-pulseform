@@ -1,0 +1,197 @@
+name: deploy to staging
+
+on:
+  push:
+    branches: [ dev ]
+
+jobs:
+  deploy_staging:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Étape 1 : Cloner le code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Étape 2 : Configurer SSH pour le serveur
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_rsa
+      
+       # Étape 3 : Obtenir la date
+      - name: Get current date and set app name
+        run: |
+          echo "date=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_ENV
+          echo "myapp=pulseform" >> $GITHUB_ENV
+          echo "environnement=staging" >> $GITHUB_ENV
+
+      # Étape 4 : Configurer QEMU pour la construction multiplateforme
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      # Étape 5 : Configurer Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Étape 6 : Se connecter à Docker Hub
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+       # Étape 7 : Construire et pousser l'image Docker du Backend
+      - name: Build and push Backend Docker image
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          context: ./backend
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-backend:${{ env.environnement }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-backend:${{ github.sha }}
+          labels: |
+            maintainer=${{ secrets.DOCKERHUB_USERNAME }}
+            version=${{ github.sha }}
+            build-date=${{ env.date }}
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-backend:cache
+          cache-to: type=inline
+
+      # Étape 8 : Construire et pousser l'image Docker du Frontend
+      - name: Build and push Frontend Docker image
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          context: ./frontend
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-frontend:${{ env.environnement }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-frontend:${{ github.sha }}
+          labels: |
+            maintainer=${{ secrets.DOCKERHUB_USERNAME }}
+            version=${{ github.sha }}
+            build-date=${{ env.date }}
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-frontend:cache
+          cache-to: type=inline
+      
+      # Étape 9 : Construire et pousser l'image Docker du serveur de tranduction
+      - name: Build and push Translation Docker image
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          context: ./translation-server
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-translation:${{ env.environnement }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-translation:${{ github.sha }}
+          labels: |
+            maintainer=${{ secrets.DOCKERHUB_USERNAME }}
+            version=${{ github.sha }}
+            build-date=${{ env.date }}
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-translation:cache
+          cache-to: type=inline
+      
+      # Étape 10 : Connexion à Docker Hub depuis le serveur
+      - name: Login to Docker Hub on main Server
+        run: |
+          ssh -v -o StrictHostKeyChecking=no -T -p 2269 wns_student@${{ secrets.SERVER_IP }} "
+            echo $DOCKERHUB_TOKEN | docker login -u $DOCKERHUB_USERNAME --password-stdin
+          "
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Étape 11 : Déployer sur le serveur la version staging
+      - name: Deploy to VPS staging version
+        run: |
+          ssh -o StrictHostKeyChecking=no -p 2269 wns_student@${{ secrets.SERVER_IP }} "
+            cd pulseform/staging &&
+            echo 'Pulling and deploying Docker container...' &&
+            docker compose -f docker-compose.yml pull &&
+            docker compose -f docker-compose.yml up -d &&
+            echo 'Deployment complete.'
+          "
+          
+      # Étape 12 : Nettoyer le serveur
+      - name: Clean up Docker on staging Server
+        run: |
+          ssh -o StrictHostKeyChecking=no -p 2269 wns_student@${{ secrets.SERVER_IP }} "
+            echo 'Starting Docker cleanup...' &&
+            echo 'Before cleanup:' &&
+            df -h &&
+            docker system prune -a --force &&
+            docker image prune -a --force &&
+            docker volume prune --force &&
+            docker network prune --force &&
+            echo 'After cleanup:' &&
+            df -h &&
+            echo 'Docker cleanup completed successfully.'
+          "
+          
+  e2e_tests:
+    needs: deploy_staging
+    runs-on: ubuntu-latest
+
+    steps:
+      # Étape 13 : Cloner le code
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
+      # Étape 14 : Attendre que la staging soit déployée
+      - name: Wait for staging to be ready
+        run: |
+          echo "Checking staging environment availability..."
+          for i in {1..10}; do
+            if curl --max-time 3 -sSf https://staging.052024-jaune-4.wns.wilders.dev/health; then
+              echo "Staging is up! Proceeding with tests."
+              exit 0
+            fi
+            echo "Staging not ready yet. Retrying in 5s... ($i/10)"
+            sleep 5
+          done
+          echo "Staging did not become ready in time."
+          exit 1
+
+      # Étape 15 : Installer les dépendances
+      - name: Install dependencies
+        run: |
+          cd e2e
+          npm ci
+
+      # Étape 16 : Installer playwright et ses dépendences et lancer les tests
+      - name: Install Playwright and run tests
+        run: |
+          cd e2e
+          npx playwright install --with-deps
+          npx playwright test --reporter=html
+
+      # Étape 17 : Charger le rapport html
+      - name: Upload HTML Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-html-report
+          path: e2e/playwright-report/
+
+      # Étape 18 : Créer le rapport des tests e2e
+      - name: Upload Playwright Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: e2e/playwright-report.json
+
+      # Étape 19 : Afficher la liste des screenshots d'échec
+      - name: Debug logs (screenshots)
+        if: failure()
+        run: |
+          ls -l e2e/test-results/
+
+      # Étape 20 : Créer un artifact des screenshots d'échec
+      - name: Upload screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-snapshots
+          path: e2e/test-results/
+        

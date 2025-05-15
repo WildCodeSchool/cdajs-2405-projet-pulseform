@@ -1,13 +1,16 @@
-import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-
+import { useMutation } from "@apollo/client";
 import blopLoginPage from "@assets/icons/blob/blob3.svg";
 import BasicButton from "@components/atoms/BasicButton";
 import InputField from "@components/atoms/ImputField/ImputField";
 import LittleLogo from "@components/atoms/LittleLogo/index";
 import LoginImage from "@components/atoms/LoginImage";
+import { LOGIN_MUTATION } from "@graphql/mutations/user";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./LoginPage.scss";
+import { ME_QUERY } from "@graphql/queries";
 
 interface LoginFormValues {
   email: string;
@@ -16,12 +19,31 @@ interface LoginFormValues {
 
 function LoginPage() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm<LoginFormValues>();
 
-  const onSubmit = (data: LoginFormValues) => {
-    console.log("Form Data: ", data);
-  };
+  const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION, {
+    refetchQueries: [{ query: ME_QUERY }],
+  });
 
+  const onSubmit = async (formData: LoginFormValues) => {
+    try {
+      const response = await login({ variables: formData });
+
+      if (response.data?.login.user) {
+        console.log(
+          "Utilisateur connecté :",
+          response.data.login.user.username,
+        );
+
+        setTimeout(() => {
+          navigate("/home");
+        }, 1000);
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+    }
+  };
   return (
     <>
       <LittleLogo className="login-page__logo" size="desktop" hasLabel={true} />
@@ -31,11 +53,6 @@ function LoginPage() {
         alt={t("BLOB_ALT_TEXT")}
       />
       <section className="login-page__form-section">
-        <div className="login-page__test-program-container">
-          <button type="button" className="login-page__test-program-button">
-            {t("TEST_PROGRAM")}
-          </button>
-        </div>
         <div className="login-page__image-side">
           <LoginImage size="desktop" />
         </div>
@@ -62,10 +79,17 @@ function LoginPage() {
               typeButton="orange"
               type="submit"
               className="login-page__connect-button"
+              disabled={loading}
             >
-              {t("CONNECT")}
+              {loading ? t("LOADING") : t("CONNECT")}
             </BasicButton>
+            {loading && <p>Logging in...</p>}
+            {error && <p>Error: {error.message}</p>}
+            {data && <p>Welcome {data.login.user.username}!</p>}
           </form>
+
+          {error && <p className="login-error">{t("LOGIN_ERROR")}</p>}
+
           <section className="login-page__section">
             <div className="login-page__align">
               <div className="login-page__motivation-block">
@@ -73,12 +97,12 @@ function LoginPage() {
                 <div className="login-page__primary-trait" />
               </div>
               <div className="login-page__create-account-block">
-                <button
+                <Link
+                  to="/sign-up"
                   className="login-page__create-account-button"
-                  type="button"
                 >
                   {t("CREATE_ACCOUNT")}
-                </button>
+                </Link>
                 <div className="login-page__secondary-trait" />
               </div>
             </div>

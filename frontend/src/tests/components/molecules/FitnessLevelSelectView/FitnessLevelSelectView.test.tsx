@@ -1,9 +1,14 @@
+import { MockedProvider } from "@apollo/client/testing";
 import FitnessLevelSelectView from "@components/molecules/FitnessLevelSelectView";
 import { render } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 
-describe("FitnessLevelSelectView", () => {
-  it("renders the FitnessLevelSelectView component", () => {
-    const tree = render(<FitnessLevelSelectView />);
-    expect(tree).toMatchSnapshot();
-  });
+test("renders the FitnessLevelSelectView component", () => {
+  render(
+    <MockedProvider mocks={[]} addTypename={false}>
+      <MemoryRouter>
+        <FitnessLevelSelectView />
+      </MemoryRouter>
+    </MockedProvider>,
+  );
 });

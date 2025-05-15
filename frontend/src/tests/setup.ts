@@ -1,8 +1,12 @@
 import "@testing-library/jest-dom/vitest";
-import { afterEach } from "vitest";
+import "@testing-library/jest-dom";
 import { cleanup } from "@testing-library/react";
+import { afterEach } from "vitest";
+import { vi } from "vitest";
+import "./mocks/i18nForTests";
 
-// runs a clean after each test case (e.g. clearing jsdom)
 afterEach(() => {
-	cleanup();
+  cleanup();
 });
+
+vi.mock("@assets/variables.scss", () => ({}));

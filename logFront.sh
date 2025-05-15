@@ -1,1 +1,0 @@
-docker logs cdajs-2405-projet-pulseform-client-1 --tail 200 -f

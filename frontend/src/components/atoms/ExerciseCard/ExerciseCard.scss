@@ -1,0 +1,57 @@
+@use "@assets/variables" as *;
+
+.exercise-card {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.2); /* semi-transparent background */
+  backdrop-filter: blur(20px); /* blur effect for the background */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+
+  @media screen and (max-width: 768px) {
+    background-color: $beige;
+    backdrop-filter: none;
+  }
+
+  &__img-header-container {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    gap: 2rem;
+  }
+
+  &__image-container {
+    max-width: 100px;
+
+    > img {
+      object-fit: cover;
+      max-width: inherit;
+      height: 100%;
+      border-radius: 10px;
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    color: $primary;
+    @include body;
+
+    @media screen and (min-width: 768px) {
+      color: $white;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+
+    @media screen and (max-width: 768px) {
+      color: $tertiary;
+    }
+  }
+}

@@ -1,0 +1,33 @@
+@use "@assets/variables" as *;
+
+.week-details {
+  background: $primary;
+  border-radius: 10px;
+  padding: 15px;
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: $white;
+    margin-top: 10px;
+    margin-bottom: 40px;
+
+    &__dates {
+      @include body-phone;
+    }
+    &__details {
+      @include small-phone;
+
+      &__duration {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+      }
+    }
+  }
+  &__programs {
+    margin: 10px;
+  }
+}

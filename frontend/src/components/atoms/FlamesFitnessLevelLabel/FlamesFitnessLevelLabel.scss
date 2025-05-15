@@ -1,0 +1,17 @@
+@use "@assets/variables" as *;
+
+.flames-fitness-level-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+
+  .fitness-level-label {
+    @include body;
+  }
+
+  .flames-list {
+    display: flex;
+    flex-direction: row;
+  }
+}

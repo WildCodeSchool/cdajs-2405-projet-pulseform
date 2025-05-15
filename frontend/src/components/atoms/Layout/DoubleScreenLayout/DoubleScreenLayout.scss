@@ -1,0 +1,31 @@
+@use "@assets/variables" as *;
+
+.double-screen-layout {
+  display: flex;
+  flex-direction: row;
+
+  .left-column-view {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 30%;
+    min-width: 22rem ;
+    max-width: 100%;
+    height: 100dvh;
+
+    @media (min-width: 768px) {
+      box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
+    }
+  }
+  .right-column-view {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 70%;
+    max-width: 100%;
+    padding: 4%;
+    box-sizing: border-box;
+    height:100dvh;
+    max-height: 100dvh;
+  }
+}

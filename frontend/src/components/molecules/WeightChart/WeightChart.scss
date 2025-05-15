@@ -1,0 +1,16 @@
+@use "@assets/variables" as *;
+
+.weight-chart {
+  width: 100%;
+
+  &__title {
+    @include h2-phone;
+    display: flex;
+    justify-content: center;
+    color: $primary;
+    width: 100%;
+
+    align-items: center;
+    justify-content: center;
+  }
+}

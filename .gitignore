@@ -1,6 +1,2 @@
-init-db.sh
-start.sh
 .env
 node_modules/
-logBack.sh
-logFront.sh

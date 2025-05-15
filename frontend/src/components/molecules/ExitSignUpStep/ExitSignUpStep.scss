@@ -1,38 +1,37 @@
-@import "@assets/variables.scss";
+@use "@assets/variables" as *;
 
-.exit-sign-up-step{
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-height: 100vh;
+.exit-sign-up-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 
-&__img{
+  &__img {
     margin-bottom: clamp(1rem, 5vh, 3rem);
-}
+  }
 
-&__label{
+  &__label {
     @include h1-phone;
     color: $primary;
     text-align: center;
     width: 80%;
-    
-}
-&__label-first{
+  }
+  &__label-first {
     @include h1-phone;
     color: $primary;
     text-align: center;
     width: 80%;
-}
+  }
 
-&__label-profile{
+  &__label-profile {
     @include h1-phone;
     color: $primary;
     text-align: center;
     margin: 1rem;
-}
+  }
 
-&__btn{
+  &__btn {
     margin-top: clamp(16px, 5vh, 2rem);
-}
+  }
 }

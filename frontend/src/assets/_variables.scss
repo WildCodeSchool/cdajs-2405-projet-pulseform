@@ -29,6 +29,11 @@
   margin: 0;
 }
 
+@mixin body {
+  font-size: 16px;
+  margin: 0;
+}
+
 @mixin h3-phone {
   font-size: 14px;
   margin: 0;
@@ -44,6 +49,20 @@
   font-size: 12px;
   margin: 0;
 }
+@mixin body-phone {
+  font-size: 16px;
+}
+
+@mixin extra-small-phone {
+  font-size: 10px;
+}
+@mixin body-phone {
+  font-size: 16px;
+}
+
+@mixin extra-small-phone {
+  font-size: 10px;
+}
 
 //Color
 $primary: #132945;
@@ -52,6 +71,8 @@ $tertiary: #4477e8;
 $white: #fffffc;
 $grey: #a9a9a9;
 $dark-grey: #4b5563;
+$beige: #dad5cf;
+$black: #222;
 
 //generic text
 @mixin question-phone {

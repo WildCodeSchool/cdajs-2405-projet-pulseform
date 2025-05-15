@@ -1,4 +1,4 @@
-@import "@assets/variables.scss";
+@use "@assets/variables" as *;
 
 .body-step-questions {
   display: flex;

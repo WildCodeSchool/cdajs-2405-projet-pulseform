@@ -1,0 +1,18 @@
+.fixed-header-layout {
+  height: 100dvh;
+  width: 100%;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    flex-shrink: 0;
+    height: 20%;
+  }
+
+  &__scrollable-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
