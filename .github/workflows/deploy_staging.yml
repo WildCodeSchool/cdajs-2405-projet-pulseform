@@ -22,10 +22,12 @@ jobs:
           eval "$(ssh-agent -s)"
           ssh-add ~/.ssh/id_rsa
       
-      # Étape 3 : Obtenir la date
-      - name: Get current date
+       # Étape 3 : Obtenir la date
+      - name: Get current date and set app name
         run: |
           echo "date=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_ENV
+          echo "myapp=pulseform" >> $GITHUB_ENV
+          echo "environnement=staging" >> $GITHUB_ENV
 
       # Étape 4 : Configurer QEMU pour la construction multiplateforme
       - name: Set up QEMU
@@ -35,64 +37,73 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # Étape 6 : Connexion à GitHub Container Registry
-      - name: Log in to GitHub Container Registry
+      # Étape 6 : Se connecter à Docker Hub
+      - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GHCR_PAT }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
       
-      # Étape 7 : Extraire le nom du repo en minuscules
-      - name: Extract repository name in lowercase
-        id: repo_name
-        run: echo "REPO_NAME=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
-
-      # Étape 8 : Construire et pousser l'image Docker du Backend
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v2
+       # Étape 7 : Construire et pousser l'image Docker du Backend
+      - name: Build and push Backend Docker image
+        uses: docker/build-push-action@v4
         with:
+          push: true
           context: ./backend
-          push: true
           tags: |
-            ghcr.io/${{ env.REPO_NAME }}:${{ github.sha }}
-            ghcr.io/${{ env.REPO_NAME }}:backend-staging
-          build-args: |
-            CACHEBUST=${{ github.sha }}  # Cache-busting
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-backend:${{ env.environnement }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-backend:${{ github.sha }}
+          labels: |
+            maintainer=${{ secrets.DOCKERHUB_USERNAME }}
+            version=${{ github.sha }}
+            build-date=${{ env.date }}
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-backend:cache
+          cache-to: type=inline
 
-      # Étape 9 : Construire et pousser l'image Docker du Frontend
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v2
+      # Étape 8 : Construire et pousser l'image Docker du Frontend
+      - name: Build and push Frontend Docker image
+        uses: docker/build-push-action@v4
         with:
+          push: true
           context: ./frontend
-          push: true
           tags: |
-            ghcr.io/${{ env.REPO_NAME }}:${{ github.sha }}
-            ghcr.io/${{ env.REPO_NAME }}:frontend-staging
-          build-args: |
-            CACHEBUST=${{ github.sha }}  # Cache-busting
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-frontend:${{ env.environnement }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-frontend:${{ github.sha }}
+          labels: |
+            maintainer=${{ secrets.DOCKERHUB_USERNAME }}
+            version=${{ github.sha }}
+            build-date=${{ env.date }}
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-frontend:cache
+          cache-to: type=inline
       
-      # Étape 10 : Construire et pousser l'image Docker du serveur de traduction
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v2
+      # Étape 9 : Construire et pousser l'image Docker du serveur de tranduction
+      - name: Build and push Translation Docker image
+        uses: docker/build-push-action@v4
         with:
-          context: ./translation-server
           push: true
+          context: ./translation-server
           tags: |
-            ghcr.io/${{ env.REPO_NAME }}:${{ github.sha }}
-            ghcr.io/${{ env.REPO_NAME }}:translation-staging
-          build-args: |
-            CACHEBUST=${{ github.sha }}  # Cache-busting
-
-      # Étape 11 : Authentifier docker sur le serveur
-      - name: Authenticate Docker on the server
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-translation:${{ env.environnement }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-translation:${{ github.sha }}
+          labels: |
+            maintainer=${{ secrets.DOCKERHUB_USERNAME }}
+            version=${{ github.sha }}
+            build-date=${{ env.date }}
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ env.myapp }}-translation:cache
+          cache-to: type=inline
+      
+      # Étape 10 : Connexion à Docker Hub depuis le serveur
+      - name: Login to Docker Hub on main Server
         run: |
-          ssh -o StrictHostKeyChecking=no -p 2269 wns_student@${{ secrets.SERVER_IP }} "
-            echo ${{ secrets.GHCR_PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          ssh -v -o StrictHostKeyChecking=no -T -p 2269 wns_student@${{ secrets.SERVER_IP }} "
+            echo $DOCKERHUB_TOKEN | docker login -u $DOCKERHUB_USERNAME --password-stdin
           "
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # Étape 12 : Déployer sur le vps
-      - name: Deploy to VPS
+      # Étape 11 : Déployer sur le serveur la version staging
+      - name: Deploy to VPS staging version
         run: |
           ssh -o StrictHostKeyChecking=no -p 2269 wns_student@${{ secrets.SERVER_IP }} "
             cd pulseform/staging &&
@@ -102,7 +113,7 @@ jobs:
             echo 'Deployment complete.'
           "
           
-      # Étape 13 : Nettoyer le serveur
+      # Étape 12 : Nettoyer le serveur
       - name: Clean up Docker on staging Server
         run: |
           ssh -o StrictHostKeyChecking=no -p 2269 wns_student@${{ secrets.SERVER_IP }} "
@@ -123,11 +134,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Étape 14 : Cloner le code
+      # Étape 13 : Cloner le code
       - name: Checkout the code
         uses: actions/checkout@v4
 
-      # Étape 15 : Attendre que la staging soit déployée
+      # Étape 14 : Attendre que la staging soit déployée
       - name: Wait for staging to be ready
         run: |
           echo "Checking staging environment availability..."
@@ -142,20 +153,20 @@ jobs:
           echo "Staging did not become ready in time."
           exit 1
 
-      # Étape 16 : Installer les dépendances
+      # Étape 15 : Installer les dépendances
       - name: Install dependencies
         run: |
           cd e2e
           npm ci
 
-      # Étape 17 : Installer playwright et ses dépendences et lancer les tests
+      # Étape 16 : Installer playwright et ses dépendences et lancer les tests
       - name: Install Playwright and run tests
         run: |
           cd e2e
           npx playwright install --with-deps
           npx playwright test --reporter=html
 
-      # Étape 18 : Charger le rapport html
+      # Étape 17 : Charger le rapport html
       - name: Upload HTML Report
         if: always()
         uses: actions/upload-artifact@v4
@@ -163,20 +174,20 @@ jobs:
           name: playwright-html-report
           path: e2e/playwright-report/
 
-      # Étape 19 : Créer le rapport des tests e2e
+      # Étape 18 : Créer le rapport des tests e2e
       - name: Upload Playwright Report
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
           path: e2e/playwright-report.json
 
-      # Étape 20 : Afficher la liste des screenshots d'échec
+      # Étape 19 : Afficher la liste des screenshots d'échec
       - name: Debug logs (screenshots)
         if: failure()
         run: |
           ls -l e2e/test-results/
 
-      # Étape 21 : Créer un artifact des screenshots d'échec
+      # Étape 20 : Créer un artifact des screenshots d'échec
       - name: Upload screenshots
         if: failure()
         uses: actions/upload-artifact@v4
