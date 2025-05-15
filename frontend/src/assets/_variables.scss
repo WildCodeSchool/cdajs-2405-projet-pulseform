@@ -49,6 +49,20 @@
   font-size: 12px;
   margin: 0;
 }
+@mixin body-phone {
+  font-size: 16px;
+}
+
+@mixin extra-small-phone {
+  font-size: 10px;
+}
+@mixin body-phone {
+  font-size: 16px;
+}
+
+@mixin extra-small-phone {
+  font-size: 10px;
+}
 
 //Color
 $primary: #132945;
