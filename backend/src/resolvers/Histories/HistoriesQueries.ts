@@ -82,4 +82,32 @@ export class HistoriesQueries {
     });
     return history;
   }
+
+  // Récupérer tous les historiques d'un User dans un intervalle de dates
+  @Query(() => [History])
+  async getUserHistoryByDateRange(
+    @Arg("user_id") user_id: number,
+    @Arg("start_date") start_date: Date,
+    @Arg("end_date") end_date: Date,
+  ): Promise<History[]> {
+    const user = await AppDataSource.manager.findOne(User, {
+      where: { id: user_id },
+    });
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const histories = await AppDataSource.manager.find(History, {
+      where: {
+        user: { id: user_id },
+        start_date: MoreThanOrEqual(start_date),
+        end_date: LessThanOrEqual(end_date),
+      },
+      order: {
+        start_date: "DESC", // Latest date first
+      },
+      relations: ["user", "program"],
+    });
+    return histories;
+  }
 }

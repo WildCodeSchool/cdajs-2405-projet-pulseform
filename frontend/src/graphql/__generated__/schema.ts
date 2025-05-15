@@ -402,6 +402,7 @@ export type Query = {
   getTagById?: Maybe<Tag>;
   getUserById?: Maybe<User>;
   getUserGroups: Array<Group>;
+  getUserHistoryByDateRange: Array<History>;
   getWeightByUserId: Array<Weight>;
   me?: Maybe<User>;
   searchPrograms: Array<Program>;
@@ -480,6 +481,12 @@ export type QueryGetUserByIdArgs = {
 
 export type QueryGetUserGroupsArgs = {
   data: GetUserGroupsInput;
+};
+
+export type QueryGetUserHistoryByDateRangeArgs = {
+  end_date: Scalars["DateTimeISO"]["input"];
+  start_date: Scalars["DateTimeISO"]["input"];
+  user_id: Scalars["Float"]["input"];
 };
 
 export type QueryGetWeightByUserIdArgs = {
@@ -723,6 +730,30 @@ export type GetExerciseByIdQuery = {
     level: FitnessLevel;
     img_src?: string | null;
   } | null;
+};
+
+export type GetUserHistoryByDateRangeQueryVariables = Exact<{
+  endDate: Scalars["DateTimeISO"]["input"];
+  startDate: Scalars["DateTimeISO"]["input"];
+  userId: Scalars["Float"]["input"];
+}>;
+
+export type GetUserHistoryByDateRangeQuery = {
+  __typename?: "Query";
+  getUserHistoryByDateRange: Array<{
+    __typename?: "History";
+    id: string;
+    start_date?: Date | null;
+    end_date?: Date | null;
+    total_completed_exercises?: number | null;
+    total_time_spent?: number | null;
+    program: {
+      __typename?: "Program";
+      id: string;
+      name: string;
+      total_duration?: number | null;
+    };
+  }>;
 };
 
 export type GetAllProgramsQueryVariables = Exact<{ [key: string]: never }>;
@@ -1340,6 +1371,103 @@ export type GetExerciseByIdSuspenseQueryHookResult = ReturnType<
 export type GetExerciseByIdQueryResult = Apollo.QueryResult<
   GetExerciseByIdQuery,
   GetExerciseByIdQueryVariables
+>;
+export const GetUserHistoryByDateRangeDocument = gql`
+    query GetUserHistoryByDateRange($endDate: DateTimeISO!, $startDate: DateTimeISO!, $userId: Float!) {
+  getUserHistoryByDateRange(
+    end_date: $endDate
+    start_date: $startDate
+    user_id: $userId
+  ) {
+    id
+    start_date
+    end_date
+    total_completed_exercises
+    total_time_spent
+    program {
+      id
+      name
+      total_duration
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetUserHistoryByDateRangeQuery__
+ *
+ * To run a query within a React component, call `useGetUserHistoryByDateRangeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserHistoryByDateRangeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserHistoryByDateRangeQuery({
+ *   variables: {
+ *      endDate: // value for 'endDate'
+ *      startDate: // value for 'startDate'
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetUserHistoryByDateRangeQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetUserHistoryByDateRangeQuery,
+    GetUserHistoryByDateRangeQueryVariables
+  > &
+    (
+      | { variables: GetUserHistoryByDateRangeQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetUserHistoryByDateRangeQuery,
+    GetUserHistoryByDateRangeQueryVariables
+  >(GetUserHistoryByDateRangeDocument, options);
+}
+export function useGetUserHistoryByDateRangeLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetUserHistoryByDateRangeQuery,
+    GetUserHistoryByDateRangeQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetUserHistoryByDateRangeQuery,
+    GetUserHistoryByDateRangeQueryVariables
+  >(GetUserHistoryByDateRangeDocument, options);
+}
+export function useGetUserHistoryByDateRangeSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetUserHistoryByDateRangeQuery,
+        GetUserHistoryByDateRangeQueryVariables
+      >,
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    GetUserHistoryByDateRangeQuery,
+    GetUserHistoryByDateRangeQueryVariables
+  >(GetUserHistoryByDateRangeDocument, options);
+}
+export type GetUserHistoryByDateRangeQueryHookResult = ReturnType<
+  typeof useGetUserHistoryByDateRangeQuery
+>;
+export type GetUserHistoryByDateRangeLazyQueryHookResult = ReturnType<
+  typeof useGetUserHistoryByDateRangeLazyQuery
+>;
+export type GetUserHistoryByDateRangeSuspenseQueryHookResult = ReturnType<
+  typeof useGetUserHistoryByDateRangeSuspenseQuery
+>;
+export type GetUserHistoryByDateRangeQueryResult = Apollo.QueryResult<
+  GetUserHistoryByDateRangeQuery,
+  GetUserHistoryByDateRangeQueryVariables
 >;
 export const GetAllProgramsDocument = gql`
     query getAllPrograms {
