@@ -3,16 +3,15 @@ import {
   useGetUserHistoryByDateRangeQuery,
 } from "@graphql/__generated__/schema";
 
-export const useHistoryByUserId = (id: number) => {
+export const useHistoryByUserId = (userId: number) => {
   const { loading, error, data } = useGetHistoryByUserIdQuery({
-    variables: { id },
+    variables: { user_id: userId },
   });
-  const histories = data?.getHistoryByUserId;
 
   return {
     loading,
     error,
-    histories,
+    histories: data?.getHistoryByUserId,
   };
 };
 

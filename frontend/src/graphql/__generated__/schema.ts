@@ -906,17 +906,21 @@ export type GetWeightByUserIdQuery = {
 };
 
 export type GetHistoryByUserIdQueryVariables = Exact<{
-  id: Scalars["Float"]["input"];
+  user_id: Scalars["Float"]["input"];
 }>;
 
 export type GetHistoryByUserIdQuery = {
   __typename?: "Query";
   getHistoryByUserId: Array<{
     __typename?: "History";
+    id: string;
+    start_date?: Date | null;
     end_date?: Date | null;
     program: {
       __typename?: "Program";
-      tags?: Array<{ __typename?: "Tag"; name: Tags }> | null;
+      id: string;
+      name: string;
+      total_duration?: number | null;
     };
   }>;
 };
@@ -2005,13 +2009,15 @@ export type GetWeightByUserIdQueryResult = Apollo.QueryResult<
   GetWeightByUserIdQueryVariables
 >;
 export const GetHistoryByUserIdDocument = gql`
-    query GetHistoryByUserId($id: Float!) {
-  getHistoryByUserId(user_id: $id) {
+    query GetHistoryByUserId($user_id: Float!) {
+  getHistoryByUserId(user_id: $user_id) {
+    id
+    start_date
     end_date
     program {
-      tags {
-        name
-      }
+      id
+      name
+      total_duration
     }
   }
 }
@@ -2029,7 +2035,7 @@ export const GetHistoryByUserIdDocument = gql`
  * @example
  * const { data, loading, error } = useGetHistoryByUserIdQuery({
  *   variables: {
- *      id: // value for 'id'
+ *      user_id: // value for 'user_id'
  *   },
  * });
  */

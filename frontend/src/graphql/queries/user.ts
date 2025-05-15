@@ -75,13 +75,15 @@ export const GET_WEIGHT_BY_USER_ID = gql`
 `;
 
 export const GET_USER_ERXERCICES_FOR_CHART = gql`
-query GetHistoryByUserId($id: Float!) {
-getHistoryByUserId(user_id: $id) {
+query GetHistoryByUserId($user_id: Float!) {
+  getHistoryByUserId(user_id: $user_id) {
+    id
+    start_date
     end_date
     program {
-      tags {
-        name
-      }
+      id
+      name
+      total_duration
     }
   }
 }
