@@ -1,3 +1,28 @@
-.desktop{
-  height:100%
+.desktop {
+  height: 100%;
+
+  &__blob {
+    position: absolute;
+    width: 85%;
+    top: 0;
+    right: -10vw;
+    z-index: 0;
+    overflow: hidden;
+
+    @media screen and (min-width: 500px) {
+      width: 40vw;
+      height: 40vh;
+      top: 0;
+      right: -8vw;
+      overflow: unset;
+    }
+  }
+
+  &__menuBurgerIcon {
+    position: absolute;
+    width: 100%;
+    top: 5vh;
+    right: -40vw;
+    z-index: 1;
+  }
 }
