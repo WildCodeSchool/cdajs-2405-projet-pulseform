@@ -302,7 +302,7 @@ export class UsersMutations {
       level: null,
       birthday: null,
       gender: null,
-      weights: null,
+      weights: [],
       height: null,
     });
 

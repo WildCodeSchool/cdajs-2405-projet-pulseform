@@ -9,13 +9,13 @@ if ! docker ps | grep -q "$DB_CONTAINER"; then
 fi
 
 # Définir le chemin absolu du fichier seed.sql
-SEED_FILE_PATH="$(pwd)/backend/src/db/seed/seed.sql"
+SEED_FILE_PATH="./backend/src/db/seed/seed.sql"
 
 # Copier le fichier seed.sql dans le conteneur
 docker cp $SEED_FILE_PATH $DB_CONTAINER:/seed.sql
 
 # Connexion à PostgreSQL via Docker et exécution du fichier seed.sql
-docker exec -i $DB_CONTAINER psql -U $POSTGRES_USER -d $POSTGRES_DB -f /seed.sql
+docker exec $DB_CONTAINER sh -c "psql -U $POSTGRES_USER -d $POSTGRES_DB -f /seed.sql"
 
 if [ $? -eq 0 ]; then
     echo "✅ Données insérées avec succès !" 

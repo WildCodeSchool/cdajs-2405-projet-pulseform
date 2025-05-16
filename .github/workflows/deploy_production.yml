@@ -27,7 +27,7 @@ jobs:
         run: |
           echo "date=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_ENV
           echo "myapp=pulseform" >> $GITHUB_ENV
-          echo "environnement=main" >> $GITHUB_ENV
+          echo "environnement=production" >> $GITHUB_ENV
 
       # Étape 4 : Configurer QEMU pour la construction multiplateforme
       - name: Set up QEMU

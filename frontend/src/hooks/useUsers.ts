@@ -59,7 +59,7 @@ export const useGetUserByIdWithWeights = (id: number) => {
 
 export const useGetUserExercicesForChart = (id: number) => {
   const { loading, error, data } = useGetHistoryByUserIdQuery({
-    variables: { id },
+    variables: { user_id: id },
   });
   const userExercicesChart = data?.getHistoryByUserId;
 
