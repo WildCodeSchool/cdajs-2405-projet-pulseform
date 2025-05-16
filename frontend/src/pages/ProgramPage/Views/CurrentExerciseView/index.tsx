@@ -28,6 +28,11 @@ const CurrentExerciseView = ({
   currentIndex,
   totalExercises,
 }: CurrentExerciseViewProps) => {
+  const imageBasePath = `${import.meta.env.VITE_URL_BACK}/${import.meta.env.VITE_IMAGE_GIF}`;
+  const imageUrl = exercise?.img_src
+    ? `${imageBasePath}/${exercise.img_src}`
+    : "";
+
   return (
     <ExerciseStepsLayout
       header={
@@ -38,7 +43,7 @@ const CurrentExerciseView = ({
       body={
         <div className="current-exercise-view__body">
           <img
-            src={exercise.img_src || ""}
+            src={imageUrl}
             alt={exercise?.name}
             className="current-exercise-view__body-image"
           />

@@ -67,13 +67,13 @@ ON CONFLICT DO NOTHING;
 
 -- ✅ Insérer les exercices
       INSERT INTO "exercise" (id, name, description, duration, kcal_loss, muscle, level, img_src) VALUES
-      (1, 'Fente latérale', 'Exercise de musculation classique', 30, 100, 'Legs', 'beginner', 'http://localhost:4000/images/exercises/exercisesGIFs/FentesLaterales.gif'),
-      (2, 'Levée de jambes', 'Excellent pour les jambes', 60, 120, 'Legs', 'intermediate', 'http://localhost:4000/images/exercises/exercisesGIFs/LeveeDeJambe.gif'),
-      (3, 'Mains en avant', 'Exercice pour renforcer les jambes et les fessiers', 90, 110, 'Legs', 'intermediate', 'http://localhost:4000/images/exercises/exercisesGIFs/MainsEnAvant.gif'),
-      (4, 'Pose du pigeon droite', 'Exercice pour renforcer la sangle abdominale', 60, 90, 'Abdominals', 'beginner', 'http://localhost:4000/images/exercises/exercisesGIFs/PigeonDroit.gif'),
-      (5, 'Pose du pigeon gauche', 'Exercice complet pour le corps', 60, 150, 'Chest', 'advanced', 'http://localhost:4000/images/exercises/exercisesGIFs/PigeonGauche.gif'),
-      (6, 'Planche', 'Exercice de musculation pour le dos et les jambes', 60, 200, 'Back', 'advanced', 'http://localhost:4000/images/exercises/exercisesGIFs/Planche.gif'),
-      (7, 'Squats', 'Exercice classique pour le haut du corps', 60, 180, 'Chest', 'intermediate', 'http://localhost:4000/images/exercises/exercisesGIFs/Squat.gif')
+      (1, 'Fente latérale', 'Exercise de musculation classique', 30, 100, 'Legs', 'beginner', 'FentesLaterales.gif'),
+      (2, 'Levée de jambes', 'Excellent pour les jambes', 60, 120, 'Legs', 'intermediate', 'LeveeDeJambe.gif'),
+      (3, 'Mains en avant', 'Exercice pour renforcer les jambes et les fessiers', 90, 110, 'Legs', 'intermediate', 'MainsEnAvant.gif'),
+      (4, 'Pose du pigeon droite', 'Exercice pour renforcer la sangle abdominale', 60, 90, 'Abdominals', 'beginner', 'PigeonDroit.gif'),
+      (5, 'Pose du pigeon gauche', 'Exercice complet pour le corps', 60, 150, 'Chest', 'advanced', 'PigeonGauche.gif'),
+      (6, 'Planche', 'Exercice de musculation pour le dos et les jambes', 60, 200, 'Back', 'advanced', 'Planche.gif'),
+      (7, 'Squats', 'Exercice classique pour le haut du corps', 60, 180, 'Chest', 'intermediate', 'Squat.gif')
       ON CONFLICT DO NOTHING;
 
 -- ✅ Associer exercices et programmes
