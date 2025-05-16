@@ -213,3 +213,5 @@ INSERT INTO "history" (user_id, program_id, total_kcal_loss, start_date, end_dat
 (7, 2, 500, NOW() - INTERVAL '8 month', NOW() - INTERVAL '7 month', 420, 7),
 (7, 3, 550, NOW() - INTERVAL '9 month', NOW() - INTERVAL '8 month', 420, 7)
 ON CONFLICT DO NOTHING;
+
+SELECT setval('user_id_seq', (SELECT MAX(id) FROM "user"));
