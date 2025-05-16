@@ -41,13 +41,13 @@ export const UserModel = {
   async getWeightByUserId(userId: number) {
     const user = await AppDataSource.manager.findOne(User, {
       where: { id: userId },
-      select: ["weights"],
+      select: ["id", "weights"],
     });
 
     if (!user) {
       throw new Error("User not found");
     }
 
-    return user.weights || [];
+    return Array.isArray(user.weights) ? user.weights : [];
   },
 };

@@ -12,7 +12,7 @@ exports[`ProgramCard Component > matches the snapshot 1`] = `
         <img
           alt="Test Program"
           class="program-card__image"
-          src=""
+          src="http://localhost:4000/programs/test.jpg"
         />
         <div
           class="program-card__overlay"
@@ -59,7 +59,7 @@ exports[`ProgramCard Component > matches the snapshot 1`] = `
       <img
         alt="Test Program"
         class="program-card__image"
-        src=""
+        src="http://localhost:4000/programs/test.jpg"
       />
       <div
         class="program-card__overlay"
