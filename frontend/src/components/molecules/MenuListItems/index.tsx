@@ -8,9 +8,13 @@ const MenuListItems = () => {
   const navigate = useNavigate();
   const [logout] = useLogoutMutation();
 
-  const handleLogout = () => {
-    logout();
-    navigate("/");
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
   };
 
   const MenuItems = [
