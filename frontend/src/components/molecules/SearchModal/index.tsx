@@ -35,8 +35,7 @@ const SearchModal = ({ isOpen, onClose, onSearch }: SearchModalProps) => {
   const enumToArray = (enumObj: Record<string, string>): string[] =>
     Object.values(enumObj);
   const durations = ["5 min", "10 min", "15 min"];
-  console.log("SearchModal is open: ", isOpen);
-  console.log("Selected chips: ", selectedChips);
+
   return (
     <div className="modal-overlay">
       <form className="modal-content" onSubmit={(e) => e.preventDefault()}>
