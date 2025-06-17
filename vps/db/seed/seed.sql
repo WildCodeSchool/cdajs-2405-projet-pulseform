@@ -54,7 +54,9 @@ INSERT INTO "program" (id, name, description, total_duration, level, image, crea
 INSERT INTO "tag" (id, name) VALUES
 (1, 'Flexibility Enhancement'),
 (2, 'Cardiovascular Health'),
-(3, 'Muscle Gain')
+(3, 'Muscle Gain'),
+(4, 'Relaxation'),
+(5, 'Weight Loss')
 ON CONFLICT DO NOTHING;
 
 -- ✅ Associer tags et programmes

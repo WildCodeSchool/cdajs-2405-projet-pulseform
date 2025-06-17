@@ -4,6 +4,7 @@ import type { Exercise } from "@graphql/__generated__/schema";
 
 import FlipTimer from "@components/atoms/FlipTimer";
 import "./CurrentExerciseView.scss";
+import { useTranslation } from "react-i18next";
 
 type CurrentExerciseViewProps = {
   exercise: Exercise;
@@ -28,10 +29,14 @@ const CurrentExerciseView = ({
   currentIndex,
   totalExercises,
 }: CurrentExerciseViewProps) => {
-  const imageBasePath = `${import.meta.env.VITE_URL_BACK}/${import.meta.env.VITE_IMAGE_GIF}`;
+  const imageBasePath = `${import.meta.env.VITE_URL_BACK}/${
+    import.meta.env.VITE_IMAGE_GIF
+  }`;
   const imageUrl = exercise?.img_src
     ? `${imageBasePath}/${exercise.img_src}`
     : "";
+
+  const { t } = useTranslation();
 
   return (
     <ExerciseStepsLayout
@@ -52,7 +57,7 @@ const CurrentExerciseView = ({
       footer={
         <div className="current-exercise-view__footer">
           <span>
-            Exercise {currentIndex + 1} / {totalExercises}
+            {t("EXERCISE")} {currentIndex + 1} / {totalExercises}
           </span>
           <FlipTimer seconds={timer} />
           <ProgressBar

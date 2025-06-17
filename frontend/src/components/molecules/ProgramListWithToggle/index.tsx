@@ -30,6 +30,7 @@ const ProgramListWithToggle = () => {
         isOpen={isModalOpen}
         onClose={closeModal}
         onSearch={(filters) => setSelectedFilters(filters)}
+        initialSelectedChips={selectedFilters}
       />
     </div>
   );

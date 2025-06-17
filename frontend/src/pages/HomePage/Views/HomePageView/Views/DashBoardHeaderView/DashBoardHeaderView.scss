@@ -8,6 +8,16 @@
   color: $primary;
   @include h1-phone;
 
+  &-title {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &-subtitle {
+    margin-left: 5rem;
+  }
+
   .dash-board-upper-header-weekly-container {
     display: flex;
     flex-direction: column;
