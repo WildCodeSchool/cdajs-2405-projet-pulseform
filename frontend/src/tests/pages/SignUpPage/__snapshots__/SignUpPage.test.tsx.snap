@@ -5,20 +5,25 @@ exports[`SignUpPage > renders the SignUp Page 1`] = `
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <div
-        class="little-logo signup-page__logo little-logo--desktop"
+      <a
+        class="signup-page__logo"
+        href="/"
       >
-        <img
-          alt="Logo Pulse Form"
-          class="little-logo__img"
-          src="/src/assets/icons/mobile-logo.svg"
-        />
-        <p
-          class="little-logo__title little-logo__title--desktop"
+        <div
+          class="little-logo little-logo--desktop"
         >
-          Pulse Form
-        </p>
-      </div>
+          <img
+            alt="Logo Pulse Form"
+            class="little-logo__img"
+            src="/src/assets/icons/mobile-logo.svg"
+          />
+          <p
+            class="little-logo__title little-logo__title--desktop"
+          >
+            Pulse Form
+          </p>
+        </div>
+      </a>
       <img
         alt="BLOB_ALT_TEXT"
         aria-hidden="true"
@@ -167,20 +172,25 @@ exports[`SignUpPage > renders the SignUp Page 1`] = `
     </div>
   </body>,
   "container": <div>
-    <div
-      class="little-logo signup-page__logo little-logo--desktop"
+    <a
+      class="signup-page__logo"
+      href="/"
     >
-      <img
-        alt="Logo Pulse Form"
-        class="little-logo__img"
-        src="/src/assets/icons/mobile-logo.svg"
-      />
-      <p
-        class="little-logo__title little-logo__title--desktop"
+      <div
+        class="little-logo little-logo--desktop"
       >
-        Pulse Form
-      </p>
-    </div>
+        <img
+          alt="Logo Pulse Form"
+          class="little-logo__img"
+          src="/src/assets/icons/mobile-logo.svg"
+        />
+        <p
+          class="little-logo__title little-logo__title--desktop"
+        >
+          Pulse Form
+        </p>
+      </div>
+    </a>
     <img
       alt="BLOB_ALT_TEXT"
       aria-hidden="true"
