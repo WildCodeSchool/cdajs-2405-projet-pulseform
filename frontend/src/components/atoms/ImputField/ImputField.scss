@@ -2,11 +2,11 @@
 
 .input__login-page {
   background-color: $white;
-  border: 2px solid grey;
+  border: 1px solid grey;
   border-radius: 5px;
-  padding: 10px 15px;
+  padding: 0.5rem 1rem;
   width: 230px;
-  font-size: 16px;
+  font-size: 0.8rem;
   z-index: 1;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 

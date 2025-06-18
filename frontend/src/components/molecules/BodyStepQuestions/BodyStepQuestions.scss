@@ -4,7 +4,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
   width: 100%;
 
   &__header-d {
@@ -114,6 +113,10 @@
       align-items: center;
       justify-content: center;
 
+      &__img {
+        max-width: 30rem;
+      }
+
       &__container {
         position: absolute;
         display: flex;
@@ -131,8 +134,8 @@
 
     &__children {
       background-color: $primary;
-      width: 656px;
-      height: 628px;
+      width: 35rem;
+      height: 35rem;
       border-radius: 10px;
       display: flex;
       flex-direction: column;

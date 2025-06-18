@@ -45,7 +45,7 @@
     @media screen and (min-width: 768px) {
       color: $white;
       background-color: $primary;
-      margin: 100px 0px 100px;
+      margin: 4rem 1rem;
     }
   }
 
@@ -53,7 +53,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    gap: 1rem;
     z-index: 1;
 
     @media screen and (min-width: 768px) {
@@ -69,8 +69,7 @@
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    margin: 40px 0px 80px;
-    width: 260px;
+    margin: 1rem 0.1rem;
   }
 
   &__section {
@@ -167,7 +166,7 @@
       align-items: center;
       justify-content: end;
       background-color: $white;
-      flex: 1;
+      margin-left: 15rem;
     }
   }
 
@@ -176,8 +175,8 @@
 
     @media screen and (min-width: 768px) {
       background-color: $primary;
-      padding: 60px 250px 100px;
-      margin-right: 20%;
+      padding: 6rem 9rem;
+      margin-right: 3rem;
       border-radius: 10px;
       box-shadow: 50px 50px 50px rgba(0, 0, 0, 0.4);
     }
