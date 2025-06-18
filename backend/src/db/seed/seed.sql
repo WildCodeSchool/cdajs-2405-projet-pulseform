@@ -17,14 +17,14 @@ TRUNCATE TABLE "history" RESTART IDENTITY CASCADE;
 
 -- ✅ Insérer les utilisateurs
     INSERT INTO "user" (id, username, description, email, password, image, birthday, gender, weights, height, created_at, role, level) VALUES
-      (1, 'JohnDoe', 'Un utilisateur actif', 'john@example.com', '$argon2id$v=19$m=65536,t=3,p=4$OHtdXCMWGkZy9+AbeqFZKg$kBxbFprdFOMAr5NG8+tM4sQIgYUXEMykASFqX9JjK5s', 'https://picsum.photos/200/200', '1990-01-15', 'M', '[{"weight": 72, "month": "Apr", "update_at": "2025-03-04T00:00:00Z"},{"weight": 75, "month": "Apr", "update_at": "2025-04-04T00:00:00Z"},{"weight": 70, "month": "May", "update_at": "2025-05-04T00:00:00Z"}]', 180, NOW(), 'admin', 'advanced'),
-      (2, 'JaneSmith', 'Sportive passionnée', 'jane@example.com', '$argon2id$v=19$m=65536,t=3,p=4$OHtdXCMWGkZy9+AbeqFZKg$kBxbFprdFOMAr5NG8+tM4sQIgYUXEMykASFqX9JjK5s', 'https://picsum.photos/200/200', '1985-08-22', 'F', '[{"weight": 72, "month": "Apr", "update_at": "2025-03-04T00:00:00Z"},{"weight": 75, "month": "Apr", "update_at": "2025-04-04T00:00:00Z"},{"weight": 70, "month": "May", "update_at": "2025-05-04T00:00:00Z"}]', 170, NOW(), 'user', 'beginner'),
+      (1, 'JohnDoe', 'Un utilisateur actif', 'john@example.com', '$argon2id$v=19$m=65536,t=3,p=4$OHtdXCMWGkZy9+AbeqFZKg$kBxbFprdFOMAr5NG8+tM4sQIgYUXEMykASFqX9JjK5s', 'https://picsum.photos/200/200', '1990-01-15', 'M', '[{"weight": 53, "month": "Apr", "update_at": "2025-03-04T00:00:00Z"},{"weight": 55, "month": "Apr", "update_at": "2025-04-04T00:00:00Z"},{"weight": 60, "month": "May", "update_at": "2025-05-04T00:00:00Z"}]', 180, NOW(), 'admin', 'advanced'),
+      (2, 'JaneSmith', 'Sportive passionnée', 'jane@example.com', '$argon2id$v=19$m=65536,t=3,p=4$OHtdXCMWGkZy9+AbeqFZKg$kBxbFprdFOMAr5NG8+tM4sQIgYUXEMykASFqX9JjK5s', 'https://picsum.photos/200/200', '1985-08-22', 'F', '[{"weight": 72, "month": "Apr", "update_at": "2025-03-04T00:00:00Z"},{"weight": 75, "month": "Apr", "update_at": "2025-04-04T00:00:00Z"},{"weight": 80, "month": "May", "update_at": "2025-05-04T00:00:00Z"}]', 170, NOW(), 'user', 'beginner'),
       (3, 'AliceWonder', 'Nouvelle venue dans le fitness', 'alice@example.com', '$argon2id$v=19$m=65536,t=3,p=4$OHtdXCMWGkZy9+AbeqFZKg$kBxbFprdFOMAr5NG8+tM4sQIgYUXEMykASFqX9JjK5s', 'https://picsum.photos/200/200', '1995-04-10', 'F', '[{"weight": 72, "month": "Apr", "update_at": "2025-03-04T00:00:00Z"},{"weight": 75, "month": "Apr", "update_at": "2025-04-04T00:00:00Z"},{"weight": 70, "month": "May", "update_at": "2025-05-04T00:00:00Z"}]', 165, NOW(), 'user', 'beginner'),
-      (4, 'gael', 'Nouvelle venue dans le fitness', 'gael@pulseform.fr', '$argon2id$v=19$m=65536,t=3,p=4$OHtdXCMWGkZy9+AbeqFZKg$kBxbFprdFOMAr5NG8+tM4sQIgYUXEMykASFqX9JjK5s', 'https://picsum.photos/200/200', '1995-04-10', 'F', '[{"weight": 72, "month": "Apr", "update_at": "2025-03-04T00:00:00Z"},{"weight": 75, "month": "Apr", "update_at": "2025-04-04T00:00:00Z"},{"weight": 70, "month": "May", "update_at": "2025-05-04T00:00:00Z"}]', 165, NOW(), 'user', 'beginner'),
-      (5, 'Cyril', 'Nouvelle venue dans le fitness', 'cyril@pulseform.fr', '$argon2id$v=19$m=65536,t=3,p=4$OHtdXCMWGkZy9+AbeqFZKg$kBxbFprdFOMAr5NG8+tM4sQIgYUXEMykASFqX9JjK5s', 'https://picsum.photos/200/200', '1995-04-10', 'F', '[{"weight": 72, "month": "Apr", "update_at": "2025-03-04T00:00:00Z"},{"weight": 75, "month": "Apr", "update_at": "2025-04-04T00:00:00Z"},{"weight": 70, "month": "May", "update_at": "2025-05-04T00:00:00Z"}]', 165, NOW(), 'user', 'beginner'),
-     (6, 'Lucie', 'Nouvelle venue dans le fitness', 'lucie@pulseform.fr', '$argon2id$v=19$m=65536,t=3,p=4$OHtdXCMWGkZy9+AbeqFZKg$kBxbFprdFOMAr5NG8+tM4sQIgYUXEMykASFqX9JjK5s', 'https://picsum.photos/200/200', '1995-04-10', 'F', '[{"weight": 47, "month": "Apr", "update_at": "2025-03-04T00:00:00Z"},{"weight": 49, "month": "Jan", "update_at": "2025-01-01T00:00:00Z"}, {"weight": 53, "month": "May", "update_at": "2025-05-15T00:00:00Z"}]', 165, NOW(), 'user', 'beginner'),
-      (7, 'Anne-Gaëlle', 'Nouvelle venue dans le fitness', 'annegaelle@pulseform.fr', '$argon2id$v=19$m=65536,t=3,p=4$OHtdXCMWGkZy9+AbeqFZKg$kBxbFprdFOMAr5NG8+tM4sQIgYUXEMykASFqX9JjK5s', 'https://picsum.photos/200/200', '1995-04-10', 'F', '[{"weight": 72, "month": "Apr", "update_at": "2025-03-04T00:00:00Z"},{"weight": 75, "month": "Apr", "update_at": "2025-04-04T00:00:00Z"}]', 165, NOW(), 'user', 'beginner'),
-      (8, 'Nelson', 'Nouvelle venue dans le fitness', 'nelson@pulseform.fr', '$argon2id$v=19$m=65536,t=3,p=4$OHtdXCMWGkZy9+AbeqFZKg$kBxbFprdFOMAr5NG8+tM4sQIgYUXEMykASFqX9JjK5s', 'https://picsum.photos/200/200', '1995-04-10', 'F', '[{"weight": 50, "month": "Jan", "update_at": "2025-01-01T00:00:00Z"}, {"weight": 75, "month": "Feb", "update_at": "2025-02-02T00:00:00Z"}, {"weight": 60, "month": "Mar", "update_at": "2025-04-04T00:00:00Z"}]', 165, NOW(), 'user', 'beginner')
+      (4, 'Gaël', 'Nouvelle venue dans le fitness', 'gael@pulseform.fr', '$argon2id$v=19$m=65536,t=3,p=4$OHtdXCMWGkZy9+AbeqFZKg$kBxbFprdFOMAr5NG8+tM4sQIgYUXEMykASFqX9JjK5s', 'https://picsum.photos/200/200', '1995-04-10', 'M', '[{"weight": 65, "month": "Apr", "update_at": "2025-03-04T00:00:00Z"},{"weight": 68, "month": "Apr", "update_at": "2025-04-04T00:00:00Z"},{"weight": 61, "month": "May", "update_at": "2025-05-04T00:00:00Z"}]', 165, NOW(), 'user', 'beginner'),
+      (5, 'Cyril', 'Nouvelle venue dans le fitness', 'cyril@pulseform.fr', '$argon2id$v=19$m=65536,t=3,p=4$OHtdXCMWGkZy9+AbeqFZKg$kBxbFprdFOMAr5NG8+tM4sQIgYUXEMykASFqX9JjK5s', 'https://picsum.photos/200/200', '1995-04-10', 'M', '[{"weight": 65, "month": "Apr", "update_at": "2025-03-04T00:00:00Z"},{"weight": 68, "month": "Apr", "update_at": "2025-04-04T00:00:00Z"},{"weight": 61, "month": "May", "update_at": "2025-05-04T00:00:00Z"}]', 165, NOW(), 'user', 'beginner'),
+      (6, 'Lucie', 'Nouvelle venue dans le fitness', 'lucie@pulseform.fr', '$argon2id$v=19$m=65536,t=3,p=4$OHtdXCMWGkZy9+AbeqFZKg$kBxbFprdFOMAr5NG8+tM4sQIgYUXEMykASFqX9JjK5s', 'https://picsum.photos/200/200', '1995-04-10', 'F', '[{"weight": 47, "month": "Apr", "update_at": "2025-03-04T00:00:00Z"},{"weight": 49, "month": "Jan", "update_at": "2025-01-01T00:00:00Z"}, {"weight": 53, "month": "May", "update_at": "2025-05-15T00:00:00Z"}]', 165, NOW(), 'user', 'beginner'),
+      (7, 'Anne-Gaëlle', 'Nouvelle venue dans le fitness', 'annegaelle@pulseform.fr', '$argon2id$v=19$m=65536,t=3,p=4$OHtdXCMWGkZy9+AbeqFZKg$kBxbFprdFOMAr5NG8+tM4sQIgYUXEMykASFqX9JjK5s', 'https://picsum.photos/200/200', '1995-04-10', 'F', '[{"weight": 52, "month": "Apr", "update_at": "2025-03-04T00:00:00Z"},{"weight": 58, "month": "Apr", "update_at": "2025-04-04T00:00:00Z"},{"weight": 60, "month": "May", "update_at": "2025-05-04T00:00:00Z"}]', 165, NOW(), 'user', 'beginner'),
+      (8, 'Nelson', 'Nouvelle venue dans le fitness', 'nelson@pulseform.fr', '$argon2id$v=19$m=65536,t=3,p=4$OHtdXCMWGkZy9+AbeqFZKg$kBxbFprdFOMAr5NG8+tM4sQIgYUXEMykASFqX9JjK5s', 'https://picsum.photos/200/200', '1995-04-10', 'M', '[{"weight": 50, "month": "Jan", "update_at": "2025-01-01T00:00:00Z"}, {"weight": 75, "month": "Feb", "update_at": "2025-02-02T00:00:00Z"}, {"weight": 60, "month": "Mar", "update_at": "2025-04-04T00:00:00Z"}]', 165, NOW(), 'user', 'beginner')
       ON CONFLICT DO NOTHING;
 
 -- ✅ Insérer les programmes
@@ -54,15 +54,31 @@ INSERT INTO "program" (id, name, description, total_duration, level, image, crea
 INSERT INTO "tag" (id, name) VALUES
 (1, 'Flexibility Enhancement'),
 (2, 'Cardiovascular Health'),
-(3, 'Muscle Gain')
+(3, 'Muscle Gain'),
+(4, 'Relaxation'),
+(5, 'Weight Loss')
 ON CONFLICT DO NOTHING;
 
 -- ✅ Associer tags et programmes
 INSERT INTO "tag_list" (program_id, tag_id) VALUES
-(1, 1),
-(2, 2),
-(3, 3),
-(4, 2)
+(1, 3),
+(2, 1),
+(3, 4),
+(4, 5),
+(5, 3),
+(6, 3),
+(7, 3),
+(8, 5),
+(9, 2),
+(10, 4),
+(11, 1),
+(12, 3),
+(13, 3),
+(14, 3),
+(15, 5),
+(16, 1),
+(17, 5),
+(18, 1)
 ON CONFLICT DO NOTHING;
 
 -- ✅ Insérer les exercices

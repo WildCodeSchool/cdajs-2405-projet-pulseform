@@ -3,4 +3,6 @@ export interface ProgrammSearchButtonProps
   classnames?: string;
   typeButton?: "basic";
   hasFocus?: boolean;
+  selectedFilters: Array<string>;
+  onDelete: (filter: string) => void;
 }

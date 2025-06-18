@@ -28,8 +28,15 @@ const DashBoardHeaderView = ({ isDesktop }: DashBoardHeaderViewType) => {
     <div className="dash-board-header-view-container">
       {isDesktop ? (
         <>
-          {/* <LittleLogo hasLabel className="little-logo--static" /> */}
-          <span>Hello {userById?.username} !</span>
+          <div className="dash-board-header-view-container-title">
+            <span>Hello {userById?.username} ! 👋</span>
+            <span
+              className="dash-board-header-view-container-subtitle"
+              style={{ marginLeft: "1rem" }}
+            >
+              {t("READY_NEXT_PROGRAM")}
+            </span>
+          </div>
           <h1>{t("PROGRAMS")}</h1>
         </>
       ) : (
