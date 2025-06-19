@@ -1,13 +1,22 @@
 .desktop {
   height: 100%;
 
-  &__blob {
+  .blob-wrapper {
     position: absolute;
-    width: 85%;
     top: 0;
-    right: -10vw;
-    z-index: 0;
+    right: 0;
+    width: 38vw;
+    height: auto;
     overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  &__blob {
+    position: relative;
+    width: 150vw;
+    right: 0;
+    max-width: none;
 
     @media screen and (min-width: 500px) {
       width: 40vw;
@@ -20,9 +29,11 @@
 
   &__menuBurgerIcon {
     position: absolute;
-    width: 100%;
     top: 5vh;
-    right: -40vw;
+    right: 5vw;
     z-index: 1;
+    cursor: pointer;
+    width: fit-content;
+    height: fit-content;
   }
 }

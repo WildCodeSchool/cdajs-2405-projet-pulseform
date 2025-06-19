@@ -1,0 +1,27 @@
+.menu-burger-icon {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: fit-content;
+  max-width: 100%;
+  overflow: hidden;
+
+  &:hover,
+  &:focus {
+    cursor: pointer;
+    opacity: 0.8;
+    outline: none;
+  }
+
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+}
