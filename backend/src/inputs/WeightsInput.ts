@@ -17,6 +17,6 @@ export class Weight {
   @Field(() => String)
   month!: string;
 
-  @Field(() => Date)
-  update_at!: Date;
+  @Field(() => Date, { nullable: true })
+  update_at?: Date;
 }

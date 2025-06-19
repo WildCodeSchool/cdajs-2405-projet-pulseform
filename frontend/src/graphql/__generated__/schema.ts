@@ -200,17 +200,9 @@ export enum MuscleGroup {
   Abdominals = "ABDOMINALS",
   Arms = "ARMS",
   Back = "BACK",
-  Calves = "CALVES",
-  Cardio = "CARDIO",
   Chest = "CHEST",
-  Forearms = "FOREARMS",
   Glutes = "GLUTES",
   Legs = "LEGS",
-  LowerBack = "LOWER_BACK",
-  Neck = "NECK",
-  Obliques = "OBLIQUES",
-  Shoulders = "SHOULDERS",
-  Trapezius = "TRAPEZIUS",
 }
 
 export type Mutation = {
@@ -523,17 +515,10 @@ export type Tag = {
 
 /** Tags describing the purpose or benefits of exercises */
 export enum Tags {
-  AthleticPerformance = "ATHLETIC_PERFORMANCE",
-  BalanceAndStability = "BALANCE_AND_STABILITY",
   CardiovascularHealth = "CARDIOVASCULAR_HEALTH",
-  EnduranceImprovement = "ENDURANCE_IMPROVEMENT",
-  FlexibilityEnhancement = "FLEXIBILITY_ENHANCEMENT",
-  GeneralFitness = "GENERAL_FITNESS",
+  Flexibility = "FLEXIBILITY",
   MuscleGain = "MUSCLE_GAIN",
-  Rehabilitation = "REHABILITATION",
-  StrengthBuilding = "STRENGTH_BUILDING",
-  StressRelief = "STRESS_RELIEF",
-  ToningAndDefinition = "TONING_AND_DEFINITION",
+  Relaxation = "RELAXATION",
   WeightLoss = "WEIGHT_LOSS",
 }
 
@@ -613,7 +598,7 @@ export type User = {
 export type Weight = {
   __typename?: "Weight";
   month: Scalars["String"]["output"];
-  update_at: Scalars["DateTimeISO"]["output"];
+  update_at?: Maybe<Scalars["DateTimeISO"]["output"]>;
   weight: Scalars["Float"]["output"];
 };
 
@@ -900,23 +885,27 @@ export type GetWeightByUserIdQuery = {
   getWeightByUserId: Array<{
     __typename?: "Weight";
     month: string;
-    update_at: Date;
+    update_at?: Date | null;
     weight: number;
   }>;
 };
 
 export type GetHistoryByUserIdQueryVariables = Exact<{
-  id: Scalars["Float"]["input"];
+  user_id: Scalars["Float"]["input"];
 }>;
 
 export type GetHistoryByUserIdQuery = {
   __typename?: "Query";
   getHistoryByUserId: Array<{
     __typename?: "History";
+    id: string;
+    start_date?: Date | null;
     end_date?: Date | null;
     program: {
       __typename?: "Program";
-      tags?: Array<{ __typename?: "Tag"; name: Tags }> | null;
+      id: string;
+      name: string;
+      total_duration?: number | null;
     };
   }>;
 };
@@ -2005,13 +1994,15 @@ export type GetWeightByUserIdQueryResult = Apollo.QueryResult<
   GetWeightByUserIdQueryVariables
 >;
 export const GetHistoryByUserIdDocument = gql`
-    query GetHistoryByUserId($id: Float!) {
-  getHistoryByUserId(user_id: $id) {
+    query GetHistoryByUserId($user_id: Float!) {
+  getHistoryByUserId(user_id: $user_id) {
+    id
+    start_date
     end_date
     program {
-      tags {
-        name
-      }
+      id
+      name
+      total_duration
     }
   }
 }
@@ -2029,7 +2020,7 @@ export const GetHistoryByUserIdDocument = gql`
  * @example
  * const { data, loading, error } = useGetHistoryByUserIdQuery({
  *   variables: {
- *      id: // value for 'id'
+ *      user_id: // value for 'user_id'
  *   },
  * });
  */

@@ -10,13 +10,17 @@ type ExerciseCardType = {
 
 const ExerciseCard = ({ exercise, finished }: ExerciseCardType) => {
   const convertedDuration = convertSecondsToMin(exercise?.duration);
+  const imageBasePath = `${import.meta.env.VITE_URL_BACK}/${import.meta.env.VITE_IMAGE_GIF}`;
+  const imageUrl = exercise?.img_src
+    ? `${imageBasePath}/${exercise.img_src}`
+    : "";
 
   return (
     <div className="exercise-card">
       <div className="exercise-card__img-header-container">
         <div className="exercise-card__image-container">
           <img
-            src={exercise?.img_src || ""}
+            src={imageUrl}
             alt={exercise?.name}
             className="exercise-card__image"
           />

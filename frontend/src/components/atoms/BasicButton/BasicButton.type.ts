@@ -4,4 +4,5 @@ export interface BasicButtonProps
   classnames?: string;
   typeButton?: "basic" | "white" | "orange";
   hasFocus?: boolean;
+  hasOutline?: boolean;
 }

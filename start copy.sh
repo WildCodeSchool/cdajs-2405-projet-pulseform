@@ -1,1 +1,0 @@
-PASSWORD=PASSWORD USERNAME=USERNAME DB_NAME=DB_NAME docker compose up --build -d --force-recreate

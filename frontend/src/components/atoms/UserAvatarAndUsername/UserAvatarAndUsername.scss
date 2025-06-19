@@ -8,4 +8,18 @@
   color: $white;
   width: 100%;
   padding-top: 3rem;
+
+  .user-avatar-container {
+    position: relative;
+
+    .user-avatar-settings {
+      position: absolute;
+      bottom: 0;
+      right: -10px;
+
+      :hover {
+        cursor: pointer;
+      }
+    }
+  }
 }

@@ -21,9 +21,9 @@ const WeekDetailsSkeleton = () => {
       </div>
       <div className="week-details__programs">
         <Stack spacing={2}>
-          {Array.from({ length: 3 }).map(() => (
+          {Array.from({ length: 3 }).map((_, index) => (
             <Skeleton
-              key={crypto.randomUUID()}
+              key={index}
               variant="rectangular"
               height={48}
               animation="wave"

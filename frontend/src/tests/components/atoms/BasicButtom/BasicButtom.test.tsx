@@ -29,5 +29,5 @@ describe("BasicButtom Component", () => {
 });
 
 const defaultProps = {
-  onclick: () => {},
+  onClick: () => {},
 };

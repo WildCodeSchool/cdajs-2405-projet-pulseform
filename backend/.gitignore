@@ -1,6 +1,6 @@
 data-pulseform
 node_modules
 .env
+.env.local
 init-db.sh
 start.sh
-seed.sh

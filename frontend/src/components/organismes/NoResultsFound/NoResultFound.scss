@@ -1,0 +1,26 @@
+@use "@assets/variables" as *;
+
+.no-result-found {
+  &__content {
+    @include body-phone;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__image {
+    max-width: 40%;
+  }
+
+  &__text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+
+    .no-result-found__text {
+      text-align: center;
+    }
+  }
+}
