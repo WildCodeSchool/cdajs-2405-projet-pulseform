@@ -26,7 +26,7 @@ const HomePage = () => {
       <section className={isDesktop ? "desktop" : "mobile"}>
         {isDesktop ? (
           <>
-            <DoubleScreenLayout>
+            <DoubleScreenLayout noFullDvh>
               <UserProfileView isDesktop={isDesktop} />
               {/* Left column with user profile */}
               <HomePageView isDesktop={isDesktop} />
