@@ -1,5 +1,5 @@
 import blueCross from "@assets/icons/blue-cross.svg";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import BasicButton from "../../atoms/BasicButton";
 import Chip from "../../atoms/Chip";
@@ -22,6 +22,7 @@ const SearchModal = ({
   initialSelectedChips,
 }: SearchModalProps) => {
   const { t } = useTranslation();
+  const modalRef = useRef<HTMLFormElement>(null);
   const [selectedChips, setSelectedChips] = useState<string[]>([]);
 
   // Reset internal selection when modal opens
@@ -30,6 +31,24 @@ const SearchModal = ({
       setSelectedChips(initialSelectedChips);
     }
   }, [isOpen, initialSelectedChips]);
+
+  // Outside click handler
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        onClose();
+      }
+    }
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen, onClose]);
 
   const handleChipClick = (label: string) => {
     setSelectedChips((prev) =>
@@ -52,7 +71,11 @@ const SearchModal = ({
 
   return (
     <div className="modal-overlay">
-      <form className="modal-content" onSubmit={(e) => e.preventDefault()}>
+      <form
+        className="modal-content"
+        onSubmit={(e) => e.preventDefault()}
+        ref={modalRef}
+      >
         <div className="modal-header">
           <button className="close-button" type="button" onClick={onClose}>
             <img src={blueCross} alt="closeModal" />
