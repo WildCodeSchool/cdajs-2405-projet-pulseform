@@ -46,7 +46,9 @@ function LoginPage() {
   };
   return (
     <>
-      <LittleLogo className="login-page__logo" size="desktop" hasLabel={true} />
+      <Link to="/" className="login-page__logo">
+        <LittleLogo size="desktop" hasLabel={true} />
+      </Link>
       <img
         className="login-page__blob"
         src={blopLoginPage}
