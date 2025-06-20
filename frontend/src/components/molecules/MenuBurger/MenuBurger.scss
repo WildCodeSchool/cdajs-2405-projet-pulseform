@@ -1,0 +1,36 @@
+@use "@assets/variables" as *;
+
+.menu-burger {
+  position: fixed;
+  top: 0;
+  right: 0px;
+  width: 300px;
+  height: 100vh;
+  background-color: $tertiary;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.3);
+  padding: 1rem;
+  transition: right 0.3s ease-in-out;
+  z-index: 1000;
+
+  &--open {
+    right: 0; // visible
+  }
+
+  &__close-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    float: right;
+    cursor: pointer;
+  }
+}
+
+.menu-burger__backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}

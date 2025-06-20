@@ -5,6 +5,8 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
+  @include h2-phone;
+  color: $white;
 
   .menu-list-item {
     @include h2-phone;

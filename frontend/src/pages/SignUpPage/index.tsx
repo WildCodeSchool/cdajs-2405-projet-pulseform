@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import BasicButton from "@components/atoms/BasicButton";
-import InputField from "@components/atoms/ImputField/ImputField";
+import InputField from "@components/atoms/InputField/InputField";
 import LittleLogo from "@components/atoms/LittleLogo";
 import AlreadyMemberBlock from "@components/molecules/AlreadyMemberBlock/AlreadyMemberBlock";
 import UserInfoAddView from "@components/molecules/UserInfoAddView";

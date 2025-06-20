@@ -1,3 +1,39 @@
-.desktop{
-  height:100%
+.desktop {
+  height: 100%;
+
+  .blob-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 38vw;
+    height: auto;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  &__blob {
+    position: relative;
+    width: 150vw;
+    right: 0;
+    max-width: none;
+
+    @media screen and (min-width: 500px) {
+      width: 40vw;
+      height: 40vh;
+      top: 0;
+      right: -8vw;
+      overflow: unset;
+    }
+  }
+
+  &__menuBurgerIcon {
+    position: absolute;
+    top: 5vh;
+    right: 5vw;
+    z-index: 1;
+    cursor: pointer;
+    width: fit-content;
+    height: fit-content;
+  }
 }

@@ -5,10 +5,7 @@ import WeekDetails from "@components/molecules/WeekDetails";
 const HistoryView = () => {
   return (
     <div>
-      <p>HistoryView</p>
-
       <WeekDetails />
-
     </div>
   );
 };
