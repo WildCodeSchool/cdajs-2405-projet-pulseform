@@ -2,16 +2,20 @@ import { useLogoutMutation } from "@graphql/__generated__/schema";
 
 import { useNavigate } from "react-router-dom";
 
+import { useUser } from "@context/UserContext";
+
 import "./MenuListItems.scss";
 
 const MenuListItems = () => {
   const navigate = useNavigate();
   const [logout] = useLogoutMutation();
+  const { refetchUser } = useUser();
 
   const handleLogout = async () => {
     try {
       await logout();
-      navigate("/login");
+      await refetchUser();
+      navigate("/login", { replace: true });
     } catch (error) {
       console.error("Logout failed:", error);
     }

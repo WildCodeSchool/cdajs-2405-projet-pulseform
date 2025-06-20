@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import blopLoginPage from "@assets/icons/blob/blob3.svg";
 import BasicButton from "@components/atoms/BasicButton";
-import InputField from "@components/atoms/ImputField/ImputField";
+import InputField from "@components/atoms/InputField/InputField";
 import LittleLogo from "@components/atoms/LittleLogo/index";
 import LoginImage from "@components/atoms/LoginImage";
 import { LOGIN_MUTATION } from "@graphql/mutations/user";

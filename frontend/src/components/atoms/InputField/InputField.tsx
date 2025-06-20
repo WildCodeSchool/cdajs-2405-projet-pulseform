@@ -2,7 +2,7 @@ import { EyeOffIcon, EyeOnIcon } from "@utils/icon-list/iconList";
 import { useState } from "react";
 import type { FieldValues, Path, UseFormRegister } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import "./ImputField.scss";
+import "./InputField.scss";
 
 interface InputFieldProps<T extends FieldValues> {
   name: Path<T>;

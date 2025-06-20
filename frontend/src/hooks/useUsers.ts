@@ -32,7 +32,7 @@ export const useGetUserById = (id: number) => {
 };
 
 export const useMe = () => {
-  const { loading, error, data } = useMeQuery({
+  const { loading, error, data, refetch } = useMeQuery({
     fetchPolicy: "network-only",
   });
   const user = data?.me;
@@ -41,6 +41,7 @@ export const useMe = () => {
     loading,
     error,
     user,
+    refetch,
   };
 };
 

@@ -1,13 +1,18 @@
+import blobHomePage from "@assets/blobs/blob_homePage.svg";
 import DoubleScreenLayout from "@components/atoms/Layout/DoubleScreenLayout";
 import MobileBodyLayout from "@components/atoms/Layout/MobileBodyLayout";
 import { useHomeMobileView } from "@context/MobileHomeViewContext";
 import { useEffect, useState } from "react";
 import { HomePageView, UserProfileView } from "./Views";
 import "./HomePage.scss";
+import MenuBurger from "@components/molecules/MenuBurger";
+import MenuListItems from "@components/molecules/MenuListItems";
+import { MenuBurgerIcon } from "@utils/icon-list/iconList";
 
 const HomePage = () => {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
   const { homeMobileview } = useHomeMobileView();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -21,11 +26,38 @@ const HomePage = () => {
     };
   }, []);
 
+  const onMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
   return (
     <>
       <section className={isDesktop ? "desktop" : "mobile"}>
         {isDesktop ? (
           <>
+            <div className="blob-wrapper">
+              <img
+                className="desktop__blob"
+                src={blobHomePage}
+                alt="blob"
+                aria-hidden="true"
+              />
+            </div>
+            <MenuBurgerIcon
+              className="desktop__menuBurgerIcon"
+              color="white"
+              fontSize={40}
+              aria-label="Open menu"
+              onClick={onMenu}
+            />
+
+            <MenuBurger
+              isOpen={isMenuOpen}
+              onClose={() => setIsMenuOpen(false)}
+            >
+              <MenuListItems />
+            </MenuBurger>
+
             <DoubleScreenLayout noFullDvh>
               <UserProfileView isDesktop={isDesktop} />
               {/* Left column with user profile */}
