@@ -5,7 +5,7 @@ import { useHomeMobileView } from "@context/MobileHomeViewContext";
 import { useEffect, useState } from "react";
 import { HomePageView, UserProfileView } from "./Views";
 import "./HomePage.scss";
-import MenuBurgerIcon from "@components/atoms/MenuBurgerIcon";
+import { MenuBurgerIcon } from "@utils/icon-list/iconList";
 import MenuBurger from "@components/molecules/MenuBurger";
 import MenuListItems from "@components/molecules/MenuListItems";
 
