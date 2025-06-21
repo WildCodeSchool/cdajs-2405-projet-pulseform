@@ -8,6 +8,10 @@
   border-radius: 0.5rem;
   overflow: hidden;
 
+  @media screen and (max-width: 1280px) {
+    height: 4rem;
+  }
+
   &__track {
     position: relative;
     width: 100%;
@@ -24,12 +28,12 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width:70%;
+    width: 70%;
     transform: translate(-50%, -50%);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+
     button {
       all: unset;
       color: $tertiary;
@@ -40,6 +44,11 @@
       svg {
         width: 3.5rem;
         height: 3.5rem;
+
+        @media screen and (max-width: 1280px) {
+          width: 2.5rem;
+          height: 2.5rem;
+        }
       }
     }
   }

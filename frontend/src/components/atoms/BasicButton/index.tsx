@@ -8,6 +8,7 @@ function BasicButton({
   className,
   typeButton = "basic",
   hasFocus,
+  hasOutline,
   ...props
 }: BasicButtonProps) {
   const buttonClass = classNames("basic-button", className, {
@@ -16,6 +17,7 @@ function BasicButton({
     "basic-button--orange": typeButton === "orange",
     "basic-button--white--focus": typeButton === "white" && hasFocus,
     "basic-button--orange--focus": typeButton === "orange" && hasFocus,
+    "has-outline": hasOutline,
   });
 
   return (

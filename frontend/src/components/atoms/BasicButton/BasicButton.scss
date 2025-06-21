@@ -1,5 +1,9 @@
 @use "@assets/variables" as *;
 
+.has-outline {
+  outline: 1px solid $primary;
+}
+
 .basic-button {
   &--basic {
     @include h2-phone;

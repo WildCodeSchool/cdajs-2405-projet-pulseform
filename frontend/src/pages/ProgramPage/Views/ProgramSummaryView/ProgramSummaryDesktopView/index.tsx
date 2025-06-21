@@ -19,10 +19,15 @@ const ProgramSummaryDesktopView = ({
   const navigate = useNavigate();
   const { t } = useTranslation();
 
+  const imageBasePath = `${import.meta.env.VITE_URL_BACK}/${
+    import.meta.env.VITE_IMAGE_PROGRAMME
+  }`;
+  const imageUrl = `${imageBasePath}/${program.image}`;
+
   return (
     <div
       className="program-summary-desktop-view"
-      style={{ backgroundImage: `url(${program.image})` }}
+      style={{ backgroundImage: `url(${imageUrl})` }}
     >
       <div className="program-summary-desktop-view__overlay">
         <header className="program-summary-desktop-view__header">

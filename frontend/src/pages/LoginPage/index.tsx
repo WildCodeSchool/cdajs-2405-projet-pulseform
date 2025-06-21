@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import blopLoginPage from "@assets/icons/blob/blob3.svg";
 import BasicButton from "@components/atoms/BasicButton";
-import InputField from "@components/atoms/ImputField/ImputField";
+import InputField from "@components/atoms/InputField/InputField";
 import LittleLogo from "@components/atoms/LittleLogo/index";
 import LoginImage from "@components/atoms/LoginImage";
 import { LOGIN_MUTATION } from "@graphql/mutations/user";
@@ -46,7 +46,9 @@ function LoginPage() {
   };
   return (
     <>
-      <LittleLogo className="login-page__logo" size="desktop" hasLabel={true} />
+      <Link to="/" className="login-page__logo">
+        <LittleLogo size="desktop" hasLabel={true} />
+      </Link>
       <img
         className="login-page__blob"
         src={blopLoginPage}

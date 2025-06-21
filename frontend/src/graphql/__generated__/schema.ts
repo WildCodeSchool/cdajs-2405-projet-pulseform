@@ -200,17 +200,9 @@ export enum MuscleGroup {
   Abdominals = "ABDOMINALS",
   Arms = "ARMS",
   Back = "BACK",
-  Calves = "CALVES",
-  Cardio = "CARDIO",
   Chest = "CHEST",
-  Forearms = "FOREARMS",
   Glutes = "GLUTES",
   Legs = "LEGS",
-  LowerBack = "LOWER_BACK",
-  Neck = "NECK",
-  Obliques = "OBLIQUES",
-  Shoulders = "SHOULDERS",
-  Trapezius = "TRAPEZIUS",
 }
 
 export type Mutation = {
@@ -523,17 +515,10 @@ export type Tag = {
 
 /** Tags describing the purpose or benefits of exercises */
 export enum Tags {
-  AthleticPerformance = "ATHLETIC_PERFORMANCE",
-  BalanceAndStability = "BALANCE_AND_STABILITY",
   CardiovascularHealth = "CARDIOVASCULAR_HEALTH",
-  EnduranceImprovement = "ENDURANCE_IMPROVEMENT",
-  FlexibilityEnhancement = "FLEXIBILITY_ENHANCEMENT",
-  GeneralFitness = "GENERAL_FITNESS",
+  Flexibility = "FLEXIBILITY",
   MuscleGain = "MUSCLE_GAIN",
-  Rehabilitation = "REHABILITATION",
-  StrengthBuilding = "STRENGTH_BUILDING",
-  StressRelief = "STRESS_RELIEF",
-  ToningAndDefinition = "TONING_AND_DEFINITION",
+  Relaxation = "RELAXATION",
   WeightLoss = "WEIGHT_LOSS",
 }
 
@@ -613,7 +598,7 @@ export type User = {
 export type Weight = {
   __typename?: "Weight";
   month: Scalars["String"]["output"];
-  update_at: Scalars["DateTimeISO"]["output"];
+  update_at?: Maybe<Scalars["DateTimeISO"]["output"]>;
   weight: Scalars["Float"]["output"];
 };
 
@@ -900,7 +885,7 @@ export type GetWeightByUserIdQuery = {
   getWeightByUserId: Array<{
     __typename?: "Weight";
     month: string;
-    update_at: Date;
+    update_at?: Date | null;
     weight: number;
   }>;
 };

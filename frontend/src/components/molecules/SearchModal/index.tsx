@@ -1,127 +1,163 @@
 import blueCross from "@assets/icons/blue-cross.svg";
+import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import BasicButton from "../../atoms/BasicButton";
 import Chip from "../../atoms/Chip";
 import "./SearchModal.scss";
-import { useState } from "react";
 
-import { FitnessLevel, MuscleGroup, Tags } from "@graphql/__generated__/schema";
+import { MuscleGroup, Tags } from "@graphql/__generated__/schema";
+import { fitnessLevelOrder } from "@utils/constants/fitnessLevelOrder";
 
 type SearchModalProps = {
   isOpen: boolean;
   onClose: () => void;
   onSearch: (selected: string[]) => void;
+  initialSelectedChips: string[];
 };
 
-const SearchModal = ({ isOpen, onClose, onSearch }: SearchModalProps) => {
-  if (!isOpen) return null;
-
+const SearchModal = ({
+  isOpen,
+  onClose,
+  onSearch,
+  initialSelectedChips,
+}: SearchModalProps) => {
+  const { t } = useTranslation();
+  const modalRef = useRef<HTMLFormElement>(null);
   const [selectedChips, setSelectedChips] = useState<string[]>([]);
+
+  // Reset internal selection when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      setSelectedChips(initialSelectedChips);
+    }
+  }, [isOpen, initialSelectedChips]);
+
+  // Outside click handler
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        onClose();
+      }
+    }
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen, onClose]);
 
   const handleChipClick = (label: string) => {
     setSelectedChips((prev) =>
-      prev.includes(label)
-        ? prev.filter((chip) => chip !== label)
-        : [...prev, label],
+      prev.includes(label) ? prev.filter((c) => c !== label) : [...prev, label],
     );
   };
 
-  const formatLabel = (str: string) => {
-    return str
+  const formatLabel = (str: string) =>
+    str
       .toLowerCase()
       .replace(/_/g, " ")
       .replace(/(^\w|\s\w)/g, (match) => match.toUpperCase());
-  };
 
   const enumToArray = (enumObj: Record<string, string>): string[] =>
     Object.values(enumObj);
+
   const durations = ["5 min", "10 min", "15 min"];
-  console.log("SearchModal is open: ", isOpen);
-  console.log("Selected chips: ", selectedChips);
+
+  if (!isOpen) return null;
+
   return (
     <div className="modal-overlay">
-      <form className="modal-content" onSubmit={(e) => e.preventDefault()}>
-        <button className="close-button" type="button" onClick={onClose}>
-          <img src={blueCross} alt="closeModal" />
-        </button>
-
-        <h2 className="modal-title">Rechercher et filtrer</h2>
-
-        <div className="modal-filters-wrapper">
-          {/* Niveau */}
-          <div className="filter-block">
-            <h3>Niveau</h3>
-            <div className="chip-list">
-              {enumToArray(FitnessLevel).map((level) => (
-                <Chip
-                  key={level}
-                  label={formatLabel(level)}
-                  onClick={() => handleChipClick(level)}
-                  selected={selectedChips.includes(level)}
-                />
-              ))}
+      <form
+        className="modal-content"
+        onSubmit={(e) => e.preventDefault()}
+        ref={modalRef}
+      >
+        <div className="modal-header">
+          <button className="close-button" type="button" onClick={onClose}>
+            <img src={blueCross} alt="closeModal" />
+          </button>
+          <h2 className="modal-title">{t("DISCOVER_NEXT_WORKOUT")}</h2>
+        </div>
+        <div className="modal-body">
+          <div className="modal-filters-wrapper">
+            <div className="filter-block">
+              <h3>{t("LEVEL")}</h3>
+              <div className="chip-list">
+                {fitnessLevelOrder.map((level) => (
+                  <Chip
+                    key={level}
+                    label={t(level.toUpperCase())}
+                    onClick={() => handleChipClick(level)}
+                    selected={selectedChips.includes(level)}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-
-          {/* Objectifs */}
-          <div className="filter-block">
-            <h3>Objectifs</h3>
-            <div className="chip-list">
-              {enumToArray(Tags).map((tag) => (
-                <Chip
-                  key={tag}
-                  label={formatLabel(tag)}
-                  onClick={() => handleChipClick(tag)}
-                  selected={selectedChips.includes(tag)}
-                />
-              ))}
+            <div className="filter-block">
+              <h3>{t("GOAL")}</h3>
+              <div className="chip-list">
+                {enumToArray(Tags).map((tag) => (
+                  <Chip
+                    key={tag}
+                    label={formatLabel(t(tag))}
+                    onClick={() => handleChipClick(tag)}
+                    selected={selectedChips.includes(tag)}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-
-          {/* Zones corporelles */}
-          <div className="filter-block">
-            <h3>Zones corporelles</h3>
-            <div className="chip-list">
-              {enumToArray(MuscleGroup).map((muscle) => (
-                <Chip
-                  key={muscle}
-                  label={formatLabel(muscle)}
-                  onClick={() => handleChipClick(muscle)}
-                  selected={selectedChips.includes(muscle)}
-                />
-              ))}
+            <div className="filter-block">
+              <h3>{t("TARGET_AREA")}</h3>
+              <div className="chip-list">
+                {enumToArray(MuscleGroup).map((muscle) => (
+                  <Chip
+                    key={muscle}
+                    label={formatLabel(t(muscle))}
+                    onClick={() => handleChipClick(muscle)}
+                    selected={selectedChips.includes(muscle)}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-
-          {/* Durées */}
-          <div className="filter-block">
-            <h3>Durées</h3>
-            <div className="chip-list">
-              {durations.map((duration) => (
-                <Chip
-                  key={duration}
-                  label={duration}
-                  onClick={() => handleChipClick(duration)}
-                  selected={selectedChips.includes(duration)}
-                />
-              ))}
+            <div className="filter-block">
+              <h3>{t("DURATION")}</h3>
+              <div className="chip-list">
+                {durations.map((duration) => (
+                  <Chip
+                    key={duration}
+                    label={duration}
+                    onClick={() => handleChipClick(duration)}
+                    selected={selectedChips.includes(duration)}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
-
-        {selectedChips.length > 0 && (
-          <button type="button" onClick={() => setSelectedChips([])}>
-            Réinitialiser les filtres
-          </button>
-        )}
-
-        <BasicButton
-          onClick={() => {
-            onSearch(selectedChips);
-            onClose();
-          }}
-        >
-          Rechercher
-        </BasicButton>
+        <div className="modal-footer">
+          {selectedChips.length > 0 && (
+            <BasicButton
+              typeButton="white"
+              hasFocus
+              hasOutline
+              onClick={() => setSelectedChips([])}
+            >
+              {t("CLEAR_FILTERS")}
+            </BasicButton>
+          )}
+          <BasicButton
+            onClick={() => {
+              onSearch(selectedChips);
+              onClose();
+            }}
+          >
+            {t("SEARCH_PROGRAMS")}
+          </BasicButton>
+        </div>
       </form>
     </div>
   );

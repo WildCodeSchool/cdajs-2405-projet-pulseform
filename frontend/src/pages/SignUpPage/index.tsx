@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import BasicButton from "@components/atoms/BasicButton";
-import InputField from "@components/atoms/ImputField/ImputField";
+import InputField from "@components/atoms/InputField/InputField";
 import LittleLogo from "@components/atoms/LittleLogo";
 import AlreadyMemberBlock from "@components/molecules/AlreadyMemberBlock/AlreadyMemberBlock";
 import UserInfoAddView from "@components/molecules/UserInfoAddView";
@@ -19,6 +19,7 @@ import blopLoginPage from "@assets/icons/blob/blob3.svg";
 import stepImage from "@assets/images/step-img.svg";
 
 import "./UserCredentialsView.scss";
+import { Link } from "react-router-dom";
 
 interface FormData {
   email: string;
@@ -104,11 +105,9 @@ function UserCredentialsView() {
 
   return (
     <>
-      <LittleLogo
-        className="signup-page__logo"
-        size="desktop"
-        hasLabel={true}
-      />
+      <Link to="/" className="signup-page__logo">
+        <LittleLogo size="desktop" hasLabel={true} />
+      </Link>
       <img
         className="signup-page__blob"
         src={blopLoginPage}

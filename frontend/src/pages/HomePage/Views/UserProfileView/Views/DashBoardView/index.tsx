@@ -1,24 +1,19 @@
 import UserAvatarAndUsername from "@components/atoms/UserAvatarAndUsername";
 import TotalExercicesAndTimeRecap from "@components/molecules/TotalExercicesAndTimeRecap";
-import { useGetUserById } from "@hooks/useUsers";
 
-import { useUser } from "@context/UserContext";
+import type { User } from "@graphql/__generated__/schema";
 import "./DashBoardView.scss";
 
-const DashBoardView = () => {
-  const { user } = useUser();
-  const userId = Number(user?.id);
+type DashBoardViewType = {
+  user: User;
+  isDesktop: boolean;
+};
 
-  const { loading, error, userById } = useGetUserById(userId);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
-  if (!userById) return <p>User not found.</p>;
-
+const DashBoardView = ({ user, isDesktop }: DashBoardViewType) => {
   return (
     <div className="dashboard-view-container">
-      <UserAvatarAndUsername user={userById} />
-      <TotalExercicesAndTimeRecap user={userById} />
+      <UserAvatarAndUsername user={user} isDesktop={isDesktop} />
+      <TotalExercicesAndTimeRecap user={user} />
     </div>
   );
 };

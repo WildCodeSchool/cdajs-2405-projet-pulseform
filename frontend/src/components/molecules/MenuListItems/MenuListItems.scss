@@ -1,0 +1,24 @@
+@import "@assets/variables.scss";
+
+.menu-list-items-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  @include h2-phone;
+  color: $white;
+
+  .menu-list-item {
+    @include h2-phone;
+    all: unset;
+    padding: 2rem;
+    border-radius: 10px;
+
+    &:hover {
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.1),
+        inset -2px -2px 2px rgba(188, 188, 188, 0.6);
+    }
+  }
+}

@@ -35,7 +35,6 @@ const UserProfileView = ({ isDesktop }: UserProfileViewType) => {
     <div className="user-profile-view">
       {userById && <DashBoardView user={userById} isDesktop={isDesktop} />}
       <div className="user-profile-view__container">
-        {isHistoryView && <HistoryView />}
         {/* apparait onClick et remplace DashBoardView */}
         <div className="user-profile-view__container__short-calendar">
           <div className="user-profile-view__container__short-calendar__container">
@@ -47,11 +46,15 @@ const UserProfileView = ({ isDesktop }: UserProfileViewType) => {
               onClick={handleHistoryView}
               className="user-profile-view__container__short-calendar__container__label"
             >
-              {t("SEE_MORE")}
+              {isHistoryView ? t("SEE_RETURN") : t("SEE_MORE")}
             </button>
           </div>
+
           {userId && <ShortCalendar endDate={historyEndDateProgram} />}
         </div>
+
+        {isHistoryView && <HistoryView />}
+
         <div className="user-profile-view__container__ribbon">
           {historyEndDateProgram && <Ribbon endDate={historyEndDateProgram} />}
         </div>
