@@ -13,16 +13,11 @@ import type {
   ValueType,
 } from "recharts/types/component/DefaultTooltipContent";
 
-import { useGetUserByIdWithWeights } from "@hooks/useUsers";
 import type { DataPoint } from "./WeightChart.type";
 import "./WeightChart.scss";
 
-function WeightChart({ userId }: { userId: number }) {
+const WeightChart = ({ dataWeight }: { dataWeight: DataPoint[] }) => {
   const { t } = useTranslation();
-  const { loading, error, userWeight } = useGetUserByIdWithWeights(userId);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
 
   const monthsOrder = [
     "Jan",
@@ -48,7 +43,8 @@ function WeightChart({ userId }: { userId: number }) {
   }
 
   const completeData: DataPoint[] = last6Months.map((month) => {
-    const entry = userWeight?.find((d) => d.month === month);
+    const entry = dataWeight?.find((d) => d.month === month);
+
     return entry || { month, weight: null };
   });
 
@@ -96,7 +92,6 @@ function WeightChart({ userId }: { userId: number }) {
         >
           <span className="weight-chart__title">{t("WEIGHT_KG")}</span>
         </div>
-
         {isAllNull && (
           <p
             style={{
@@ -109,7 +104,6 @@ function WeightChart({ userId }: { userId: number }) {
             {t("NO_WEIGHT_DATA")}
           </p>
         )}
-
         <ResponsiveContainer width="100%" height={180}>
           <LineChart data={safeData}>
             {safeData.map((entry) => (
@@ -120,7 +114,6 @@ function WeightChart({ userId }: { userId: number }) {
                 strokeDasharray="3 3"
               />
             ))}
-
             <XAxis
               dataKey="month"
               tick={(props: {
@@ -164,6 +157,6 @@ function WeightChart({ userId }: { userId: number }) {
       </div>
     </section>
   );
-}
+};
 
 export default WeightChart;

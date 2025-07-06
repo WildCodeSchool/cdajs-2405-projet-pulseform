@@ -1,19 +1,19 @@
 import UserAvatarAndUsername from "@components/atoms/UserAvatarAndUsername";
 import TotalExercicesAndTimeRecap from "@components/molecules/TotalExercicesAndTimeRecap";
 
-import type { User } from "@graphql/__generated__/schema";
 import "./DashBoardView.scss";
+import type { DashBoardViewprops } from "./DashBoardView.type";
 
-type DashBoardViewType = {
-  user: User;
-  isDesktop: boolean;
-};
-
-const DashBoardView = ({ user, isDesktop }: DashBoardViewType) => {
+const DashBoardView = ({ user, isDesktop }: DashBoardViewprops) => {
+  if (!user) return <p>User not found.</p>;
   return (
     <div className="dashboard-view-container">
-      <UserAvatarAndUsername user={user} isDesktop={isDesktop} />
-      <TotalExercicesAndTimeRecap user={user} />
+      {user && (
+        <>
+          <UserAvatarAndUsername user={user} isDesktop={isDesktop} />
+          <TotalExercicesAndTimeRecap user={user} />
+        </>
+      )}
     </div>
   );
 };

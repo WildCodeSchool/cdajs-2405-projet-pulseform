@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+
 import {
   Bar,
   BarChart,
@@ -7,39 +8,36 @@ import {
   type TooltipProps,
   XAxis,
 } from "recharts";
+
 import type {
   NameType,
   ValueType,
 } from "recharts/types/component/DefaultTooltipContent";
-
-import type { CustomBar, Data, DataFromApi } from "./ExercicesChart.type";
+import type {
+  CustomBar,
+  Data,
+  DataFromApi,
+  userExercicesChartProps,
+} from "./ExercicesChart.type";
 import "./ExercicesChart.scss";
-import { useGetUserExercicesForChart } from "@hooks/useUsers";
 
-function ExercicesChart({ userId }: { userId: number }) {
-  const { userExercicesChart } = useGetUserExercicesForChart(userId);
+const ExercicesChart = ({
+  userExercicesChart,
+}: {
+  userExercicesChart: userExercicesChartProps[];
+}) => {
   const { t } = useTranslation();
 
   const getMonthLabel = (month: string): string => {
     return t(month);
   };
 
-  const dataUserExercices = userExercicesChart?.map((item) => ({
-    end_date: item?.end_date ? item.end_date : "",
-    program: {
-      tags:
-        item?.program?.tags?.map((tag) => ({
-          name: tag?.name,
-        })) ?? [],
-    },
-  }));
-
-  // Fonction pour transformer les données
+  // Function to transform the data
   const mapToData = (data: DataFromApi[]): Data[] => {
     const now = new Date();
     const recentMonths: string[] = [];
 
-    // Générer les 7 derniers mois au format "APR-2025"
+    // Generate the last 7 months in the format "APR-2025"
     for (let i = 6; i >= 0; i--) {
       const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
       const month = date.toLocaleString("en", { month: "short" }).toUpperCase();
@@ -88,12 +86,20 @@ function ExercicesChart({ userId }: { userId: number }) {
       }
     }
 
-    // Garder l’ordre et n'afficher que les mois en format "APR"
+    // Keep the order and display only months in "APR" format
     return recentMonths.map((label) => result[label]);
   };
 
-  // Appel de la fonction et affichage du résultat
-  const transformedData = mapToData(dataUserExercices ?? []);
+  // Call the function and display the result
+  const transformedData = mapToData(
+    userExercicesChart.map((item) => ({
+      ...item,
+      end_date: item.end_date ?? "",
+      program: {
+        tags: item.program.tags ?? [],
+      },
+    })),
+  );
 
   const GAP = 4;
 
@@ -231,6 +237,6 @@ function ExercicesChart({ userId }: { userId: number }) {
       </div>
     </div>
   );
-}
+};
 
 export default ExercicesChart;
