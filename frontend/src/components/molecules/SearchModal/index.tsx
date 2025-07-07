@@ -33,7 +33,7 @@ const SearchModal = ({
 
   const handleChipClick = (label: string) => {
     setSelectedChips((prev) =>
-      prev.includes(label) ? prev.filter((c) => c !== label) : [...prev, label],
+      prev.includes(label) ? prev.filter((c) => c !== label) : [...prev, label]
     );
   };
 

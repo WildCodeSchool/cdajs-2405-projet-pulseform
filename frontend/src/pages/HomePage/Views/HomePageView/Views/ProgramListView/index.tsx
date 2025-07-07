@@ -14,8 +14,9 @@ type ProgramListViewProps = {
 };
 
 const ProgramListView = ({ selectedFilters }: ProgramListViewProps) => {
-  const { t } = useTranslation("home");
+  const { t } = useTranslation();
   const { loading, error, programs } = useGetAllPrograms();
+
   const ITEMS_PER_PAGE = 8;
   const [page, setPage] = useState(1);
   const [programsPerPage] = useState(ITEMS_PER_PAGE);
