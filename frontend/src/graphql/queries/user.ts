@@ -84,6 +84,9 @@ query GetHistoryByUserId($user_id: Float!) {
       id
       name
       total_duration
+      tags {
+        name
+      }
     }
   }
 }

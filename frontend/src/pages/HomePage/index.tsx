@@ -1,18 +1,25 @@
 import blobHomePage from "@assets/blobs/blob_homePage.svg";
+import { useEffect, useState } from "react";
+
 import DoubleScreenLayout from "@components/atoms/Layout/DoubleScreenLayout";
 import MobileBodyLayout from "@components/atoms/Layout/MobileBodyLayout";
 import { useHomeMobileView } from "@context/MobileHomeViewContext";
-import { useEffect, useState } from "react";
 import { HomePageView, UserProfileView } from "./Views";
+
+import { useUser } from "@context/UserContext";
 import "./HomePage.scss";
 import MenuBurger from "@components/molecules/MenuBurger";
 import MenuListItems from "@components/molecules/MenuListItems";
 import { MenuBurgerIcon } from "@utils/icon-list/iconList";
 
 const HomePage = () => {
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
   const { homeMobileview } = useHomeMobileView();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user } = useUser();
+
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
+
+  if (!user) return <p>User not found.</p>;
 
   useEffect(() => {
     const handleResize = () => {
@@ -59,18 +66,18 @@ const HomePage = () => {
             </MenuBurger>
 
             <DoubleScreenLayout noFullDvh>
-              <UserProfileView isDesktop={isDesktop} />
+              <UserProfileView isDesktop={isDesktop} user={user} />
               {/* Left column with user profile */}
-              <HomePageView isDesktop={isDesktop} />
+              <HomePageView isDesktop={isDesktop} user={user} />
               {/* Right column with the list of programs */}
             </DoubleScreenLayout>
           </>
         ) : (
           <MobileBodyLayout>
             {homeMobileview === "home" ? (
-              <HomePageView isDesktop={isDesktop} />
+              <HomePageView isDesktop={isDesktop} user={user} />
             ) : (
-              <UserProfileView isDesktop={isDesktop} />
+              <UserProfileView isDesktop={isDesktop} user={user} />
             )}
           </MobileBodyLayout>
         )}
