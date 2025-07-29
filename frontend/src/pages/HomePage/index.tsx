@@ -8,9 +8,9 @@ import { HomePageView, UserProfileView } from "./Views";
 
 import { useUser } from "@context/UserContext";
 import "./HomePage.scss";
-import { MenuBurgerIcon } from "@utils/icon-list/iconList";
 import MenuBurger from "@components/molecules/MenuBurger";
 import MenuListItems from "@components/molecules/MenuListItems";
+import { MenuBurgerIcon } from "@utils/icon-list/iconList";
 
 const HomePage = () => {
   const { homeMobileview } = useHomeMobileView();
@@ -54,19 +54,18 @@ const HomePage = () => {
               className="desktop__menuBurgerIcon"
               color="white"
               fontSize={40}
+              aria-label="Open menu"
               onClick={onMenu}
             />
 
-            {isMenuOpen && (
-              <MenuBurger
-                isOpen={isMenuOpen}
-                onClose={() => setIsMenuOpen(false)}
-              >
-                <MenuListItems />
-              </MenuBurger>
-            )}
+            <MenuBurger
+              isOpen={isMenuOpen}
+              onClose={() => setIsMenuOpen(false)}
+            >
+              <MenuListItems />
+            </MenuBurger>
 
-            <DoubleScreenLayout>
+            <DoubleScreenLayout noFullDvh>
               <UserProfileView isDesktop={isDesktop} user={user} />
               {/* Left column with user profile */}
               <HomePageView isDesktop={isDesktop} user={user} />

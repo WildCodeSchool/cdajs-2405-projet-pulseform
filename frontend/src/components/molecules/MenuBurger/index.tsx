@@ -1,8 +1,9 @@
-import React from "react";
 import classNames from "classnames";
+import type React from "react";
+import { useEffect, useRef } from "react";
 
 import "./MenuBurger.scss";
-import whiteCrossIcon from "@assets/icons/white-cross.svg";
+import { CrossIcon } from "@utils/icon-list/iconList";
 
 type MenuBurgerProps = {
   children: React.ReactNode;
@@ -10,7 +11,30 @@ type MenuBurgerProps = {
   onClose: () => void;
 };
 
-const MenuBurger: React.FC<MenuBurgerProps> = ({ children, isOpen, onClose }) => {
+const MenuBurger: React.FC<MenuBurgerProps> = ({
+  children,
+  isOpen,
+  onClose,
+}) => {
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  // Close menu if clicking outside of it
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen, onClose]);
+
   return (
     <>
       {/* Menu coulissant */}
@@ -18,33 +42,19 @@ const MenuBurger: React.FC<MenuBurgerProps> = ({ children, isOpen, onClose }) =>
         id="menu-burger"
         className={classNames("menu-burger", { "menu-burger--open": isOpen })}
         role="menu"
+        ref={menuRef}
+        aria-hidden={!isOpen}
       >
-        {/* Bouton fermeture */}
         <button
           type="button"
           className="menu-burger__close-btn"
           onClick={onClose}
           aria-label="Fermer le menu"
         >
-          <img
-            src={whiteCrossIcon}
-            alt="Fermer le menu"
-            className="menu-burger__icon"
-          />
+          <CrossIcon />
         </button>
-
-        {/* Contenu */}
         {children}
       </nav>
-
-      {/* Clic sur backdrop ferme aussi */}
-      {isOpen && (
-        <div
-          className="menu-burger__backdrop"
-          onClick={onClose}
-          aria-hidden="true"
-        />
-      )}
     </>
   );
 };

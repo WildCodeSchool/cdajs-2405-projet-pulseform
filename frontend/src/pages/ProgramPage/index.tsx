@@ -277,7 +277,7 @@ const ProgramPage = () => {
   };
 
   return isDesktop ? (
-    <DoubleScreenLayout>
+    <DoubleScreenLayout noPadding>
       {programSummaryView}
       <section className="main-program-view">{renderMainProgramView()}</section>
     </DoubleScreenLayout>

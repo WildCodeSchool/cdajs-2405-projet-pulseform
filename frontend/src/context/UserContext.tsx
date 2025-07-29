@@ -1,6 +1,6 @@
-import { createContext, useContext } from "react";
 import type { MeQuery } from "@graphql/__generated__/schema";
 import { useMe } from "@hooks/useUsers";
+import { createContext, useContext } from "react";
 
 type User = MeQuery["me"];
 
